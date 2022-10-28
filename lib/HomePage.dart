@@ -1,5 +1,5 @@
+import 'package:appmyhouse/Widget/Bar/Profile.dart';
 import 'package:flutter/material.dart';
-import 'Widget/Bar/Profile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,12 +22,17 @@ class _HomePageState extends State<HomePage> {
       label: 'Message',
       backgroundColor: Colors.blue,
     ),
+    BottomNavigationBarItem(
+        icon: Icon(Icons.person),
+        label: 'Profile',
+        backgroundColor: Colors.blue,
+    ),
   ];
 
   static const List<Widget> _pages = <Widget>[
     Text('home'),
     Text('message'),
-    Text('person'),
+    ProfilePage(),
   ];
 
   @override
