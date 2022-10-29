@@ -20,7 +20,7 @@ class _ChatsState extends State<Chats> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(200, 105, 193, 238),
+        backgroundColor: Color.fromARGB(200, 105, 193, 238),
         body: SafeArea(
       child: StreamBuilder<List<User>>(
           stream: base.readUsers(),
