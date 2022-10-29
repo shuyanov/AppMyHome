@@ -1,6 +1,7 @@
 import 'package:command_flutter/Chats/Data/Admin.dart';
 import 'package:command_flutter/Chats/Models/User.dart';
 import 'package:command_flutter/Chats/Pages/ChatPage.dart';
+import 'package:command_flutter/Chats/Pages/SearchPage.dart';
 import 'package:command_flutter/Chats/api/firebase.dart';
 import 'package:flutter/material.dart';
 
@@ -23,9 +24,10 @@ class _ChatsState extends State<Chats> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) {
-                  return Container(
-                    child: Text("В разработке"),
-                  ); //SearchPage();
+                  return SearchPage();
+                  // return Container(
+                  //   child: Text("В разработке"),
+                  // ); 
                 }),
               );
             },
