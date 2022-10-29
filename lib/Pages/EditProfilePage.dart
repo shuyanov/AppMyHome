@@ -20,6 +20,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(),
     body: Padding(
       padding: const EdgeInsets.all(12.0),
       child: ListView(
@@ -28,6 +29,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         children: [
         ProfileWidget(
         imagePatch: user.imagePath,
+        isEdit: true,
         onCliced: () async{},
         ),
           const SizedBox(height: 24),
