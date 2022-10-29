@@ -1,19 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:command_flutter/Chats/Data/Admin.dart';
 import 'package:command_flutter/Chats/Widgets/single_message.dart';
+import 'package:command_flutter/GeneralChats/Widgets/generalSingleMessage.dart';
 import 'package:flutter/material.dart';
 
-class ChatPage extends StatelessWidget {
+class GeneralPage extends StatelessWidget {
   final String currentUserId;
   final String friendId;
   final String friendName;
-  final String friendDescription;
   final String friendImage;
 
-  ChatPage({
+  GeneralPage({
     required this.currentUserId,
     required this.friendId,
     required this.friendName,
-    required this.friendDescription,
     required this.friendImage,
     super.key
   });
@@ -28,8 +28,7 @@ class ChatPage extends StatelessWidget {
               radius: 20.0,
               backgroundImage: NetworkImage(friendImage),
             ),
-            title: Text(friendName, style: TextStyle(color: Colors.white),),
-            subtitle: Text(friendDescription, style: TextStyle(color: Colors.white)),
+            title: Text(friendName, style: TextStyle(color: Colors.white)),
           ),
         ),
         body: Column(
@@ -46,7 +45,7 @@ class ChatPage extends StatelessWidget {
                   stream: FirebaseFirestore.instance
                       .collection("users")
                       .doc(currentUserId)
-                      .collection('messages')
+                      .collection('general')
                       .doc(friendId)
                       .collection('chats')
                       .orderBy("date", descending: true)
@@ -65,7 +64,7 @@ class ChatPage extends StatelessWidget {
                           itemBuilder: (context, index) {
                             bool isMe = snapshot.data.docs[index]['senderId'] ==
                                 currentUserId;
-                            return SingleMessage(
+                            return generalSingleMessage(
                                 message: snapshot.data.docs[index]['message'],
                                 isMe: isMe);
                           });
@@ -100,7 +99,7 @@ class _newMessageState extends State<newMessage> {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(widget.currentUserId)
-        .collection('messages')
+        .collection('general')
         .doc(widget.friendId)
         .collection('chats')
         .add({
@@ -113,7 +112,7 @@ class _newMessageState extends State<newMessage> {
       FirebaseFirestore.instance
           .collection('users')
           .doc(widget.currentUserId)
-          .collection('messages')
+          .collection('general')
           .doc(widget.friendId)
           .set({
         'last_msg': message,
@@ -123,7 +122,7 @@ class _newMessageState extends State<newMessage> {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(widget.friendId)
-        .collection('messages')
+        .collection('general')
         .doc(widget.currentUserId)
         .collection("chats")
         .add({
@@ -136,7 +135,7 @@ class _newMessageState extends State<newMessage> {
       FirebaseFirestore.instance
           .collection('users')
           .doc(widget.friendId)
-          .collection('messages')
+          .collection('general')
           .doc(widget.currentUserId)
           .set({"last_msg": message});
     });
