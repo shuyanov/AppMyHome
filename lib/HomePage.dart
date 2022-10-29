@@ -30,8 +30,8 @@ class _HomePageState extends State<HomePage> {
   ];
 
   static const List<Widget> _pages = <Widget>[
-    Text('home'),
-    Text('message'),
+    Text('Test1'),
+    Text('Test2'),
     ProfilePage(),
   ];
 
@@ -41,61 +41,40 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
         leading: IconButton(
-          icon: const Icon(Icons.person_pin),
+          icon: const Icon(Icons.add_alert_rounded),
+          tooltip: 'Уведомления',
           onPressed: () {
             Navigator.push(context, MaterialPageRoute<void>(
-              builder: (BuildContext){
-                return Scaffold(
+                builder: (BuildContext){
+                  return Scaffold(
                     appBar: AppBar(
-                      title: const Text('Профиль'),
-                      backgroundColor: Colors.blueAccent,//Color.fromARGB(255, 210, 227, 246)
-                ),
-                body: SafeArea(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                        Padding(padding: EdgeInsets.only(top: 30)),
-                        CircleAvatar(
-                          backgroundImage: AssetImage('image/llll.jpg'),
-                          radius: 60,
-                        ),
-                        Text('Имя пользователя', style: TextStyle(fontSize: 32)),
-                        ],
-                       )
-                      ],
-                     ),
+                      title: const Text('Уведомления'),
+                      backgroundColor: Colors.blueAccent,
                     ),
                   );
                 }
             ));
           },
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add_alert_rounded),
-            tooltip: 'Уведомления',
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute<void>(
-                  builder: (BuildContext){
-                    return Scaffold(
-                      appBar: AppBar(
-                        title: const Text('Уведомления'),
-                        backgroundColor: Colors.blueAccent,
-                      ),
-                    );
-                  }
-              ));
-            },
-          )
-        ],
+        )
       ),
       body: Center(
         child: _pages.elementAt(_currentIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: _navigationBarItems,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.newspaper),
+            label: 'Новости',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_outlined),
+            label: 'Чаты',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Личный Кабинет',
+          ),
+        ],
         currentIndex: _currentIndex,
         selectedItemColor: Colors.amber[800],
         onTap: (int index) {
