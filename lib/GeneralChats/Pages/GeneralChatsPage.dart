@@ -1,7 +1,4 @@
 import 'package:command_flutter/Chats/Data/Admin.dart';
-import 'package:command_flutter/Chats/Models/User.dart';
-import 'package:command_flutter/Chats/OneChats.dart';
-import 'package:command_flutter/Chats/Pages/ChatPage.dart';
 import 'package:command_flutter/GeneralChats/Data/General.dart';
 import 'package:command_flutter/GeneralChats/Pages/GeneralPage.dart';
 import 'package:flutter/material.dart';

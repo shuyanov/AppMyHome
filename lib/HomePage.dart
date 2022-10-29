@@ -1,8 +1,5 @@
-import 'package:command_flutter/Chats/Pages/SearchUserPage.dart';
 import 'package:command_flutter/Chats.dart';
 import 'package:command_flutter/ScrolLent/Filling.dart';
-import 'package:command_flutter/Chats/Pages/SearchPage.dart';
-import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Pages/ProfilePage.dart';
 import 'package:command_flutter/Search/SearchPage.dart';
 import 'package:flutter/material.dart';
