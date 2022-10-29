@@ -1,7 +1,6 @@
 import 'package:command_flutter/Chats/Pages/SearchUserPage.dart';
 import 'package:command_flutter/Chats.dart';
 import 'package:command_flutter/ScrolLent/Filling.dart';
-import 'package:command_flutter/Chats/Pages/SearchPage.dart';
 import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Pages/ProfilePage.dart';
 import 'package:command_flutter/Search/SearchPage.dart';
@@ -69,8 +68,11 @@ class _HomePageState extends State<HomePage> {
                       title: const Text('Уведомления'),
                       backgroundColor: Colors.blueAccent,
                     ),
-                    body: Center(
-                      child: Text('В разработке', style: TextStyle(fontSize: 45, fontFamily: 'Arial'),),
+                    body: Container(
+                      color: Color.fromARGB(200, 105, 193, 238),
+                      child: Center(
+                        child: Text('В разработке', style: TextStyle(fontSize: 45, fontFamily: 'Arial'),),
+                      ),
                     ),
                   );
                 }
