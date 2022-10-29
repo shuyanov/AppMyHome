@@ -3,10 +3,8 @@ import 'package:command_flutter/Chats/Models/User.dart';
 import 'package:command_flutter/Chats/Pages/ChatPage.dart';
 import 'package:command_flutter/Chats/Pages/SearchUserPage.dart';
 import 'package:command_flutter/Chats/api/firebase.dart';
-import 'package:command_flutter/GeneralChats/Data/General.dart';
 import 'package:flutter/material.dart';
 
-import '../GeneralChats/Pages/GeneralPage.dart';
 
 class OneChats extends StatefulWidget {
   const OneChats({super.key});
@@ -19,6 +17,7 @@ class _OneChatsState extends State<OneChats> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color.fromARGB(200, 105, 193, 238),
         appBar: AppBar(
           title: Text('Личные сообщения'),
           backgroundColor: Colors.blueAccent,
