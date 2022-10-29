@@ -5,13 +5,24 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: 80,
-        child: CircleAvatar(
-        backgroundColor: Colors.blue,
-        radius: 40,
-        child: const Text('AH',style: TextStyle(fontSize: 36),),
-        )
+    return Scaffold(
+      body: SafeArea(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              children: [
+                Padding(padding: EdgeInsets.only(top: 30)),
+                CircleAvatar(
+                  backgroundImage: AssetImage('image/llll.jpg'),
+                  radius: 60,
+                ),
+                Text('Имя пользователя', style: TextStyle(fontSize: 32)),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
