@@ -1,3 +1,4 @@
+import 'package:command_flutter/Chats/Chats.dart';
 import 'package:command_flutter/Widget/Bar/Profile.dart';
 import 'package:flutter/material.dart';
 
@@ -30,8 +31,8 @@ class _HomePageState extends State<HomePage> {
   ];
 
   static const List<Widget> _pages = <Widget>[
-    Text('Test1'),
-    Text('Test2'),
+    Text('home'),
+    Chats(),
     ProfilePage(),
   ];
 
