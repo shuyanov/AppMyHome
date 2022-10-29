@@ -46,6 +46,7 @@ class _FilingState extends State<Filing> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(200, 105, 193, 238),
       body: ListView.builder(
         itemCount: news.length,
           itemBuilder: (context, int index) {

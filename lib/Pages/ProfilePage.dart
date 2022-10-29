@@ -19,8 +19,10 @@ class _ProfileePageState extends State<ProfileePage> {
   Widget build(BuildContext context) {
     final user = UserPereferences.myUser;
     return Scaffold(
+      backgroundColor: Color.fromARGB(200, 105, 193, 238),
       //appBar: buildAppBar(context),
-      body: Padding(
+      body: Container(
+      child: Padding(
         padding: const EdgeInsets.all(30.0),
         child: ListView(
           physics: BouncingScrollPhysics(),
@@ -44,6 +46,14 @@ class _ProfileePageState extends State<ProfileePage> {
                   child: buildExitProfileButton()),
             ),
           ],
+        ),
+      ),
+
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/ful.png'),
+                  fit: BoxFit.cover
+          )
         ),
       ),
     );
