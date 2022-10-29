@@ -16,6 +16,7 @@ class ChatPage extends StatelessWidget {
     required this.friendName,
     required this.friendDescription,
     required this.friendImage,
+    super.key
   });
 
   @override
@@ -98,12 +99,12 @@ class _newMessageState extends State<newMessage> {
     _controller.clear();
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(myId)
+        .doc(widget.currentUserId)
         .collection('messages')
         .doc(widget.friendId)
         .collection('chats')
         .add({
-      "senderId": myId,
+      "senderId": widget.currentUserId,
       "receiverId": widget.friendId,
       "message": message,
       "type": "text",
@@ -111,7 +112,7 @@ class _newMessageState extends State<newMessage> {
     }).then((value) {
       FirebaseFirestore.instance
           .collection('users')
-          .doc(myId)
+          .doc(widget.currentUserId)
           .collection('messages')
           .doc(widget.friendId)
           .set({
@@ -121,12 +122,12 @@ class _newMessageState extends State<newMessage> {
 
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(myId)
+        .doc(widget.friendId)
         .collection('messages')
-        .doc(myId)
+        .doc(widget.currentUserId)
         .collection("chats")
         .add({
-      "senderId": myId,
+      "senderId": widget.currentUserId,
       "receiverId": widget.friendId,
       "message": message,
       "type": "text",
@@ -134,9 +135,9 @@ class _newMessageState extends State<newMessage> {
     }).then((value) {
       FirebaseFirestore.instance
           .collection('users')
-          .doc(myId)
+          .doc(widget.friendId)
           .collection('messages')
-          .doc(myId)
+          .doc(widget.currentUserId)
           .set({"last_msg": message});
     });
   }
