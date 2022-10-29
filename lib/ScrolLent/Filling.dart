@@ -62,13 +62,36 @@ class _FilingState extends State<Filing> {
           showDialog(context: context, builder: (BuildContext context) {
             return AlertDialog(
               title: Text('Добавить новаость'),
-              content: TextField(
-                controller: ControlNews,
+              content: Container(
+                height: 200,
+                child: Column(
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(top: 20, bottom: 20),
+                      child: TextField(
+                        controller: ControlNews,
+                        decoration: InputDecoration(
+                          hintText: 'Title',
+                        ),
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(top: 10, bottom: 20),
+                      child: TextField(
+                        style: TextStyle(),
+                        controller: ControlText,
+                        decoration: InputDecoration(
+                          hintText: 'Text'
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               actions: [
                 ElevatedButton(onPressed: () {
                   setState(() {
-                    news.add(NewsModels(HeadName: ControlNews.text, Text: ControlNews.text, image: 'https://reemont.ru/wp-content/uploads/2021/06/1620674026_15-p-panelnii-dom-foto-17.jpg'));
+                    news.add(NewsModels(HeadName: ControlNews.text, Text: ControlText.text, image: 'https://reemont.ru/wp-content/uploads/2021/06/1620674026_15-p-panelnii-dom-foto-17.jpg'));
                   });
                   Navigator.of(context).pop();
                 }, child: Text('Добавить'))
