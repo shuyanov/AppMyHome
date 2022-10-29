@@ -1,3 +1,4 @@
+import 'package:command_flutter/Model/User.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:command_flutter/Widget/Bar/AppBar.dart';
 import 'package:command_flutter/Widget/ProfileWidget.dart';
@@ -23,9 +24,20 @@ class _ProfileePageState extends State<ProfileePage> {
           ProfileWidget(
             imagePatch: user.imagePath,
             onCliced: () async{},
-          )
+          ),
+          const SizedBox(height: 24),
+          buildName(user),
         ],
       ),
     );
   }
-}
+
+  buildName(User user) => Column(
+      children: [
+        Text(
+          user.name,
+          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
+        ),
+      ],
+    );
+  }
