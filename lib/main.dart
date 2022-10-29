@@ -1,4 +1,5 @@
 import 'package:command_flutter/HomePage.dart';
+import 'package:command_flutter/LoginPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ Future main() async {
   await Firebase.initializeApp();
 
   //await base.addUsers(users);
-  runApp(MyApp());
+  runApp(LoginPage());
 }
 // void main() => runApp(MyApp());
 

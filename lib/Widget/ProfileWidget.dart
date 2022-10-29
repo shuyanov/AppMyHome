@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
   final String imagePatch;
+  final bool isEdit;
   final VoidCallback onCliced;
 
   const ProfileWidget({
     Key? key,
     required this.imagePatch,
+    this.isEdit = false,
     required this.onCliced,
   }) : super(key: key);
 
@@ -49,7 +51,7 @@ class ProfileWidget extends StatelessWidget {
       clor: color,
       all: 8,
       child: Icon(
-        Icons.edit,
+        isEdit ? Icons.add_a_photo : Icons.edit,
         size: 20,
         color: Colors.white,
         ),

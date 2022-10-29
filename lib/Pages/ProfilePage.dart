@@ -1,6 +1,7 @@
+import 'package:command_flutter/LoginPage.dart';
 import 'package:command_flutter/Model/User.dart';
+import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
-import 'package:command_flutter/Widget/Bar/AppBar.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:command_flutter/Widget/ProfileWidget.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,6 @@ class _ProfileePageState extends State<ProfileePage> {
   @override
   Widget build(BuildContext context) {
     final user = UserPereferences.myUser;
-
     return Scaffold(
       //appBar: buildAppBar(context),
       body: Padding(
@@ -26,12 +26,21 @@ class _ProfileePageState extends State<ProfileePage> {
           children: [
             ProfileWidget(
               imagePatch: user.imagePath,
-              onCliced: () async{},
+              onCliced: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => EditProfilePage())
+                    );
+              },
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 12),
             buildName(user),
-            const SizedBox(height: 24),
-            Center(child: buildExitProfileButton()),
+            const SizedBox(height: 12),
+            const SizedBox(height: 350),
+            Expanded(
+              child: Align(
+              alignment: Alignment(1, 1),
+                  child: buildExitProfileButton()),
+            ),
           ],
         ),
       ),
@@ -52,7 +61,11 @@ class _ProfileePageState extends State<ProfileePage> {
     );
 
   Widget buildExitProfileButton() => ButtonWidget(
-    text:'Exist',
-    onClicked: () {},
+    text:'Exit',
+    onClicked: (){
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => LoginPage())
+      );
+    },
   );
   }
