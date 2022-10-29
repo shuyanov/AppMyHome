@@ -1,10 +1,10 @@
 import 'package:command_flutter/Model/User.dart';
-import 'package:command_flutter/RegisterPage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:command_flutter/Widget/TextFiel.dart';
 import 'package:flutter/material.dart';
 import '../Widget/ProfileWidget.dart';
+
 
 
 class EditProfilePage extends StatefulWidget {
@@ -75,9 +75,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
 Widget buildEditProfileButton() => ButtonWidget(
   text:'Edit',
   onClicked: (){
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => RegisterPage())
+    PushToJson(
+        user.email,
+        user.about,
+        user.name,
+        user.name,
+        user.name,
+        user.about
     );
   },
 );
 }
+
