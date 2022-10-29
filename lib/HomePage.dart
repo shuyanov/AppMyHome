@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   static const List<Widget> _pages = <Widget>[
     Text('home'),
     Chats(),
-    ProfileePage(),
+    EditProfilePage(),
   ];
 
   @override
