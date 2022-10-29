@@ -16,6 +16,9 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   User user = UserPereferences.myUser;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  String email = '';
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -32,11 +35,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
         onCliced: () async{},
         ),
           const SizedBox(height: 12),
-          TextFieldWidget(
-            lable: "FullName",
-            text: user.name,
+          TextField(
+            controller: emailController,
             onChanged: (name) {},
           ),
+
           const SizedBox(height: 12),
           TextFieldWidget(
             lable: "Email",
@@ -75,6 +78,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
 Widget buildEditProfileButton() => ButtonWidget(
   text:'Edit',
   onClicked: (){
+    email = emailController.text;
+    print(email);
     PushToJson(
         user.email,
         user.about,
