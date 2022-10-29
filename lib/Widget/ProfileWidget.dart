@@ -13,7 +13,7 @@ class ProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      heightFactor: 2,
+      widthFactor: 3,
       child: Stack(
         children: [
           buildImage(),
@@ -23,7 +23,6 @@ class ProfileWidget extends StatelessWidget {
             child: buildEditIcon(Colors.cyan)),
         ],
       ),
-      //child: Image.network("https://sun9-15.userapi.com/impf/c844520/v844520590/eb7a0/eie3chdQjNs.jpg?size=1280x882&quality=96&sign=2d92eee9f342dc62e2010fca90a4b100&type=album"),
     );
   }
 
