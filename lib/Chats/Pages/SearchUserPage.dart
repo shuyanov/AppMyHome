@@ -4,17 +4,12 @@ import 'package:command_flutter/Chats/Pages/ChatPage.dart';
 
 import 'package:flutter/material.dart';
 
-import '../Models/User.dart';
-
-class SearchPage extends StatefulWidget {
-  //User user;
-  SearchPage();
-
+class SearchUserPage extends StatefulWidget {
   @override
-  _SearchPageState createState() => _SearchPageState();
+  _SearchUserPageState createState() => _SearchUserPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchUserPageState extends State<SearchUserPage> {
   TextEditingController searchController = TextEditingController();
   List<Map> searchResult = [];
   bool isLoading = false;
@@ -31,7 +26,7 @@ class _SearchPageState extends State<SearchPage> {
         .then((value) {
       if (value.docs.length < 1) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("No User Found")));
+            .showSnackBar(SnackBar(content: Text("Нет такого пользователя.\n(Возможно вы ввели имя не полностью)")));
         setState(() {
           isLoading = false;
         });
@@ -52,7 +47,8 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Search your Friend"),
+        backgroundColor: Colors.blueAccent,
+        title: Text("Найти пользователя"),
       ),
       body: Column(
         children: [
@@ -64,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
                   child: TextField(
                     controller: searchController,
                     decoration: InputDecoration(
-                        hintText: "type username....",
+                        hintText: "Введите имя пользователя....",
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10))),
                   ),
