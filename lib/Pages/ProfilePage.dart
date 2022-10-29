@@ -2,7 +2,6 @@ import 'package:command_flutter/LoginPage.dart';
 import 'package:command_flutter/Model/User.dart';
 import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
-import 'package:command_flutter/Widget/Bar/AppBar.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:command_flutter/Widget/ProfileWidget.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +18,8 @@ class _ProfileePageState extends State<ProfileePage> {
   Widget build(BuildContext context) {
     final user = UserPereferences.myUser;
     return Scaffold(
-      backgroundColor: Color.fromARGB(200, 105, 193, 238),
       //appBar: buildAppBar(context),
-      body: Container(
-      child: Padding(
+      body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: ListView(
           physics: BouncingScrollPhysics(),
@@ -38,7 +35,6 @@ class _ProfileePageState extends State<ProfileePage> {
             const SizedBox(height: 12),
             buildName(user),
             const SizedBox(height: 12),
-
             const SizedBox(height: 350),
             Expanded(
               child: Align(
@@ -46,14 +42,6 @@ class _ProfileePageState extends State<ProfileePage> {
                   child: buildExitProfileButton()),
             ),
           ],
-        ),
-      ),
-
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/ful.png'),
-                  fit: BoxFit.cover
-          )
         ),
       ),
     );

@@ -1,9 +1,7 @@
-import 'package:command_flutter/Chats/Chats.dart';
+import 'package:command_flutter/Chats.dart';
 import 'package:command_flutter/ScrolLent/Filling.dart';
-import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Pages/ProfilePage.dart';
 import 'package:command_flutter/Search/SearchPage.dart';
-import 'package:command_flutter/Widget/Bar/Profile.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -68,11 +66,8 @@ class _HomePageState extends State<HomePage> {
                       title: const Text('Уведомления'),
                       backgroundColor: Colors.blueAccent,
                     ),
-                    body: Container(
-                      color: Color.fromARGB(200, 105, 193, 238),
-                      child: Center(
-                        child: Text('В разработке', style: TextStyle(fontSize: 45, fontFamily: 'Arial'),),
-                      ),
+                    body: Center(
+                      child: Text('В разработке', style: TextStyle(fontSize: 45, fontFamily: 'Arial'),),
                     ),
                   );
                 }
