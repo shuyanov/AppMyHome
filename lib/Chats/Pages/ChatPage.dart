@@ -16,6 +16,7 @@ class ChatPage extends StatelessWidget {
     required this.friendName,
     required this.friendDescription,
     required this.friendImage,
+    super.key
   });
 
   @override

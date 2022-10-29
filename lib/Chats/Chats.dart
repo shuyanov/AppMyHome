@@ -16,40 +16,33 @@ class Chats extends StatefulWidget {
 }
 
 class _ChatsState extends State<Chats> {
-  bool _isLoading = true;
-  @override
-  void initState() {
-    super.initState();
-    _loadPage();
-  }
-
-  _loadPage() async {
-    Future.delayed(const Duration(milliseconds: 500), () {
-
-      setState(() {
-        _isLoading = false;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (_isLoading)
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    else
-      return Scaffold(
-          body: SafeArea(
-        child: StreamBuilder<List<User>>(
-            stream: base.readUsers(),
-            builder: (context, snapshot) {
-              final users = snapshot.data!;
-              return ListView(
-                children: users.map(buildUser).toList(),
-              );
-            }),
-      ));
+    return Scaffold(
+        body: SafeArea(
+      child: StreamBuilder<List<User>>(
+          stream: base.readUsers(),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return Center(child: CircularProgressIndicator());
+              default:
+                if (snapshot.hasError) {
+                  print(snapshot.error);
+                  return buildText('Something Went Wrong Try later');
+                } else {
+                  final users = snapshot.data!;
+
+                  if (users.isEmpty) {
+                    return buildText('No Users Found');
+                  } else
+                    return ListView(
+                      children: users.map(buildUser).toList(),
+                    );
+                }
+            }
+          }),
+    ));
   }
 
   Widget buildUser(User user) {
@@ -62,7 +55,7 @@ class _ChatsState extends State<Chats> {
       subtitle: Text(user.description),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (_) => ChatPage(
+            builder: (context) => ChatPage(
                 currentUserId: myId,
                 friendId: user.idUser!,
                 friendName: user.name,
@@ -71,4 +64,11 @@ class _ChatsState extends State<Chats> {
       },
     );
   }
+
+  Widget buildText(String text) => Center(
+        child: Text(
+          text,
+          style: TextStyle(fontSize: 24, color: Colors.white),
+        ),
+      );
 }
