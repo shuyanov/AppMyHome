@@ -36,7 +36,7 @@ class _ProfileePageState extends State<ProfileePage> {
             const SizedBox(height: 12),
             buildName(user),
             const SizedBox(height: 12),
-            ,
+
             const SizedBox(height: 350),
             Expanded(
               child: Align(
