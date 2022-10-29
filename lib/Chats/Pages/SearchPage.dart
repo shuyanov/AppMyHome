@@ -1,62 +1,3 @@
-// import 'package:command_flutter/Models/User.dart';
-// import 'package:command_flutter/Pages/ChatPage.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-
-// import '../Chats.dart';
-// import '../Data/users.dart';
-
-// class SearchPage extends StatelessWidget {
-//   const SearchPage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: TextField(
-//           keyboardType: TextInputType.url,
-//           decoration: InputDecoration(
-//               border: InputBorder.none, hintText: "Поиск по ФИО"),
-//         ), //Text("Поиск"),
-//       ),
-//       body: SafeArea(
-//           child: StreamBuilder<List<User>>(
-//             stream: _Firebase.getUsers(),
-//             builder: (context, snapshot) {
-//               switch (snapshot.connectionState) {
-//                 case ConnectionState.waiting:
-//                   return Center(child: CircularProgressIndicator());
-//                 default:
-//                   if (snapshot.hasError) {
-//                     print(snapshot.error);
-//                     return buildText('Something Went Wrong Try later');
-//                   } else {
-//                     final users = snapshot.data;
-
-//                     if (users.isEmpty) {
-//                       return buildText('No Users Found');
-//                     } else
-//                       return Column(
-//                         children: [
-//                           ChatHeaderWidget(users: users),
-//                           ChatBodyWidget(users: users)
-//                         ],
-//                       );
-//                   }
-//               }
-//             },
-//           ),
-//         ),
-//     );
-//   }
-//     Widget buildText(String text) => Center(
-//         child: Text(
-//           text,
-//           style: TextStyle(fontSize: 24, color: Colors.white),
-//         ),
-//       );
-// }
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:command_flutter/Chats/Data/Admin.dart';
 import 'package:command_flutter/Chats/Pages/ChatPage.dart';
@@ -168,25 +109,6 @@ class _SearchPageState extends State<SearchPage> {
                                               ['urlAvatar'])));
                         },
                         trailing: Icon(Icons.message)
-                            //onPressed: () {
-                              // setState(() {
-                              //   searchController.text = "";
-                              // });
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => ChatPage(
-                              //             currentUserId: myId,
-                              //             friendId: searchResult[index]
-                              //                 ['idUser'],
-                              //             friendName: searchResult[index]
-                              //                 ['name'],
-                              //             friendDescription: searchResult[index]
-                              //                 ['description'],
-                              //             friendImage: searchResult[index]
-                              //                 ['urlAvatar'])));
-                            //},
-                            //icon: Icon(Icons.message)),
                       );
                     }))
           else if (isLoading == true)

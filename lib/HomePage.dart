@@ -1,5 +1,8 @@
 import 'package:command_flutter/Chats/Chats.dart';
 import 'package:command_flutter/ScrolLent/Filling.dart';
+import 'package:command_flutter/Chats/Pages/SearchPage.dart';
+import 'package:command_flutter/Pages/EditProfilePage.dart';
+import 'package:command_flutter/Pages/ProfilePage.dart';
 import 'package:command_flutter/Widget/Bar/Profile.dart';
 import 'package:flutter/material.dart';
 
@@ -30,17 +33,29 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.blue,
     ),
   ];
-
   static const List<Widget> _pages = <Widget>[
     Filing(),
     Chats(),
-    ProfilePage(),
+    ProfileePage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) {
+                  return SearchPage();
+                }),
+              );
+            },
+            icon: Icon(Icons.search),
+            splashRadius: 20,
+          ),
+        ],
         backgroundColor: Colors.blueAccent,
         leading: IconButton(
           icon: const Icon(Icons.add_alert_rounded),
