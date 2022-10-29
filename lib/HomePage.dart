@@ -1,4 +1,5 @@
 import 'package:command_flutter/Chats/Chats.dart';
+import 'package:command_flutter/ScrolLent/Filling.dart';
 import 'package:command_flutter/Widget/Bar/Profile.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +32,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   static const List<Widget> _pages = <Widget>[
-    Text('home'),
+    Filing(),
     Chats(),
     ProfilePage(),
   ];
@@ -56,7 +57,25 @@ class _HomePageState extends State<HomePage> {
                 }
             ));
           },
-        )
+        ),
+          /*actions: [
+      IconButton(
+      icon: const Icon(Icons.add),
+      tooltip: 'Edit',
+      onPressed: () {
+        Navigator.push(context, MaterialPageRoute<void>(
+            builder: (BuildContext){
+              return Scaffold(
+                appBar: AppBar(
+                  title: const Text('Edit'),
+                  backgroundColor: Colors.blueAccent,
+                ),
+              );
+            }
+        ));
+      },
+    )
+        ],*/
       ),
       body: Center(
         child: _pages.elementAt(_currentIndex),
