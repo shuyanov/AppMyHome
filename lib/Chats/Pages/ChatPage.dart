@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:command_flutter/Chats/Data/Admin.dart';
 import 'package:command_flutter/Chats/Widgets/single_message.dart';
 import 'package:flutter/material.dart';
 
@@ -22,14 +23,13 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blueAccent,
           title: ListTile(
             leading: CircleAvatar(
               radius: 20.0,
               backgroundImage: NetworkImage(friendImage),
             ),
-            title: Text(friendName, style: TextStyle(color: Colors.white),),
-            subtitle: Text(friendDescription, style: TextStyle(color: Colors.white)),
+            title: Text(friendName),
+            subtitle: Text(friendDescription),
           ),
         ),
         body: Column(
@@ -55,7 +55,7 @@ class ChatPage extends StatelessWidget {
                     if (snapshot.hasData) {
                       if (snapshot.data.docs.length < 1) {
                         return Center(
-                          child: Text("Скажите что нибудь"),
+                          child: Text("Say Hi"),
                         );
                       }
                       return ListView.builder(
