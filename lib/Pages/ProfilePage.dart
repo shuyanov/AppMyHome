@@ -28,10 +28,10 @@ class _ProfileePageState extends State<ProfileePage> {
               imagePatch: user.imagePath,
               onCliced: () async{},
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 12),
             buildName(user),
             const SizedBox(height: 24),
-            Center(child: buildExitProfileButton()),
+            Center( child: buildExitProfileButton()),
           ],
         ),
       ),
@@ -52,7 +52,17 @@ class _ProfileePageState extends State<ProfileePage> {
     );
 
   Widget buildExitProfileButton() => ButtonWidget(
-    text:'Exist',
-    onClicked: () {},
+    text:'Edit Profile',
+    onClicked: (){},
+    // {
+    //   builder: (BuildContext){
+    //     return Scaffold(
+    //       appBar: AppBar(
+    //         title: const Text('Test'),
+    //         backgroundColor: Colors.blueAccent,
+    //       ),
+    //     );
+    //   };
+    // },
   );
   }

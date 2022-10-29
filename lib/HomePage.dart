@@ -1,5 +1,6 @@
 import 'package:command_flutter/Chats/Chats.dart';
 import 'package:command_flutter/Chats/Pages/SearchPage.dart';
+import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Pages/ProfilePage.dart';
 import 'package:command_flutter/Widget/Bar/Profile.dart';
 import 'package:flutter/material.dart';
