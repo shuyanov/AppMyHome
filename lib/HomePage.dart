@@ -68,6 +68,9 @@ class _HomePageState extends State<HomePage> {
                       title: const Text('Уведомления'),
                       backgroundColor: Colors.blueAccent,
                     ),
+                    body: Center(
+                      child: Text('В разработке', style: TextStyle(fontSize: 45, fontFamily: 'Arial'),),
+                    ),
                   );
                 }
             ));
