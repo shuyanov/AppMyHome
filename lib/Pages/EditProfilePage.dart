@@ -142,13 +142,14 @@ Widget buildEditProfileButton() => ButtonWidget(
   onClicked: (){
     email = emailController.text;
     print(email);
+
     PushToJson(
-        user.email,
-        user.about,
-        user.name,
-        user.name,
-        user.name,
-        user.about
+        emailController.text,
+        passwordController.text,
+        nameController.text,
+        Midle_nameController.text,
+        SurnameController.text,
+      "1413"
     );
   },
   );
