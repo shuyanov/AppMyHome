@@ -1,7 +1,6 @@
+import 'package:command_flutter/LoginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import 'LoginPage.dart';
 
 class RegisterPage extends StatelessWidget {
 
@@ -24,7 +23,7 @@ class RegisterPage extends StatelessWidget {
 ////////////////////
   Widget _logo() {
     return Padding(
-      padding: EdgeInsets.only(top: 50),
+      padding: EdgeInsets.only(top: 100),
       child: Container(
         child: Align(
           child: Text("DOM", style: TextStyle(
@@ -47,7 +46,7 @@ class RegisterPage extends StatelessWidget {
           ),
 
           Padding(
-            padding: EdgeInsets.only(bottom: 10,),
+            padding: EdgeInsets.only(bottom: 20,),
             child: _input(
                 Icon(Icons.account_box_rounded), "Ivanov", surnameController, false),
           ),
@@ -204,7 +203,7 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color.fromARGB( 200, 105, 193, 238),
+        backgroundColor: Colors.cyan,
         body:
         SingleChildScrollView(
           child: Column(
