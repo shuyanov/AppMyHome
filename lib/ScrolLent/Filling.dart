@@ -12,6 +12,8 @@ class Filing extends StatefulWidget {
 
 class _FilingState extends State<Filing> {
 
+  String hint1 = 'Text';
+  String hint = 'Title';
   late String userToDO;
   List<NewsModels> news = [];
   TextEditingController ControlNews = TextEditingController();
@@ -46,6 +48,7 @@ class _FilingState extends State<Filing> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB( 255, 105, 193, 238),
       body: ListView.builder(
         itemCount: news.length,
           itemBuilder: (context, int index) {
@@ -60,19 +63,37 @@ class _FilingState extends State<Filing> {
         child: Icon(Icons.add_circle),
         onPressed: () {
           showDialog(context: context, builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Добавить новаость'),
-              content: TextField(
-                controller: ControlNews,
+            return Container(
+              padding: EdgeInsets.only(bottom: 20, top: 20),
+              child: AlertDialog(
+                title: Text('Добавить новость'),
+                content: Column(
+                 children: [
+                   TextField(
+                     decoration: InputDecoration(
+                       hintText: hint,
+                     ),
+                     controller: ControlNews,
+                   ),
+                   TextField(
+                     decoration: InputDecoration(
+                       hintText: hint1
+                     ),
+                     controller: ControlText,
+                   )
+                 ],
+                ),
+                actions: [
+                  ElevatedButton(onPressed: () {
+                    setState(() {
+                      news.add(NewsModels(HeadName: ControlNews.text, Text: ControlText.text, image: 'https://reemont.ru/wp-content/uploads/2021/06/1620674026_15-p-panelnii-dom-foto-17.jpg'));
+                    });
+                    Navigator.of(context).pop();
+                  }, child: Text('Добавить'))
+                ],
               ),
-              actions: [
-                ElevatedButton(onPressed: () {
-                  setState(() {
-                    news.add(NewsModels(HeadName: ControlNews.text, Text: ControlNews.text, image: 'https://reemont.ru/wp-content/uploads/2021/06/1620674026_15-p-panelnii-dom-foto-17.jpg'));
-                  });
-                  Navigator.of(context).pop();
-                }, child: Text('Добавить'))
-              ],
+            height: 100,
+              width: 100,
             );
           });
         },

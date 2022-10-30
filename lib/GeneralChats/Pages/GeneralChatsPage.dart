@@ -20,6 +20,7 @@ class _GeneralChatsPageState extends State<GeneralChatsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color.fromARGB( 200, 105, 193, 238),
         appBar: AppBar(
             backgroundColor: Colors.blueAccent, title: Text("Общий чат")),
         body: SafeArea(

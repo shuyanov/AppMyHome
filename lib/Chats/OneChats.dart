@@ -19,7 +19,7 @@ class _OneChatsState extends State<OneChats> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(200, 105, 193, 238),
+        backgroundColor: Color.fromARGB( 200, 105, 193, 238),
         appBar: AppBar(
           title: Text('Личные сообщения'),
           backgroundColor: Colors.blueAccent,
