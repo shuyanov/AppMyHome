@@ -57,7 +57,8 @@ class _ChatsState extends State<Chats> {
               
                 alignment: Alignment.bottomCenter,
                 child: Container(                  
-                  margin: EdgeInsets.symmetric(horizontal: 15, vertical: 99),
+                  //margin: EdgeInsets.symmetric(horizontal: 15, vertical: 99),
+                  margin: EdgeInsets.symmetric(horizontal: 15, vertical: size.height - size.height * 0.835),
                   child: Column(children: [
                     Card(
                       child: ListTile(
