@@ -3,7 +3,6 @@ import 'package:command_flutter/Chats/Models/User.dart';
 import 'package:command_flutter/Chats/OneChats.dart';
 import 'package:command_flutter/Chats/Pages/ChatPage.dart';
 import 'package:command_flutter/GeneralChats/Data/General.dart';
-import 'package:command_flutter/GeneralChats/Pages/GeneralChatsPage.dart';
 import 'package:command_flutter/GeneralChats/Pages/GeneralPage.dart';
 import 'package:flutter/material.dart';
 
@@ -118,30 +117,9 @@ class _ChatsState extends State<Chats> {
                           title: Text('Личные сообщения'),
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => OneChats(),
-
-     /*   backgroundColor: Color.fromARGB( 200, 105, 193, 238),
-        body: SafeArea(
-           child: Column(
-             children: [
-              ListTile(
-                  leading: CircleAvatar(
-                    radius: 20.0,
-                    backgroundImage: NetworkImage(generalUrlAvatar),
-                  ),
-                  title: Text('Общий чат'),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => GeneralChatsPage()
-                        
-                        // GeneralPage(
-                        //     currentUserId: myId,
-                        //     friendId: idGeneral,
-                        //     friendName: generalName,
-                        //     friendImage: generalUrlAvatar)
-
-                            ));*/
-                          }),
+                              builder: (context) => const OneChats()));
+                            }
+                          ),
                     ),
                   ]),
                 )),
