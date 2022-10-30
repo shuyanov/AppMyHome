@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
     BottomNavigationBarItem(
       icon: Icon(Icons.home),
       label: 'Home',
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Colors.black26
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.message),
@@ -40,6 +40,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB( 200, 105, 193, 238),
       appBar: AppBar(
           actions: [
           IconButton(
@@ -62,6 +63,7 @@ class _HomePageState extends State<HomePage> {
             Navigator.push(context, MaterialPageRoute<void>(
                 builder: (BuildContext){
                   return Scaffold(
+                    backgroundColor: Color.fromARGB( 200, 105, 193, 238),
                     appBar: AppBar(
                       title: const Text('Уведомления'),
                       backgroundColor: Colors.blueAccent,
@@ -113,6 +115,7 @@ class _HomePageState extends State<HomePage> {
         ],
         currentIndex: _currentIndex,
         selectedItemColor: Colors.amber[800],
+        backgroundColor: Colors.black38,
         onTap: (int index) {
           setState(() {
             _currentIndex = index;

@@ -1,6 +1,8 @@
+import 'package:command_flutter/HomePage.dart';
 import 'package:command_flutter/RegisterPage.dart';
-import 'package:command_flutter/main.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 class LoginPage extends StatelessWidget {
 
@@ -18,7 +20,7 @@ class LoginPage extends StatelessWidget {
       padding: EdgeInsets.only(top: 100),
       child: Container(
         child: Align(
-          child: Text("My House", style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold, color: Colors.white),),
+          child: Text("DOM DOMYCH", style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold, color: Colors.white),),
         ),
       ),
     );
@@ -44,12 +46,12 @@ class LoginPage extends StatelessWidget {
           SizedBox(height: 20,),
           Padding(
               child: Container(
-                height: 50,
-                width: 100,
+                height: 60,
+                width: 150,
                 child: _logButton(),
                 //_button(),
               ),
-              padding: EdgeInsets.only(left: 20,right: 20,)
+              padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 )
           ),
 
         ],
@@ -57,20 +59,25 @@ class LoginPage extends StatelessWidget {
     );
   }
   ///////////////////
+
+  ///////////////////
   Widget _regButton(){
 
     return Container(
-        child:  MaterialButton(
-            splashColor: Colors.cyan,
-            highlightColor: Colors.cyan,
-            color: Colors.white,
-
-            child:  Text(
-                style: TextStyle( fontWeight: FontWeight.bold, color: Colors.cyan, fontSize: 20),
-                'REGISTER'
+        margin: EdgeInsets.only(top: 6),
+        height: 42,
+        width: 110,
+        child:  ElevatedButton(
+          child: Text("REGISTER", style: TextStyle(color: Colors.cyan, fontSize: 17)),
+          onPressed: (){ print('tap-tap'); return runApp(RegisterPage()); },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.white,
+            onPrimary: Colors.cyan,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(32.0),
             ),
-            onPressed: (){ print('tap-tap'); return runApp(RegisterPage());  }
-    )
+          ),
+        )
     );
   }
   //////////////////
@@ -78,19 +85,20 @@ class LoginPage extends StatelessWidget {
   /////////////////
   Widget _logButton(){
     return Container(
-      child:  MaterialButton(
-        splashColor: Colors.cyan,
-        highlightColor: Colors.cyan,
-        color: Colors.white,
 
-        child:  Text(
-            style: TextStyle( fontWeight: FontWeight.bold, color: Colors.cyan, fontSize: 20),
-            'Log in'
+      child:
+
+      ElevatedButton(
+        child: Text("LOGIN", style: TextStyle(color: Colors.cyan, fontSize: 26)),
+        onPressed: () => funcPress(),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.white,
+          onPrimary: Colors.cyan,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(32.0),
+          ),
         ),
-        onPressed: (){
-          funcPress();
-        }
-    )
+      )
     );
   }
   /////////
@@ -100,10 +108,22 @@ class LoginPage extends StatelessWidget {
     email = emailController.text;
     password = passwordController.text;
     print("data:   login = ${email} password = ${password}");
-
+    if(email == "123" && password == "321"){
+      return runApp(HomePage());
+    }
+    else{
+      Fluttertoast.showToast(
+          msg: "Error! Wrong login or password, try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+    }
     emailController.clear();
     passwordController.clear();
-    return runApp(MyApp());
   }
 //////////////////
   Widget _input(Icon icon, String hint, TextEditingController controller, bool hidden){
@@ -139,15 +159,19 @@ class LoginPage extends StatelessWidget {
 /////////////////
 
   Widget build(BuildContext context) {
+    print('LoginPage');
     return MaterialApp( home:  Scaffold(
       backgroundColor: Colors.cyan,
-      body: Column(
+      body:
+        SingleChildScrollView(
+           child:    Column(
         children: <Widget>[
           _logo(),
           _form(),
           _regButton(),
         ],
       ),
+        )
     ),
     );
   }

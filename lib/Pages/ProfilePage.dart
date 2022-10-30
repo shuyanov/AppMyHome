@@ -18,13 +18,15 @@ class _ProfileePageState extends State<ProfileePage> {
   Widget build(BuildContext context) {
     final user = UserPereferences.myUser;
     return Scaffold(
+      backgroundColor: Color.fromARGB( 200, 105, 193, 238),
       //appBar: buildAppBar(context),
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: ListView(
-          physics: BouncingScrollPhysics(),
-          children: [
-            ProfileWidget(
+      body: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: ListView(
+            physics: BouncingScrollPhysics(),
+            children: [
+              ProfileWidget(
               imagePatch: user.imagePath,
               onCliced: () {
                 Navigator.of(context).push(
@@ -35,13 +37,20 @@ class _ProfileePageState extends State<ProfileePage> {
             const SizedBox(height: 12),
             buildName(user),
             const SizedBox(height: 12),
-            const SizedBox(height: 350),
+            const SizedBox(height: 330),
             Expanded(
               child: Align(
               alignment: Alignment(1, 1),
                   child: buildExitProfileButton()),
             ),
           ],
+        ),
+      ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/ful.png'),
+            fit: BoxFit.cover
+          )
         ),
       ),
     );
