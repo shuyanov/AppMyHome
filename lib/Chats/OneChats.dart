@@ -3,10 +3,8 @@ import 'package:command_flutter/Chats/Models/User.dart';
 import 'package:command_flutter/Chats/Pages/ChatPage.dart';
 import 'package:command_flutter/Chats/Pages/SearchUserPage.dart';
 import 'package:command_flutter/Chats/api/firebase.dart';
-import 'package:command_flutter/GeneralChats/Data/General.dart';
 import 'package:flutter/material.dart';
 
-import '../GeneralChats/Pages/GeneralPage.dart';
 
 class OneChats extends StatefulWidget {
   const OneChats({super.key});
