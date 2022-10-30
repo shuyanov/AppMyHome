@@ -10,14 +10,14 @@ class GeneralChatsPage extends StatefulWidget {
   State<GeneralChatsPage> createState() => _GeneralChatsPageState();
 }
 
+
 class _GeneralChatsPageState extends State<GeneralChatsPage> {
-  String name1 = 'Беседа для всех';
+  String name1 = 'Общий чат';
   String name2 = 'Дом';
   String name3 = 'Подъезд';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB( 200, 105, 193, 238),
         appBar: AppBar(
             backgroundColor: Colors.blueAccent, title: Text("Общий чат")),
         body: SafeArea(
@@ -70,3 +70,4 @@ class _GeneralChatsPageState extends State<GeneralChatsPage> {
         ));
   }
 }
+

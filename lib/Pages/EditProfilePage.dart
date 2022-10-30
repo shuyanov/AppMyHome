@@ -18,7 +18,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
   User user = UserPereferences.myUser;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController Midle_nameController = TextEditingController();
+  TextEditingController SurnameController = TextEditingController();
   String email = '';
+  String password = '';
+  String name = '';
+  String Midle_name = '';
+  String Surname = '';
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -30,42 +37,96 @@ class _EditProfilePageState extends State<EditProfilePage> {
         padding: EdgeInsets.symmetric(horizontal: 32),
         physics: BouncingScrollPhysics(),
         children: [
+
         ProfileWidget(
         imagePatch: user.imagePath,
         isEdit: true,
         onCliced: () async{},
         ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 24),
+
           TextField(
             controller: emailController,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                labelText: 'Email'
+            ),
             onChanged: (name) {},
           ),
+          const SizedBox(height: 24),
 
-          const SizedBox(height: 12),
-          TextFieldWidget(
-            lable: "Email",
-            text: user.email,
-            onChanged: (email) {},
+          TextField(
+            controller: passwordController,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                labelText: 'Password'
+            ),
+            onChanged: (name) {},
           ),
-          const SizedBox(height: 12),
-          TextFieldWidget(
-            lable: "Phone Number",
-            text: user.numberPhone,
-            onChanged: (numberPhone) {},
+          const SizedBox(height: 24),
+
+          TextField(
+            controller: SurnameController,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                labelText: 'Surname'
+            ),
+            onChanged: (name) {},
           ),
-          const SizedBox(height: 12),
-          TextFieldWidget(
-            lable: "About",
-            text: user.about,
-            onChanged: (about) {},
+          const SizedBox(height: 24),
+
+          TextField(
+            controller: Midle_nameController,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                labelText: 'middleName'
+            ),
+            onChanged: (name) {},
           ),
-          const SizedBox(height: 12),
-          TextFieldWidget(
-            lable: "About",
-            text: user.about,
-            onChanged: (about) {},
+          const SizedBox(height: 24),
+          TextField(
+            controller: nameController,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                labelText: 'name'
+            ),
+            onChanged: (name) {},
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 24),
+          // TextFieldWidget(
+          //   lable: "Email",
+          //   text: user.email,
+          //   onChanged: (email) {},
+          // ),
+          // const SizedBox(height: 24),
+          // TextFieldWidget(
+          //   lable: "Phone Number",
+          //   text: user.numberPhone,
+          //   onChanged: (numberPhone) {},
+          // ),
+          // const SizedBox(height: 24),
+          // TextFieldWidget(
+          //   lable: "About",
+          //   text: user.about,
+          //   onChanged: (about) {},
+          // ),
+          // const SizedBox(height: 24),
+          // TextFieldWidget(
+          //   lable: "About",
+          //   text: user.about,
+          //   onChanged: (about) {},
+          // ),
+          // const SizedBox(height: 24),
           Expanded(
               child: Align(
                 alignment: Alignment(1,1),
@@ -90,6 +151,6 @@ Widget buildEditProfileButton() => ButtonWidget(
         user.about
     );
   },
-);
+  );
 }
 
