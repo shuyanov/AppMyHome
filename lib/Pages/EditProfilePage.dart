@@ -18,7 +18,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
   User user = UserPereferences.myUser;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController Midle_nameController = TextEditingController();
+  TextEditingController SurnameController = TextEditingController();
   String email = '';
+  String password = '';
+  String name = '';
+  String Midle_name = '';
+  String Surname = '';
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -51,7 +58,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           const SizedBox(height: 24),
 
           TextField(
-            controller: emailController,
+            controller: passwordController,
             decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -63,7 +70,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           const SizedBox(height: 24),
 
           TextField(
-            controller: emailController,
+            controller: SurnameController,
             decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -75,7 +82,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           const SizedBox(height: 24),
 
           TextField(
-            controller: emailController,
+            controller: Midle_nameController,
             decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -86,12 +93,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
           const SizedBox(height: 24),
           TextField(
-            controller: emailController,
+            controller: nameController,
             decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                labelText: 'code'
+                labelText: 'name'
             ),
             onChanged: (name) {},
           ),
@@ -147,32 +154,3 @@ Widget buildEditProfileButton() => ButtonWidget(
   );
 }
 
-Widget _input(Icon icon, String hint, TextEditingController controller, bool hidden){
-  return Container(
-    padding: EdgeInsets.only(right: 20, left: 20),
-    child: TextField(
-      controller: controller,
-      obscureText: hidden,
-      style: TextStyle(fontSize: 20, color: Colors.white),
-
-      decoration: InputDecoration(
-        hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white30),
-        hintText: hint,
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white, width: 3)
-        ),
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white54, width: 1)
-        ),
-        prefixIcon: Padding(padding: EdgeInsets.only(left: 10, right: 10),
-          child: IconTheme(
-            data: IconThemeData(
-                color: Colors.yellow
-            ),
-            child: icon,
-          ),
-        ),
-      ),
-    ),
-  );
-}
