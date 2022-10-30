@@ -77,7 +77,7 @@ class _FilingState extends State<Filing> {
                    ),
                    TextField(
                      decoration: InputDecoration(
-                       hintText: hint1
+                       hintText: hint1,
                      ),
                      controller: ControlText,
                    )
@@ -92,8 +92,6 @@ class _FilingState extends State<Filing> {
                   }, child: Text('Добавить'))
                 ],
               ),
-            height: 100,
-              width: 100,
             );
           });
         },
