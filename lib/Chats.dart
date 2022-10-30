@@ -13,11 +13,114 @@ class Chats extends StatefulWidget {
   @override
   State<Chats> createState() => _ChatsState();
 }
+
 class _ChatsState extends State<Chats> {
+  String name1 = 'Общий чат';
+  String name2 = 'Подъезд №2';
+  String name3 = '\"УК\"';
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Color.fromARGB(200, 105, 193, 238),
+
+      body: Column(children: [
+        // Container(
+        //   child: Container(
+        //       padding: EdgeInsets.all(10),
+        //       child: Text(
+        //         "Чаты",
+        //         style: TextStyle(fontSize: 30, color: Colors.white),
+        //       )),
+        //   height: size.height * 0.3,
+        //   width: size.height,
+        //   color: Colors.blueAccent,
+        // ),
+        Stack(
+          children: [
+          Positioned(
+              top: 0,
+              bottom: size.height * 0.4,
+            child: Container(
+              child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    "Чаты",
+                    style: TextStyle(fontSize: 30, color: Colors.white),
+                  )),
+              height: size.height * 0.3,
+              width: size.height,
+              color: Colors.blueAccent,
+            ),
+          ),
+          Positioned(
+            
+            child: Align(
+              
+                alignment: Alignment.bottomCenter,
+                child: Container(                  
+                  //margin: EdgeInsets.symmetric(horizontal: 15, vertical: 99),
+                  margin: EdgeInsets.symmetric(horizontal: 15, vertical: size.height - size.height * 0.835),
+                  child: Column(children: [
+                    Card(
+                      child: ListTile(
+                          leading: CircleAvatar(
+                            radius: 20.0,
+                            backgroundImage: NetworkImage(generalUrlAvatar),
+                          ),
+                          title: Text(name1),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => GeneralPage(
+                                    currentUserId: myId,
+                                    friendId: idGeneral,
+                                    friendName: name1,
+                                    friendImage: generalUrlAvatar)));
+                          }),
+                    ),
+                    Card(
+                      child: ListTile(
+                          leading: CircleAvatar(
+                            radius: 20.0,
+                            backgroundImage: NetworkImage(generalUrlAvatar),
+                          ),
+                          title: Text(name2),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => GeneralPage(
+                                    currentUserId: myId,
+                                    friendId: idGeneral,
+                                    friendName: name2,
+                                    friendImage: generalUrlAvatar)));
+                          }),
+                    ),
+                    Card(
+                      child: ListTile(
+                          leading: CircleAvatar(
+                            radius: 20.0,
+                            backgroundImage: NetworkImage(generalUrlAvatar),
+                          ),
+                          title: Text(name3),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => GeneralPage(
+                                    currentUserId: myId,
+                                    friendId: idGeneral,
+                                    friendName: name3,
+                                    friendImage: generalUrlAvatar)));
+                          }),
+                    ),
+                    Card(
+                      child: ListTile(
+                          leading: CircleAvatar(
+                            radius: 20.0,
+                            backgroundImage: NetworkImage(myUrlAvatar),
+                          ),
+                          title: Text('Личные сообщения'),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => OneChats(),
+
+     /*   backgroundColor: Color.fromARGB( 200, 105, 193, 238),
         body: SafeArea(
            child: Column(
              children: [
@@ -36,22 +139,18 @@ class _ChatsState extends State<Chats> {
                         //     friendId: idGeneral,
                         //     friendName: generalName,
                         //     friendImage: generalUrlAvatar)
-                            ));
-               }),
-               ListTile(
-                  leading: CircleAvatar(
-                    radius: 20.0,
-                    backgroundImage: NetworkImage(myUrlAvatar),
-                  ),
-                  title: Text('Личные сообщения'),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => OneChats(),));
-               }),
-             ],
-           ), 
-    ));
+
+                            ));*/
+                          }),
+                    ),
+                  ]),
+                )),
+          ),
+        ]),
+      ]),
+    );
   }
+
   Widget buildUser(User user) {
     return ListTile(
       leading: CircleAvatar(
@@ -61,7 +160,6 @@ class _ChatsState extends State<Chats> {
       title: Text(user.name),
       subtitle: Text(user.description),
       onTap: () {
-        
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => ChatPage(
                 currentUserId: myId,

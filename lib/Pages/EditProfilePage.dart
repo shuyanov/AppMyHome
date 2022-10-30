@@ -22,6 +22,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+    backgroundColor: Color.fromARGB( 200, 105, 193, 238),
     appBar: AppBar(),
     body: Padding(
       padding: const EdgeInsets.all(12.0),
