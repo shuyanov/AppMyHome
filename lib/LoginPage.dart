@@ -1,5 +1,6 @@
 import 'package:command_flutter/HomePage.dart';
 import 'package:command_flutter/RegisterPage.dart';
+import 'package:command_flutter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -16,13 +17,14 @@ class LoginPage extends StatelessWidget {
   @override
 ////////////////////
   Widget _logo(){
-    return Padding(
-      padding: EdgeInsets.only(top: 100),
-      child: Container(
-        child: Align(
-          child: Text("DOM DOMYCH", style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold, color: Colors.white),),
-        ),
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/logo1.png'),
+              fit: BoxFit.cover
+          )
       ),
+      padding: EdgeInsets.only(top: 400, bottom: 60),
     );
   }
 
@@ -109,7 +111,7 @@ class LoginPage extends StatelessWidget {
     password = passwordController.text;
     print("data:   login = ${email} password = ${password}");
     if(email == "123" && password == "321"){
-      return runApp(HomePage());
+      return runApp(MyApp());
     }
     else{
       Fluttertoast.showToast(
@@ -161,7 +163,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     print('LoginPage');
     return MaterialApp( home:  Scaffold(
-      backgroundColor: Colors.cyan,
+      backgroundColor: Color.fromARGB( 200, 105, 193, 238),
       body:
         SingleChildScrollView(
            child:    Column(
