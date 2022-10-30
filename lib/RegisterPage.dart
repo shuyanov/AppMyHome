@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:command_flutter/LoginPage.dart';
+import 'package:path_provider/path_provider.dart' as pathProvider;
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mysql_client/mysql_client.dart';
 
 class RegisterPage extends StatelessWidget {
 
@@ -75,7 +80,7 @@ class RegisterPage extends StatelessWidget {
                 height: 60,
                 width: 170,
                 child: _regButton(),
-                //_button(),
+//_button(),
               ),
               padding: EdgeInsets.only(left: 20, right: 20,)
           ),
@@ -86,16 +91,16 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  ///////////////////
+///////////////////
 
   Widget _logPageButton(){
 
     return Container(
-      margin: EdgeInsets.only(top: 8, bottom: 8),
-     // padding: EdgeInsets.only(top: 8),
+        margin: EdgeInsets.only(top: 8, bottom: 8),
+// padding: EdgeInsets.only(top: 8),
         height: 42,
         width: 110,
-        child:  ElevatedButton(
+        child: ElevatedButton(
           child: Text("LOGIN", style: TextStyle(color: Colors.cyan, fontSize: 18)),
           onPressed: (){ print('tap-tap'); return runApp(LoginPage()); },
           style: ElevatedButton.styleFrom(
@@ -110,32 +115,37 @@ class RegisterPage extends StatelessWidget {
   }
 
 
-  //////////////////
+//////////////////
   Widget _regButton(){
-  return Container(
-      height: 42,
-      width: 110,
-  child:  ElevatedButton(
-              child: Text("REGISTER", style: TextStyle(color: Colors.cyan, fontSize: 26)),
-              onPressed: () => funcPress(),
-              style: ElevatedButton.styleFrom(
-              primary: Colors.white,
-              onPrimary: Colors.cyan,
-              shape: RoundedRectangleBorder(
+    return Container(
+        height: 42,
+        width: 110,
+        child: ElevatedButton(
+          child: Text("REGISTER", style: TextStyle(color: Colors.cyan, fontSize: 26)),
+          onPressed: () => funcPress(),
+          style: ElevatedButton.styleFrom(
+            primary: Colors.white,
+            onPrimary: Colors.cyan,
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(32.0),
-              ),
-              ),
-  )
+            ),
+          ),
+        )
 
-  );
-}
-  /////////////////
+    );
+  }
+/////////////////
 
 
-  /////////
+/////////
+  String encoding(String value){
+    var byte = utf8.encode(value);
 
-  ////////
-  void funcPress() {
+    var digest = sha256.convert(byte);
+    return digest.toString();
+  }
+////////
+  void funcPress() async {
     email = emailController.text;
     password = passwordController.text;
     code = codeController.text;
@@ -143,25 +153,86 @@ class RegisterPage extends StatelessWidget {
     surname = surnameController.text;
     middleName = middleNameController.text;
 
-    print("data:   login = ${email} surname = ${surname} name = ${name} middle_Name = ${middleName} password = ${password} code = ${code}");
     if(email == "" || password == "" || code == "" || name == "" || surname == "" || middleName == "" ){
       Fluttertoast.showToast(
           msg: "Error! Wrong login or password, try again",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
+          timeInSecForIosWeb:
+          1,
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0
       );
+      return ;
     }
+
+////////////////////
+    void PushToJson(String login, String password, String surname, String name, String middle_name, String code) async {
+
+      final directory = await pathProvider.getApplicationSupportDirectory();
+      final fileDirectory = directory.path + '/datas.json';
+      final file = File(fileDirectory);
+      await file.writeAsString('{\"user\": {\"login\" : \"$login\"\,\"password\" : \"$password\",\"surname\" : \"$surname\",\"name\" : \"$name\",\"middle_name\" : \"$middle_name\",\"code\" : \"$code\"}}');
+      final res = await file.readAsString();
+      print("created json: $res");
+
+    }
+////////////////
+
+    print("Connecting to mysql server...");
+// create connection
+    final conn = await MySQLConnection.createConnection(
+      host: "10.0.2.2",
+      port: 3306,
+      userName: "root",
+      password: "123SQL",
+      databaseName: "users", // optional
+    );
+    await conn.connect();
+    print("Connected");
+// make query
+    var result = await conn.execute("SELECT * FROM auth_users");
+
+
+    for (final row in result.rows) {
+      print(row.colAt(1));
+      print(row.colAt(2));
+      if (row.colAt(1) == email && row.colAt(2) == password) {
+        print("register, please log in");
+        return runApp(LoginPage());
+      }
+      else {
+        print("no match");
+        var res = await conn.execute(
+          "INSERT INTO auth_users (login, password, surname, name, middle_name, code) VALUES (:login, :password, :surname, :name, :middle_name, :code)",
+          {
+            "login": email,
+            "password": encoding(password),
+            "surname" : surname,
+            "name": name,
+            "middle_name" : middleName,
+            "code" :code,
+          },
+        );
+//push to json
+        PushToJson(email, password, surname, name, middleName, code);
+        runApp(LoginPage());
+      }
+      await conn.close();
+    }
+
+    print("registered, please log in");
+
+///////////////////
+    print("data: login = ${email} surname = ${surname} name = ${name} middle_Name = ${middleName} password = ${password} code = ${code}");
     emailController.clear();
     passwordController.clear();
     nameController.clear();
     codeController.clear();
     surnameController.clear();
     middleNameController.clear();
-
+    runApp(LoginPage());
   }
 
 //////////////////
@@ -203,16 +274,16 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.cyan,
+        backgroundColor: Color.fromARGB(200, 105, 193, 238),
         body:
         SingleChildScrollView(
           child: Column(
-                      children: <Widget>[
-                        _logo(),
-                        _form(),
-                        _logPageButton(),
-                      ],
-        ),
+            children: <Widget>[
+              _logo(),
+              _form(),
+              _logPageButton(),
+            ],
+          ),
         ),
       ),
     );

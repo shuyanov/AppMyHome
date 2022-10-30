@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:command_flutter/RegisterPage.dart';
+import 'package:command_flutter/main.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -151,9 +152,9 @@ class LoginPage extends StatelessWidget {
           logged = true;
 //запись в json
           Timer(Duration(seconds: 1), () {
-            if(logged) {runApp(HomePage()); PushToJson(email, password, "no", "no", "no", "no"); };
+            if(logged) {runApp(MyApp()); PushToJson(email, password, "no", "no", "no", "no"); };
             print("Yeah, this line is printed after 3 seconds");
-            return logged ? runApp(HomePage()) : runApp(LoginPage());
+            return logged ? runApp(MyApp()) : runApp(LoginPage());
           });
 //сохранить в буфер
         }
