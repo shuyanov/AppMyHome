@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hackaton/screens/LoginPage.dart';
+
+import 'LoginPage.dart';
 
 class RegisterPage extends StatelessWidget {
 

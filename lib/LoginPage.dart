@@ -1,6 +1,6 @@
+import 'package:command_flutter/HomePage.dart';
+import 'package:command_flutter/RegisterPage.dart';
 import 'package:flutter/material.dart';
-import 'package:hackaton/screens/HomePage.dart';
-import 'package:hackaton/screens/RegisterPage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 
