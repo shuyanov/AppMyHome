@@ -1,5 +1,6 @@
 import 'package:command_flutter/HomePage.dart';
 import 'package:command_flutter/RegisterPage.dart';
+import 'package:command_flutter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -109,7 +110,7 @@ class LoginPage extends StatelessWidget {
     password = passwordController.text;
     print("data:   login = ${email} password = ${password}");
     if(email == "123" && password == "321"){
-      return runApp(HomePage());
+      return runApp(MyApp());
     }
     else{
       Fluttertoast.showToast(
