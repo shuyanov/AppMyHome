@@ -24,7 +24,7 @@ class RegisterPage extends StatelessWidget {
 ////////////////////
   Widget _logo() {
     return Padding(
-      padding: EdgeInsets.only(top: 100),
+      padding: EdgeInsets.only(top: 50),
       child: Container(
         child: Align(
           child: Text("DOM", style: TextStyle(
@@ -47,7 +47,7 @@ class RegisterPage extends StatelessWidget {
           ),
 
           Padding(
-            padding: EdgeInsets.only(bottom: 20,),
+            padding: EdgeInsets.only(bottom: 10,),
             child: _input(
                 Icon(Icons.account_box_rounded), "Ivanov", surnameController, false),
           ),
@@ -204,7 +204,7 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.cyan,
+        backgroundColor: Color.fromARGB( 200, 105, 193, 238),
         body:
         SingleChildScrollView(
           child: Column(
