@@ -183,17 +183,16 @@ class RegisterPage extends StatelessWidget {
     print("Connecting to mysql server...");
 // create connection
     final conn = await MySQLConnection.createConnection(
-      host: "10.0.2.2",
+      host: "185.231.155.185",
       port: 3306,
-      userName: "root",
-      password: "123SQL",
-      databaseName: "users", // optional
+      userName: "user",
+      password: "password",
+      databaseName: "data", // optional
     );
     await conn.connect();
     print("Connected");
 // make query
-    var result = await conn.execute("SELECT * FROM auth_users");
-
+    var result = await conn.execute("SELECT * FROM user");
 
     for (final row in result.rows) {
       print(row.colAt(1));
@@ -205,7 +204,7 @@ class RegisterPage extends StatelessWidget {
       else {
         print("no match");
         var res = await conn.execute(
-          "INSERT INTO auth_users (login, password, surname, name, middle_name, code) VALUES (:login, :password, :surname, :name, :middle_name, :code)",
+          "INSERT INTO user (login, password, surname, name, middle_name, code) VALUES (:login, :password, :surname, :name, :middle_name, :code)",
           {
             "login": email,
             "password": encoding(password),

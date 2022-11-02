@@ -261,7 +261,7 @@
     },
     {
       "name": "path_provider_android",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.20",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.21",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -428,7 +428,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2022-10-30T03:13:26.033494Z",
+  "generated": "2022-10-31T19:30:07.734961Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }
