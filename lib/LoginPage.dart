@@ -133,17 +133,16 @@ class LoginPage extends StatelessWidget {
       print("Connecting to mysql server...");
 // create connection
       final conn = await MySQLConnection.createConnection(
-        host: "10.0.2.2",
+        host: "185.231.155.185",
         port: 3306,
-        userName: "root",
-        password: "123SQL",
-        databaseName: "users", // optional
+        userName: "user",
+        password: "password",
+        databaseName: "data", // optional
       );
       await conn.connect();
       print("Connected");
 
-      var result = await conn.execute("SELECT * FROM auth_users"); //слать запрос напрямую в БД, без сохраения всех данных
-
+      var result = await conn.execute("SELECT * FROM user"); //слать запрос напрямую в БД, без сохраения всех данных
 
       for (final row in result.rows) {
         print(row.colAt(1));

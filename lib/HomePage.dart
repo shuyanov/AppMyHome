@@ -76,24 +76,6 @@ class _HomePageState extends State<HomePage> {
             ));
           },
         ),
-          /*actions: [
-      IconButton(
-      icon: const Icon(Icons.add),
-      tooltip: 'Edit',
-      onPressed: () {
-        Navigator.push(context, MaterialPageRoute<void>(
-            builder: (BuildContext){
-              return Scaffold(
-                appBar: AppBar(
-                  title: const Text('Edit'),
-                  backgroundColor: Colors.blueAccent,
-                ),
-              );
-            }
-        ));
-      },
-    )
-        ],*/
       ),
       body: Center(
         child: _pages.elementAt(_currentIndex),
