@@ -1,5 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:command_flutter/LoginPage.dart';
+import 'package:path_provider/path_provider.dart' as pathProvider;
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mysql_client/mysql_client.dart';
 
 class RegisterPage extends StatelessWidget {
 
@@ -71,10 +77,10 @@ class RegisterPage extends StatelessWidget {
           SizedBox(height: 20,),
           Padding(
               child: Container(
-                height: 50,
-                width: 100,
+                height: 60,
+                width: 170,
                 child: _regButton(),
-                //_button(),
+//_button(),
               ),
               padding: EdgeInsets.only(left: 20, right: 20,)
           ),
@@ -85,57 +91,52 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  ///////////////////
-  Widget _logPageButton() {
-    return Container(
-        child: MaterialButton(
-            splashColor: Colors.cyan,
-            highlightColor: Colors.cyan,
-            color: Colors.white,
+///////////////////
 
-            child: Text(
-                style: TextStyle(fontWeight: FontWeight.bold,
-                    color: Colors.cyan,
-                    fontSize: 20),
-                'LOG IN'
+  Widget _logPageButton(){
+
+    return Container(
+        margin: EdgeInsets.only(top: 8, bottom: 8),
+// padding: EdgeInsets.only(top: 8),
+        height: 42,
+        width: 110,
+        child: ElevatedButton(
+          child: Text("LOGIN", style: TextStyle(color: Colors.cyan, fontSize: 18)),
+          onPressed: (){ print('tap-tap'); return runApp(LoginPage()); },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.white,
+            onPrimary: Colors.cyan,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(32.0),
             ),
-            onPressed: () {
-              print('tap-tap');
-              return runApp(LoginPage());
-            }
+          ),
         )
     );
   }
 
-  //////////////////
 
-  /////////////////
-  Widget _regButton() {
+//////////////////
+  Widget _regButton(){
     return Container(
-        child: MaterialButton(
-            splashColor: Colors.cyan,
-            highlightColor: Colors.cyan,
-            color: Colors.white,
-
-            child: Text(
-                style: TextStyle(fontWeight: FontWeight.bold,
-                    color: Colors.cyan,
-                    fontSize: 20),
-                'REGISTER'
+        height: 42,
+        width: 110,
+        child: ElevatedButton(
+          child: Text("REGISTER", style: TextStyle(color: Colors.cyan, fontSize: 26)),
+          onPressed: () => funcPress(),
+          style: ElevatedButton.styleFrom(
+            primary: Colors.white,
+            onPrimary: Colors.cyan,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(32.0),
             ),
-            onPressed: () {
-              funcPress();
-            }
+          ),
         )
+
     );
   }
+/////////////////
 
-<<<<<<< Updated upstream
-  /////////
 
-  ////////
-  void funcPress() {
-=======
 /////////
   String encoding(String value){
     var byte = utf8.encode(value);
@@ -144,7 +145,6 @@ class RegisterPage extends StatelessWidget {
   }
 ////////
   void funcPress() async {
->>>>>>> Stashed changes
     email = emailController.text;
     password = passwordController.text;
     code = codeController.text;
@@ -152,9 +152,6 @@ class RegisterPage extends StatelessWidget {
     surname = surnameController.text;
     middleName = middleNameController.text;
 
-<<<<<<< Updated upstream
-    print("data:   login = ${email} surname = ${surname} name = ${name} middle_Name = ${middleName} password = ${password} code = ${code}");
-=======
     if(email == "" || password == "" || code == "" || name == "" || surname == "" || middleName == "" ){
       Fluttertoast.showToast(
           msg: "Error! Wrong login or password, try again",
@@ -195,15 +192,45 @@ class RegisterPage extends StatelessWidget {
     print("Connected");
 // make query
     var result = await conn.execute("SELECT * FROM user");
->>>>>>> Stashed changes
 
+    for (final row in result.rows) {
+      print(row.colAt(1));
+      print(row.colAt(2));
+      if (row.colAt(1) == email && row.colAt(2) == password) {
+        print("register, please log in");
+        return runApp(LoginPage());
+      }
+      else {
+        print("no match");
+        var res = await conn.execute(
+          "INSERT INTO user (login, password, surname, name, middle_name, code) VALUES (:login, :password, :surname, :name, :middle_name, :code)",
+          {
+            "login": email,
+            "password": encoding(password),
+            "surname" : surname,
+            "name": name,
+            "middle_name" : middleName,
+            "code" :code,
+          },
+        );
+//push to json
+        PushToJson(email, password, surname, name, middleName, code);
+        runApp(LoginPage());
+      }
+      await conn.close();
+    }
+
+    print("registered, please log in");
+
+///////////////////
+    print("data: login = ${email} surname = ${surname} name = ${name} middle_Name = ${middleName} password = ${password} code = ${code}");
     emailController.clear();
     passwordController.clear();
     nameController.clear();
     codeController.clear();
     surnameController.clear();
     middleNameController.clear();
-
+    runApp(LoginPage());
   }
 
 //////////////////
@@ -245,15 +272,16 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.cyan,
+        backgroundColor: Color.fromARGB(200, 105, 193, 238),
         body:
-        SingleChildScrollView(child: Column(
-          children: <Widget>[
-            _logo(),
-            _form(),
-            _logPageButton(),
-          ],
-        ),
+        SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              _logo(),
+              _form(),
+              _logPageButton(),
+            ],
+          ),
         ),
       ),
     );

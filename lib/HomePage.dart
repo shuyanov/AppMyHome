@@ -1,9 +1,7 @@
-import 'package:command_flutter/Chats/Chats.dart';
+import 'package:command_flutter/Chats.dart';
 import 'package:command_flutter/ScrolLent/Filling.dart';
-import 'package:command_flutter/Chats/Pages/SearchPage.dart';
-import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Pages/ProfilePage.dart';
-import 'package:command_flutter/Widget/Bar/Profile.dart';
+import 'package:command_flutter/Search/SearchPage.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +18,7 @@ class _HomePageState extends State<HomePage> {
     BottomNavigationBarItem(
       icon: Icon(Icons.home),
       label: 'Home',
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Colors.black26
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.message),
@@ -36,12 +34,13 @@ class _HomePageState extends State<HomePage> {
   static const List<Widget> _pages = <Widget>[
     Filing(),
     Chats(),
-    EditProfilePage(),
+    ProfileePage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB( 200, 105, 193, 238),
       appBar: AppBar(
           actions: [
           IconButton(
@@ -64,33 +63,19 @@ class _HomePageState extends State<HomePage> {
             Navigator.push(context, MaterialPageRoute<void>(
                 builder: (BuildContext){
                   return Scaffold(
+                    backgroundColor: Color.fromARGB( 200, 105, 193, 238),
                     appBar: AppBar(
                       title: const Text('Уведомления'),
                       backgroundColor: Colors.blueAccent,
+                    ),
+                    body: Center(
+                      child: Text('В разработке', style: TextStyle(fontSize: 45, fontFamily: 'Arial'),),
                     ),
                   );
                 }
             ));
           },
         ),
-          /*actions: [
-      IconButton(
-      icon: const Icon(Icons.add),
-      tooltip: 'Edit',
-      onPressed: () {
-        Navigator.push(context, MaterialPageRoute<void>(
-            builder: (BuildContext){
-              return Scaffold(
-                appBar: AppBar(
-                  title: const Text('Edit'),
-                  backgroundColor: Colors.blueAccent,
-                ),
-              );
-            }
-        ));
-      },
-    )
-        ],*/
       ),
       body: Center(
         child: _pages.elementAt(_currentIndex),
@@ -112,6 +97,7 @@ class _HomePageState extends State<HomePage> {
         ],
         currentIndex: _currentIndex,
         selectedItemColor: Colors.amber[800],
+        backgroundColor: Colors.black38,
         onTap: (int index) {
           setState(() {
             _currentIndex = index;

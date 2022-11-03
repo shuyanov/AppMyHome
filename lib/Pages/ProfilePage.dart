@@ -1,14 +1,11 @@
-<<<<<<< Updated upstream
-=======
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:command_flutter/LoginPage.dart';
->>>>>>> Stashed changes
 import 'package:command_flutter/Model/User.dart';
+import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
-import 'package:command_flutter/Widget/Bar/AppBar.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:command_flutter/Widget/ProfileWidget.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +17,6 @@ class ProfileePage extends StatefulWidget {
 }
 
 class _ProfileePageState extends State<ProfileePage> {
-<<<<<<< Updated upstream
-  @override
-  Widget build(BuildContext context) {
-    final user = UserPereferences.myUser;
-
-=======
   String name = "";
   String surName = "";
 
@@ -52,26 +43,9 @@ class _ProfileePageState extends State<ProfileePage> {
     setState(() {
 
     });
->>>>>>> Stashed changes
     return Scaffold(
+      backgroundColor: Color.fromARGB( 200, 105, 193, 238),
       //appBar: buildAppBar(context),
-<<<<<<< Updated upstream
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: ListView(
-          physics: BouncingScrollPhysics(),
-          children: [
-            ProfileWidget(
-              imagePatch: user.imagePath,
-              onCliced: () async{},
-            ),
-            const SizedBox(height: 12),
-            buildName(user),
-            const SizedBox(height: 24),
-            Center( child: buildExitProfileButton()),
-          ],
-        ),
-=======
       body: Container(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
@@ -104,7 +78,6 @@ class _ProfileePageState extends State<ProfileePage> {
                 fit: BoxFit.cover
             )
         ),
->>>>>>> Stashed changes
       ),
     );
   }
@@ -123,17 +96,17 @@ class _ProfileePageState extends State<ProfileePage> {
     );
 
   Widget buildExitProfileButton() => ButtonWidget(
-    text:'Edit Profile',
-    onClicked: (){},
-    // {
-    //   builder: (BuildContext){
-    //     return Scaffold(
-    //       appBar: AppBar(
-    //         title: const Text('Test'),
-    //         backgroundColor: Colors.blueAccent,
-    //       ),
-    //     );
-    //   };
-    // },
+    text:'Exit',
+    onClicked: (){
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => LoginPage())
+      );
+    },
   );
   }
+
+
+
+
+
+
