@@ -243,7 +243,7 @@
     },
     {
       "name": "path_provider_android",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.20",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.21",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -321,7 +321,7 @@
     },
     {
       "name": "sqflite",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite-2.2.0+2",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite-2.2.0+3",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -404,11 +404,7 @@
       "languageVersion": "2.18"
     }
   ],
-<<<<<<< Updated upstream
-  "generated": "2022-10-29T15:22:06.625021Z",
-=======
-  "generated": "2022-11-02T18:16:10.625113Z",
->>>>>>> Stashed changes
+  "generated": "2022-11-03T12:01:45.004906Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }
