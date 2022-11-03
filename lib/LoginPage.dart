@@ -101,9 +101,72 @@ class LoginPage extends StatelessWidget {
     password = passwordController.text;
     print("data:   login = ${email} password = ${password}");
 
+<<<<<<< Updated upstream
     emailController.clear();
     passwordController.clear();
     return runApp(MyApp());
+=======
+    logged = false;
+    print("login button");
+    Future<void> _LoginButtonActio() async {
+      email = emailController.text;
+      password = passwordController.text;
+      print("login: login = ${email} password = ${password}");
+
+      emailController.clear();
+      passwordController.clear();
+
+      print("Connecting to mysql server...");
+// create connection
+      final conn = await MySQLConnection.createConnection(
+        host: "185.231.155.185",
+        port: 3306,
+        userName: "appUser",
+        password: "123879",
+        databaseName: "data", // optional
+      );
+      await conn.connect();
+      print("Connected");
+
+      var result = await conn.execute("SELECT * FROM user"); //слать запрос напрямую в БД, без сохраения всех данных
+
+      for (final row in result.rows) {
+        print(row.colAt(1));
+        print(row.colAt(2));
+        if (row.colAt(1) == email && row.colAt(2) == encoding(password)) {
+          print("YES MATCH!!! login");
+          logged = true;
+//запись в json
+          Timer(Duration(seconds: 1), () {
+            if(logged) {runApp(MyApp()); PushToJson(email, password, "no", "no", "no", "no"); };
+            print("Yeah, this line is printed after 3 seconds");
+            return logged ? runApp(MyApp()) : runApp(LoginPage());
+          });
+//сохранить в буфер
+        }
+        else {
+          print("no match");
+        }
+      }
+// close all connections
+      await conn.close();
+      print("close");
+    }
+    _LoginButtonActio();
+    print("exit");
+  }
+//////////////////
+  void PushToJson(String login, String password, String surname, String name, String middle_name, String code) async {
+
+    final directory =
+    await pathProvider.getApplicationSupportDirectory();
+    final fileDirectory = directory.path + '/datas.json';
+    final file = File(fileDirectory);
+    await file.writeAsString('{\"user\": {\"login\" : \"$login\"\,\"password\" : \"$password\",\"surname\" : \"$surname\",\"name\" : \"$name\",\"middle_name\" : \"$middle_name\",\"code\" : \"$code\"}}');
+    final res = await file.readAsString();
+    print("created json: $res");
+
+>>>>>>> Stashed changes
   }
 //////////////////
   Widget _input(Icon icon, String hint, TextEditingController controller, bool hidden){

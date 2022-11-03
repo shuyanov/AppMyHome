@@ -130,10 +130,21 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
+<<<<<<< Updated upstream
   /////////
 
   ////////
   void funcPress() {
+=======
+/////////
+  String encoding(String value){
+    var byte = utf8.encode(value);
+    var digest = sha256.convert(byte);
+    return digest.toString();
+  }
+////////
+  void funcPress() async {
+>>>>>>> Stashed changes
     email = emailController.text;
     password = passwordController.text;
     code = codeController.text;
@@ -141,7 +152,50 @@ class RegisterPage extends StatelessWidget {
     surname = surnameController.text;
     middleName = middleNameController.text;
 
+<<<<<<< Updated upstream
     print("data:   login = ${email} surname = ${surname} name = ${name} middle_Name = ${middleName} password = ${password} code = ${code}");
+=======
+    if(email == "" || password == "" || code == "" || name == "" || surname == "" || middleName == "" ){
+      Fluttertoast.showToast(
+          msg: "Error! Wrong login or password, try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb:
+          1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      return ;
+    }
+
+////////////////////
+    void PushToJson(String login, String password, String surname, String name, String middle_name, String code) async {
+
+      final directory = await pathProvider.getApplicationSupportDirectory();
+      final fileDirectory = directory.path + '/datas.json';
+      final file = File(fileDirectory);
+      await file.writeAsString('{\"user\": {\"login\" : \"$login\"\,\"password\" : \"$password\",\"surname\" : \"$surname\",\"name\" : \"$name\",\"middle_name\" : \"$middle_name\",\"code\" : \"$code\"}}');
+      final res = await file.readAsString();
+      print("created json: $res");
+
+    }
+////////////////
+
+    print("Connecting to mysql server...");
+// create connection
+    final conn = await MySQLConnection.createConnection(
+      host: "185.231.155.185",
+      port: 3306,
+      userName: "appUser",
+      password: "123879",
+      databaseName: "data", // optional
+    );
+    await conn.connect();
+    print("Connected");
+// make query
+    var result = await conn.execute("SELECT * FROM user");
+>>>>>>> Stashed changes
 
     emailController.clear();
     passwordController.clear();
