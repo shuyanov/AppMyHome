@@ -17,8 +17,10 @@ class ProfileePage extends StatefulWidget {
 
 class _ProfileePageState extends State<ProfileePage> {
 
+  void r (){}
   @override
   Widget build(BuildContext context) {
+   r();
     final user = UserPereferences.myUser;
     return Scaffold(
       backgroundColor: Color.fromARGB( 200, 105, 193, 238),

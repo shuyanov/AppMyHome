@@ -152,8 +152,9 @@ class LoginPage extends StatelessWidget {
           logged = true;
 //запись в json
           Timer(Duration(seconds: 1), () {
-            if(logged) {runApp(MyApp()); PushToJson(email, password, "no", "no", "no", "no"); };
-            print("Yeah, this line is printed after 3 seconds");
+            if(logged) {runApp(MyApp());
+              PushToJson(email, password, "no", "no", "no", "no"); };
+            print("Yeah, this line is printed after 3 seconds logged = $logged");
             return logged ? runApp(MyApp()) : runApp(LoginPage());
           });
 //сохранить в буфер
