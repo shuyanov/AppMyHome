@@ -75,7 +75,6 @@ void getUser() async {
   print(json);
   Usersed nikita = Usersed.fromJson(json['user']);
   print("code = ${nikita.code}");
-
 }
 
 void PushToJson(String login, String password, String surname, String name, String middle_name, String code) async {
@@ -84,7 +83,7 @@ void PushToJson(String login, String password, String surname, String name, Stri
   final fileDirectory = directory.path + '/datas.json';
   final file = File(fileDirectory);
 
-  await file.writeAsString('{\"user\": {\"login\" : \"$login\"\,\"password\" : \"$password\",\"surname\" : \"$surname\",\"name\" : \"$name\",\"middle_name\" : \"$middle_name\",\"code\" : \"$code\"}}');
+  await file.writeAsString('{\"user\": {\"login\" : \"$login.\"\,\"password\" : \"$password\",\"surname\" : \"$surname\",\"name\" : \"$name\",\"middle_name\" : \"$middle_name\",\"code\" : \"$code\"}}');
 
   final res = await file.readAsString();
   print(res);

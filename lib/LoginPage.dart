@@ -1,15 +1,21 @@
-import 'package:command_flutter/HomePage.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'package:command_flutter/RegisterPage.dart';
 import 'package:command_flutter/main.dart';
+import 'package:path_provider/path_provider.dart' as pathProvider;
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mysql_client/mysql_client.dart';
 
+import 'HomePage.dart';
 
 class LoginPage extends StatelessWidget {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  bool logged = false;
   String email = "";
   String password = "";
 
@@ -41,6 +47,9 @@ class LoginPage extends StatelessWidget {
     );
   }*/
 
+  }
+  ///////////////
+//////////////////
 //////////////////
   Widget _form(){
     return Container(
@@ -65,6 +74,16 @@ class LoginPage extends StatelessWidget {
                 )
             ),
             padding: EdgeInsets.only(bottom: 800),
+
+          SizedBox(height: 20,),
+          Padding(
+              child: Container(
+                height: 60,
+                width: 150,
+                child: _logButton(),
+
+              ),
+              padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 )
           ),
            Container(
              padding: EdgeInsets.only(top: 330),
@@ -105,16 +124,21 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
-  ///////////////////
+///////////////////
+  String encoding(String value){
+    var byte = utf8.encode(value);
 
-  ///////////////////
+    var digest = sha256.convert(byte);
+    return digest.toString();
+  }
+///////////////////
   Widget _regButton(){
 
     return Container(
         margin: EdgeInsets.only(top: 6),
         height: 42,
         width: 110,
-        child:  ElevatedButton(
+        child: ElevatedButton(
           child: Text("REGISTER", style: TextStyle(color: Colors.cyan, fontSize: 17)),
           onPressed: (){ print('tap-tap'); return runApp(RegisterPage()); },
           style: ElevatedButton.styleFrom(
@@ -127,50 +151,92 @@ class LoginPage extends StatelessWidget {
         ),
     );
   }
-  //////////////////
+//////////////////
 
-  /////////////////
+/////////////////
   Widget _logButton(){
     return Container(
 
-      child:
+        child:
 
-      ElevatedButton(
-        child: Text("LOGIN", style: TextStyle(color: Colors.cyan, fontSize: 26)),
-        onPressed: () => funcPress(),
-        style: ElevatedButton.styleFrom(
-          primary: Colors.white,
-          onPrimary: Colors.cyan,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(32.0),
+        ElevatedButton(
+          child: Text("LOGIN", style: TextStyle(color: Colors.cyan, fontSize: 26)),
+          onPressed: () => funcPress(),
+          style: ElevatedButton.styleFrom(
+            primary: Colors.white,
+            onPrimary: Colors.cyan,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(32.0),
+            ),
           ),
-        ),
-      )
+        )
     );
   }
-  /////////
+/////////
 
-  ////////
+////////
   void funcPress(){
-    email = emailController.text;
-    password = passwordController.text;
-    print("data:   login = ${email} password = ${password}");
-    if(email == "123" && password == "321"){
-      return runApp(MyApp());
-    }
-    else{
-      Fluttertoast.showToast(
-          msg: "Error! Wrong login or password, try again",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
+
+    logged = false;
+    print("login button");
+    Future<void> _LoginButtonActio() async {
+      email = emailController.text;
+      password = passwordController.text;
+      print("login: login = ${email} password = ${password}");
+
+      emailController.clear();
+      passwordController.clear();
+
+      print("Connecting to mysql server...");
+// create connection
+      final conn = await MySQLConnection.createConnection(
+        host: "185.231.155.185",
+        port: 3306,
+        userName: "user",
+        password: "password",
+        databaseName: "data", // optional
       );
+      await conn.connect();
+      print("Connected");
+
+      var result = await conn.execute("SELECT * FROM user"); //слать запрос напрямую в БД, без сохраения всех данных
+
+      for (final row in result.rows) {
+        print(row.colAt(1));
+        print(row.colAt(2));
+        if (row.colAt(1) == email && row.colAt(2) == encoding(password)) {
+          print("YES MATCH!!! login");
+          logged = true;
+//запись в json
+          Timer(Duration(seconds: 1), () {
+            if(logged) {runApp(MyApp()); PushToJson(email, password, "no", "no", "no", "no"); };
+            print("Yeah, this line is printed after 3 seconds");
+            return logged ? runApp(MyApp()) : runApp(LoginPage());
+          });
+//сохранить в буфер
+        }
+        else {
+          print("no match");
+        }
+      }
+// close all connections
+      await conn.close();
+      print("close");
     }
-    emailController.clear();
-    passwordController.clear();
+    _LoginButtonActio();
+    print("exit");
+  }
+//////////////////
+  void PushToJson(String login, String password, String surname, String name, String middle_name, String code) async {
+
+    final directory =
+    await pathProvider.getApplicationSupportDirectory();
+    final fileDirectory = directory.path + '/datas.json';
+    final file = File(fileDirectory);
+    await file.writeAsString('{\"user\": {\"login\" : \"$login\"\,\"password\" : \"$password\",\"surname\" : \"$surname\",\"name\" : \"$name\",\"middle_name\" : \"$middle_name\",\"code\" : \"$code\"}}');
+    final res = await file.readAsString();
+    print("created json: $res");
+
   }
 //////////////////
   Widget _input(Icon icon, String hint, TextEditingController controller, bool hidden){
@@ -178,7 +244,7 @@ class LoginPage extends StatelessWidget {
       padding: EdgeInsets.only(right: 20, left: 20),
       child: TextField(
         controller: controller,
-        obscureText:  hidden,
+        obscureText: hidden,
         style: TextStyle(fontSize: 20, color: Colors.white),
         decoration: InputDecoration(
           hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white38),
@@ -207,9 +273,9 @@ class LoginPage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     print('LoginPage');
-    return MaterialApp( home:  Scaffold(
-      backgroundColor: Color.fromARGB( 200, 105, 193, 238),
-      body:
+    return MaterialApp( home: Scaffold(
+        backgroundColor: Color.fromARGB(200, 105, 193, 238),
+        body:
         SingleChildScrollView(
            child: Column(
         children: <Widget>[
@@ -218,6 +284,13 @@ class LoginPage extends StatelessWidget {
           //_regButton(),
         ],
       ),
+          child: Column(
+            children: <Widget>[
+              _logo(),
+              _form(),
+              _regButton(),
+            ],
+          ),
         )
     ),
     );

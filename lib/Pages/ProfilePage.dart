@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:command_flutter/LoginPage.dart';
 import 'package:command_flutter/Model/User.dart';
 import 'package:command_flutter/Pages/EditProfilePage.dart';
@@ -14,6 +16,7 @@ class ProfileePage extends StatefulWidget {
 }
 
 class _ProfileePageState extends State<ProfileePage> {
+
   @override
   Widget build(BuildContext context) {
     final user = UserPereferences.myUser;
@@ -78,3 +81,9 @@ class _ProfileePageState extends State<ProfileePage> {
     },
   );
   }
+
+
+
+
+
+
