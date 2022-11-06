@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:command_flutter/Widget/WidgetProfile.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:command_flutter/LoginPage.dart';
 import 'package:command_flutter/Model/User.dart';
@@ -24,24 +25,22 @@ class _ProfileePageState extends State<ProfileePage> {
   void initState() {
     _GetDataFromJson();
     super.initState();
+
+    print(name);
+    print(surName);
   }
   void _GetDataFromJson() async{
         final directory = await pathProvider.getApplicationSupportDirectory();
         final fileDirectory = directory.path + '/datas.json';
         final file = File(fileDirectory);
-
         final json = jsonDecode(await file.readAsString());
-
         var UserActual = new Usersed.fromJson(json['user']);
-
         name = UserActual.login;
         surName = UserActual.surname;
       }
 
   @override
   Widget build(BuildContext context) {
-    final user = UserPereferences.myUser;
-
     // return Scaffold(
     //   body:
     //   Container(
@@ -88,45 +87,76 @@ class _ProfileePageState extends State<ProfileePage> {
     //     ),
     //   ),
     // );
-    return Padding( padding: const EdgeInsets.all(30),
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-                flex: 1,
-                child: ProfileWidget(
-                  imagePatch: user.imagePath,
-                  onCliced: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => EditProfilePage())
-                      );
-                    },
-                ),
-            ),
-            Expanded(
-                flex: 2,
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(9.0),
-                      child: Text(name, style: TextStyle(fontSize: 26)),
-                    ),
-                    const SizedBox(height: 12),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 40, left: 20),
-                      child: Text("SurName", style: TextStyle(fontSize: 16, color: Colors.grey),),
-                    ),
-                  ],
-                ),
-            ),
 
-          ],
+    return Column(
+      children: [
+        Container(
+          child: WidgetProfileName()
         ),
-      )
-    );
+        Padding(
+            padding: EdgeInsets.only(left: 200),
+            child: Container(
+              height: 30,
+              width: 130,
+              child: buildEditProfileButton(),
+            )
+        ),
+        SizedBox(height: 10),
+        Padding(
+            padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
+            child: Container(
+              height: 30,
+              width: 330,
+              child: buildExitProfileButton(),
+            )
+        ),
+        SizedBox(height: 10),
+        Padding(
+            padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
+            child: Container(
+              height: 30,
+              width: 330,
+              child: buildExitProfileButton(),
+            )
+        ),
+        SizedBox(height: 10),
+        Padding(
+            padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
+            child: Container(
+              height: 30,
+              width: 330,
+              child: buildExitProfileButton(),
+            )
+        ),
+        SizedBox(height: 10),
+        Padding(
+            padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
+            child: Container(
+              height: 30,
+              width: 330,
+              child: buildExitProfileButton(),
+            )
+        ),
+        SizedBox(height: 100),
+        Padding(
+            padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
+            child: Container(
+              height: 30,
+              width: 330,
+              child: buildExitProfileButton(),
+            )
+        ),
+        SizedBox(height: 10),
+        Padding(
+            padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
+            child: Container(
+              height: 30,
+              width: 330,
+              child: buildExitProfileButton(),
+            )
+          )
+        ],
+      );
   }
 
   buildName(User user) => Column(
@@ -150,6 +180,15 @@ class _ProfileePageState extends State<ProfileePage> {
         );
       },
     );
+
+  Widget buildEditProfileButton() => ButtonWidget(
+    text:'Edit',
+    onClicked: (){
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => LoginPage())
+      );
+    },
+  );
   }
 
 
