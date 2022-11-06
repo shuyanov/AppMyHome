@@ -25,7 +25,6 @@ class _ProfileePageState extends State<ProfileePage> {
     _GetDataFromJson();
     super.initState();
   }
-
   void _GetDataFromJson() async{
         final directory = await pathProvider.getApplicationSupportDirectory();
         final fileDirectory = directory.path + '/datas.json';
@@ -63,7 +62,6 @@ class _ProfileePageState extends State<ProfileePage> {
     //                 },
     //               ),),
     //           Expanded(child: buildName(user))
-    //
     //         ],
     //       )
     //       // child: ListView(
@@ -90,14 +88,15 @@ class _ProfileePageState extends State<ProfileePage> {
     //     ),
     //   ),
     // );
-    return Padding(
-        padding: const EdgeInsets.all(30),
+    return Padding( padding: const EdgeInsets.all(30),
       child: Align(
         alignment: Alignment.topLeft,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
-                flex: 3,
+                flex: 1,
                 child: ProfileWidget(
                   imagePatch: user.imagePath,
                   onCliced: () {
@@ -107,14 +106,23 @@ class _ProfileePageState extends State<ProfileePage> {
                     },
                 ),
             ),
-        Align(
-          alignment: Alignment.topCenter,
-          child: Row(
-            children: [
-              Text("DATA")
-            ],
-          ),
-        )
+            Expanded(
+                flex: 2,
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(9.0),
+                      child: Text(name, style: TextStyle(fontSize: 26)),
+                    ),
+                    const SizedBox(height: 12),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40, left: 20),
+                      child: Text("SurName", style: TextStyle(fontSize: 16, color: Colors.grey),),
+                    ),
+                  ],
+                ),
+            ),
+
           ],
         ),
       )
