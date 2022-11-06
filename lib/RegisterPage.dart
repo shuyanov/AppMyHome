@@ -224,7 +224,6 @@ class RegisterPage extends StatelessWidget {
 /////////
   String encoding(String value){
     var byte = utf8.encode(value);
-
     var digest = sha256.convert(byte);
     return digest.toString();
   }
@@ -284,8 +283,8 @@ class RegisterPage extends StatelessWidget {
     final conn = await MySQLConnection.createConnection(
       host: "185.231.155.185",
       port: 3306,
-      userName: "user",
-      password: "password",
+      userName: "appUser",
+      password: "123879",
       databaseName: "data", // optional
     );
     await conn.connect();

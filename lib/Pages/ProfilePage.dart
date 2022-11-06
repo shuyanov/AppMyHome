@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:command_flutter/LoginPage.dart';
 import 'package:command_flutter/Model/User.dart';
@@ -10,18 +12,46 @@ import 'package:flutter/material.dart';
 
 class ProfileePage extends StatefulWidget {
   const ProfileePage({Key? key}) : super(key: key);
-
   @override
   State<ProfileePage> createState() => _ProfileePageState();
 }
 
 class _ProfileePageState extends State<ProfileePage> {
+  String name = "";
+  String surName = "";
+
+
+  @override
+  void initState() {
+    void GetDataFromJson() async{
+      final directory = await pathProvider.getApplicationSupportDirectory();
+      final fileDirectory = directory.path + '/datas.json';
+      final file = File(fileDirectory);
+
+      final json = jsonDecode(await file.readAsString());
+
+      var UserActual = new Usersed.fromJson(json['user']);
+
+      name = UserActual.login;
+      surName = UserActual.surname;
+    }
+
+    GetDataFromJson();
+    super.initState();
+  }
 
   void r (){}
   @override
   Widget build(BuildContext context) {
    r();
     final user = UserPereferences.myUser;
+
+    Timer(Duration(seconds: 3), () {
+      print("3 Seconds");
+      print(name);
+      print(surName);
+    });
+
     return Scaffold(
       backgroundColor: Color.fromARGB( 200, 105, 193, 238),
       //appBar: buildAppBar(context),
@@ -32,30 +62,30 @@ class _ProfileePageState extends State<ProfileePage> {
             physics: BouncingScrollPhysics(),
             children: [
               ProfileWidget(
-              imagePatch: user.imagePath,
-              onCliced: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => EditProfilePage())
-                    );
-              },
-            ),
-            const SizedBox(height: 12),
-            buildName(user),
-            const SizedBox(height: 12),
-            const SizedBox(height: 330),
-            Expanded(
-              child: Align(
-              alignment: Alignment(1, 1),
-                  child: buildExitProfileButton()),
-            ),
-          ],
+                imagePatch: user.imagePath,
+                onCliced: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => EditProfilePage())
+                  );
+                },
+              ),
+              const SizedBox(height: 12),
+              buildName(user),
+              const SizedBox(height: 12),
+              const SizedBox(height: 330),
+              Expanded(
+                child: Align(
+                    alignment: Alignment(1, 1),
+                    child: buildExitProfileButton()),
+              ),
+            ],
+          ),
         ),
-      ),
         decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/ful.png'),
-            fit: BoxFit.cover
-          )
+            image: DecorationImage(
+                image: AssetImage('assets/ful.png'),
+                fit: BoxFit.cover
+            )
         ),
       ),
     );
@@ -64,11 +94,11 @@ class _ProfileePageState extends State<ProfileePage> {
   buildName(User user) => Column(
       children: [
         Text(
-          user.name,
+          name,
           style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
         ),
         Text(
-          user.email,
+          surName,
           style: TextStyle(color: Colors.grey),
         ),
       ],

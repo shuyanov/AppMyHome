@@ -6,7 +6,6 @@ import 'package:command_flutter/main.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mysql_client/mysql_client.dart';
 
 import 'HomePage.dart';
@@ -33,8 +32,7 @@ class LoginPage extends StatelessWidget {
       padding: EdgeInsets.only(top: 400, bottom: 60),
     );
   }
-  ///////////////
-//////////////////
+
 //////////////////
   Widget _form(){
     return Container(
@@ -135,8 +133,8 @@ class LoginPage extends StatelessWidget {
       final conn = await MySQLConnection.createConnection(
         host: "185.231.155.185",
         port: 3306,
-        userName: "user",
-        password: "password",
+        userName: "appUser",
+        password: "123879",
         databaseName: "data", // optional
       );
       await conn.connect();
