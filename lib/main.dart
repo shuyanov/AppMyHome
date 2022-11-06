@@ -1,5 +1,7 @@
 import 'package:command_flutter/HomePage.dart';
 import 'package:command_flutter/LoginPage.dart';
+import 'package:command_flutter/RegisterPage.dart';
+import 'package:command_flutter/SendInEmail.dart';
 import 'package:command_flutter/loadingPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -11,6 +13,7 @@ Future main() async {
   await Firebase.initializeApp();
 
   //await base.addUsers(users);
+  runApp(Send());
   runApp(MyApp());
 }
 // void main() => runApp(MyApp());

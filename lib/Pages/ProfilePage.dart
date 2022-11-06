@@ -26,6 +26,7 @@ class _ProfileePageState extends State<ProfileePage> {
     _GetDataFromJson();
     super.initState();
 
+
     print(name);
     print(surName);
   }
@@ -39,8 +40,44 @@ class _ProfileePageState extends State<ProfileePage> {
         surName = UserActual.surname;
       }
 
+
   @override
   Widget build(BuildContext context) {
+
+    final user = UserPereferences.myUser;
+
+    Timer(Duration(seconds: 3), () {
+      print("3 Seconds");
+      print(name);
+      print(surName);
+    });
+
+    return Scaffold(
+      body:
+      Container(
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: ListView(
+            physics: BouncingScrollPhysics(),
+            children: [
+              ProfileWidget(
+                imagePatch: user.imagePath,
+                onCliced: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => EditProfilePage())
+                  );
+                },
+              ),
+              const SizedBox(height: 12),
+              buildName(user),
+              const SizedBox(height: 340),
+              Expanded(// кнопка
+                child: Align(
+                    alignment: Alignment(1, 1),
+                    child: buildExitProfileButton()),
+              ),
+            ],
+          ),
     // return Scaffold(
     //   body:
     //   Container(
