@@ -23,27 +23,29 @@ class _ProfileePageState extends State<ProfileePage> {
 
   @override
   void initState() {
-    void GetDataFromJson() async{
-      final directory = await pathProvider.getApplicationSupportDirectory();
-      final fileDirectory = directory.path + '/datas.json';
-      final file = File(fileDirectory);
-
-      final json = jsonDecode(await file.readAsString());
-
-      var UserActual = new Usersed.fromJson(json['user']);
-
-      name = UserActual.login;
-      surName = UserActual.surname;
-    }
-
-    GetDataFromJson();
+    _GetDataFromJson();
     super.initState();
   }
 
-  void r (){}
+
+
+  void _GetDataFromJson() async{
+        final directory = await pathProvider.getApplicationSupportDirectory();
+        final fileDirectory = directory.path + '/datas.json';
+        final file = File(fileDirectory);
+
+        final json = jsonDecode(await file.readAsString());
+
+        var UserActual = new Usersed.fromJson(json['user']);
+
+        name = UserActual.login;
+        surName = UserActual.surname;
+      }
+
+
   @override
   Widget build(BuildContext context) {
-   r();
+
     final user = UserPereferences.myUser;
 
     Timer(Duration(seconds: 3), () {
@@ -53,9 +55,8 @@ class _ProfileePageState extends State<ProfileePage> {
     });
 
     return Scaffold(
-      backgroundColor: Color.fromARGB( 200, 105, 193, 238),
-      //appBar: buildAppBar(context),
-      body: Container(
+      body:
+      Container(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: ListView(
@@ -71,21 +72,14 @@ class _ProfileePageState extends State<ProfileePage> {
               ),
               const SizedBox(height: 12),
               buildName(user),
-              const SizedBox(height: 12),
-              const SizedBox(height: 330),
-              Expanded(
+              const SizedBox(height: 340),
+              Expanded(// кнопка
                 child: Align(
                     alignment: Alignment(1, 1),
                     child: buildExitProfileButton()),
               ),
             ],
           ),
-        ),
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/ful.png'),
-                fit: BoxFit.cover
-            )
         ),
       ),
     );
@@ -109,9 +103,9 @@ class _ProfileePageState extends State<ProfileePage> {
     onClicked: (){
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => LoginPage())
-      );
-    },
-  );
+        );
+      },
+    );
   }
 
 

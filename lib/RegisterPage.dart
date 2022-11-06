@@ -325,10 +325,10 @@ class RegisterPage extends StatelessWidget {
     print("data: login = ${email} surname = ${surname} name = ${name} middle_Name = ${middleName} password = ${password} code = ${code}");
     emailController.clear();
     passwordController.clear();
-    nameController.clear();
-    codeController.clear();
-    surnameController.clear();
-    middleNameController.clear();
+    // nameController.clear();
+    // codeController.clear();
+    // surnameController.clear();
+    // middleNameController.clear();
     runApp(LoginPage());
   }
 
@@ -364,42 +364,6 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-/////////////////
-  Widget _inputNumber(Icon icon, String hint, TextEditingController controller,
-      bool hidden) {
-    return Container(
-      padding: EdgeInsets.only(right: 20, left: 20),
-      child: TextField(
-        inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-        keyboardType: TextInputType.number,
-        controller: controller,
-        obscureText: hidden,
-        style: TextStyle(fontSize: 20, color: Colors.grey),
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          ),
-          hintStyle: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.grey),
-          hintText: hint,
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey, width: 3)
-          ),
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey, width: 1)
-          ),
-          prefixIcon: Padding(padding: EdgeInsets.only(left: 10, right: 10),
-            child: IconTheme(
-              data: IconThemeData(
-                  color: Colors.yellow
-              ),
-              child: icon,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 /////////////////
 
   Widget build(BuildContext context) {
