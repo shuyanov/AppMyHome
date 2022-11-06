@@ -53,14 +53,14 @@ class mainPageRegLog extends StatelessWidget {
 
          Scaffold(
             backgroundColor: Colors.cyan,
-                              body:  Padding(
-                          padding: EdgeInsets.only(top: 360),
-                      child: Align(
-              alignment: Alignment(0,0),
-              child: Column(
-                children: <Widget>[
-                  _regButton(),
-                  _logPageButton(),
+           body:  Padding(
+             padding: EdgeInsets.only(top: 360),
+             child: Align(
+               alignment: Alignment(0,0),
+                child: Column(
+                  children: <Widget>[
+                    _regButton(),
+                    _logPageButton(),
                 ],
               ),
             ),
