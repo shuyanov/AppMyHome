@@ -14,6 +14,16 @@ class LoginPage extends StatelessWidget {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  //MS
+  TextEditingController nameController = TextEditingController();
+  TextEditingController surNameController = TextEditingController();
+  TextEditingController middleNameController = TextEditingController();
+
+  String name = "";
+  String surName = "";
+  String middleName = "";
+  //MS
+
   bool logged = false;
   String email = "";
   String password = "";
@@ -123,6 +133,12 @@ class LoginPage extends StatelessWidget {
     Future<void> _LoginButtonActio() async {
       email = emailController.text;
       password = passwordController.text;
+      //MS
+      name = nameController.text;
+      surName = surNameController.text;
+      middleName = middleNameController.text;
+      //MS
+
       print("login: login = ${email} password = ${password}");
 
       emailController.clear();
@@ -150,7 +166,7 @@ class LoginPage extends StatelessWidget {
           logged = true;
 //запись в json
           Timer(Duration(seconds: 1), () {
-            if(logged) {runApp(MyApp()); PushToJson(email, password, "no", "no", "no", "no"); };
+            if(logged) {runApp(MyApp()); PushToJson(email, password, name, surName, middleName, "no"); };
             print("Yeah, this line is printed after 3 seconds");
             return logged ? runApp(MyApp()) : runApp(LoginPage());
           });

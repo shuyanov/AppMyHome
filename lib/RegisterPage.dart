@@ -226,10 +226,10 @@ class RegisterPage extends StatelessWidget {
     print("data: login = ${email} surname = ${surname} name = ${name} middle_Name = ${middleName} password = ${password} code = ${code}");
     emailController.clear();
     passwordController.clear();
-    nameController.clear();
-    codeController.clear();
-    surnameController.clear();
-    middleNameController.clear();
+    // nameController.clear();
+    // codeController.clear();
+    // surnameController.clear();
+    // middleNameController.clear();
     runApp(LoginPage());
   }
 
@@ -266,9 +266,6 @@ class RegisterPage extends StatelessWidget {
   }
 
 /////////////////
-
-/////////////////
-
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
