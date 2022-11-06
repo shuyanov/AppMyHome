@@ -21,92 +21,48 @@ class LoginPage extends StatelessWidget {
 
   @override
 ////////////////////
- /* Widget _logo(){
+  Widget _logo(){
     return Container(
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/logo1.png'),
-                  fit: BoxFit.cover
-              )
-            ),
-            padding: EdgeInsets.only(top: 500),
-          )
-        ],
-      ),
-      *//*decoration: BoxDecoration(
+      decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/logo1.png'),
               fit: BoxFit.cover
           )
       ),
-      padding: EdgeInsets.only(top: 400, bottom: 60),*//*
+      padding: EdgeInsets.only(top: 400, bottom: 60),
     );
-  }*/
+  }
+
 //////////////////
   Widget _form(){
     return Container(
 
-      child: Stack(
+      child: Column(
         children: [
-          Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/logo.png'),
-                    fit: BoxFit.cover
-                )
-            ),
-            padding: EdgeInsets.only(top: 300, bottom: 70),
-            margin: EdgeInsets.only(left: 20,),
+
+          Padding(
+            padding: EdgeInsets.only(bottom: 20, top: 10),
+            child: _input(Icon(Icons.email), "+7-912-345-67-89", emailController, false),
           ),
-          Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/ful.png'),
-                    fit: BoxFit.cover
-                )
-            ),
+
+          Padding(
+            padding: EdgeInsets.only(bottom: 20,),
+            child: _input(Icon(Icons.lock), "PASSWORD", passwordController, true),
+          ),
+
+          SizedBox(height: 20,),
+          Padding(
+              child: Container(
+                height: 60,
+                width: 150,
+                child: _logButton(),
+
+              ),
               padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 )
           ),
-           Container(
-             padding: EdgeInsets.only(top: 330),
-             child: Column(
-               children: [
-                 Padding(
-                   padding: EdgeInsets.only(bottom: 20, top: 10),
-                   child: _input(Icon(Icons.email), "+7-912-345-67-89", emailController, false),
-                 ),
 
-                 Padding(
-                   padding: EdgeInsets.only(bottom: 20,),
-                   child: _input(Icon(Icons.lock), "PASSWORD", passwordController, true),
-                 ),
-
-                 SizedBox(height: 20,),
-                 Padding(
-                     child: Container(
-                       height: 60,
-                       width: 150,
-                       child: _logButton(),
-                       //_button(),
-                     ),
-                     padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 )
-                 ),
-                 Padding(
-                   child: Container(
-                     height: 60,
-                     width: 150,
-                     child: _regButton(),
-                   ),
-                   padding: EdgeInsets.only(left: 20, right: 20,bottom: 10),
-                 ),
-               ],
-             ),
-           ),
         ],
-      )
+      ),
     );
   }
 ///////////////////
@@ -133,7 +89,7 @@ class LoginPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(32.0),
             ),
           ),
-        ),
+        )
     );
   }
 //////////////////
@@ -177,8 +133,8 @@ class LoginPage extends StatelessWidget {
       final conn = await MySQLConnection.createConnection(
         host: "185.231.155.185",
         port: 3306,
-        userName: "user",
-        password: "password",
+        userName: "appUser",
+        password: "123879",
         databaseName: "data", // optional
       );
       await conn.connect();
@@ -232,13 +188,13 @@ class LoginPage extends StatelessWidget {
         obscureText: hidden,
         style: TextStyle(fontSize: 20, color: Colors.white),
         decoration: InputDecoration(
-          hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white38),
+          hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white30),
           hintText: hint,
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white, width: 3)
           ),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white38, width: 1)
+              borderSide: BorderSide(color: Colors.white54, width: 1)
           ),
           prefixIcon: Padding(padding: EdgeInsets.only(left: 10, right: 10),
             child: IconTheme(
@@ -262,9 +218,11 @@ class LoginPage extends StatelessWidget {
         backgroundColor: Color.fromARGB(200, 105, 193, 238),
         body:
         SingleChildScrollView(
-           child: Column(
-              children: <Widget>[
+          child: Column(
+            children: <Widget>[
+              _logo(),
               _form(),
+              _regButton(),
             ],
           ),
         )
