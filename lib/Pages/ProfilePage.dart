@@ -20,13 +20,11 @@ class _ProfileePageState extends State<ProfileePage> {
   String name = "";
   String surName = "";
 
-
   @override
   void initState() {
     _GetDataFromJson();
     super.initState();
   }
-
 
   void _GetDataFromJson() async{
         final directory = await pathProvider.getApplicationSupportDirectory();
@@ -45,40 +43,81 @@ class _ProfileePageState extends State<ProfileePage> {
   Widget build(BuildContext context) {
     final user = UserPereferences.myUser;
 
-    Timer(Duration(seconds: 3), () {
-      print("3 Seconds");
-      print(name);
-      print(surName);
-    });
-
-    return Scaffold(
-      body:
-      Container(
-        child: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: ListView(
-            physics: BouncingScrollPhysics(),
+    // return Scaffold(
+    //   body:
+    //   Container(
+    //     child: Padding(
+    //       padding: const EdgeInsets.all(16),
+    //       child:
+    //       Row(
+    //         children: [
+    //           Expanded(
+    //             flex: 3,
+    //               child:
+    //               ProfileWidget(
+    //                 imagePatch: user.imagePath,
+    //                 onCliced: () {
+    //                   Navigator.of(context).push(
+    //                       MaterialPageRoute(builder: (context) => EditProfilePage())
+    //                   );
+    //                 },
+    //               ),),
+    //           Expanded(child: buildName(user))
+    //
+    //         ],
+    //       )
+    //       // child: ListView(
+    //       //   physics: BouncingScrollPhysics(),
+    //       //   children: [
+    //       //     ProfileWidget(
+    //       //       imagePatch: user.imagePath,
+    //       //       onCliced: () {
+    //       //         Navigator.of(context).push(
+    //       //             MaterialPageRoute(builder: (context) => EditProfilePage())
+    //       //         );
+    //       //       },
+    //       //     ),
+    //       //     const SizedBox(height: 12),
+    //       //     buildName(user),
+    //       //     const SizedBox(height: 340),
+    //       //     Expanded(// кнопка
+    //       //       child: Align(
+    //       //           alignment: Alignment(1, 1),
+    //       //           child: buildExitProfileButton()),
+    //       //     ),
+    //       //   ],
+    //       // ),
+    //     ),
+    //   ),
+    // );
+    return Padding(
+        padding: const EdgeInsets.all(30),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Row(
+          children: [
+            Expanded(
+                flex: 3,
+                child: ProfileWidget(
+                  imagePatch: user.imagePath,
+                  onCliced: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => EditProfilePage())
+                      );
+                    },
+                ),
+            ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: Row(
             children: [
-              ProfileWidget(
-                imagePatch: user.imagePath,
-                onCliced: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => EditProfilePage())
-                  );
-                },
-              ),
-              const SizedBox(height: 12),
-              buildName(user),
-              const SizedBox(height: 340),
-              Expanded(// кнопка
-                child: Align(
-                    alignment: Alignment(1, 1),
-                    child: buildExitProfileButton()),
-              ),
+              Text("DATA")
             ],
           ),
+        )
+          ],
         ),
-      ),
+      )
     );
   }
 

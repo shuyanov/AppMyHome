@@ -11,7 +11,7 @@ Future main() async {
   await Firebase.initializeApp();
 
   //await base.addUsers(users);
-  runApp(LoadingPage());
+  runApp(MyApp());
 }
 // void main() => runApp(MyApp());
 
