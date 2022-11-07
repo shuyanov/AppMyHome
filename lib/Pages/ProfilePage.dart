@@ -52,79 +52,6 @@ class _ProfileePageState extends State<ProfileePage> {
       print(surName);
     });
 
-    return Scaffold(
-      body:
-      Container(
-        child: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: ListView(
-            physics: BouncingScrollPhysics(),
-            children: [
-              ProfileWidget(
-                imagePatch: user.imagePath,
-                onCliced: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => EditProfilePage())
-                  );
-                },
-              ),
-              const SizedBox(height: 12),
-              buildName(user),
-              const SizedBox(height: 340),
-              Expanded(// кнопка
-                child: Align(
-                    alignment: Alignment(1, 1),
-                    child: buildExitProfileButton()),
-              ),
-            ],
-          ),
-    // return Scaffold(
-    //   body:
-    //   Container(
-    //     child: Padding(
-    //       padding: const EdgeInsets.all(16),
-    //       child:
-    //       Row(
-    //         children: [
-    //           Expanded(
-    //             flex: 3,
-    //               child:
-    //               ProfileWidget(
-    //                 imagePatch: user.imagePath,
-    //                 onCliced: () {
-    //                   Navigator.of(context).push(
-    //                       MaterialPageRoute(builder: (context) => EditProfilePage())
-    //                   );
-    //                 },
-    //               ),),
-    //           Expanded(child: buildName(user))
-    //         ],
-    //       )
-    //       // child: ListView(
-    //       //   physics: BouncingScrollPhysics(),
-    //       //   children: [
-    //       //     ProfileWidget(
-    //       //       imagePatch: user.imagePath,
-    //       //       onCliced: () {
-    //       //         Navigator.of(context).push(
-    //       //             MaterialPageRoute(builder: (context) => EditProfilePage())
-    //       //         );
-    //       //       },
-    //       //     ),
-    //       //     const SizedBox(height: 12),
-    //       //     buildName(user),
-    //       //     const SizedBox(height: 340),
-    //       //     Expanded(// кнопка
-    //       //       child: Align(
-    //       //           alignment: Alignment(1, 1),
-    //       //           child: buildExitProfileButton()),
-    //       //     ),
-    //       //   ],
-    //       // ),
-    //     ),
-    //   ),
-    // );
-
     return Column(
       children: [
         Container(
@@ -138,7 +65,7 @@ class _ProfileePageState extends State<ProfileePage> {
               child: buildEditProfileButton(),
             )
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 60),
         Padding(
             padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
             child: Container(

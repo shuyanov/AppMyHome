@@ -54,12 +54,10 @@ class LoginPage extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 20, top: 10),
             child: _input(Icon(Icons.email), "+7-912-345-67-89", emailController, false),
           ),
-
           Padding(
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(Icon(Icons.lock), "PASSWORD", passwordController, true),
           ),
-
           SizedBox(height: 20,),
           Padding(
               child: Container(
