@@ -11,6 +11,8 @@ import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:command_flutter/Widget/ProfileWidget.dart';
 import 'package:flutter/material.dart';
 
+import 'TestPage.dart';
+
 class ProfileePage extends StatefulWidget {
   const ProfileePage({Key? key}) : super(key: key);
   @override
@@ -158,7 +160,7 @@ class _ProfileePageState extends State<ProfileePage> {
     text:'Лицевой Счёт',
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => EditProfilePage())
+          MaterialPageRoute(builder: (context) => SecondScreen())
       );
     },
   );
@@ -167,7 +169,7 @@ class _ProfileePageState extends State<ProfileePage> {
     text:'Обращение в УК',
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => EditProfilePage())
+          MaterialPageRoute(builder: (context) => SecondScreen())
       );
     },
   );
@@ -176,7 +178,7 @@ class _ProfileePageState extends State<ProfileePage> {
     text:'Сообщить о проблеме',
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => EditProfilePage())
+          MaterialPageRoute(builder: (context) => SecondScreen())
       );
     },
   );
@@ -185,7 +187,7 @@ class _ProfileePageState extends State<ProfileePage> {
     text:'Обратиться к ремонтным служюам',
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => EditProfilePage())
+          MaterialPageRoute(builder: (context) => SecondScreen())
       );
     },
   );
@@ -194,7 +196,7 @@ class _ProfileePageState extends State<ProfileePage> {
     text:'Настройки',
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => EditProfilePage())
+          MaterialPageRoute(builder: (context) => SecondScreen())
       );
     },
   );
