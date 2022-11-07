@@ -1,8 +1,8 @@
-import 'package:command_flutter/Chats/Data/Admin.dart';
-import 'package:command_flutter/Chats/Models/User.dart';
-import 'package:command_flutter/Chats/Pages/ChatPage.dart';
-import 'package:command_flutter/Chats/Pages/SearchUserPage.dart';
-import 'package:command_flutter/Chats/api/firebase.dart';
+import '/Chats/Data/Admin.dart';
+import '/Chats/Models/User.dart';
+import '/Chats/Pages/ChatPage.dart';
+import '/Chats/Pages/SearchUserPage.dart';
+import '/Chats/api/firebase.dart';
 import 'package:flutter/material.dart';
 
 

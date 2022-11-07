@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:command_flutter/Chats/Widgets/single_message.dart';
+import '/Chats/Widgets/single_message.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatelessWidget {
@@ -9,14 +9,13 @@ class ChatPage extends StatelessWidget {
   final String friendDescription;
   final String friendImage;
 
-  ChatPage({
-    required this.currentUserId,
-    required this.friendId,
-    required this.friendName,
-    required this.friendDescription,
-    required this.friendImage,
-    super.key
-  });
+  ChatPage(
+      {required this.currentUserId,
+      required this.friendId,
+      required this.friendName,
+      required this.friendDescription,
+      required this.friendImage,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +27,18 @@ class ChatPage extends StatelessWidget {
               radius: 20.0,
               backgroundImage: NetworkImage(friendImage),
             ),
-            title: Text(friendName, style: TextStyle(color: Colors.white),),
-            subtitle: Text(friendDescription, style: TextStyle(color: Colors.white)),
+            title: Text(
+              friendName,
+              style: TextStyle(color: Colors.white),
+            ),
+            subtitle:
+                Text(friendDescription, style: TextStyle(color: Colors.white)),
           ),
         ),
         body: Column(
           children: [
             Expanded(
                 child: Container(
-              padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -145,33 +147,34 @@ class _newMessageState extends State<newMessage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Padding(
-        padding: EdgeInsets.all(12),
-        child: Row(
-          children: [
-            Expanded(
-              child: Flexible(
-                child: SizedBox(
-                  child: TextFormField(
-                    controller: _controller,
-                    scrollPadding: EdgeInsets.all(1),
-                    decoration: InputDecoration(
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 1, horizontal: 10),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50.0)),
-                        hintText: "Напишите сообщение..."),
-                  ),
+      color: Colors.grey[100],
+      child: Row(
+        children: [
+          Expanded(
+            child: Flexible(
+              child: SizedBox(
+                child: TextFormField(
+                  minLines: 1,
+                  maxLines: 2,
+                  controller: _controller,
+                  scrollPadding: EdgeInsets.all(1),
+                  decoration: InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                      border: InputBorder.none,
+                      //OutlineInputBorder(
+                      //borderRadius: BorderRadius.circular(50.0)),
+                      hintText: "Напишите сообщение..."),
                 ),
               ),
             ),
-            IconButton(
-                onPressed: () async {
-                  sendMessage();
-                },
-                icon: Icon(Icons.send))
-          ],
-        ),
+          ),
+          IconButton(
+              onPressed: () async {
+                sendMessage();
+              },
+              icon: Icon(Icons.send))
+        ],
       ),
     );
   }
