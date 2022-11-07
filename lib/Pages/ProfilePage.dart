@@ -60,8 +60,8 @@ class _ProfileePageState extends State<ProfileePage> {
         Padding(
             padding: EdgeInsets.only(left: 200),
             child: Container(
-              height: 30,
-              width: 130,
+              height: 40,
+              width: 160,
               child: buildEditProfileButton(),
             )
         ),
@@ -71,7 +71,7 @@ class _ProfileePageState extends State<ProfileePage> {
             child: Container(
               height: 30,
               width: 330,
-              child: buildExitProfileButton(),
+              child: buildPersonalBillButton(),
             )
         ),
         SizedBox(height: 10),
@@ -80,7 +80,7 @@ class _ProfileePageState extends State<ProfileePage> {
             child: Container(
               height: 30,
               width: 330,
-              child: buildExitProfileButton(),
+              child: build_UK_Button(),
             )
         ),
         SizedBox(height: 10),
@@ -89,7 +89,7 @@ class _ProfileePageState extends State<ProfileePage> {
             child: Container(
               height: 30,
               width: 330,
-              child: buildExitProfileButton(),
+              child: build_Problem_Button(),
             )
         ),
         SizedBox(height: 10),
@@ -98,7 +98,7 @@ class _ProfileePageState extends State<ProfileePage> {
             child: Container(
               height: 30,
               width: 330,
-              child: buildExitProfileButton(),
+              child:  build_worker_Button(),
             )
         ),
         SizedBox(height: 100),
@@ -107,7 +107,7 @@ class _ProfileePageState extends State<ProfileePage> {
             child: Container(
               height: 30,
               width: 330,
-              child: buildExitProfileButton(),
+              child: build_Setting_Button(),
             )
         ),
         SizedBox(height: 10),
@@ -137,7 +137,7 @@ class _ProfileePageState extends State<ProfileePage> {
     );
 
   Widget buildExitProfileButton() => ButtonWidget(
-    text:'Exit',
+    text:'Выход',
     onClicked: (){
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => LoginPage())
@@ -146,13 +146,59 @@ class _ProfileePageState extends State<ProfileePage> {
     );
 
   Widget buildEditProfileButton() => ButtonWidget(
-    text:'Edit',
+    text:'Редактировать',
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => LoginPage())
+          MaterialPageRoute(builder: (context) => EditProfilePage())
       );
     },
   );
+
+  Widget buildPersonalBillButton() => ButtonWidget(
+    text:'Лицевой Счёт',
+    onClicked: (){
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => EditProfilePage())
+      );
+    },
+  );
+
+  Widget build_UK_Button() => ButtonWidget(
+    text:'Обращение в УК',
+    onClicked: (){
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => EditProfilePage())
+      );
+    },
+  );
+
+  Widget build_Problem_Button() => ButtonWidget(
+    text:'Сообщить о проблеме',
+    onClicked: (){
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => EditProfilePage())
+      );
+    },
+  );
+
+  Widget build_worker_Button() => ButtonWidget(
+    text:'Обратиться к ремонтным служюам',
+    onClicked: (){
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => EditProfilePage())
+      );
+    },
+  );
+
+  Widget build_Setting_Button() => ButtonWidget(
+    text:'Настройки',
+    onClicked: (){
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => EditProfilePage())
+      );
+    },
+  );
+
   }
 
 
