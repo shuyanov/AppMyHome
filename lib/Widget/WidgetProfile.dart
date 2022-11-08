@@ -22,10 +22,10 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
   void initState() {
     _GetDataFromJson();
     super.initState();
-
+    print("object");
     print(name);
-    print(surName);
   }
+
   void _GetDataFromJson() async{
     final directory = await pathProvider.getApplicationSupportDirectory();
     final fileDirectory = directory.path + '/datas.json';
@@ -37,6 +37,9 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
 
     name = UserActual.login;
     surName = UserActual.surname;
+    setState(() {});
+    text:'Edit';
+    print(name);
   }
 
   @override
@@ -72,7 +75,7 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
                     const SizedBox(height: 12),
                     Padding(
                       padding: const EdgeInsets.only(top: 40, left: 20),
-                      child: Text("SurName", style: TextStyle(fontSize: 16, color: Colors.grey),),
+                      child: Text(surName, style: TextStyle(fontSize: 16, color: Colors.grey),),
                     ),
                   ],
                 ),

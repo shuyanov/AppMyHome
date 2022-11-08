@@ -1,7 +1,6 @@
 import 'package:command_flutter/Model/User.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
-import 'package:command_flutter/Widget/TextFiel.dart';
 import 'package:flutter/material.dart';
 import '../Widget/ProfileWidget.dart';
 
@@ -16,11 +15,13 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   User user = UserPereferences.myUser;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController Midle_nameController = TextEditingController();
   TextEditingController SurnameController = TextEditingController();
+
   String email = '';
   String password = '';
   String name = '';
@@ -103,30 +104,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
             onChanged: (name) {},
           ),
           const SizedBox(height: 24),
-          // TextFieldWidget(
-          //   lable: "Email",
-          //   text: user.email,
-          //   onChanged: (email) {},
-          // ),
-          // const SizedBox(height: 24),
-          // TextFieldWidget(
-          //   lable: "Phone Number",
-          //   text: user.numberPhone,
-          //   onChanged: (numberPhone) {},
-          // ),
-          // const SizedBox(height: 24),
-          // TextFieldWidget(
-          //   lable: "About",
-          //   text: user.about,
-          //   onChanged: (about) {},
-          // ),
-          // const SizedBox(height: 24),
-          // TextFieldWidget(
-          //   lable: "About",
-          //   text: user.about,
-          //   onChanged: (about) {},
-          // ),
-          // const SizedBox(height: 24),
           Expanded(
               child: Align(
                 alignment: Alignment(1,1),
@@ -149,7 +126,7 @@ Widget buildEditProfileButton() => ButtonWidget(
         nameController.text,
         Midle_nameController.text,
         SurnameController.text,
-      "1413"
+        "1413"
     );
   },
   );

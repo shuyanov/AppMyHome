@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
+
+import 'package:command_flutter/Widget/ButtonWidgetProfile.dart';
 import 'package:command_flutter/Widget/WidgetProfile.dart';
-import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:command_flutter/LoginPage.dart';
 import 'package:command_flutter/Model/User.dart';
 import 'package:command_flutter/Pages/EditProfilePage.dart';
@@ -10,6 +9,9 @@ import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:command_flutter/Widget/ProfileWidget.dart';
 import 'package:flutter/material.dart';
+
+
+import 'package:flutter/services.dart';
 
 import 'TestPage.dart';
 
@@ -20,33 +22,12 @@ class ProfileePage extends StatefulWidget {
 }
 
 class _ProfileePageState extends State<ProfileePage> {
+
   String name = "";
   String surName = "";
 
   @override
-  void initState() {
-    _GetDataFromJson();
-    super.initState();
-
-
-    print(name);
-    print(surName);
-  }
-  void _GetDataFromJson() async{
-        final directory = await pathProvider.getApplicationSupportDirectory();
-        final fileDirectory = directory.path + '/datas.json';
-        final file = File(fileDirectory);
-        final json = jsonDecode(await file.readAsString());
-        var UserActual = new Usersed.fromJson(json['user']);
-        name = UserActual.login;
-        surName = UserActual.surname;
-      }
-
-
-  @override
   Widget build(BuildContext context) {
-
-    final user = UserPereferences.myUser;
 
     Timer(Duration(seconds: 3), () {
       print("3 Seconds");
@@ -54,56 +35,98 @@ class _ProfileePageState extends State<ProfileePage> {
       print(surName);
     });
 
+    const snackBar = SnackBar(
+      content: Text('Yay! A SnackBar!'),
+    );
     return Column(
       children: [
         Container(
-          child: WidgetProfileName()
+          child: Stack(
+            children: [
+              WidgetProfileName(),
+              // Редактирование профиля
+              // SizedBox(height: 100),
+              // Padding(
+              //     padding: EdgeInsets.only(left: 200),
+              //     child: Container(
+              //       height: 40,
+              //       width: 160,
+              //       child: buildEditProfileButton(),
+              //     )
+              // ),
+            ],
+          )
         ),
-        Padding(
-            padding: EdgeInsets.only(left: 200),
-            child: Container(
-              height: 40,
-              width: 160,
-              child: buildEditProfileButton(),
-            )
-        ),
-        SizedBox(height: 60),
         Padding(
             padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
             child: Container(
               height: 30,
               width: 330,
               child: buildPersonalBillButton(),
-            )
+            ),
+                ),
+        ////
+        SizedBox(height: 180),
+        Center(
+          child: Expanded(
+              child: Row(
+                children: [
+                  SizedBox(width: 30),
+                  Stack(
+                    children: [
+                      Container(
+                        height: 100,
+                        width: 100,
+                        child: build_UK_Button(),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 15),
+                  Container(
+                    height: 100,
+                    width: 100,
+                    child: build_Problem_Button(),
+                  ),
+                  SizedBox(width: 15),
+                  Container(
+                    height: 100,
+                    width: 100,
+                    child:  build_worker_Button(),
+                  )
+                ],
+              )),
         ),
-        SizedBox(height: 10),
-        Padding(
-            padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
-            child: Container(
-              height: 30,
-              width: 330,
-              child: build_UK_Button(),
-            )
+        SizedBox(height: 5),
+        Center(
+          child: Expanded(
+              child: Row(
+                children: [
+                  SizedBox(width: 45),
+                  Column(
+                    children: [
+                      Text("Обращение", style: TextStyle(fontSize: 14, color: Colors.white30)),
+                      Text("в УК", style: TextStyle(fontSize: 14, color: Colors.white30)),
+                    ],
+                  ),
+                  SizedBox(width: 38),
+                  Column(
+                    children: [
+                      Text("Сообщить", style: TextStyle(fontSize: 14, color: Colors.white30)),
+                      Text("О проблеме", style: TextStyle(fontSize: 14, color: Colors.white30)),
+                    ],
+                  ),
+                  SizedBox(width: 20),
+                  Column(
+                    children: [
+                      Text("Вызов  ", style: TextStyle(fontSize: 14, color: Colors.white30)),
+                      Text("Ремонтых Служб", style: TextStyle(fontSize: 14, color: Colors.white30)),
+                    ],
+                  ),
+                ],
+              )),
         ),
-        SizedBox(height: 10),
-        Padding(
-            padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
-            child: Container(
-              height: 30,
-              width: 330,
-              child: build_Problem_Button(),
-            )
-        ),
-        SizedBox(height: 10),
-        Padding(
-            padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
-            child: Container(
-              height: 30,
-              width: 330,
-              child:  build_worker_Button(),
-            )
-        ),
-        SizedBox(height: 100),
+        SizedBox(height: 30),
+        ////
         Padding(
             padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
             child: Container(
@@ -159,14 +182,15 @@ class _ProfileePageState extends State<ProfileePage> {
   Widget buildPersonalBillButton() => ButtonWidget(
     text:'Лицевой Счёт',
     onClicked: (){
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => SecondScreen())
-      );
+      Clipboard.setData(new ClipboardData(text: "Лицевой Счёт")).then((_){
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content:Text("Лицевой счёт скопирован")));
+      });
     },
   );
-
-  Widget build_UK_Button() => ButtonWidget(
-    text:'Обращение в УК',
+    ////
+  Widget build_UK_Button() => ButtonWidgetProfile(
+    icon: Icons.message_outlined,
     onClicked: (){
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => SecondScreen())
@@ -174,8 +198,8 @@ class _ProfileePageState extends State<ProfileePage> {
     },
   );
 
-  Widget build_Problem_Button() => ButtonWidget(
-    text:'Сообщить о проблеме',
+  Widget build_Problem_Button() => ButtonWidgetProfile(
+    icon: Icons.sos_outlined,
     onClicked: (){
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => SecondScreen())
@@ -183,24 +207,23 @@ class _ProfileePageState extends State<ProfileePage> {
     },
   );
 
-  Widget build_worker_Button() => ButtonWidget(
-    text:'Обратиться к ремонтным служюам',
+  Widget build_worker_Button() => ButtonWidgetProfile(
+    icon: Icons.person,
     onClicked: (){
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => SecondScreen())
       );
     },
   );
-
+  ////
   Widget build_Setting_Button() => ButtonWidget(
     text:'Настройки',
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => SecondScreen())
+          MaterialPageRoute(builder: (context) => EditProfilePage())
       );
     },
   );
-
   }
 
 
