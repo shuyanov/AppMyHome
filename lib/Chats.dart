@@ -6,6 +6,8 @@ import 'GeneralChats/Data/General.dart';
 import 'GeneralChats/Pages/GeneralPage.dart';
 import 'package:flutter/material.dart';
 
+import 'PushNotifications/PushNotic.dart';
+
 class Chats extends StatefulWidget {
   const Chats({super.key});
 
@@ -14,6 +16,8 @@ class Chats extends StatefulWidget {
 }
 
 class _ChatsState extends State<Chats> {
+
+
   String name = 'Общий чат';
   String name2 = 'Подъезд №2';
   String name3 = '\"УК\"';
@@ -25,8 +29,7 @@ class _ChatsState extends State<Chats> {
       body: SingleChildScrollView(
         reverse: true,
         child: Column(children: [
-          Stack(
-            children: [
+          Stack(children: [
             Positioned(
               child: Container(
                 child: Container(
@@ -40,85 +43,87 @@ class _ChatsState extends State<Chats> {
                 color: Colors.blueAccent,
               ),
             ),
-            Positioned(             
-                  child: Container(
-                    margin: EdgeInsets.only(
-                        left: 15,
-                        right: 15,
-                        //vertical: size.height - size.height * 0.740
-                        top: size.height - size.height * 0.750
-                        // vertical: size.height * 0.2
-                        ),
-                    child: Column(children: [
-                      Card(
-                        child: ListTile(
-                            leading: CircleAvatar(
-                              radius: 20.0,
-                              backgroundImage: NetworkImage(generalUrlAvatar),
-                            ),
-                            title: Text(name),
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => GeneralPage(
-                                      currentUserId: myId,
-                                      currentName: myUsername,
-                                      currentImage: myUrlAvatar,
-                                      generalId: idGeneral,
-                                      generalName: name,
-                                      generalImage: generalUrlAvatar)));
-                            }),
+            Positioned(
+                child: Container(
+              margin: EdgeInsets.only(
+                  left: 15,
+                  right: 15,
+                  //vertical: size.height - size.height * 0.740
+                  top: size.height - size.height * 0.750
+                  // vertical: size.height * 0.2
+                  ),
+              child: Column(children: [
+                Card(
+                  child: ListTile(
+                      // Общий чат
+                      leading: CircleAvatar(
+                        radius: 20.0,
+                        backgroundImage: NetworkImage(generalUrlAvatar),
                       ),
-                      Card(
-                        child: ListTile(
-                            leading: CircleAvatar(
-                              radius: 20.0,
-                              backgroundImage: NetworkImage(generalUrlAvatar),
-                            ),
-                            title: Text(name2),
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => GeneralPage(
-                                      currentUserId: myId,
-                                      currentName: myUsername,
-                                      currentImage: myUrlAvatar,
-                                      generalId: idGeneral2,
-                                      generalName: name2,
-                                      generalImage: generalUrlAvatar)));
-                            }),
+                      title: Text(name),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => GeneralPage(
+                                currentUserId: myId,
+                                currentName: myUsername,
+                                currentImage: myUrlAvatar,
+                                generalId: idGeneral,
+                                generalName: name,
+                                generalImage: generalUrlAvatar)));
+                      }),
+                ),
+                Card(
+                  child: ListTile(
+                      //Подъезд №2
+                      leading: CircleAvatar(
+                        radius: 20.0,
+                        backgroundImage: NetworkImage(generalUrlAvatar),
                       ),
-                      Card(
-                        child: ListTile(
-                            leading: CircleAvatar(
-                              radius: 20.0,
-                              backgroundImage: NetworkImage(generalUrlAvatar),
-                            ),
-                            title: Text(name3),
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => GeneralPage(
-                                      currentUserId: myId,
-                                      currentName: myUsername,
-                                      currentImage: myUrlAvatar,
-                                      generalId: idGeneral3,
-                                      generalName: name3,
-                                      generalImage: generalUrlAvatar)));
-                            }),
+                      title: Text(name2),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => GeneralPage(
+                                currentUserId: myId,
+                                currentName: myUsername,
+                                currentImage: myUrlAvatar,
+                                generalId: idGeneral2,
+                                generalName: name2,
+                                generalImage: generalUrlAvatar)));
+                      }),
+                ),
+                Card(
+                  child: ListTile(
+                      // "УК"
+                      leading: CircleAvatar(
+                        radius: 20.0,
+                        backgroundImage: NetworkImage(generalUrlAvatar),
                       ),
-                      Card(
-                        child: ListTile(
-                            leading: CircleAvatar(
-                              radius: 20.0,
-                              backgroundImage: NetworkImage(myUrlAvatar),
-                            ),
-                            title: Text('Личные сообщения'),
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const OneChats()));
-                            }),
+                      title: Text(name3),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => GeneralPage(
+                                currentUserId: myId,
+                                currentName: myUsername,
+                                currentImage: myUrlAvatar,
+                                generalId: idGeneral3,
+                                generalName: name3,
+                                generalImage: generalUrlAvatar)));
+                      }),
+                ),
+                Card(
+                  child: ListTile(
+                      leading: CircleAvatar(
+                        radius: 20.0,
+                        backgroundImage: NetworkImage(myUrlAvatar),
                       ),
-                    ]),
-                  )),
-          
+                      title: Text('Личные сообщения'),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const OneChats()));
+                      }),
+                ),
+              ]),
+            )),
           ]),
         ]),
       ),
