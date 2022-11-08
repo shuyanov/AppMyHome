@@ -1,8 +1,19 @@
-// String myId = 'b9YFGIpJjzGpJftfLnS6'; // user 1
-// String myId = 'xVSkNmdtTOok2ojNi8xc'; // user 2
-// String myId = 'WRdaItPNahIu28PZ2YV9'; // user 3
-String myId = 'SPTob0jUhDTbTDEQm2Q4'; // user 4
+// String myId = 'b9YFGIpJjzGpJftfLnS6'; // Main
+// String myUsername = 'Main';
+// String myDecription = 'УК';
+// String myUrlAvatar = 'https://avatars.mds.yandex.net/i?id=e3f19061fc32953419cea5c5a238f86c_l-5309503-images-thumbs&n=13';
 
-String myUsername = 'user1';
-String myDecription = 'citizen';
+// String myId = 'xVSkNmdtTOok2ojNi8xc'; // user2
+// String myUsername = 'user2';
+// String myDecription = 'Житель';
+// String myUrlAvatar = 'https://avatars.mds.yandex.net/i?id=e3f19061fc32953419cea5c5a238f86c_l-5309503-images-thumbs&n=13';
+
+// String myId = 'WRdaItPNahIu28PZ2YV9'; // Пользователь3
+// String myUsername = 'Пользователь3';
+// String myDecription = 'Житель';
+// String myUrlAvatar = 'https://avatars.mds.yandex.net/i?id=e3f19061fc32953419cea5c5a238f86c_l-5309503-images-thumbs&n=13';
+
+String myId = 'SPTob0jUhDTbTDEQm2Q4'; // Пользователь4
+String myUsername = 'Пользователь4';
+String myDecription = 'Житель';
 String myUrlAvatar = 'https://avatars.mds.yandex.net/i?id=e3f19061fc32953419cea5c5a238f86c_l-5309503-images-thumbs&n=13';
