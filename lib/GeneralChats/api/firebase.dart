@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:command_flutter/Chats/Data/Admin.dart';
-import 'package:command_flutter/Chats/Models/User.dart';
+import '/Chats/Data/Admin.dart';
+import '/Chats/Models/User.dart';
 
 class baseGeneral {
   static Future addUsers(List<User> users) async {

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:command_flutter/Chats/Data/Admin.dart';
-import 'package:command_flutter/Chats/Pages/ChatPage.dart';
+import '/Chats/Data/Admin.dart';
+import '/Chats/Pages/ChatPage.dart';
 
 import 'package:flutter/material.dart';
 
@@ -19,18 +19,47 @@ class _SearchUserPageState extends State<SearchUserPage> {
       searchResult = [];
       isLoading = true;
     });
+
     await FirebaseFirestore.instance
         .collection('users')
         .where("name", isEqualTo: searchController.text)
         .get()
         .then((value) {
       if (value.docs.length < 1) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Нет такого пользователя.\n(Возможно вы ввели имя не полностью)")));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              "Нет такого пользователя.\n(Возможно вы ввели имя не полностью)"),
+        ));
         setState(() {
           isLoading = false;
         });
-        return;
+      }
+      value.docs.forEach((user) {
+        if (user.data()['name'] != myUsername) {
+          searchResult.add(user.data());
+        }
+      });
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+    void onSearchChanged() async {
+    setState(() {
+      searchResult = [];
+      isLoading = true;
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where("name", isEqualTo: searchController.text)
+        .get()
+        .then((value) {
+      if (value.docs.length < 1) {
+        setState(() {
+          isLoading = false;
+        });
       }
       value.docs.forEach((user) {
         if (user.data()['name'] != myUsername) {
@@ -48,31 +77,26 @@ class _SearchUserPageState extends State<SearchUserPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
-        title: Text("Найти пользователя"),
+        title: TextField(
+          autofocus: true,
+          style: TextStyle(color: Colors.white),
+          controller: searchController,
+          decoration: InputDecoration(
+            hintStyle: TextStyle(color: Colors.white70),
+            hintText: "Введите имя пользователя....",
+            border: InputBorder.none,
+          ),
+          textInputAction: TextInputAction.search,
+          onChanged: (value){
+            onSearchChanged();
+          },
+          onSubmitted: (value) {
+            onSearch();
+          },
+        ),
       ),
       body: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: TextField(
-                    controller: searchController,
-                    decoration: InputDecoration(
-                        hintText: "Введите имя пользователя....",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                  ),
-                ),
-              ),
-              IconButton(
-                  onPressed: () {
-                    onSearch();
-                  },
-                  icon: Icon(Icons.search))
-            ],
-          ),
           if (searchResult.length > 0)
             Expanded(
                 child: ListView.builder(
@@ -80,32 +104,29 @@ class _SearchUserPageState extends State<SearchUserPage> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        leading: CircleAvatar(
-                          child:
-                              Image.network(searchResult[index]['urlAvatar']),
-                        ),
-                        title: Text(searchResult[index]['name']),
-                        subtitle: Text(searchResult[index]['description']),
-                        onTap: (){
-                          setState(() {
-                                searchController.text = "";
-                              });
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ChatPage(
-                                          currentUserId: myId,
-                                          friendId: searchResult[index]
-                                              ['idUser'],
-                                          friendName: searchResult[index]
-                                              ['name'],
-                                          friendDescription: searchResult[index]
-                                              ['description'],
-                                          friendImage: searchResult[index]
-                                              ['urlAvatar'])));
-                        },
-                        trailing: Icon(Icons.message)
-                      );
+                          leading: CircleAvatar(
+                            child:
+                                Image.network(searchResult[index]['urlAvatar']),
+                          ),
+                          title: Text(searchResult[index]['name']),
+                          subtitle: Text(searchResult[index]['description']),
+                          onTap: () {
+                            setState(() {
+                              searchController.text = "";
+                            });
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ChatPage(
+                                        currentUserId: myId,
+                                        friendId: searchResult[index]['idUser'],
+                                        friendName: searchResult[index]['name'],
+                                        friendDescription: searchResult[index]
+                                            ['description'],
+                                        friendImage: searchResult[index]
+                                            ['urlAvatar'])));
+                          },
+                          trailing: Icon(Icons.message));
                     }))
           else if (isLoading == true)
             Center(
