@@ -66,31 +66,31 @@ class _ProfileePageState extends State<ProfileePage> {
             ),
                 ),
         ////
-        SizedBox(height: 180),
+        SizedBox(height: 100),
         Center(
           child: Expanded(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(width: 30),
                   Stack(
                     children: [
                       Container(
-                        height: 100,
-                        width: 100,
+                        height: 80,
+                        width: 80,
                         child: build_UK_Button(),
                       ),
                     ],
                   ),
-                  SizedBox(width: 15),
+                  SizedBox(width: 30),
                   Container(
-                    height: 100,
-                    width: 100,
+                    height: 80,
+                    width: 80,
                     child: build_Problem_Button(),
                   ),
-                  SizedBox(width: 15),
+                  SizedBox(width: 30),
                   Container(
-                    height: 100,
-                    width: 100,
+                    height: 80,
+                    width: 80,
                     child:  build_worker_Button(),
                   )
                 ],
@@ -100,22 +100,23 @@ class _ProfileePageState extends State<ProfileePage> {
         Center(
           child: Expanded(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(width: 45),
+                  SizedBox(width: 30),
                   Column(
                     children: [
                       Text("Обращение", style: TextStyle(fontSize: 14, color: Colors.white30)),
                       Text("в УК", style: TextStyle(fontSize: 14, color: Colors.white30)),
                     ],
                   ),
-                  SizedBox(width: 38),
+                  SizedBox(width: 30),
                   Column(
                     children: [
                       Text("Сообщить", style: TextStyle(fontSize: 14, color: Colors.white30)),
                       Text("О проблеме", style: TextStyle(fontSize: 14, color: Colors.white30)),
                     ],
                   ),
-                  SizedBox(width: 20),
+                  SizedBox(width: 30),
                   Column(
                     children: [
                       Text("Вызов  ", style: TextStyle(fontSize: 14, color: Colors.white30)),
