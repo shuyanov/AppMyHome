@@ -116,7 +116,7 @@ class _ProfileePageState extends State<ProfileePage> {
                       Text("О проблеме", style: TextStyle(fontSize: 14, color: Colors.white30)),
                     ],
                   ),
-                  SizedBox(width: 30),
+                  SizedBox(width: 20),
                   Column(
                     children: [
                       Text("Вызов  ", style: TextStyle(fontSize: 14, color: Colors.white30)),
