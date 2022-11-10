@@ -158,10 +158,10 @@ class LoginPage extends StatelessWidget {
 
       for (final row in result.rows) {
         print(row.colAt(1));
-        print(row.colAt(2));
         if (row.colAt(1) == email && row.colAt(2) == encoding(password)) {
           print("YES MATCH!!! login");
           logged = true;
+
 //запись в json
           Timer(Duration(seconds: 1), () {
             if(logged) {runApp(MyApp()); PushToJson(email, password, name, surName, middleName, "no"); };

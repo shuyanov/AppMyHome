@@ -1,13 +1,10 @@
 import 'dart:async';
-
 import 'package:command_flutter/Widget/ButtonWidgetProfile.dart';
 import 'package:command_flutter/Widget/WidgetProfile.dart';
 import 'package:command_flutter/LoginPage.dart';
 import 'package:command_flutter/Model/User.dart';
 import 'package:command_flutter/Pages/EditProfilePage.dart';
-import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
-import 'package:command_flutter/Widget/ProfileWidget.dart';
 import 'package:flutter/material.dart';
 
 
@@ -35,25 +32,13 @@ class _ProfileePageState extends State<ProfileePage> {
       print(surName);
     });
 
-    const snackBar = SnackBar(
-      content: Text('Yay! A SnackBar!'),
-    );
+
     return Column(
       children: [
         Container(
           child: Stack(
             children: [
               WidgetProfileName(),
-              // Редактирование профиля
-              // SizedBox(height: 100),
-              // Padding(
-              //     padding: EdgeInsets.only(left: 200),
-              //     child: Container(
-              //       height: 40,
-              //       width: 160,
-              //       child: buildEditProfileButton(),
-              //     )
-              // ),
             ],
           )
         ),

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:editable_image/editable_image.dart';
 import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +35,9 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
 
     var UserActual = new Usersed.fromJson(json['user']);
 
-    name = UserActual.login;
+    name = UserActual.name;
     surName = UserActual.surname;
+
     setState(() {});
     text:'Edit';
     print(name);
