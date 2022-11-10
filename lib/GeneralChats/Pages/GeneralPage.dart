@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:command_flutter/GeneralChats/Models/User.dart';
 import '/GeneralChats/Widgets/generalSingleMessage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -90,6 +91,7 @@ class GeneralPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<User> listData;
     int count = 1;
     return Scaffold(
       appBar: AppBar(
@@ -125,7 +127,6 @@ class GeneralPage extends StatelessWidget {
                         child: Text("Скажите что нибудь"),
                       );
                     }
-
                     // return GroupedListView(elements: snapshot.data.docs.length, groupBy: (element))
                     return ListView.builder(
                         itemCount: snapshot.data.docs.length,
@@ -138,52 +139,57 @@ class GeneralPage extends StatelessWidget {
                           var dateFormat = new DateFormat('dd MMMM yyyy');
                           String sendDate2 = dateFormat.format(date.toDate());
                           String name = snapshot.data.docs[index]['senderName'];
-                          // List<String> sendDate = [];
 
-                          // for (int i = snapshot.data.docs.length - 1;
-                          //     i >= 0;
-                          //     i--) {
-                          //   Timestamp date1 = snapshot.data.docs[i]['date'];
-                          //   String sendDate1 =
-                          //       dateFormat.format(date1.toDate());
-                          //   sendDate.add(sendDate1);
-                          // }
+                          List<String> sendDate = [];
 
-                          // List distinctIds = sendDate.toSet().toList();
-                          
-                          
-                          // for (int i = 0; i < sendDate.length; i++) {
-                          //   String dateBlack = sendDate[i];
-                          //   if (sendDate2 != dateBlack) {
-                          //     Column(
-                          //       children: [
-                          //         Text(sendDate2),
-                          //         // generalSingleMessage(
-                          //         //     message: snapshot.data.docs[index]
-                          //         //         ['message'],
-                          //         //     isMe: isMe,
-                          //         //     timeMessage: date,
-                          //         //     name: name,
-                          //         //     generalId: generalId)
-                          //       ],
-                          //     );
+                          for (int i = snapshot.data.docs.length - 1;
+                              i >= 0;
+                              i--) {
+                            Timestamp date1 = snapshot.data.docs[i]['date'];
+                            String sendDate1 =
+                                dateFormat.format(date1.toDate());
+                            sendDate.add(sendDate1);
+                          }
+
+                          List distinctIds = sendDate.toSet().toList();
+                            //   FirebaseFirestore.instance.collection('data')
+                            //  .orderBy("date", "")
+                            //  .onSnapshot((querySnapShot)=>{
+                                 
+                            //   });
+
+                          // for (int i = 0; i < distinctIds.length; i++) {
+                          //   for (int j = 0; j < sendDate.length; j++) {
+                          //     if (distinctIds[i] == sendDate[j]) {
+                          //       // print(generalSingleMessage(
+                          //       //     message: snapshot.data.docs[j]['message'],
+                          //       //     isMe: isMe,
+                          //       //     dateMessage: date,
+                          //       //     name: name,
+                          //       //     generalId: generalId).toString());
+                          //       return generalSingleMessage(
+                          //           message: snapshot.data.docs[j]['message'],
+                          //           isMe: isMe,
+                          //           dateMessage: date,
+                          //           name: name,
+                          //           generalId: generalId);
+    
+                                    
+                          //     }
                           //   }
-                          //   datedd = dateBlack;
-                          //   return generalSingleMessage(
-                          //       message: snapshot.data.docs[i]['message'],
-                          //       isMe: isMe,
-                          //       timeMessage: date,
-                          //       name: name,
-                          //       generalId: generalId);
+                          //   //print(distinctIds[i]);                           
+                          //   return Text(distinctIds[i]);
                           // }
 
+                          // return Container();
                           return Column(
                             children: [
-                              Text(sendDate2),
+                              if (distinctIds[1] != sendDate2[index])
+                              Text(distinctIds[1]),
                                generalSingleMessage(
                                 message: snapshot.data.docs[index]['message'],
                                 isMe: isMe,
-                                timeMessage: date,
+                                dateMessage: date,
                                 name: name,
                                 generalId: generalId)
                             ],

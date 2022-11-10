@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class generalSingleMessage extends StatelessWidget {
   final String message;
   final bool isMe;
-  final Timestamp timeMessage;
+  final Timestamp dateMessage;
   final String name;
   final String generalId;
   // final String dateMessage;
@@ -14,7 +14,7 @@ class generalSingleMessage extends StatelessWidget {
   generalSingleMessage(
       {required this.message,
       required this.isMe,
-      required this.timeMessage,
+      required this.dateMessage,
       required this.name,
       required this.generalId,
       // required this.dateMessage,
@@ -23,11 +23,11 @@ class generalSingleMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var dateFormat = new DateFormat('dd MMMM yyyy');
+    var dateFormat = new DateFormat('dd MMMM yyyy');
     // String dateNow = dateFormat.format(DateTime.now());
-    // String sendDate = dateFormat.format(dateMessage.toDate());
+    String sendDate = dateFormat.format(dateMessage.toDate());
     var format = new DateFormat('HH:mm');
-    String time = format.format(timeMessage.toDate());
+    String time = format.format(dateMessage.toDate());
 
     // String sendDate = FirebaseFirestore.instance
     //     .collection('general')
@@ -35,7 +35,9 @@ class generalSingleMessage extends StatelessWidget {
     //     .collection("chats")
     //     .doc(DateTime.now().toString())
     //     .toString();
-
+    // var hour = dateMessage.toDate().hour;
+    // var minute = dateMessage.toDate().minute;
+    //print ("время сообщений: ${hour}:${minute}");
     return Row(
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
