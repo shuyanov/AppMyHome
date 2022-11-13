@@ -101,7 +101,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 //////////////////
-
 /////////////////
   Widget _logButton(){
     return Container(
@@ -122,7 +121,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 /////////
-
 ////////
   void funcPress(){
 
@@ -223,9 +221,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 /////////////////
-
 /////////////////
-
   Widget build(BuildContext context) {
     print('LoginPage');
     return MaterialApp( home: Scaffold(
