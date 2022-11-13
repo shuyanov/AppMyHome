@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:command_flutter/LoginPage.dart';
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class RegisterPage extends StatelessWidget {
   TextEditingController surnameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController codeController = TextEditingController();
+  TextEditingController returnedPasswordController = TextEditingController();
 
   String email = "";
   String name = "";
@@ -22,54 +24,138 @@ class RegisterPage extends StatelessWidget {
   String surname = "";
   String password = "";
   String code = "";
-
+  String returnedPassword = "";
 
   @override
 ////////////////////
   Widget _logo() {
     return Padding(
-      padding: EdgeInsets.only(top: 100),
+      padding: EdgeInsets.only( bottom: 10),
       child: Container(
         child: Align(
-          child: Text("DOM", style: TextStyle(
-              fontSize: 45, fontWeight: FontWeight.bold, color: Colors.white),),
+          child: Image.asset('assets/mainLogo.png'),
         ),
       ),
     );
   }
+  ////////////////
+  Widget _inputNumbers(Icon icon, String hint, TextEditingController controller,
+      bool hidden) {
+    return Container(
+      padding: EdgeInsets.only(right: 20, left: 20),
+      child: TextField(
+        inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+        keyboardType: TextInputType.number,
+        controller: controller,
+        obscureText: hidden,
+        style: TextStyle(fontSize: 20, color: Colors.purple),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Color.fromARGB(200, 227, 228, 251),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30.0)),
+          hintStyle: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.grey),
+          hintText: hint,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromARGB(200, 227, 228, 251), width: 3),
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromARGB(200, 227, 228, 251), width: 1),
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          prefixIcon: Padding(padding: EdgeInsets.only(left: 20, right: 10),
+            child: IconTheme(
+              data: IconThemeData(
+                  color: Colors.purple
+              ),
+              child: icon,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+//////////////////
+  Widget _input(Icon icon, String hint, TextEditingController controller,
+      bool hidden) {
+    return Container(
+      padding: EdgeInsets.only(right: 20, left: 20),
+      child: TextField(
 
+        controller: controller,
+        obscureText: hidden,
+        style: TextStyle(fontSize: 20, color: Colors.purple),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Color.fromARGB(200, 227, 228, 251),
+        border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30.0)),
+          hintStyle: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.grey),
+          hintText: hint,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromARGB(200, 227, 228, 251), width: 3),
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromARGB(200, 227, 228, 251), width: 1),
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          prefixIcon: Padding(padding: EdgeInsets.only(left: 20, right: 10),
+            child: IconTheme(
+              data: IconThemeData(
+                  color: Colors.purple
+              ),
+              child: icon,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 //////////////////
   Widget _form() {
     return SingleChildScrollView(
       child: Column(
         children: [
-
+          Padding(
+            padding: EdgeInsets.only(left: 18, bottom: 10),
+            child:  Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Text( textAlign: TextAlign.left,  style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold), "РЕГИСТРАЦИЯ"),
+          ),
+          ),
           Padding(
             padding: EdgeInsets.only(bottom: 20, top: 10),
-            child: _input(
+            child: _inputNumbers(
                 Icon(Icons.email), "+7-912-345-67-89", emailController, false),
           ),
 
           Padding(
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(
-                Icon(Icons.account_box_rounded), "Ivanov", surnameController, false),
+                Icon(Icons.account_box_rounded), "Фамилия", surnameController, false),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 20, top: 10),
-            child: _input(Icon(Icons.account_box_rounded), "Ivan", nameController, false),
+            child: _input(Icon(Icons.account_box_rounded), "Имя", nameController, false),
           ),
 
           Padding(
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(
-                Icon(Icons.account_box_rounded), "Ivanowich", middleNameController, false),
+                Icon(Icons.account_box_rounded), "Отчество", middleNameController, false),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 20, top: 10),
-            child: _input(Icon(Icons.lock), "PASSWORD", passwordController, true),
+            child: _input(Icon(Icons.lock), "Пароль", passwordController, true),
           ),
-
+          Padding(
+            padding: EdgeInsets.only(bottom: 20, top: 10),
+            child: _input(Icon(Icons.lock), "Повторите пароль", returnedPasswordController, true),
+          ),
           Padding(
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(Icon(Icons.numbers_outlined), "CODE", codeController, false),
@@ -78,7 +164,7 @@ class RegisterPage extends StatelessWidget {
           Padding(
               child: Container(
                 height: 60,
-                width: 170,
+                width: 270,
                 child: _regButton(),
 //_button(),
               ),
@@ -101,10 +187,10 @@ class RegisterPage extends StatelessWidget {
         height: 42,
         width: 110,
         child: ElevatedButton(
-          child: Text("LOGIN", style: TextStyle(color: Colors.cyan, fontSize: 18)),
+          child: Text("LOGIN", style: TextStyle(color: Colors.white, fontSize: 18)),
           onPressed: (){ print('tap-tap'); return runApp(LoginPage()); },
           style: ElevatedButton.styleFrom(
-            primary: Colors.white,
+            primary: Color.fromARGB(200, 158, 122, 244),
             onPrimary: Colors.cyan,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(32.0),
@@ -118,14 +204,12 @@ class RegisterPage extends StatelessWidget {
 //////////////////
   Widget _regButton(){
     return Container(
-        height: 42,
-        width: 110,
         child: ElevatedButton(
-          child: Text("REGISTER", style: TextStyle(color: Colors.cyan, fontSize: 26)),
+          child: Text("ЗАРЕГИСТРИРОВАТЬСЯ", style: TextStyle(color: Colors.white, fontSize: 20)),
           onPressed: () => funcPress(),
           style: ElevatedButton.styleFrom(
-            primary: Colors.white,
-            onPrimary: Colors.cyan,
+            primary: Color.fromARGB(200, 158, 122, 244),
+            onPrimary: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(32.0),
             ),
@@ -136,11 +220,9 @@ class RegisterPage extends StatelessWidget {
   }
 /////////////////
 
-
 /////////
   String encoding(String value){
     var byte = utf8.encode(value);
-
     var digest = sha256.convert(byte);
     return digest.toString();
   }
@@ -152,10 +234,25 @@ class RegisterPage extends StatelessWidget {
     name = nameController.text;
     surname = surnameController.text;
     middleName = middleNameController.text;
-
-    if(email == "" || password == "" || code == "" || name == "" || surname == "" || middleName == "" ){
+    returnedPassword = returnedPasswordController.text;
+    if(password != returnedPassword){
       Fluttertoast.showToast(
-          msg: "Error! Wrong login or password, try again",
+          msg: "Ошибка! Введенные пароли не совпадают",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb:
+          1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      return ;
+    }
+
+
+    if(email == "" || password == "" || code == "" || name == "" || surname == "" || middleName == "" || returnedPassword == "" ){
+      Fluttertoast.showToast(
+          msg: "Ошибка! Необходимо заполнить все поля",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb:
@@ -185,8 +282,8 @@ class RegisterPage extends StatelessWidget {
     final conn = await MySQLConnection.createConnection(
       host: "185.231.155.185",
       port: 3306,
-      userName: "user",
-      password: "password",
+      userName: "appUser",
+      password: "123879",
       databaseName: "data", // optional
     );
     await conn.connect();
@@ -227,31 +324,31 @@ class RegisterPage extends StatelessWidget {
     print("data: login = ${email} surname = ${surname} name = ${name} middle_Name = ${middleName} password = ${password} code = ${code}");
     emailController.clear();
     passwordController.clear();
-    nameController.clear();
-    codeController.clear();
-    surnameController.clear();
-    middleNameController.clear();
+    // nameController.clear();
+    // codeController.clear();
+    // surnameController.clear();
+    // middleNameController.clear();
     runApp(LoginPage());
   }
 
 //////////////////
-  Widget _input(Icon icon, String hint, TextEditingController controller,
+  Widget _inputBeta(Icon icon, String hint, TextEditingController controller,
       bool hidden) {
     return Container(
       padding: EdgeInsets.only(right: 20, left: 20),
       child: TextField(
         controller: controller,
         obscureText: hidden,
-        style: TextStyle(fontSize: 20, color: Colors.white),
+        style: TextStyle(fontSize: 20, color: Colors.grey),
         decoration: InputDecoration(
           hintStyle: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white30),
+              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.grey),
           hintText: hint,
           focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white, width: 3)
+              borderSide: BorderSide(color: Colors.grey, width: 3)
           ),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white54, width: 1)
+              borderSide: BorderSide(color: Colors.grey, width: 1)
           ),
           prefixIcon: Padding(padding: EdgeInsets.only(left: 10, right: 10),
             child: IconTheme(
@@ -268,12 +365,10 @@ class RegisterPage extends StatelessWidget {
 
 /////////////////
 
-/////////////////
-
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color.fromARGB(200, 105, 193, 238),
+        backgroundColor: Colors.white,
         body:
         SingleChildScrollView(
           child: Column(

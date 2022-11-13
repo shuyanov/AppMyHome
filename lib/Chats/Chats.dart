@@ -1,12 +1,8 @@
-import 'dart:io';
-import 'package:command_flutter/Chats/Data/Admin.dart';
-import 'package:command_flutter/Chats/Models/User.dart';
-import 'package:command_flutter/Chats/Pages/ChatPage.dart';
-import 'package:command_flutter/Chats/api/firebase.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
+import '/Chats/Data/Admin.dart';
+import '/Chats/Models/User.dart';
+import '/Chats/Pages/ChatPage.dart';
+import '/Chats/api/firebase.dart';
+import '/Search/SearchPage.dart';
 import 'package:flutter/material.dart';
 
 class Chats extends StatefulWidget {
@@ -20,6 +16,42 @@ class _ChatsState extends State<Chats> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+            appBar: AppBar(
+          actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) {
+                  return SearchPage();
+                }),
+              );
+            },
+            icon: Icon(Icons.search),
+            splashRadius: 20,
+          ),
+        ],
+        backgroundColor: Colors.blueAccent,
+        leading: IconButton(
+          icon: const Icon(Icons.add_alert_rounded),
+          tooltip: 'Уведомления',
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute<void>(
+                builder: (BuildContext){
+                  return Scaffold(
+                    backgroundColor: Color.fromARGB( 200, 105, 193, 238),
+                    appBar: AppBar(
+                      title: const Text('Уведомления'),
+                      backgroundColor: Colors.blueAccent,
+                    ),
+                    body: Center(
+                      child: Text('В разработке', style: TextStyle(fontSize: 45, fontFamily: 'Arial'),),
+                    ),
+                  );
+                }
+            ));
+          },
+        ),
+      ),
         backgroundColor: Color.fromARGB( 200, 105, 193, 238),
         body: SafeArea(
       child: StreamBuilder<List<User>>(
