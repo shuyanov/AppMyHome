@@ -374,7 +374,6 @@ import 'package:command_flutter/Model/NewsModels.dart';
 import 'package:command_flutter/ScrolLent/SurveyPage.dart';
 import 'package:flutter/material.dart';
 import 'package:mysql_client/mysql_client.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../Data/NewsData.dart';
 
