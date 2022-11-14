@@ -1,76 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:command_flutter/GeneralChats/Models/User.dart';
+import '../../Styles/Colors.dart';
 import '/GeneralChats/Widgets/generalSingleMessage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-// class GroupDate extends StatelessWidget {
-//   final String currentUserId;
-//   final String currentName;
-//   final String currentImage;
-//   final String generalId;
-//   final String generalName;
-//   final String generalImage;
-
-//   const GroupDate(
-//       {required this.currentUserId,
-//       required this.currentName,
-//       required this.currentImage,
-//       required this.generalId,
-//       required this.generalName,
-//       required this.generalImage,
-//       super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Colors.blueAccent,
-//         title: ListTile(
-//           leading: CircleAvatar(
-//             radius: 20.0,
-//             backgroundImage: NetworkImage(generalImage),
-//           ),
-//           title: Text(generalName, style: TextStyle(color: Colors.white)),
-//         ),
-//       ),
-//       body: Column(
-//         children: [
-//           StreamBuilder(
-//               stream: FirebaseFirestore.instance
-//                   .collection('general')
-//                   .doc(generalId)
-//                   .collection('chats')
-//                   .snapshots(),
-//               builder: (context, AsyncSnapshot snapshot) {
-//                 if (snapshot.hasData) {
-//                   if (snapshot.data.docs.length < 1) {
-//                     return Center(
-//                       child: Text("Скажите что нибудь"),
-//                     );
-//                   }
-//                   return ListView.builder(
-//                       itemCount: snapshot.data.docs.length,
-//                       reverse: true,
-//                       physics: BouncingScrollPhysics(),
-//                       itemBuilder: (context, index) {
-//                       return Text("data");
-//                       });
-//                 }
-//                 return Center(child: CircularProgressIndicator());
-//               }),
-//           GeneralPage(
-//               currentUserId: currentUserId,
-//               currentName: currentName,
-//               currentImage: currentImage,
-//               generalId: generalId,
-//               generalName: generalName,
-//               generalImage: generalImage),
-//         ],
-//       ),
-//     );
-//   }
-// }
+int count = 1;
+    List<String> listDate = [];
 
 class GeneralPage extends StatelessWidget {
   final String currentUserId;
@@ -88,127 +22,94 @@ class GeneralPage extends StatelessWidget {
       required this.generalName,
       required this.generalImage,
       super.key});
-
   @override
   Widget build(BuildContext context) {
-    List<User> listData;
-    int count = 1;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        title: ListTile(
-          leading: CircleAvatar(
-            radius: 20.0,
-            backgroundImage: NetworkImage(generalImage),
-          ),
-          title: Text(generalName, style: TextStyle(color: Colors.white)),
-        ),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-              child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25))),
-            child: StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('general')
-                    .doc(generalId)
-                    .collection('chats')
-                    .orderBy("date", descending: true)
-                    .snapshots(),
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data.docs.length < 1) {
-                      return Center(
-                        child: Text("Скажите что нибудь"),
-                      );
-                    }
-                    // return GroupedListView(elements: snapshot.data.docs.length, groupBy: (element))
-                    return ListView.builder(
-                        itemCount: snapshot.data.docs.length,
-                        reverse: true,
-                        physics: BouncingScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          bool isMe = snapshot.data.docs[index]['senderId'] ==
-                              currentUserId;
-                          Timestamp date = snapshot.data.docs[index]['date'];
-                          var dateFormat = new DateFormat('dd MMMM yyyy');
-                          String sendDate2 = dateFormat.format(date.toDate());
-                          String name = snapshot.data.docs[index]['senderName'];
-
-                          List<String> sendDate = [];
-
-                          for (int i = snapshot.data.docs.length - 1;
-                              i >= 0;
-                              i--) {
-                            Timestamp date1 = snapshot.data.docs[i]['date'];
-                            String sendDate1 =
-                                dateFormat.format(date1.toDate());
-                            sendDate.add(sendDate1);
-                          }
-
-                          List distinctIds = sendDate.toSet().toList();
-                            //   FirebaseFirestore.instance.collection('data')
-                            //  .orderBy("date", "")
-                            //  .onSnapshot((querySnapShot)=>{
-                                 
-                            //   });
-
-                          // for (int i = 0; i < distinctIds.length; i++) {
-                          //   for (int j = 0; j < sendDate.length; j++) {
-                          //     if (distinctIds[i] == sendDate[j]) {
-                          //       // print(generalSingleMessage(
-                          //       //     message: snapshot.data.docs[j]['message'],
-                          //       //     isMe: isMe,
-                          //       //     dateMessage: date,
-                          //       //     name: name,
-                          //       //     generalId: generalId).toString());
-                          //       return generalSingleMessage(
-                          //           message: snapshot.data.docs[j]['message'],
-                          //           isMe: isMe,
-                          //           dateMessage: date,
-                          //           name: name,
-                          //           generalId: generalId);
     
-                                    
-                          //     }
-                          //   }
-                          //   //print(distinctIds[i]);                           
-                          //   return Text(distinctIds[i]);
-                          // }
-
-                          // return Container();
-                          return Column(
-                            children: [
-                              if (distinctIds[1] != sendDate2[index])
-                              Text(distinctIds[1]),
-                               generalSingleMessage(
-                                message: snapshot.data.docs[index]['message'],
-                                isMe: isMe,
-                                dateMessage: date,
-                                name: name,
-                                generalId: generalId)
-                            ],
+    // DateTime now = DateTime.now();
+    // String formattedDate = DateFormat('dd-MM-yyyy').format(now);
+    return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/chat/backgroundChat.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10))),
+            backgroundColor: purpleColor,
+            title: ListTile(
+              contentPadding: EdgeInsets.all(10),
+              leading: Image.asset(
+                'assets/chat/resource31.png',
+                scale: 3,
+              ),
+              title: Text(generalName, style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          body: Column(
+            children: [
+              Expanded(
+                  child: Container(
+                child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('general')
+                        .doc(generalId)
+                        .collection('chats')
+                        .orderBy("date", descending: true)
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data.docs.length < 1) {
+                          return Center(
+                            child: Text("Скажите что нибудь"),
                           );
-                        });
-                  }
-                  return Center(child: CircularProgressIndicator());
-                }),
-          )),
-          newMessage(
-              currentUserId: currentUserId,
-              currentName: currentName,
-              currentImage: currentImage,
-              generalId: generalId,
-              generalName: generalName,
-              generalImage: generalImage)
-        ],
-      ),
-    );
+                        }
+                        return ListView.builder(
+                            itemCount: snapshot.data.docs.length,
+                            reverse: true,
+                            physics: BouncingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              bool isMe = snapshot.data.docs[index]
+                                      ['senderId'] ==
+                                  currentUserId;
+                              Timestamp date =
+                                  snapshot.data.docs[index]['date'];
+                              var dateFormat = new DateFormat('dd.MM.yyyy');
+                              String name =
+                                  snapshot.data.docs[index]['senderName'];
+
+                              return Column(
+                                children: [
+                                  generalSingleMessage(
+                                      message: snapshot.data.docs[index]
+                                          ['message'],
+                                      isMe: isMe,
+                                      dateMessage: date,
+                                      name: name,
+                                      generalId: generalId),                                    
+                                ],
+                              );
+                            });
+                      }
+                      return Center(child: CircularProgressIndicator());
+                    }),
+              )),
+              newMessage(
+                  currentUserId: currentUserId,
+                  currentName: currentName,
+                  currentImage: currentImage,
+                  generalId: generalId,
+                  generalName: generalName,
+                  generalImage: generalImage)
+            ],
+          ),
+        ));
   }
 }
 
@@ -231,14 +132,15 @@ class newMessage extends StatelessWidget {
   });
 
   final _controller = TextEditingController();
-
   void sendMessage() async {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('dd.MM.yyyy').format(now);
     String message = _controller.text;
     _controller.clear();
     await FirebaseFirestore.instance
         .collection('general')
         .doc(generalId)
-        .collection("chats")
+        .collection('chats')
         .add({
       "senderId": currentUserId,
       "receiverId": generalId,

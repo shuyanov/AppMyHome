@@ -14,13 +14,13 @@ class SingleMessage extends StatelessWidget {
             margin: EdgeInsets.all(5),
             constraints: BoxConstraints(maxWidth: 250, minWidth: 50),
             decoration: BoxDecoration(
-                color: isMe ? Colors.blue : Color.fromARGB(255, 174, 174, 174),
+                color: isMe ? Color.fromARGB(255, 170, 143, 255) : Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(12))),
             child: Text(
               message,
               style: TextStyle(
                 //fontSize: 16,
-                color: Colors.white,
+                color: Colors.black,
               ),
             )),
       ],
