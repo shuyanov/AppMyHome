@@ -221,7 +221,6 @@ class RegisterPage extends StatelessWidget {
   }
 /////////////////
 
-
 /////////
   String encoding(String value){
     var byte = utf8.encode(value);

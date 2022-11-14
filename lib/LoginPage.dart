@@ -99,15 +99,12 @@ class LoginPage extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 20, top: 10),
             child: _inputNumbers(Icon(Icons.email), "+7-912-345-67-89", emailController, false),
           ),
-
           Padding(
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(Icon(Icons.lock), "PASSWORD", passwordController, true),
           ),
-          Padding(
-            padding: EdgeInsets.only(),
-            child: Text("Забыли пароль?"),
-          ),
+
+
           SizedBox(height: 20,),
           Padding(
               child: Container(
@@ -151,7 +148,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 //////////////////
-
 /////////////////
   Widget _logButton(){
     return Container(
@@ -172,7 +168,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 /////////
-
 ////////
   void funcPress(){
 
@@ -220,10 +215,10 @@ class LoginPage extends StatelessWidget {
 
       for (final row in result.rows) {
         print(row.colAt(1));
-        print(row.colAt(2));
         if (row.colAt(1) == email && row.colAt(2) == encoding(password)) {
           print("YES MATCH!!! login");
           logged = true;
+
 //запись в json
           Timer(Duration(seconds: 1), () {
             if(logged) {runApp(MyApp()); PushToJson(email, password, name, surName, middleName, "no"); };
@@ -303,9 +298,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 /////////////////
-
 /////////////////
-
   Widget build(BuildContext context) {
     print('LoginPage');
     return MaterialApp( home: Scaffold(

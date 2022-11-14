@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:editable_image/editable_image.dart';
 import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +22,10 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
   void initState() {
     _GetDataFromJson();
     super.initState();
-
+    print("object");
     print(name);
-    print(surName);
   }
+
   void _GetDataFromJson() async{
     final directory = await pathProvider.getApplicationSupportDirectory();
     final fileDirectory = directory.path + '/datas.json';
@@ -35,8 +35,12 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
 
     var UserActual = new Usersed.fromJson(json['user']);
 
-    name = UserActual.login;
+    name = UserActual.name;
     surName = UserActual.surname;
+
+    setState(() {});
+    text:'Edit';
+    print(name);
   }
 
   @override
@@ -67,12 +71,12 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(9.0),
-                      child: Text(name, style: TextStyle(fontSize: 26)),
+                      child: Text(name, style: TextStyle(fontSize: 36)),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 20),
                     Padding(
-                      padding: const EdgeInsets.only(top: 40, left: 20),
-                      child: Text("SurName", style: TextStyle(fontSize: 16, color: Colors.grey),),
+                      padding: const EdgeInsets.only(top: 45, left: 20),
+                      child: Text(surName, style: TextStyle(fontSize: 30, color: Colors.grey),),
                     ),
                   ],
                 ),

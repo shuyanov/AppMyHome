@@ -1,4 +1,5 @@
 import 'package:command_flutter/Chats.dart';
+import 'package:command_flutter/PushNotifications/PushNotic.dart';
 import 'package:command_flutter/ScrolLent/Filling.dart';
 import 'package:command_flutter/Pages/ProfilePage.dart';
 import 'package:command_flutter/Search/SearchPage.dart';
@@ -12,37 +13,48 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    checkForNotification();
+  }
+
   int _currentIndex = 0;
 
   static const _navigationBarItems = <BottomNavigationBarItem>[
     BottomNavigationBarItem(
+
       icon: Icon(Icons.home),
       label: 'Home',
-      backgroundColor: Colors.black26
+      backgroundColor: Color.fromARGB(255, 124, 97, 242)
     ),
+
+
     BottomNavigationBarItem(
       icon: Icon(Icons.message),
       label: 'Message',
       backgroundColor: Colors.blue,
     ),
     BottomNavigationBarItem(
-        icon: Icon(Icons.person),
-        label: 'Profile',
-        backgroundColor: Colors.blue,
+      icon: Icon(Icons.person),
+      label: 'Profile',
+      backgroundColor: Colors.blue,
     ),
   ];
+
   static const List<Widget> _pages = <Widget>[
     Filing(),
     Chats(),
     ProfileePage(),
   ];
-
+////
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB( 200, 105, 193, 238),
+      backgroundColor: Color.fromARGB(200, 105, 193, 238),
+
       appBar: AppBar(
-          actions: [
+        actions: [
           IconButton(
             onPressed: () {
               Navigator.of(context).push(
@@ -55,11 +67,14 @@ class _HomePageState extends State<HomePage> {
             splashRadius: 20,
           ),
         ],
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Color.fromARGB(255, 124, 97, 242),
         leading: IconButton(
           icon: const Icon(Icons.add_alert_rounded),
           tooltip: 'Уведомления',
           onPressed: () {
+            showNotification("Заголовок", "Описание"); // Проверка работы уведомления
+          }, 
+          /* () {
             Navigator.push(context, MaterialPageRoute<void>(
                 builder: (BuildContext){
                   return Scaffold(
@@ -74,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                   );
                 }
             ));
-          },
+          }, */
         ),
       ),
       body: Center(
@@ -97,7 +112,7 @@ class _HomePageState extends State<HomePage> {
         ],
         currentIndex: _currentIndex,
         selectedItemColor: Colors.amber[800],
-        backgroundColor: Colors.black38,
+        backgroundColor: Color.fromARGB(255, 124, 97, 242),
         onTap: (int index) {
           setState(() {
             _currentIndex = index;

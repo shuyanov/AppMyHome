@@ -4,21 +4,26 @@ List<NewsModels> news = [
  NewsModels(
      HeadName: 'Отключение газа в Иввановской области',
      Text: 'По информации компании, в связи с выполнением работ по ремонту газораспределительной сети по адресу: проезд Институтский, д. 1, ул. Парижской Коммуны, д. 58-а в г. Иваново будет прекращено газоснабжение жилых домов ',
-     image: 'https://reemont.ru/wp-content/uploads/2021/06/1620674026_15-p-panelnii-dom-foto-17.jpg'),
+     image: 'https://reemont.ru/wp-content/uploads/2021/06/1620674026_15-p-panelnii-dom-foto-17.jpg',
+     isImage: true),
  NewsModels(
      HeadName: 'Три микрорайона в Иванове останутся без горячей воды',
      Text: 'Когда именно и на какой период дома останутся без ГВС, ресурсоснабжающая компания чётко не сообщает, но обещает, что отключение будет непродолжительным.В целом, работы планирую выполнить за 10 часов 20-21 августа. Для минимизации неудобств - в вечернее и ночное время.',
-     image: 'https://media.makler.md/production/an/original/000/048/490/000048490366.jpg'),
+     image: 'https://media.makler.md/production/an/original/000/048/490/000048490366.jpg',
+     isImage: true),
  NewsModels(
      HeadName: 'Взрыв газа произошел в российском городе',
      Text: 'Взрыв газа произошел в многоквартирном жилом доме в дагестанском Каспийске, три человека получили ожоги. Об этом сообщает местная прокуратура. Инцидент произошел на улице Молодежная, 5. По предварительным данным, взрыв случился в одной из квартир. ',
-     image: 'https://na-dache.pro/uploads/posts/2021-11/1636546150_185-na-dache-pro-p-panelnii-dom-foto-208.jpg'),
+     image: 'https://na-dache.pro/uploads/posts/2021-11/1636546150_185-na-dache-pro-p-panelnii-dom-foto-208.jpg',
+     isImage: true),
  NewsModels(
      HeadName: 'В Волгограде расползается крыша многоквартирного дома',
      Text: 'Взрыв газа произошел в многоквартирном жилом доме в дагестанском Каспийске, три человека получили ожоги. Об этом сообщает местная прокуратура. Инцидент произошел на улице Молодежная, 5. По предварительным данным, взрыв случился в одной из квартир.',
-     image: 'https://na-dache.pro/uploads/posts/2021-11/1636546150_185-na-dache-pro-p-panelnii-dom-foto-208.jpg'),
+     image: 'https://na-dache.pro/uploads/posts/2021-11/1636546150_185-na-dache-pro-p-panelnii-dom-foto-208.jpg',
+     isImage: true),
  NewsModels(
      HeadName: 'HeadName',
      Text: 'Взрыв газа произошел в многоквартирном жилом доме в дагестанском Каспийске, три человека получили ожоги. Об этом сообщает местная прокуратура. Инцидент произошел на улице Молодежная, 5. По предварительным данным, взрыв случился в одной из квартир.',
-     image: 'https://na-dache.pro/uploads/posts/2021-11/1636546150_185-na-dache-pro-p-panelnii-dom-foto-208.jpg')
+     image: 'https://na-dache.pro/uploads/posts/2021-11/1636546150_185-na-dache-pro-p-panelnii-dom-foto-208.jpg',
+     isImage: true)
 ];

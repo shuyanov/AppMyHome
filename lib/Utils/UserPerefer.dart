@@ -82,10 +82,8 @@ void PushToJson(String login, String password, String surname, String name, Stri
   final directory = await pathProvider.getApplicationSupportDirectory();
   final fileDirectory = directory.path + '/datas.json';
   final file = File(fileDirectory);
-
   await file.writeAsString('{\"user\": {\"login\" : \"$login.\"\,\"password\" : \"$password\",\"surname\" : \"$surname\",\"name\" : \"$name\",\"middle_name\" : \"$middle_name\",\"code\" : \"$code\"}}');
-
   final res = await file.readAsString();
-  print(res);
+  print("created json: $res");
 
 }
