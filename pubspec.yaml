@@ -99,6 +99,14 @@ flutter:
     - assets/logo1.png
     - assets/logo3.png
     - assets/mainLogo.png
+    - assets/chat/background.png
+    - assets/chat/backgroundChat.jpg
+    - assets/chat/backgroundUsers.jpg
+    - assets/chat/resource.png
+    - assets/chat/resource28.png
+    - assets/chat/resource29.png
+    - assets/chat/resource30.png
+    - assets/chat/resource31.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
