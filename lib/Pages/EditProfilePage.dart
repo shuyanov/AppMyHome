@@ -6,7 +6,6 @@ import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:editable_image/editable_image.dart';
 import 'package:flutter/material.dart';
-import '../Widget/ProfileWidget.dart';
 
 
 
@@ -45,109 +44,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String middleName = '';
   String surName = '';
 
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Color.fromARGB( 200, 105, 193, 238),
-    appBar: AppBar(),
-    body: Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-        // ProfileWidget(
-        // imagePatch: user.imagePath,
-        // isEdit: true,
-        // onCliced: () async{},
-        // ),
-          const Spacer(flex: 2),
-          EditableImage(
-            // Define the method that will run on the change process of the image.
-            onChange: (file) => _directUpdateImage(file),
-            // Define the source of the image.
-            image: _profilePicFile != null
-                ? Image.file(_profilePicFile!, fit: BoxFit.cover)
-                : null,
-            // Define the size of EditableImage.
-            size: 150.0,
-
-            // Define the Theme of image picker.
-            imagePickerTheme: ThemeData(
-              // Define the default brightness and colors.
-              primaryColor: Colors.white,
-              shadowColor: Colors.transparent,
-              backgroundColor: Colors.yellowAccent,
-              iconTheme: const IconThemeData(color: Colors.yellowAccent),
-
-              // Define the default font family.
-              fontFamily: 'Georgia',
-            ),
-
-            // Define the border of the image if needed.
-            imageBorder: Border.all(color: Colors.black, width: 2.0),
-            // Define the border of the icon if needed.
-            editIconBorder: Border.all(color: Colors.black, width: 2.0),
-          ),
-
-          const Spacer(flex: 2),
-          TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                labelText: 'Email'
-            ),
-            onChanged: (name) {},
-          ),
-          const Spacer(),
-          TextField(
-            controller: surNameController,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                labelText: 'Surname'
-            ),
-            onChanged: (name) {},
-          ),
-          const Spacer(),
-          TextField(
-            controller: middleNameController,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                labelText: 'middleName'
-            ),
-            onChanged: (name) {},
-          ),
-          const Spacer(),
-          TextField(
-            controller: nameController,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                labelText: 'name'
-            ),
-            onChanged: (name) {},
-          ),
-          const Spacer(flex: 2),
-          Expanded(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                      height: 30,
-                      width: 330,
-                      child: buildEditProfileButton()
-                  ),
-              ),
-              )
-        ],
-      ),
-    ),
-  );
-
     Future<void> _LoginButtonActio() async {
       email = emailController.text;
       password = passwordController.text;
@@ -162,6 +58,125 @@ class _EditProfilePageState extends State<EditProfilePage> {
       surNameController.clear();
       middleNameController.clear();
   }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    backgroundColor: Color.fromARGB( 200, 105, 193, 238),
+    appBar: AppBar(),
+    body:
+      Stack(
+        children: [
+          Container(
+            child: Padding(
+              padding: EdgeInsets.all(0),
+              child: Image.asset('assets/profile/profileBackground.jpg',width: 1000, fit:BoxFit.fill),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child:
+              Stack(
+                children: <Widget>
+                [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                    // ProfileWidget(
+                    // imagePatch: user.imagePath,
+                    // isEdit: true,
+                    // onCliced: () async{},
+                    // ),
+                      const Spacer(flex: 2),
+                      EditableImage(
+                        // Define the method that will run on the change process of the image.
+                        onChange: (file) => _directUpdateImage(file),
+                        // Define the source of the image.
+                        image: _profilePicFile != null
+                            ? Image.file(_profilePicFile!, fit: BoxFit.cover)
+                            : null,
+                        // Define the size of EditableImage.
+                        size: 150.0,
+
+                        // Define the Theme of image picker.
+                        imagePickerTheme: ThemeData(
+                          // Define the default brightness and colors.
+                          primaryColor: Colors.white,
+                          shadowColor: Colors.transparent,
+                          backgroundColor: Colors.yellowAccent,
+                          iconTheme: const IconThemeData(color: Colors.yellowAccent),
+
+                          // Define the default font family.
+                          fontFamily: 'Georgia',
+                        ),
+
+                        // Define the border of the image if needed.
+                        imageBorder: Border.all(color: Colors.black, width: 2.0),
+                        // Define the border of the icon if needed.
+                        editIconBorder: Border.all(color: Colors.black, width: 2.0),
+                      ),
+                      const Spacer(flex: 2),
+                      TextField(
+                        controller: emailController,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            labelText: 'Email'
+                        ),
+                        onChanged: (name) {},
+                      ),
+                      const Spacer(),
+                      TextField(
+                        controller: surNameController,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            labelText: 'Surname'
+                        ),
+                        onChanged: (name) {},
+                      ),
+                      const Spacer(),
+                      TextField(
+                        controller: middleNameController,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            labelText: 'middleName'
+                        ),
+                        onChanged: (name) {},
+                      ),
+                      const Spacer(),
+                      TextField(
+                        controller: nameController,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            labelText: 'name'
+                        ),
+                        onChanged: (name) {},
+                      ),
+                      const Spacer(flex: 2),
+                      Expanded(
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                  height: 30,
+                                  width: 330,
+                                  child: buildEditProfileButton()
+                              ),
+                          ),
+                          )
+                    ],
+                  ),
+                ],
+              )
+          ),
+        ],
+      )
+  );
 
 Widget buildEditProfileButton() => ButtonWidget(
   text:'Save',

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:command_flutter/LoginPage.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
@@ -48,7 +49,7 @@ class RegisterPage extends StatelessWidget {
         keyboardType: TextInputType.number,
         controller: controller,
         obscureText: hidden,
-        style: TextStyle(fontSize: 20, color: Colors.purple),
+        style: TextStyle(fontSize: 20, color: Color.fromARGB(200, 120, 95, 221)),
         decoration: InputDecoration(
           filled: true,
           fillColor: Color.fromARGB(200, 227, 228, 251),
@@ -86,7 +87,7 @@ class RegisterPage extends StatelessWidget {
 
         controller: controller,
         obscureText: hidden,
-        style: TextStyle(fontSize: 20, color: Colors.purple),
+        style: TextStyle(fontSize: 20, color: Color.fromARGB(200, 120, 95, 221)),
         decoration: InputDecoration(
           filled: true,
           fillColor: Color.fromARGB(200, 227, 228, 251),
@@ -187,7 +188,7 @@ class RegisterPage extends StatelessWidget {
         height: 42,
         width: 110,
         child: ElevatedButton(
-          child: Text("LOGIN", style: TextStyle(color: Colors.white, fontSize: 18)),
+          child: Text("ВХОД", style: TextStyle(color: Colors.white, fontSize: 18)),
           onPressed: (){ print('tap-tap'); return runApp(LoginPage()); },
           style: ElevatedButton.styleFrom(
             primary: Color.fromARGB(200, 158, 122, 244),
@@ -235,9 +236,10 @@ class RegisterPage extends StatelessWidget {
     surname = surnameController.text;
     middleName = middleNameController.text;
     returnedPassword = returnedPasswordController.text;
+    print("pass = $password == $returnedPassword");
     if(password != returnedPassword){
       Fluttertoast.showToast(
-          msg: "Ошибка! Введенные пароли не совпадают",
+          msg: "Ошибка! Пароли не совпадают",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb:
@@ -249,8 +251,39 @@ class RegisterPage extends StatelessWidget {
       return ;
     }
 
-
+////
+      Future<void> inserrecord()async{
+        if(name==""||password==""||email=="")
+        {
+          print("text null");
+        }
+        else
+          {
+            try{
+              String uri = "http://185.231.155.185/insert_api/insert_record.php";
+              var res = await http.post(Uri.parse(uri), body: {
+                "name":name,
+                "login":email,
+                "password":password
+              });
+              var response=jsonDecode(res.body);
+              if(response["success"]=="true"){
+                print("Recorted");
+              }
+              else
+              {
+                print("not rec");
+              }
+            }
+            catch(e){
+              print("excep = $e");
+            }
+          }
+      }
+    inserrecord();
     if(email == "" || password == "" || code == "" || name == "" || surname == "" || middleName == "" || returnedPassword == "" ){
+      print("field is empty");
+      print("$email-$password-$code-$name-$surname-$middleName-$returnedPassword");
       Fluttertoast.showToast(
           msg: "Ошибка! Необходимо заполнить все поля",
           toastLength: Toast.LENGTH_SHORT,

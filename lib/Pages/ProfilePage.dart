@@ -33,106 +33,120 @@ class _ProfileePageState extends State<ProfileePage> {
     });
 
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
+    return Stack(
+      children: <Widget>
+      [
         Container(
           child: Stack(
             children: [
-              WidgetProfileName(),
+               Image.asset('assets/profile/profileBackground.jpg',width: 1000, fit:BoxFit.fill),
+               Image.asset('assets/profile/GroundUpBar.png',width: 1000, fit:BoxFit.fill),
             ],
-          )
+          ),
         ),
-        Padding(
-            padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
+        Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+              child: Stack(
+                children: [
+                  WidgetProfileName(),
+                ],
+              )
+          ),
+          SizedBox(height: 90),
+          Padding(
+            padding: EdgeInsets.only(left: 20,right: 20,bottom: 0 ),
             child: Container(
-              height: 30,
+              height: 40,
               width: 330,
               child: buildPersonalBillButton(),
             ),
-                ),
-        ////
-        SizedBox(height: 100),
-        Center(
-          child: Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Stack(
-                    children: [
-                      Container(
-                        height: 80,
-                        width: 80,
-                        child: build_UK_Button(),
-                      ),
-                    ],
-                  ),
-                  SizedBox(width: 30),
-                  Container(
-                    height: 80,
-                    width: 80,
-                    child: build_Problem_Button(),
-                  ),
-                  SizedBox(width: 30),
-                  Container(
-                    height: 80,
-                    width: 80,
-                    child:  build_worker_Button(),
-                  )
-                ],
-              )),
-        ),
-        SizedBox(height: 5),
-        Center(
-          child: Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(width: 30),
-                  Column(
-                    children: [
-                      Text("Обращение", style: TextStyle(fontSize: 14, color: Colors.white30)),
-                      Text("в УК", style: TextStyle(fontSize: 14, color: Colors.white30)),
-                    ],
-                  ),
-                  SizedBox(width: 30),
-                  Column(
-                    children: [
-                      Text("Сообщить", style: TextStyle(fontSize: 14, color: Colors.white30)),
-                      Text("О проблеме", style: TextStyle(fontSize: 14, color: Colors.white30)),
-                    ],
-                  ),
-                  SizedBox(width: 20),
-                  Column(
-                    children: [
-                      Text("Вызов  ", style: TextStyle(fontSize: 14, color: Colors.white30)),
-                      Text("Ремонтых Служб", style: TextStyle(fontSize: 14, color: Colors.white30)),
-                    ],
-                  ),
-                ],
-              )),
-        ),
-        SizedBox(height: 30),
-        ////
-        Padding(
-            padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
-            child: Container(
-              height: 30,
-              width: 330,
-              child: build_Setting_Button(),
-            )
-        ),
-        SizedBox(height: 10),
-        Padding(
-            padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
-            child: Container(
-              height: 30,
-              width: 330,
-              child: buildExitProfileButton(),
-            )
+          ),
+          ////
+          SizedBox(height: 50),
+          Center(
+            child: Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          height: 80,
+                          width: 80,
+                          child: build_UK_Button(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 30),
+                    Container(
+                      height: 80,
+                      width: 80,
+                      child: build_Problem_Button(),
+                    ),
+                    SizedBox(width: 30),
+                    Container(
+                      height: 80,
+                      width: 80,
+                      child:  build_worker_Button(),
+                    )
+                  ],
+                )),
+          ),
+          SizedBox(height: 5),
+          Center(
+            child: Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(width: 30),
+                    Column(
+                      children: [
+                        Text("Обращение", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                        Text("в УК", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                      ],
+                    ),
+                    SizedBox(width: 30),
+                    Column(
+                      children: [
+                        Text("Сообщить", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                        Text("О проблеме", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                      ],
+                    ),
+                    SizedBox(width: 20),
+                    Column(
+                      children: [
+                        Text("Вызов  ", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                        Text("Ремонтых Служб", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                      ],
+                    ),
+                  ],
+                )),
+          ),
+          SizedBox(height: 30),
+          ////
+          Padding(
+              padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
+              child: Container(
+                height: 40,
+                width: 330,
+                child: build_Setting_Button(),
+              )
+          ),
+          SizedBox(height: 10),
+          Padding(
+              padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
+              child: Container(
+                height: 40,
+                width: 330,
+                child: buildExitProfileButton(),
+              )
           )
-        ],
-      );
+          ],
+        )
+      ],
+    );
   }
 
   buildName(User user) => Column(
@@ -177,7 +191,7 @@ class _ProfileePageState extends State<ProfileePage> {
   );
     ////
   Widget build_UK_Button() => ButtonWidgetProfile(
-    icon: Icons.message_outlined,
+    imagees: "assets/profile/Massage.png",
     onClicked: (){
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => SecondScreen())
@@ -186,7 +200,7 @@ class _ProfileePageState extends State<ProfileePage> {
   );
 
   Widget build_Problem_Button() => ButtonWidgetProfile(
-    icon: Icons.sos_outlined,
+    imagees: "assets/profile/SosButton.png",
     onClicked: (){
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => SecondScreen())
@@ -195,14 +209,14 @@ class _ProfileePageState extends State<ProfileePage> {
   );
 
   Widget build_worker_Button() => ButtonWidgetProfile(
-    icon: Icons.person,
+      imagees: "assets/profile/IconMan.png",
     onClicked: (){
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => SecondScreen())
       );
     },
   );
-  ////
+
   Widget build_Setting_Button() => ButtonWidget(
     text:'Настройки',
     onClicked: (){

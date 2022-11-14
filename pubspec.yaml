@@ -107,6 +107,11 @@ flutter:
     - assets/chat/resource29.png
     - assets/chat/resource30.png
     - assets/chat/resource31.png
+    - assets/profile/profileBackground.jpg
+    - assets/profile/SosButton.png
+    - assets/profile/IconMan.png
+    - assets/profile/Massage.png
+    - assets/profile/GroundUpBar.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
