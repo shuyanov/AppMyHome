@@ -29,7 +29,6 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Color.fromARGB(255, 124, 97, 242)
     ),
 
-        icon: Icon(Icons.home), label: 'Home', backgroundColor: Colors.black26),
 
     BottomNavigationBarItem(
       icon: Icon(Icons.message),
@@ -42,6 +41,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.blue,
     ),
   ];
+
   static const List<Widget> _pages = <Widget>[
     Filing(),
     Chats(),
@@ -51,9 +51,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      backgroundColor: Color.fromARGB(255, 124, 97, 242),
-
       backgroundColor: Color.fromARGB(200, 105, 193, 238),
 
       appBar: AppBar(

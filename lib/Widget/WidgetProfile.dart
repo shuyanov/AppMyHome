@@ -71,12 +71,12 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(9.0),
-                      child: Text(name, style: TextStyle(fontSize: 26)),
+                      child: Text(name, style: TextStyle(fontSize: 36)),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 20),
                     Padding(
-                      padding: const EdgeInsets.only(top: 40, left: 20),
-                      child: Text(surName, style: TextStyle(fontSize: 16, color: Colors.grey),),
+                      padding: const EdgeInsets.only(top: 45, left: 20),
+                      child: Text(surName, style: TextStyle(fontSize: 30, color: Colors.grey),),
                     ),
                   ],
                 ),
