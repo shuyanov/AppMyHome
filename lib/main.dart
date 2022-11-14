@@ -13,7 +13,7 @@ Future main() async {
   await Firebase.initializeApp();
 
   //await base.addUsers(users);
-  runApp(Send());
+  runApp(RegisterPage());
 }
 // void main() => runApp(MyApp());
 

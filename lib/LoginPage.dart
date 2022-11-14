@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:command_flutter/RegisterPage.dart';
 import 'package:command_flutter/main.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -31,18 +33,55 @@ class LoginPage extends StatelessWidget {
 
   @override
 ////////////////////
-  Widget _logo(){
-    return Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/logo1.png'),
-              fit: BoxFit.cover
-          )
+  Widget _logo() {
+    return Padding(
+      padding: EdgeInsets.only( bottom: 10),
+      child: Container(
+        child: Align(
+          child: Image.asset('assets/mainLogo.png'),
+        ),
       ),
-      padding: EdgeInsets.only(top: 400, bottom: 60),
     );
   }
-
+//////////////////
+  Widget _inputNumbers(Icon icon, String hint, TextEditingController controller,
+      bool hidden) {
+    return Container(
+      padding: EdgeInsets.only(right: 20, left: 20),
+      child: TextField(
+        inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+        keyboardType: TextInputType.number,
+        controller: controller,
+        obscureText: hidden,
+        style: TextStyle(fontSize: 20, color: Color.fromARGB(200, 120, 95, 221)),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Color.fromARGB(200, 227, 228, 251),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30.0)),
+          hintStyle: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.grey),
+          hintText: hint,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromARGB(200, 227, 228, 251), width: 3),
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromARGB(200, 227, 228, 251), width: 1),
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          prefixIcon: Padding(padding: EdgeInsets.only(left: 20, right: 10),
+            child: IconTheme(
+              data: IconThemeData(
+                  color: Colors.purple
+              ),
+              child: icon,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 //////////////////
   Widget _form(){
     return Container(
@@ -51,15 +90,24 @@ class LoginPage extends StatelessWidget {
         children: [
 
           Padding(
+            padding: const EdgeInsets.only(bottom: 15, top: 30,),
+            child: Center(
+              child: Text(style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600,color: Colors.black54), "ДОБРО ПОЖАЛОВАТЬ!"),
+            ),
+          ),
+          Padding(
             padding: EdgeInsets.only(bottom: 20, top: 10),
-            child: _input(Icon(Icons.email), "+7-912-345-67-89", emailController, false),
+            child: _inputNumbers(Icon(Icons.email), "+7-912-345-67-89", emailController, false),
           ),
 
           Padding(
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(Icon(Icons.lock), "PASSWORD", passwordController, true),
           ),
-
+          Padding(
+            padding: EdgeInsets.only(),
+            child: Text("Забыли пароль?"),
+          ),
           SizedBox(height: 20,),
           Padding(
               child: Container(
@@ -86,15 +134,15 @@ class LoginPage extends StatelessWidget {
   Widget _regButton(){
 
     return Container(
-        margin: EdgeInsets.only(top: 6),
-        height: 42,
-        width: 110,
+        margin: EdgeInsets.only(top: 1),
+        height: 36,
+        width: 150,
         child: ElevatedButton(
-          child: Text("REGISTER", style: TextStyle(color: Colors.cyan, fontSize: 17)),
+          child: Text("регистрация", style: TextStyle(color: Colors.white, fontSize: 19)),
           onPressed: (){ print('tap-tap'); return runApp(RegisterPage()); },
           style: ElevatedButton.styleFrom(
-            primary: Colors.white,
-            onPrimary: Colors.cyan,
+            primary: Color.fromARGB(200, 158, 122, 244),
+            onPrimary: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(32.0),
             ),
@@ -111,10 +159,10 @@ class LoginPage extends StatelessWidget {
         child:
 
         ElevatedButton(
-          child: Text("LOGIN", style: TextStyle(color: Colors.cyan, fontSize: 26)),
+          child: Text("ВОЙТИ", style: TextStyle(color: Colors.white, fontSize: 26)),
           onPressed: () => funcPress(),
           style: ElevatedButton.styleFrom(
-            primary: Colors.white,
+            primary: Color.fromARGB(200, 158, 122, 244),
             onPrimary: Colors.cyan,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(32.0),
@@ -140,7 +188,19 @@ class LoginPage extends StatelessWidget {
       //MS
 
       print("login: login = ${email} password = ${password}");
-
+      if(email=="" || password ==""){
+        Fluttertoast.showToast(
+            msg: "Ошибка! Необходимо заполнить все поля",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb:
+            1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+        return;
+      }
       emailController.clear();
       passwordController.clear();
 
@@ -177,6 +237,18 @@ class LoginPage extends StatelessWidget {
         }
       }
 // close all connections
+      if(!logged){
+        Fluttertoast.showToast(
+            msg: "Ошибка! Неправильный логин ии пароль",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb:
+            1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      }
       await conn.close();
       print("close");
     }
@@ -202,20 +274,26 @@ class LoginPage extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: hidden,
-        style: TextStyle(fontSize: 20, color: Colors.white),
+        style: TextStyle(fontSize: 20, color: Color.fromARGB(200, 120, 95, 221)),
         decoration: InputDecoration(
-          hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white30),
+          filled: true,
+          fillColor: Color.fromARGB(200, 227, 228, 251),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30.0)),
+          hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.grey),
           hintText: hint,
           focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white, width: 3)
+            borderSide: BorderSide(color: Color.fromARGB(200, 227, 228, 251), width: 3),
+            borderRadius: BorderRadius.circular(30.0),
           ),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white54, width: 1)
+            borderSide: BorderSide(color: Color.fromARGB(200, 227, 228, 251), width: 1),
+            borderRadius: BorderRadius.circular(30.0),
           ),
           prefixIcon: Padding(padding: EdgeInsets.only(left: 10, right: 10),
             child: IconTheme(
               data: IconThemeData(
-                  color: Colors.yellow
+                  color: Colors.purple
               ),
               child: icon,
             ),
@@ -231,7 +309,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     print('LoginPage');
     return MaterialApp( home: Scaffold(
-        backgroundColor: Color.fromARGB(200, 105, 193, 238),
+        backgroundColor: Colors.white,
         body:
         SingleChildScrollView(
           child: Column(
