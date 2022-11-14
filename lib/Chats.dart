@@ -66,7 +66,6 @@ class _ChatsState extends State<Chats> {
     
                     Expanded(
                       child: Container(
-                        // alignmen/t: Alignment.,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(50),
@@ -76,78 +75,81 @@ class _ChatsState extends State<Chats> {
                             fit: BoxFit.cover,
                           ),  
                         ),  
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 50),
-                          child: Column(children: [
-                            Card(
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
-                              child: ListTile(
-                                  // Общий чат
-                                  contentPadding: EdgeInsets.all(10),
-                                  leading: Image.asset('assets/chat/resource28.png'),
-                                  title: Text(name, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: greyText),),
-                                  onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) => GeneralPage(
-                                            currentUserId: myId,
-                                            currentName: myUsername,
-                                            currentImage: myUrlAvatar,
-                                            generalId: idGeneral,
-                                            generalName: name,
-                                            generalImage: generalUrlAvatar)));
-                                  }),
-                            ),
-                            Card(
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
-                              child: ListTile(
-                                  // Подъезд №2
-                                  contentPadding: EdgeInsets.all(10),
-                                  leading: Image.asset('assets/chat/resource28.png'),
-                                  title: Text(name2, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: greyText),),
-                                  onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) => GeneralPage(
-                                            currentUserId: myId,
-                                            currentName: myUsername,
-                                            currentImage: myUrlAvatar,
-                                            generalId: idGeneral2,
-                                            generalName: name2,
-                                            generalImage: generalUrlAvatar)));
-                                  }),
-                            ),
-                            Card(elevation: 5,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
-                              child: ListTile(
-                                  contentPadding: EdgeInsets.all(10),
-                                  // "УК"
-                                  leading: Image.asset('assets/chat/resource28.png'),
-                                  title: Text(name3, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: greyText),),
-                                  onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) => GeneralPage(
-                                            currentUserId: myId,
-                                            currentName: myUsername,
-                                            currentImage: myUrlAvatar,
-                                            generalId: idGeneral3,
-                                            generalName: name3,
-                                            generalImage: generalUrlAvatar)));
-                                  }),
-                            ),
-                            Card(elevation: 5,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
-                              child: ListTile(
-                                  // Личные сообщения
-                                  contentPadding: EdgeInsets.all(10),
-                                  leading: Image.asset('assets/chat/resource29.png'),
-                                  title: Text('Личные сообщения', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: greyText),),
-                                  onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) => const OneChats()));
-                                  }),
-                            ),
-                          ]),
+                        child: Container(
+                          color: Colors.transparent,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 50),
+                            child: Column(children: [
+                              Card(
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                                child: ListTile(
+                                    // Общий чат
+                                    contentPadding: EdgeInsets.all(10),
+                                    leading: Image.asset('assets/chat/resource28.png'),
+                                    title: Text(name, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: greyText),),
+                                    onTap: () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => GeneralPage(
+                                              currentUserId: myId,
+                                              currentName: myUsername,
+                                              currentImage: myUrlAvatar,
+                                              generalId: idGeneral,
+                                              generalName: name,
+                                              generalImage: generalUrlAvatar)));
+                                    }),
+                              ),
+                              Card(
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                                child: ListTile(
+                                    // Подъезд №2
+                                    contentPadding: EdgeInsets.all(10),
+                                    leading: Image.asset('assets/chat/resource28.png'),
+                                    title: Text(name2, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: greyText),),
+                                    onTap: () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => GeneralPage(
+                                              currentUserId: myId,
+                                              currentName: myUsername,
+                                              currentImage: myUrlAvatar,
+                                              generalId: idGeneral2,
+                                              generalName: name2,
+                                              generalImage: generalUrlAvatar)));
+                                    }),
+                              ),
+                              Card(elevation: 5,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                                child: ListTile(
+                                    contentPadding: EdgeInsets.all(10),
+                                    // "УК"
+                                    leading: Image.asset('assets/chat/resource28.png'),
+                                    title: Text(name3, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: greyText),),
+                                    onTap: () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => GeneralPage(
+                                              currentUserId: myId,
+                                              currentName: myUsername,
+                                              currentImage: myUrlAvatar,
+                                              generalId: idGeneral3,
+                                              generalName: name3,
+                                              generalImage: generalUrlAvatar)));
+                                    }),
+                              ),
+                              Card(elevation: 5,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                                child: ListTile(
+                                    // Личные сообщения
+                                    contentPadding: EdgeInsets.all(10),
+                                    leading: Image.asset('assets/chat/resource29.png', height: 50, width: 50,),
+                                    title: Text('Личные сообщения', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: greyText),),
+                                    onTap: () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => const OneChats()));
+                                    }),
+                              ),
+                            ]),
+                          ),
                         ),
                       
                     ),
