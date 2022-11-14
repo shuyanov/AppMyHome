@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../Styles/Colors.dart';
 import '/Chats/Data/Admin.dart';
 import '/Chats/Pages/ChatPage.dart';
 
@@ -45,7 +46,7 @@ class _SearchUserPageState extends State<SearchUserPage> {
     });
   }
 
-    void onSearchChanged() async {
+  void onSearchChanged() async {
     setState(() {
       searchResult = [];
       isLoading = true;
@@ -76,7 +77,12 @@ class _SearchUserPageState extends State<SearchUserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10))),
+        backgroundColor: purpleColor,
         title: TextField(
           autofocus: true,
           style: TextStyle(color: Colors.white),
@@ -87,7 +93,7 @@ class _SearchUserPageState extends State<SearchUserPage> {
             border: InputBorder.none,
           ),
           textInputAction: TextInputAction.search,
-          onChanged: (value){
+          onChanged: (value) {
             onSearchChanged();
           },
           onSubmitted: (value) {
@@ -104,12 +110,14 @@ class _SearchUserPageState extends State<SearchUserPage> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return ListTile(
-                          leading: CircleAvatar(
-                            child:
-                                Image.network(searchResult[index]['urlAvatar']),
-                          ),
-                          title: Text(searchResult[index]['name']),
-                          subtitle: Text(searchResult[index]['description']),
+                          contentPadding: EdgeInsets.all(10),
+                          leading: Image.asset('assets/chat/resource29.png'),
+                          // leading: CircleAvatar(
+                          //   child:
+                          //       Image.network(searchResult[index]['urlAvatar']),
+                          // ),
+                          title: Text(searchResult[index]['name'], style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey[700]),),
+                          // subtitle: Text(searchResult[index]['description']),
                           onTap: () {
                             setState(() {
                               searchController.text = "";
@@ -130,7 +138,9 @@ class _SearchUserPageState extends State<SearchUserPage> {
                     }))
           else if (isLoading == true)
             Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: purpleColor,
+              ),
             )
         ],
       ),
