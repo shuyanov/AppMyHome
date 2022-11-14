@@ -14,15 +14,14 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      widthFactor: 3,
+    return Container(
       child: Stack(
         children: [
           buildImage(),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: buildEditIcon(Colors.cyan)),
+          Align(
+              alignment: Alignment.topLeft,
+            child:
+            buildEditIcon(Colors.cyan)),
         ],
       ),
     );
@@ -36,8 +35,8 @@ class ProfileWidget extends StatelessWidget {
         child: Ink.image(
           image: image,
           fit: BoxFit.cover,
-          width: 128,
-          height: 128,
+          width: 100,
+          height: 100,
           child: InkWell(onTap: onCliced),
         ),
       ),
@@ -51,8 +50,8 @@ class ProfileWidget extends StatelessWidget {
       clor: color,
       all: 8,
       child: Icon(
-        isEdit ? Icons.add_a_photo : Icons.edit,
-        size: 20,
+        isEdit ? Icons.add_a_photo : Icons.add,
+        size: 15,
         color: Colors.black,
         ),
       ),
