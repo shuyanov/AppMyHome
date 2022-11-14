@@ -34,6 +34,7 @@ class _ProfileePageState extends State<ProfileePage> {
 
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
           child: Stack(
