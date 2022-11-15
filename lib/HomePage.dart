@@ -29,8 +29,6 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Color.fromARGB(255, 124, 97, 242)
     ),
 
-        icon: Icon(Icons.home), label: 'Home', backgroundColor: Colors.black26),
-
     BottomNavigationBarItem(
       icon: Icon(Icons.message),
       label: 'Message',
@@ -53,8 +51,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
 
       backgroundColor: Color.fromARGB(255, 124, 97, 242),
-
-      backgroundColor: Color.fromARGB(200, 105, 193, 238),
 
       appBar: AppBar(
         actions: [
