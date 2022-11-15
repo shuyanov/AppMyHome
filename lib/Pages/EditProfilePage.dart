@@ -61,8 +61,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Color.fromARGB( 200, 105, 193, 238),
-    appBar: AppBar(),
+    appBar: AppBar(
+      backgroundColor: Color.fromARGB(255, 124, 97, 242),
+    ),
     body:
       Stack(
         children: [
@@ -158,13 +159,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                         onChanged: (name) {},
                       ),
-                      const Spacer(flex: 2),
+                      const Spacer(flex: 3),
                       Expanded(
                             child: Align(
                               alignment: Alignment.center,
                               child: Container(
-                                  height: 30,
-                                  width: 330,
+                                  height: 50,
+                                  width: 320,
                                   child: buildEditProfileButton()
                               ),
                           ),

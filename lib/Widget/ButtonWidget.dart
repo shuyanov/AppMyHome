@@ -20,8 +20,8 @@ class ButtonWidget extends StatelessWidget {
       onPressed: onClicked,
       child: Stack(
       children: [
-          Text(text, style: TextStyle(fontSize: 21),),
-        ],
+          Text(text, style: TextStyle(fontSize: 21, color: Colors.grey.shade700)),
+          ],
         ),
       );
   }
