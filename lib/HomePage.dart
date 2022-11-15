@@ -29,7 +29,10 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Color.fromARGB(255, 124, 97, 242)
     ),
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6bb98560b3b5ff20f75fb0899eefaf29883c8e7f
     BottomNavigationBarItem(
       icon: Icon(Icons.message),
       label: 'Message',
@@ -51,7 +54,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
       backgroundColor: Color.fromARGB(200, 105, 193, 238),
+=======
+
+      backgroundColor: Color.fromARGB(255, 124, 97, 242),
+>>>>>>> 6bb98560b3b5ff20f75fb0899eefaf29883c8e7f
 
       appBar: AppBar(
         actions: [

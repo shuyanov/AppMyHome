@@ -6,7 +6,6 @@ import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:flutter/material.dart';
 
 
-
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);
 
@@ -15,6 +14,8 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+
+
 
   @override
   void initState() {
@@ -75,9 +76,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
+
                           const Spacer(flex: 2),
                           HomeView(),
                           const Spacer(flex: 2),
+
+                          SizedBox(height: 50),
+                          HomeView(),
+                          SizedBox(height: 70),
+
                           TextField(
                             controller: emailController,
                             decoration: InputDecoration(
@@ -88,7 +95,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                             onChanged: (name) {},
                           ),
+
                           const Spacer(),
+
+                          SizedBox(height: 25),
+
                           TextField(
                             controller: surNameController,
                             decoration: InputDecoration(
@@ -99,7 +110,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                             onChanged: (name) {},
                           ),
+
                           const Spacer(),
+
+                          SizedBox(height: 25),
+
                           TextField(
                             controller: middleNameController,
                             decoration: InputDecoration(
@@ -110,7 +125,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                             onChanged: (name) {},
                           ),
+
                           const Spacer(),
+
+                          SizedBox(height: 25),
+
                           TextField(
                             controller: nameController,
                             decoration: InputDecoration(
@@ -121,12 +140,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                             onChanged: (name) {},
                           ),
+
                           const Spacer(flex: 3),
+                          SizedBox(height: 25),
+
                           Expanded(
                             child: Align(
                               alignment: Alignment.center,
                               child: Container(
-                                  height: 50,
+                                  height: 40,
                                   width: 320,
                                   child: buildEditProfileButton()
                               ),

@@ -23,23 +23,28 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+//flutter.compileSdkVersion = 33
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
-  // Add the Google services Gradle plugin
+// Add the Google services Gradle plugin
 
 
 
 android {
     compileSdkVersion 33
+<<<<<<< HEAD
+=======
+    //compileSdkVersion 33
+>>>>>>> 6bb98560b3b5ff20f75fb0899eefaf29883c8e7f
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {coreLibraryDesugaringEnabled true
-    // Sets Java compatibility to Java 8
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+        // Sets Java compatibility to Java 8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
@@ -58,7 +63,7 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion flutter.minSdkVersion
         minSdkVersion 22//flutter.minSdkVersion
-        
+
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
