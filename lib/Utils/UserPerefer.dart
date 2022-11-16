@@ -3,17 +3,6 @@ import 'dart:io';
 import 'package:command_flutter/Model/User.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
-
-class UserPereferences{
-  static const myUser = User(
-      imagePath: "https://www.imagensempng.com.br/wp-content/uploads/2021/08/Icone-usuario-Png.png",
-      name: "Max Shuyanov",
-      email: "mks@mail.ru",
-      about: "one two thre",
-      numberPhone:  "898000000"
-  );
-}
-
 class Usersed{
   final String login;
   final String password;
