@@ -6,8 +6,6 @@ import 'package:command_flutter/Model/User.dart';
 import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:flutter/material.dart';
-
-
 import 'package:flutter/services.dart';
 
 import 'TestPage.dart';

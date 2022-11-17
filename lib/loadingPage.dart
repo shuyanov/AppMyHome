@@ -8,7 +8,6 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'Utils/UserPerefer.dart';
 
 
@@ -52,7 +51,14 @@ class LoadingPage extends StatelessWidget {
     });
     return MaterialApp(
         home: Container(
-          child: Text("Loadind, please wait..."),
+          child: Scaffold(
+            backgroundColor: Colors.purple,
+            body: Center(
+              child: Text( "Loading...", style: TextStyle(color: Colors.grey)),
+            ),
+
+          ),
+          //Text("Loadind, please wait..."),
         )
     );
   }

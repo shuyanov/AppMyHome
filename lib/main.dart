@@ -14,7 +14,8 @@ Future main() async {
   Notific();
   //await base.addUsers(users);
 
-  runApp(MyApp());
+ // runApp(MyApp());
+    runApp(Send());
 }
 // void main() => runApp(MyApp());
 

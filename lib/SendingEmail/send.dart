@@ -18,7 +18,7 @@ class Send extends StatelessWidget {
   String message = "";
 
 /////////////////
-  funcPress() {
+  void funcPress() async{
 
     name = nameController.text;
     email = emailController.text;
@@ -30,7 +30,7 @@ class Send extends StatelessWidget {
     subjectController.clear();
     messageController.clear();
 
-    print("name = $name | email = $email | subject = $subject | message = $message");
+    print("nam = $name | email = $email | subject = $subject | message = $message");
   }
 ///////////////////
   Widget _logButton(){
@@ -119,7 +119,7 @@ class Send extends StatelessWidget {
 
           Padding(
             padding: EdgeInsets.only(bottom: 20, top: 10),
-            child: _input(Icon(Icons.email), "name", nameController, false),
+            child: _input(Icon(Icons.email), "nam", nameController, false),
           ),
 
           Padding(
@@ -140,7 +140,6 @@ class Send extends StatelessWidget {
                 height: 60,
                 width: 150,
                 child: _logButton(),
-
               ),
               padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 )
           ),

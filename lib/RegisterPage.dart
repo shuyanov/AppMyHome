@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:http/http.dart' as http;
 import 'package:command_flutter/LoginPage.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
@@ -252,35 +251,7 @@ class RegisterPage extends StatelessWidget {
     }
 
 ////
-      Future<void> inserrecord()async{
-        if(name==""||password==""||email=="")
-        {
-          print("text null");
-        }
-        else
-          {
-            try{
-              String uri = "http://185.231.155.185/insert_api/insert_record.php";
-              var res = await http.post(Uri.parse(uri), body: {
-                "name":name,
-                "login":email,
-                "password":password
-              });
-              var response=jsonDecode(res.body);
-              if(response["success"]=="true"){
-                print("Recorted");
-              }
-              else
-              {
-                print("not rec");
-              }
-            }
-            catch(e){
-              print("excep = $e");
-            }
-          }
-      }
-    inserrecord();
+
     if(email == "" || password == "" || code == "" || name == "" || surname == "" || middleName == "" || returnedPassword == "" ){
       print("field is empty");
       print("$email-$password-$code-$name-$surname-$middleName-$returnedPassword");
