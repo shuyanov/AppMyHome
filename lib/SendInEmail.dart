@@ -2,6 +2,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'dart:io';
+import 'package:path_provider/path_provider.dart' as pathProvider;
+import 'dart:async';
+import 'package:flutter/services.dart';
+import '../Utils/UserPerefer.dart';
+
 //ad dependencies:
 //   http: ^0.13.5
 
@@ -18,19 +24,56 @@ class Send extends StatelessWidget {
   String message = "";
 
 /////////////////
-  funcPress() {
 
-    name = nameController.text;
-    email = emailController.text;
-    subject = subjectController.text;
-    message = messageController.text;
-    sendEmail(name: name, email: email, subject: subject, message: message);
-    nameController.clear();
-    emailController.clear();
-    subjectController.clear();
-    messageController.clear();
+//   funcPress() {
+//
+//     name = nameController.text;
+//     email = emailController.text;
+//     subject = subjectController.text;
+//     message = messageController.text;
+//     sendEmail(name: name, email: email, subject: subject, message: message);
+//     nameController.clear();
+//     emailController.clear();
+//     subjectController.clear();
+//     messageController.clear();
+//
+//     print("name = $name | email = $email | subject = $subject | message = $message");
+//   }
+    funcPress() {
+    void getUserTesta() async {
+      final directory = await pathProvider.getApplicationSupportDirectory();
+      final fileDirectory = directory.path + '/datasTest.json';
+      final file = File(fileDirectory);
 
-    print("name = $name | email = $email | subject = $subject | message = $message");
+      final json = jsonDecode(await file.readAsString());
+
+      print(json);
+      Usersed nikita = Usersed.fromJson(json['user']);
+      print("code = ${nikita.code}");
+      print("email");
+
+      Timer(Duration(seconds: 1), () {
+        email = nikita.login;
+        print("email");
+        print(email);
+      });
+    }
+    getUserTesta();
+    print("Test");
+    Timer(Duration(seconds: 2), () {
+      name = nameController.text;
+      // email = emailController.text;
+      subject = subjectController.text;
+      message = messageController.text;
+      sendEmail(name: name, email: email, subject: subject, message: message);
+      nameController.clear();
+      emailController.clear();
+      subjectController.clear();
+      messageController.clear();
+      print(
+          "name = $name | email = $email | subject = $subject | message = $message");
+      print("object");
+    });
   }
 ///////////////////
   Widget _logButton(){
@@ -39,7 +82,7 @@ class Send extends StatelessWidget {
         child:
 
         ElevatedButton(
-          child: Text("SEND", style: TextStyle(color: Colors.cyan, fontSize: 26)),
+          child: Text("Send", style: TextStyle(color: Colors.cyan, fontSize: 26)),
           onPressed: () => funcPress(),
           style: ElevatedButton.styleFrom(
             primary: Colors.white,
@@ -86,7 +129,8 @@ class Send extends StatelessWidget {
     required String email,
     required String subject,
     required String message,
-  }) async{
+  })
+    async{
     final serviceId = 'service_gncc96m';
     final templateId = 'template_k23j3e9';
     final userId = 'DfFoFybo_xO5kSEYV';

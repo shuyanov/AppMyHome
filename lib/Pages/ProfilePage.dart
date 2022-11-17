@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 
 
 import 'package:flutter/services.dart';
-
 import '../Widget/ImageProfileWidget.dart';
 
 class ProfileePage extends StatefulWidget {
