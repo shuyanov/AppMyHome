@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../Styles/Colors.dart';
 import '/Chats/Widgets/single_message.dart';
 import 'package:flutter/material.dart';
 
@@ -19,65 +20,82 @@ class ChatPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blueAccent,
-          title: ListTile(
-            leading: CircleAvatar(
-              radius: 20.0,
-              backgroundImage: NetworkImage(friendImage),
-            ),
-            title: Text(
-              friendName,
-              style: TextStyle(color: Colors.white),
-            ),
-            subtitle:
-                Text(friendDescription, style: TextStyle(color: Colors.white)),
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/chat/backgroundChat.jpg'),
+          fit: BoxFit.cover,
         ),
-        body: Column(
-          children: [
-            Expanded(
-                child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(25))),
-              child: StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection("users")
-                      .doc(currentUserId)
-                      .collection('messages')
-                      .doc(friendId)
-                      .collection('chats')
-                      .orderBy("date", descending: true)
-                      .snapshots(),
-                  builder: (context, AsyncSnapshot snapshot) {
-                    if (snapshot.hasData) {
-                      if (snapshot.data.docs.length < 1) {
-                        return Center(
-                          child: Text("Скажите что нибудь"),
-                        );
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10))),
+            backgroundColor: purpleColor,
+            title: ListTile(
+              leading: CircleAvatar(
+                radius: 20.0,
+                backgroundImage: NetworkImage(friendImage),
+              ),
+              title: Text(
+                friendName,
+                style: TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(friendDescription,
+                  style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          body: Column(
+            children: [
+              Expanded(
+                  child: Container(
+                // decoration: BoxDecoration(
+                //     color: Colors.white,
+                //     borderRadius: BorderRadius.only(
+                //         topLeft: Radius.circular(25),
+                //         topRight: Radius.circular(25))),
+                child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection("users")
+                        .doc(currentUserId)
+                        .collection('messages')
+                        .doc(friendId)
+                        .collection('chats')
+                        .orderBy("date", descending: true)
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data.docs.length < 1) {
+                          return Center(
+                            child: Text("Скажите что нибудь"),
+                          );
+                        }
+                        return ListView.builder(
+                            itemCount: snapshot.data.docs.length,
+                            reverse: true,
+                            physics: BouncingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              bool isMe = snapshot.data.docs[index]
+                                      ['senderId'] ==
+                                  currentUserId;
+                              return SingleMessage(
+                                  message: snapshot.data.docs[index]['message'],
+                                  isMe: isMe);
+                            });
                       }
-                      return ListView.builder(
-                          itemCount: snapshot.data.docs.length,
-                          reverse: true,
-                          physics: BouncingScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            bool isMe = snapshot.data.docs[index]['senderId'] ==
-                                currentUserId;
-                            return SingleMessage(
-                                message: snapshot.data.docs[index]['message'],
-                                isMe: isMe);
-                          });
-                    }
-                    return Center(child: CircularProgressIndicator());
-                  }),
-            )),
-            newMessage(currentUserId: currentUserId, friendId: friendId)
-          ],
-        ));
+                      return Center(child: CircularProgressIndicator(
+                        color: purpleColor,
+                      ));
+                    }),
+              )),
+              newMessage(currentUserId: currentUserId, friendId: friendId)
+            ],
+          )),
+    );
   }
 }
 

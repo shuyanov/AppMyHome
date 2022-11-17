@@ -10,8 +10,6 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:mysql_client/mysql_client.dart';
 
-import 'HomePage.dart';
-
 class LoginPage extends StatelessWidget {
 
   TextEditingController emailController = TextEditingController();

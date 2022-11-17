@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:editable_image/editable_image.dart';
-import 'package:command_flutter/Pages/EditProfilePage.dart';
+import 'package:command_flutter/Pages/TestPage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
-import 'ProfileWidget.dart';
 
 class WidgetProfileName extends StatefulWidget {
   const WidgetProfileName({Key? key}) : super(key: key);
@@ -45,8 +43,6 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
 
   @override
   Widget build(BuildContext context) {
-    final user = UserPereferences.myUser;
-
     return Padding( padding: const EdgeInsets.all(30),
         child: Align(
           alignment: Alignment.topLeft,
@@ -56,14 +52,7 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
             children: [
               Expanded(
                 flex: 1,
-                child: ProfileWidget(
-                  imagePatch: user.imagePath,
-                  onCliced: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => EditProfilePage())
-                    );
-                  },
-                ),
+                child: HomeView(),
               ),
               Expanded(
                 flex:  2,
