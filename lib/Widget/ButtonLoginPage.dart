@@ -6,6 +6,7 @@ class ButtonLoginReg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
         margin: EdgeInsets.only(top: 1),
         height: 36,
@@ -31,6 +32,17 @@ class ButtonLoginReg extends StatelessWidget {
   }
 
   showAlertDialog(BuildContext context) {
+    TextEditingController emailController = TextEditingController();
+
+    String email = '';
+    email = emailController.text;
+
+    Future<void> _LoginButtonActio() async {
+      email = emailController.text;
+      print("login: login = ${email}");
+      emailController.clear();
+      print("login: login = ${email}");
+    }
 
     // set up the buttons
     Widget cancelButton = TextButton(
@@ -39,13 +51,16 @@ class ButtonLoginReg extends StatelessWidget {
     );
     Widget continueButton = TextButton(
       child: Text("Continue"),
-      onPressed: () => Navigator.pop(context, 'Cancel'),
+      onPressed: () {
+        Navigator.pop(context, 'Cancel');
+        _LoginButtonActio(); },
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Необходимо ввести @mail УК, для отправления писем"),
       content: TextField(
+        controller: emailController,
         decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
@@ -59,7 +74,6 @@ class ButtonLoginReg extends StatelessWidget {
         continueButton,
       ],
     );
-
     // show the dialog
     showDialog(
       context: context,
