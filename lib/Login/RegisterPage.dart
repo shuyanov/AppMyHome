@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:command_flutter/LoginPage.dart';
+import 'package:command_flutter/Login/LoginPage.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mysql_client/mysql_client.dart';
+
 
 class RegisterPage extends StatelessWidget {
 
@@ -17,6 +18,10 @@ class RegisterPage extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
   TextEditingController codeController = TextEditingController();
   TextEditingController returnedPasswordController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController personalCheckController = TextEditingController();
+
+
 
   String email = "";
   String name = "";
@@ -25,6 +30,8 @@ class RegisterPage extends StatelessWidget {
   String password = "";
   String code = "";
   String returnedPassword = "";
+  String phoneNumber = "";
+  String personalCheck = "";
 
   @override
 ////////////////////
@@ -90,8 +97,8 @@ class RegisterPage extends StatelessWidget {
         decoration: InputDecoration(
           filled: true,
           fillColor: Color.fromARGB(200, 227, 228, 251),
-        border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30.0)),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30.0)),
           hintStyle: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 20, color: Colors.grey),
           hintText: hint,
@@ -123,42 +130,52 @@ class RegisterPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 18, bottom: 10),
             child:  Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Text( textAlign: TextAlign.left,  style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold), "РЕГИСТРАЦИЯ"),
-          ),
+              alignment: Alignment.bottomLeft,
+              child: Text( textAlign: TextAlign.left,  style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold), "РЕГИСТРАЦИЯ"),
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 20, top: 10),
             child: _inputNumbers(
-                Icon(Icons.email), "+7-912-345-67-89", emailController, false),
+                Icon(Icons.phone), "+7-912-345-67-89", phoneNumberController, false),
           ),
 
           Padding(
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(
-                Icon(Icons.account_box_rounded), "Фамилия", surnameController, false),
+                Icon(Icons.email), "example@mail.ru", emailController, false),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 20, top: 10),
-            child: _input(Icon(Icons.account_box_rounded), "Имя", nameController, false),
+            child: _input(Icon(Icons.account_box_rounded), "Фамилия", surnameController, false),
           ),
 
           Padding(
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(
-                Icon(Icons.account_box_rounded), "Отчество", middleNameController, false),
+                Icon(Icons.account_box_rounded), "Имя", nameController, false),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 20, top: 10),
+            child: _input(Icon(Icons.account_box_rounded), "Отчество", middleNameController, false),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 20, top: 10),
+            child: _inputNumbers(Icon(Icons.numbers), "Номер личного счета", personalCheckController, false),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 20,),
             child: _input(Icon(Icons.lock), "Пароль", passwordController, true),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 20, top: 10),
-            child: _input(Icon(Icons.lock), "Повторите пароль", returnedPasswordController, true),
+            child: _input(
+                Icon(Icons.lock), "Повторите пароль", returnedPasswordController, true),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 20,),
-            child: _input(Icon(Icons.numbers_outlined), "CODE", codeController, false),
+            padding: EdgeInsets.only(bottom: 20, top: 10),
+            child: _inputNumbers(
+                Icon(Icons.email), "CODE", codeController, false),
           ),
           SizedBox(height: 20,),
           Padding(
@@ -235,7 +252,33 @@ class RegisterPage extends StatelessWidget {
     surname = surnameController.text;
     middleName = middleNameController.text;
     returnedPassword = returnedPasswordController.text;
-    print("pass = $password == $returnedPassword");
+    phoneNumber = phoneNumberController.text;
+    personalCheck = personalCheckController.text;
+
+    emailController.clear();
+    passwordController.clear();
+    codeController.clear();
+    nameController.clear();
+    surnameController.clear();
+    middleNameController.clear();
+    returnedPasswordController.clear();
+    phoneNumberController.clear();
+    personalCheckController.clear();
+
+    print("data = $phoneNumber $email $surname $name $middleName $personalCheck $password $returnedPassword $code");
+    if(email == "" || password == "" || code == "" || name == "" || surname == "" || middleName == "" || returnedPassword == "" || phoneNumber == "" || personalCheck == ""){
+      Fluttertoast.showToast(
+          msg: "Ошибка! Необходимо заполнить все поля",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb:
+          1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      return;
+    }
     if(password != returnedPassword){
       Fluttertoast.showToast(
           msg: "Ошибка! Пароли не совпадают",
@@ -247,16 +290,150 @@ class RegisterPage extends StatelessWidget {
           textColor: Colors.white,
           fontSize: 16.0
       );
-      return ;
+      return;
     }
 
-////
+    print("Connecting to mysql server...");
+    final conn = await MySQLConnection.createConnection(
+      host: "185.231.155.185",
+      port: 3306,
+      userName: "user",
+      password: "password",
+      databaseName: "data", // optional
+    );
+    await conn.connect();
+    print("Connected");
+    var res = await conn.execute("select count(id) from final_user where user_email = '$email';");
+    for (final row in res.rows) {
+      if (row.colAt(0) != "0") {
+        Fluttertoast.showToast(
+            msg: "Ошибка! Пользователь с такими данными уже зарегистрирован",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb:
+            1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+        await conn.close();
+        print("con close");
+        return;
+      }
+    }
+    pushEmailForDB(){
+      print("push email");
+    }
 
-    if(email == "" || password == "" || code == "" || name == "" || surname == "" || middleName == "" || returnedPassword == "" ){
-      print("field is empty");
-      print("$email-$password-$code-$name-$surname-$middleName-$returnedPassword");
+    String codeStatus = "error";
+
+    var status = await conn.execute("select if (admin_code='$code' and base_code!='','admin',if(base_code='$code' and admin_code ='','user','error')) from reg_table;");
+        for(final row in status.rows){
+          if(row.colAt(0).toString()!="error"){
+            codeStatus = row.colAt(0).toString();
+            break;
+          }
+        }
+        print("status = $codeStatus");
+
+    if(codeStatus=="admin") {
+      String codeCount = "";
+      String baseCode = "";
+      var count = await conn.execute(
+          "select count, base_code from reg_table where admin_code = '$code';");//|| base_code = '$code'
+      for (final row in count.rows) {
+        codeCount = row.colAt(0).toString();
+        baseCode = row.colAt(1).toString();
+      }
+
+      if (codeCount == "0" || codeCount == "") {
+        print("$code c: $codeCount");//count code=="0"
+        Fluttertoast.showToast(
+            msg: "Ошибка! Превышено количество регистраций по данному коду, обратитесь к руководителю ТСЖ",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb:
+            1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+        await conn.close();
+        print("con close");
+        return;
+      }
+      else {
+
+        int newCount = int.parse(codeCount) - 1;
+        var regUser = await conn.execute(
+            "insert into final_user(user_email, password, surname, name, middle_name, status, code, personal_check, phone_number) values ('$email','${encoding(
+                password)}','$surname','$name','$middleName','admin','$baseCode','$personalCheck','$phoneNumber');");
+
+        var countIncrement = await conn.execute("update reg_table set count = '$newCount' where base_code = '$baseCode' and admin_code = '$code'");
+        print("register...");
+        pushEmailForDB();
+        await conn.close();
+        print("con close");
+        runApp(LoginPage());
+      }
+    }
+
+   else if(codeStatus=="user"){
+      //user code
+      var res = await conn.execute("select count(id) from final_user where user_email = '$email';");
+      for (final row in res.rows) {
+        if (row.colAt(0) != "0") {
+          Fluttertoast.showToast(
+              msg: "Ошибка! Пользователь с такими данными уже зарегистрирован",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb:
+              1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0
+          );
+          await conn.close();
+          print("con close");
+          return;
+        }
+      }
+      String codeCount = "";
+      var count = await conn.execute("select count from reg_table where base_code = '$code' and admin_code = '';");
+      for (final row in count.rows) {
+        codeCount = row.colAt(0).toString();
+      }
+
+      if(codeCount=="0" || codeCount == ""){ //count code=="0"
+        Fluttertoast.showToast(
+            msg: "Ошибка! Превышено количество регистраций по данному коду, обратитесь к руководителю ТСЖ",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb:
+            1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+        await conn.close();
+        print("con close");
+        return;
+      }
+      else {
+        int newCount = int.parse(codeCount) - 1;
+        var regUser = await conn.execute(
+            "insert into final_user(user_email, password, surname, name, middle_name, status, code, personal_check, phone_number) values ('$email','${encoding(
+                password)}','$surname','$name','$middleName','user','$code','$personalCheck','$phoneNumber');");
+        var countIncrement = await conn.execute("update reg_table set count = '$newCount' where base_code = '$code' and admin_code = ''");
+        print("register...");
+        await conn.close();
+        print("con close");
+        runApp(LoginPage());
+      }
+    }
+    else{
       Fluttertoast.showToast(
-          msg: "Ошибка! Необходимо заполнить все поля",
+          msg: "Ошибка! Введен неверный код",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb:
@@ -265,109 +442,8 @@ class RegisterPage extends StatelessWidget {
           textColor: Colors.white,
           fontSize: 16.0
       );
-      return ;
     }
-
-////////////////////
-    void PushToJson(String login, String password, String surname, String name, String middle_name, String code) async {
-
-      final directory = await pathProvider.getApplicationSupportDirectory();
-      final fileDirectory = directory.path + '/datas.json';
-      final file = File(fileDirectory);
-      await file.writeAsString('{\"user\": {\"login\" : \"$login\"\,\"password\" : \"$password\",\"surname\" : \"$surname\",\"name\" : \"$name\",\"middle_name\" : \"$middle_name\",\"code\" : \"$code\"}}');
-      final res = await file.readAsString();
-      print("created json: $res");
-
-    }
-////////////////
-
-    print("Connecting to mysql server...");
-// create connection
-    final conn = await MySQLConnection.createConnection(
-      host: "185.231.155.185",
-      port: 3306,
-      userName: "appUser",
-      password: "123879",
-      databaseName: "data", // optional
-    );
-    await conn.connect();
-    print("Connected");
-// make query
-    var result = await conn.execute("SELECT * FROM user");
-
-    for (final row in result.rows) {
-      print(row.colAt(1));
-      print(row.colAt(2));
-      if (row.colAt(1) == email && row.colAt(2) == password) {
-        print("register, please log in");
-        return runApp(LoginPage());
-      }
-      else {
-        print("no match");
-        var res = await conn.execute(
-          "INSERT INTO user (login, password, surname, name, middle_name, code) VALUES (:login, :password, :surname, :name, :middle_name, :code)",
-          {
-            "login": email,
-            "password": encoding(password),
-            "surname" : surname,
-            "name": name,
-            "middle_name" : middleName,
-            "code" :code,
-          },
-        );
-//push to json
-        PushToJson(email, password, surname, name, middleName, code);
-        runApp(LoginPage());
-      }
-      await conn.close();
-    }
-
-    print("registered, please log in");
-
-///////////////////
-    print("data: login = ${email} surname = ${surname} name = ${name} middle_Name = ${middleName} password = ${password} code = ${code}");
-    emailController.clear();
-    passwordController.clear();
-    // nameController.clear();
-    // codeController.clear();
-    // surnameController.clear();
-    // middleNameController.clear();
-    runApp(LoginPage());
   }
-
-//////////////////
-  Widget _inputBeta(Icon icon, String hint, TextEditingController controller,
-      bool hidden) {
-    return Container(
-      padding: EdgeInsets.only(right: 20, left: 20),
-      child: TextField(
-        controller: controller,
-        obscureText: hidden,
-        style: TextStyle(fontSize: 20, color: Colors.grey),
-        decoration: InputDecoration(
-          hintStyle: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.grey),
-          hintText: hint,
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey, width: 3)
-          ),
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey, width: 1)
-          ),
-          prefixIcon: Padding(padding: EdgeInsets.only(left: 10, right: 10),
-            child: IconTheme(
-              data: IconThemeData(
-                  color: Colors.yellow
-              ),
-              child: icon,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-/////////////////
 
   Widget build(BuildContext context) {
     return MaterialApp(

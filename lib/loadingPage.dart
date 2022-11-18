@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:command_flutter/HomePage.dart';
-import 'package:command_flutter/LoginPage.dart';
+import 'package:command_flutter/Login/LoginPage.dart';
 import 'package:command_flutter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
