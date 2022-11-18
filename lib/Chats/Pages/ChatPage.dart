@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../Styles/Colors.dart';
-import '/Chats/Widgets/single_message.dart';
 import 'package:flutter/material.dart';
+
+import '../Widgets/single_message.dart';
 
 class ChatPage extends StatelessWidget {
   final String currentUserId;

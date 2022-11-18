@@ -139,7 +139,6 @@ class RegisterPage extends StatelessWidget {
             child: _inputNumbers(
                 Icon(Icons.phone), "+7-912-345-67-89", phoneNumberController, false),
           ),
-
           Padding(
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(
@@ -149,7 +148,6 @@ class RegisterPage extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 20, top: 10),
             child: _input(Icon(Icons.account_box_rounded), "Фамилия", surnameController, false),
           ),
-
           Padding(
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(
@@ -187,10 +185,8 @@ class RegisterPage extends StatelessWidget {
               ),
               padding: EdgeInsets.only(left: 20, right: 20,)
           ),
-
         ],
       ),
-
     );
   }
 
@@ -216,7 +212,6 @@ class RegisterPage extends StatelessWidget {
         )
     );
   }
-
 
 //////////////////
   Widget _regButton(){
@@ -279,6 +274,7 @@ class RegisterPage extends StatelessWidget {
       );
       return;
     }
+
     if(password != returnedPassword){
       Fluttertoast.showToast(
           msg: "Ошибка! Пароли не совпадают",
@@ -290,7 +286,10 @@ class RegisterPage extends StatelessWidget {
           textColor: Colors.white,
           fontSize: 16.0
       );
-      return;
+
+
+      return ;
+
     }
 
     print("Connecting to mysql server...");

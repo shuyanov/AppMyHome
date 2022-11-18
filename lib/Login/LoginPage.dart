@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:command_flutter/Login/RegisterPage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
+
+
 import 'package:command_flutter/main.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -64,8 +66,6 @@ class LoginPage extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(Icon(Icons.lock), "PASSWORD", passwordController, true),
           ),
-
-
           SizedBox(height: 20,),
           Padding(
               child: Container(
@@ -76,7 +76,6 @@ class LoginPage extends StatelessWidget {
               ),
               padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 )
           ),
-
         ],
       ),
     );
@@ -84,22 +83,22 @@ class LoginPage extends StatelessWidget {
 
   String encoding(String value){
     var byte = utf8.encode(value);
-
     var digest = sha256.convert(byte);
     return digest.toString();
   }
 
   Widget _regButton(){
-
     return Container(
         margin: EdgeInsets.only(top: 1),
         height: 36,
         width: 150,
         child: ElevatedButton(
           child: Text("регистрация", style: TextStyle(color: Colors.white, fontSize: 19)),
-          onPressed: (){
+
+          onPressed: (){ print('tap-tap');
             return runApp(RegisterPage());
-          },
+            },
+
           style: ElevatedButton.styleFrom(
             primary: Color.fromARGB(200, 158, 122, 244),
             onPrimary: Colors.white,
@@ -113,7 +112,6 @@ class LoginPage extends StatelessWidget {
 
   Widget _logButton(){
     return Container(
-
         child:
         ElevatedButton(
           child: Text("ВОЙТИ", style: TextStyle(color: Colors.white, fontSize: 26)),
@@ -138,6 +136,7 @@ class LoginPage extends StatelessWidget {
       password = passwordController.text;
 
       print("login: login = ${email} password = ${password}");
+      //
       if(email=="" || password ==""){
         Fluttertoast.showToast(
             msg: "Ошибка! Необходимо заполнить все поля",
