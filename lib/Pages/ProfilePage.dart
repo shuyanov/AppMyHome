@@ -7,6 +7,8 @@ import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../Form/Bar.dart';
+import 'TestPage.dart';
 import '../Widget/ImageProfileWidget.dart';
 
 class ProfileePage extends StatefulWidget {
@@ -196,7 +198,7 @@ class _ProfileePageState extends State<ProfileePage> {
     imagees: "assets/profile/Massage.png",
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => FirstRoute())
+          MaterialPageRoute(builder: (context) => bar())
       );
     },
   );
@@ -211,7 +213,7 @@ class _ProfileePageState extends State<ProfileePage> {
   );
 
   Widget build_worker_Button() => ButtonWidgetProfile(
-      imagees: "assets/profile/IconMan.png",
+      imagees: "assets/profile/iconMan.png",
     onClicked: (){
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => FirstRoute())

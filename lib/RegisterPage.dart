@@ -132,7 +132,6 @@ class RegisterPage extends StatelessWidget {
             child: _inputNumbers(
                 Icon(Icons.email), "+7-912-345-67-89", emailController, false),
           ),
-
           Padding(
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(
@@ -142,7 +141,6 @@ class RegisterPage extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 20, top: 10),
             child: _input(Icon(Icons.account_box_rounded), "Имя", nameController, false),
           ),
-
           Padding(
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(
@@ -170,10 +168,8 @@ class RegisterPage extends StatelessWidget {
               ),
               padding: EdgeInsets.only(left: 20, right: 20,)
           ),
-
         ],
       ),
-
     );
   }
 
@@ -199,7 +195,6 @@ class RegisterPage extends StatelessWidget {
         )
     );
   }
-
 
 //////////////////
   Widget _regButton(){
@@ -236,6 +231,7 @@ class RegisterPage extends StatelessWidget {
     middleName = middleNameController.text;
     returnedPassword = returnedPasswordController.text;
     print("pass = $password == $returnedPassword");
+
     if(password != returnedPassword){
       Fluttertoast.showToast(
           msg: "Ошибка! Пароли не совпадают",
@@ -247,6 +243,7 @@ class RegisterPage extends StatelessWidget {
           textColor: Colors.white,
           fontSize: 16.0
       );
+
       return ;
     }
 

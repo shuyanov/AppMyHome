@@ -139,7 +139,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ],
           )
       );
-
   Widget buildEditProfileButton() =>
       ButtonWidget(
         text: 'Save',

@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
+import '../../Styles/Colors.dart';
+
 class generalSingleMessage extends StatelessWidget {
   final String message;
   final bool isMe;
   final Timestamp dateMessage;
   final String name;
   final String generalId;
-  // final String dateMessage;
-  //final int count;
 
   generalSingleMessage(
       {required this.message,
@@ -17,8 +17,6 @@ class generalSingleMessage extends StatelessWidget {
       required this.dateMessage,
       required this.name,
       required this.generalId,
-      // required this.dateMessage,
-      //required this.count
       });
 
   @override
@@ -48,7 +46,7 @@ class generalSingleMessage extends StatelessWidget {
                 margin: EdgeInsets.all(5),
                 constraints: BoxConstraints(maxWidth: 250),
                 decoration: BoxDecoration(
-                    color: isMe ? Color.fromARGB(255, 170, 143, 255) : Colors.white,
+                    color: isMe ? purpleColorMessages : Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(12))),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
