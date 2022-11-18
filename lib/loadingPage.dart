@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'dart:io';
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'Utils/UserPerefer.dart';
@@ -35,8 +34,6 @@ class LoadingPage extends StatelessWidget {
       }
 
     }
-
-
 
   }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:io';
@@ -24,27 +25,11 @@ class Send extends StatelessWidget {
   String message = "";
 
 /////////////////
-
-//   funcPress() {
-//
-//     name = nameController.text;
-//     email = emailController.text;
-//     subject = subjectController.text;
-//     message = messageController.text;
-//     sendEmail(name: name, email: email, subject: subject, message: message);
-//     nameController.clear();
-//     emailController.clear();
-//     subjectController.clear();
-//     messageController.clear();
-//
-//     print("name = $name | email = $email | subject = $subject | message = $message");
-//   }
     funcPress() {
     void getUserTesta() async {
       final directory = await pathProvider.getApplicationSupportDirectory();
       final fileDirectory = directory.path + '/datasTest.json';
       final file = File(fileDirectory);
-
       final json = jsonDecode(await file.readAsString());
 
       print(json);
@@ -54,33 +39,47 @@ class Send extends StatelessWidget {
 
       Timer(Duration(seconds: 1), () {
         email = nikita.login;
+        name = nikita.name;
         print("email");
         print(email);
       });
     }
+
     getUserTesta();
     print("Test");
     Timer(Duration(seconds: 2), () {
-      name = nameController.text;
-      // email = emailController.text;
       subject = subjectController.text;
       message = messageController.text;
-      sendEmail(name: name, email: email, subject: subject, message: message);
-      nameController.clear();
-      emailController.clear();
+
+      sendEmail( subject: subject, message: message);
       subjectController.clear();
       messageController.clear();
-      print(
-          "name = $name | email = $email | subject = $subject | message = $message");
-      print("object");
+
+
+      // print(
+      //     "name = $name | email = $email | subject = $subject | message = $message");
+      // print("object");
+
+      if(email==""){
+        Fluttertoast.showToast(
+            msg: "Отправка обращения невозможна, обратитесь к руководителю ТСЖ для добавления адреса получателя",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb:
+            1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+        return;
+      }
+
     });
   }
 ///////////////////
   Widget _logButton(){
     return Container(
-
         child:
-
         ElevatedButton(
           child: Text("Send", style: TextStyle(color: Colors.cyan, fontSize: 26)),
           onPressed: () => funcPress(),
@@ -125,8 +124,6 @@ class Send extends StatelessWidget {
   }
 ////////////
   Future sendEmail({
-    required String name,
-    required String email,
     required String subject,
     required String message,
   })
@@ -160,16 +157,14 @@ class Send extends StatelessWidget {
       padding: EdgeInsets.only(top: 150),
       child: Column(
         children: [
-
-          Padding(
-            padding: EdgeInsets.only(bottom: 20, top: 10),
-            child: _input(Icon(Icons.email), "name", nameController, false),
-          ),
-
-          Padding(
-            padding: EdgeInsets.only(bottom: 20,),
-            child: _input(Icon(Icons.lock), "email", emailController, false),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.only(bottom: 20, top: 10),
+          //   child: _input(Icon(Icons.email), "name", nameController, false),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.only(bottom: 20,),
+          //   child: _input(Icon(Icons.lock), "email", emailController, false),
+          // ),
           Padding(
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(Icon(Icons.lock), "subject", subjectController, false),
@@ -178,7 +173,7 @@ class Send extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(Icon(Icons.lock), "message", messageController, false),
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 100),
           Padding(
               child: Container(
                 height: 60,
@@ -203,6 +198,4 @@ class Send extends StatelessWidget {
         )
     );
   }
-
-
 }
