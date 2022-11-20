@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:command_flutter/CallPages/CallPage.dart';
 import 'package:command_flutter/Widget/ButtonWidgetProfile.dart';
 import 'package:command_flutter/Widget/WidgetProfile.dart';
 import 'package:command_flutter/Login/LoginPage.dart';
@@ -7,8 +8,6 @@ import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../Form/Bar.dart';
-import 'TestPage.dart';
 import '../Widget/ImageProfileWidget.dart';
 
 class ProfileePage extends StatefulWidget {
@@ -198,7 +197,7 @@ class _ProfileePageState extends State<ProfileePage> {
     imagees: "assets/profile/Massage.png",
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => bar())
+          MaterialPageRoute(builder: (context) => FirstRoute())
       );
     },
   );
@@ -216,7 +215,7 @@ class _ProfileePageState extends State<ProfileePage> {
       imagees: "assets/profile/iconMan.png",
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => FirstRoute())
+          MaterialPageRoute(builder: (context) => CallPage())
       );
     },
   );

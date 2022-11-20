@@ -1,57 +1,30 @@
-import 'package:flutter/material.dart';
-
-import '../../Styles/Colors.dart';
-
-// class SingleMessage extends StatelessWidget {
-//   final String message;
-//   final bool isMe;
-//   SingleMessage({required this.message, required this.isMe});
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
-//       children: [
-//         Container(
-//             padding: EdgeInsets.all(10),
-//             margin: EdgeInsets.all(5),
-//             constraints: BoxConstraints(maxWidth: 250, minWidth: 50),
-//             decoration: BoxDecoration(
-//                 color: isMe ? purpleColorMessages : Colors.white,
-//                 borderRadius: BorderRadius.all(Radius.circular(12))),
-//             child: Text(
-//               message,
-//               style: TextStyle(
-//                 //fontSize: 16,
-//                 color: Colors.black,
-//               ),
-//             )),
-//       ],
-//     );
-//   }
-// }
-
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+
+import '../../Styles/Colors.dart';
 import '../../functions/downloadFile.dart';
 import '../../functions/showImage.dart';
 import '../../functions/showVideo.dart';
 
-class SingleMessage extends StatelessWidget {
+class messageWidget extends StatelessWidget {
   final String message;
   final String file;
   final String nameFile;
   final bool isMe;
   final Timestamp dateMessage;
+  final String name;
   final String type;
 
-  SingleMessage({
+  messageWidget({
     required this.message,
     required this.file,
     required this.nameFile,
     required this.isMe,
     required this.dateMessage,
+    required this.name,
     required this.type,
   });
 
@@ -79,9 +52,7 @@ class SingleMessage extends StatelessWidget {
           children: [
             Container(
               margin: EdgeInsets.all(5),
-              constraints: BoxConstraints(
-                maxWidth: 200,
-              ),
+              constraints: BoxConstraints(maxWidth: 200),
               decoration: BoxDecoration(
                   color: isMe ? purpleColorMessages : Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(12))),
@@ -91,10 +62,19 @@ class SingleMessage extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        constraints: BoxConstraints(minWidth: 50),
+                        child: Text(
+                          name,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
                       type == 'text'
                           ? Container(
-                              padding: EdgeInsets.all(5),
-                              constraints: BoxConstraints(minWidth: 50),
+                              padding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
                               child: Text(
                                 message,
                                 style: TextStyle(
@@ -116,7 +96,7 @@ class SingleMessage extends StatelessWidget {
                                       child: Container(
                                         constraints: BoxConstraints(
                                             minWidth: 100, minHeight: 50),
-                                        padding: EdgeInsets.all(2),
+                                        padding: EdgeInsets.only(bottom: 2, left: 2, right: 2),
                                         child: file != ""
                                             ? Container(
                                                 constraints: BoxConstraints(
@@ -125,10 +105,9 @@ class SingleMessage extends StatelessWidget {
                                                 child: ClipRRect(
                                                   borderRadius:
                                                       BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(10),
+                                                    topLeft: Radius.circular(5),
                                                     topRight:
-                                                        Radius.circular(10),
+                                                        Radius.circular(5),
                                                     bottomLeft:
                                                         Radius.circular(5),
                                                     bottomRight:
