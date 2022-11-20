@@ -21,6 +21,7 @@ class SendTest extends StatelessWidget {
   String message = "";
 
 /////////////////
+
   funcPress() {
     void getUserTesta() async {
       final directory = await pathProvider.getApplicationSupportDirectory();
@@ -144,7 +145,7 @@ class SendTest extends StatelessWidget {
 
           Padding(
             padding: EdgeInsets.only(bottom: 20, top: 10),
-            child: _input(Icon(Icons.email), "name", nameController, false),
+            child: _input(Icon(Icons.email), "nam", nameController, false),
           ),
 
           Padding(
@@ -165,7 +166,6 @@ class SendTest extends StatelessWidget {
                 height: 60,
                 width: 150,
                 child: _logButton(),
-
               ),
               padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 )
           ),

@@ -51,7 +51,7 @@ class UsersedTest{
   final String stateAdmin;
   final String personalCheck;
   final String numberPhone;
-
+  final String adminEmail;
 
   UsersedTest(
       { required this.login,
@@ -64,6 +64,7 @@ class UsersedTest{
         required this.stateAdmin,
         required this.personalCheck,
         required this.numberPhone,
+        required this.adminEmail,
       });
 
   factory UsersedTest.fromJson(Map<String, dynamic> json)=>
@@ -77,7 +78,8 @@ class UsersedTest{
           id: json['id'],
           stateAdmin: json['stateAdmin'],
           personalCheck: json['personalCheck'],
-          numberPhone: json['numberPhone']
+          numberPhone: json['numberPhone'],
+          adminEmail: json['adminEmail']
       );
   Map<String, dynamic> toJson()=>{
     'login': login,
@@ -89,7 +91,8 @@ class UsersedTest{
     'id': id,
     'stateAdmin': stateAdmin,
     'personalCheck': personalCheck,
-    'numberPhone': numberPhone
+    'numberPhone': numberPhone,
+    'adminEmail': adminEmail
   };
 }
 
@@ -143,17 +146,17 @@ void getUserTest() async {
   final json = jsonDecode(await file.readAsString());
 
   print(json);
-  Usersed nikita = Usersed.fromJson(json['user']);
-  print("code = ${nikita.code}");
+  UsersedTest nikita = UsersedTest.fromJson(json['user']);
+  print("adminEmail = ${nikita.adminEmail}");
 }
 
 
-void PushToJsonTest(String login, String password, String surname, String name, String middle_name, String code, String id, String stateAdmin, String personalCheck, String numberPhone) async {
+void PushToJsonTest(String login, String password, String surname, String name, String middle_name, String code, String id, String stateAdmin, String personalCheck, String numberPhone,String adminEmail) async {
 
   final directory = await pathProvider.getApplicationSupportDirectory();
   final fileDirectory = directory.path + '/datasTest.json';
   final file = File(fileDirectory);
-  await file.writeAsString('{\"user\": {\"login\" : \"$login\"\,\"password\" : \"$password\",\"surname\" : \"$surname\",\"name\" : \"$name\",\"middle_name\" : \"$middle_name\",\"code\" : \"$code\",\"id\" : \"$id\",\"stateAdmin\" : \"$stateAdmin\",\"personalCheck\" : \"$personalCheck\",\"numberPhone\" : \"$numberPhone\"}}');
+  await file.writeAsString('{\"user\": {\"login\" : \"$login\"\,\"password\" : \"$password\",\"surname\" : \"$surname\",\"name\" : \"$name\",\"middle_name\" : \"$middle_name\",\"code\" : \"$code\",\"id\" : \"$id\",\"stateAdmin\" : \"$stateAdmin\",\"personalCheck\" : \"$personalCheck\",\"numberPhone\" : \"$numberPhone\",\"adminEmail\" : \"$adminEmail\"}}');
   final res = await file.readAsString();
   print("created json: $res");
 
