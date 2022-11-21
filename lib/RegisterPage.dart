@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:command_flutter/LoginPage.dart';
+import 'package:command_flutter/LoginPageF.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:crypto/crypto.dart';
@@ -189,7 +189,7 @@ class RegisterPage extends StatelessWidget {
         width: 110,
         child: ElevatedButton(
           child: Text("ВХОД", style: TextStyle(color: Colors.white, fontSize: 18)),
-          onPressed: (){ print('tap-tap'); return runApp(LoginPage()); },
+          onPressed: (){ print('tap-tap'); return runApp(LoginPageF()); },
           style: ElevatedButton.styleFrom(
             primary: Color.fromARGB(200, 158, 122, 244),
             onPrimary: Colors.cyan,
@@ -329,7 +329,7 @@ class RegisterPage extends StatelessWidget {
       print(row.colAt(2));
       if (row.colAt(1) == email && row.colAt(2) == password) {
         print("register, please log in");
-        return runApp(LoginPage());
+        return runApp(LoginPageF());
       }
       else {
         print("no match");
@@ -346,7 +346,7 @@ class RegisterPage extends StatelessWidget {
         );
 //push to json
         PushToJson(email, password, surname, name, middleName, code);
-        runApp(LoginPage());
+        runApp(LoginPageF());
       }
       await conn.close();
     }
@@ -361,7 +361,7 @@ class RegisterPage extends StatelessWidget {
     // codeController.clear();
     // surnameController.clear();
     // middleNameController.clear();
-    runApp(LoginPage());
+    runApp(LoginPageF());
   }
 
 //////////////////

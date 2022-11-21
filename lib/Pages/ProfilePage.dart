@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:command_flutter/Widget/ButtonWidgetProfile.dart';
 import 'package:command_flutter/Widget/WidgetProfile.dart';
-import 'package:command_flutter/LoginPage.dart';
+import 'package:command_flutter/LoginPageF.dart';
 import 'package:command_flutter/Model/User.dart';
 import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
@@ -171,7 +171,7 @@ class _ProfileePageState extends State<ProfileePage> {
     text:'Выход',
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => LoginPage())
+          MaterialPageRoute(builder: (context) => LoginPageF())
         );
       },
     );
