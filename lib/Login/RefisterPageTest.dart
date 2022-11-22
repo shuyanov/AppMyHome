@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:command_flutter/TestLogin.dart';
+import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:convert';
@@ -26,6 +29,9 @@ class _RegisterPageTestState extends State<RegisterPageTest> {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController personalCheckController = TextEditingController();
 
+  TextEditingController AdminEmailController = TextEditingController();
+  String userStatus = "";
+
   String email = "";
   String name = "";
   String middleName = "";
@@ -35,6 +41,8 @@ class _RegisterPageTestState extends State<RegisterPageTest> {
   String returnedPassword = "";
   String phoneNumber = "";
   String personalCheck = "";
+
+  String adminEmail = "";
 
   @override
 ////////////////////
@@ -249,7 +257,8 @@ class _RegisterPageTestState extends State<RegisterPageTest> {
     return digest.toString();
   }
   ///
-  void funcPress() async {
+   void funcPress() async {
+
     email = emailController.text;
     password = passwordController.text;
     code = codeController.text;
@@ -308,6 +317,7 @@ class _RegisterPageTestState extends State<RegisterPageTest> {
       password: "password",
       databaseName: "data", // optional
     );
+
     await conn.connect();
     print("Connected");
     var res = await conn.execute("select count(id) from final_user where user_email = '$email';");
@@ -329,20 +339,22 @@ class _RegisterPageTestState extends State<RegisterPageTest> {
       }
     }
 
-    pushEmailForDB (String email, String adminCode, String code) async{
-      int dataStatus = 0;
-      var getEmailCount = await conn.execute("select count(id) from code_table where admin_code = '$adminCode';");
-      for(final rov in getEmailCount.rows){
-        if(rov.colAt(0).toString()!="0"){
-          dataStatus = 1;
-          break;
-        }
-      }
-      if(dataStatus==1){
-        var pushEmail = await conn.execute("insert into code_table(admin_code, code, main_mail) values ('$adminCode','$code','$email');");
-      }
-      return LoginPage();
-    }
+    // pushEmailForDB (String email, String adminCode, String code) async{
+    //   int dataStatus = 0;
+    //   var getEmailCount = await conn.execute("select count(id) from code_table where admin_code = '$adminCode';");
+    //   for(final rov in getEmailCount.rows){
+    //     if(rov.colAt(0).toString()!="0"){
+    //       dataStatus = 1;
+    //       break;
+    //     }
+    //   }
+    //   if(dataStatus==1){
+    //     var pushEmail = await conn.execute("insert into code_table(admin_code, code, main_mail) values ('$adminCode','$code','$email');");
+    //   }
+    //
+    //   var pushEmail = await conn.execute("insert into code_table(admin_code, code, main_mail) values ('OPiu','$code','$email');");
+    //   return LoginPage();
+    // }
 
     String codeStatus = "error";
 
@@ -353,7 +365,10 @@ class _RegisterPageTestState extends State<RegisterPageTest> {
         break;
       }
     }
+
     print("status = $codeStatus");
+    userStatus = codeStatus;
+
     if(codeStatus=="admin") {
       String codeCount = "";
       String baseCode = "";
@@ -399,7 +414,7 @@ class _RegisterPageTestState extends State<RegisterPageTest> {
         runApp(LoginPage());
       }
     }
-//
+    //
     //
     else if(codeStatus=="user"){
       //user code
@@ -490,6 +505,37 @@ class _RegisterPageTestState extends State<RegisterPageTest> {
       Widget build(BuildContext context) {
         return MaterialApp(
           home: Builder(builder: (context) {
+            pushEmailForDB (String email, String adminCode, String code) async{
+              print("email = $email adminCode = $adminCode code = $code");
+
+              final conn = await MySQLConnection.createConnection(
+                host: "185.231.155.185",
+                port: 3306,
+                userName: "user",
+                password: "password",
+                databaseName: "data", // optional
+              );
+
+              await conn.connect();
+
+              int dataStatus = 0;
+              var getEmailCount = await conn.execute("select count(id) from code_table where admin_code = '$adminCode';");
+              for(final rov in getEmailCount.rows){
+                if(rov.colAt(0).toString() == "0"){
+                  dataStatus = 1;
+                  break;
+                }
+              }
+
+              print("dataStatus =  $dataStatus");
+              if(dataStatus == 1){
+                var pushEmail = await conn.execute("insert into code_table(admin_code, code, main_mail) values ('$adminCode','$code','$email');");
+              }
+
+              return LoginPage();
+
+            }
+
             return Scaffold(
               backgroundColor: Colors.white,
               body:
@@ -498,61 +544,72 @@ class _RegisterPageTestState extends State<RegisterPageTest> {
                   children: [
                     _logo(),
                     _form(),
-                    _logPageButton(),
                     ElevatedButton(
                       child: Text("ЗАРЕГИСТРИРОВАТЬСЯ", style: TextStyle(color: Colors.white, fontSize: 20)),
                       onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (_) {
-                            return AlertDialog(
-                              title: Text('This is a text'),
-                              content: Text('this is the content'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(false);
-                                  },
-                                  child: Text('No'),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    runApp(LoginPage());
-                                    Navigator.of(context).pop(true);
-                                  },
-                                  child: Text('Yes'),
-                                )
-                              ],
-                            );
-                          },
-                        );
-                         showDialog(
-                           context: context,
-                           builder: (_) {
-                             return AlertDialog(
-                               title: Text('This is a text'),
-                               content: Text('this is the content'),
-                               actions: [
-                                 TextButton(
-                                   onPressed: () {
-                                     Navigator.of(context).pop(false);
-                                   },
-                                   child: Text('No'),
-                                ),
-                                 TextButton(
-                                   onPressed: () {
-                                     runApp(LoginPage());
-                                     Navigator.of(context).pop(true);
-                                  },
-                                   child: Text('Yes'),
-                                 )
-                               ],
-                             );
-                           },
-                         );
-                        return funcPress();
+                        funcPress();
+                        print("userStatus $userStatus");
+
+                        if(userStatus == "admin")
+                        {
+                          showDialog(
+                            context: context,
+                            builder: (_) {
+                              return AlertDialog(
+                                title: Text('This is a text'),
+                                content: Text('this is the content'),
+                                actions: [
+                                  TextField(
+                                    controller: AdminEmailController,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      labelText: 'Email',
+                                    ),
+                                  ),
+                                  Center(
+                                    child: Row(
+                                      children: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(false);
+                                          },
+                                          child: Text('Back'),
+                                        ),
+                                        SizedBox(height: 30),
+                                        TextButton(
+                                          onPressed: () {
+                                            adminEmail = AdminEmailController.text;
+
+                                            print("adminEmail = $adminEmail ");
+
+                                            runApp(LoginPage());
+                                            Navigator.of(context).pop(true);
+
+                                            pushEmailForDB(adminEmail, "1490", "TEST");
+                                            AdminEmailController.clear();
+                                          },
+                                          child: Text('Save'),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        };
                       },
+                      style: ElevatedButton.styleFrom(
+                        primary: Color.fromARGB(200, 158, 122, 244),
+                        onPrimary: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32.0),
+                        ),
+                      ),
                     ),
+                    _logPageButton(),
                   ],
                 ),
               )

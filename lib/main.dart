@@ -16,7 +16,7 @@ Future main() async {
   await Firebase.initializeApp();
   Notific();
   //await base.addUsers(users);
-    runApp(RegisterPageTest());
+    runApp(RegisterPage());
   //   runApp(MyApp());
 
 }
@@ -24,20 +24,6 @@ Future main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //
-   //  PushToJsonTest("maks_shuyanov@mail.ru", "password1", "surname1", "name1", "middle_name1", "code1", "id1", "stateAdmin1", "personalCheck1", "8890000");
-
-
-    // ///
-    //  PushToJsonTest("maks_shuyanov@mail.ru", "password1", "surname1", "name1", "middle_name1", "code1", "id1", "stateAdmin1", "personalCheck1", "8890000");
-    //  ViewJsonTest();
-    //
-    //  Timer(Duration(seconds: 1), () {
-    //    getUserTest();
-    //    runApp(Send());
-    //  });
-    //
-    // ///\
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.greenAccent.shade400
