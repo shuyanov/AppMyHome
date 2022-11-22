@@ -111,7 +111,8 @@ class _OneChatsState extends State<OneChats> {
   Widget buildText(String text) => Center(
         child: Text(
           text,
-          style: TextStyle(fontSize: 24, color: Colors.white),
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20, color: Colors.black),
         ),
       );
 }

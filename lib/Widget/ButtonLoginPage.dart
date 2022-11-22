@@ -1,15 +1,8 @@
 
-
 import 'dart:async';
-
-import 'package:command_flutter/RegisterPage.dart';
-
 import 'package:flutter/material.dart';
 
 import '../Login/RegisterPage.dart';
-
-class ButtonLoginReg extends StatelessWidget {
-
 
 class ButtonLoginReg extends StatelessWidget {
   @override
