@@ -17,14 +17,16 @@ class ChatPage extends StatefulWidget {
   final String currentUserId;
   final String friendId;
   final String friendName;
-  final String friendDescription;
+  final String friendSurname;
+  final String friendMiddle_name;
   final String friendImage;
 
   ChatPage(
       {required this.currentUserId,
       required this.friendId,
       required this.friendName,
-      required this.friendDescription,
+      required this.friendSurname,
+      required this.friendMiddle_name,
       required this.friendImage,
       super.key});
 
@@ -75,10 +77,10 @@ class _ChatPageState extends State<ChatPage> {
                 backgroundImage: NetworkImage(widget.friendImage),
               ),
               title: Text(
-                widget.friendName,
+                widget.friendSurname,
                 style: TextStyle(color: Colors.white),
               ),
-              subtitle: Text(widget.friendDescription,
+              subtitle: Text("${widget.friendName} ${widget.friendMiddle_name}",
                   style: TextStyle(color: Colors.white)),
             ),
           ),

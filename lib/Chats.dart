@@ -1,6 +1,4 @@
 import 'package:flutter/gestures.dart';
-import 'package:flutter/rendering.dart';
-
 import 'Chats/Data/Admin.dart';
 import 'Chats/Models/User.dart';
 import 'Chats/OneChats.dart';
@@ -71,7 +69,7 @@ class _ChatsState extends State<Chats> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => GeneralPage(
                                   currentUserId: myId,
-                                  currentName: myUsername,
+                                  currentName: myUserName,
                                   currentImage: myUrlAvatar,
                                   generalId: idGeneral,
                                   generalName: name,
@@ -101,7 +99,7 @@ class _ChatsState extends State<Chats> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => GeneralPage(
                                   currentUserId: myId,
-                                  currentName: myUsername,
+                                  currentName: myUserName,
                                   currentImage: myUrlAvatar,
                                   generalId: idGeneral2,
                                   generalName: name2,
@@ -131,7 +129,7 @@ class _ChatsState extends State<Chats> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => GeneralPage(
                                   currentUserId: myId,
-                                  currentName: myUsername,
+                                  currentName: myUserName,
                                   currentImage: myUrlAvatar,
                                   generalId: idGeneral3,
                                   generalName: name3,
@@ -201,15 +199,16 @@ class _ChatsState extends State<Chats> {
         radius: 20.0,
         backgroundImage: NetworkImage(user.urlAvatar),
       ),
-      title: Text(user.name),
-      subtitle: Text(user.description),
+      title: Text(user.surname),
+      subtitle: Text("${user.name} ${user.middle_name}"),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => ChatPage(
                 currentUserId: myId,
                 friendId: user.idUser!,
                 friendName: user.name,
-                friendDescription: user.description,
+                friendSurname: user.surname,
+                friendMiddle_name: user.middle_name,
                 friendImage: user.urlAvatar)));
       },
     );
