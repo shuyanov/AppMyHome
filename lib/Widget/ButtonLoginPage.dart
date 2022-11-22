@@ -1,5 +1,8 @@
+
 import 'dart:async';
 import 'package:flutter/material.dart';
+
+import '../Login/RegisterPage.dart';
 
 class ButtonLoginReg extends StatelessWidget {
   @override
