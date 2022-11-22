@@ -11,23 +11,23 @@ import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
-class TestLogin extends StatelessWidget {
+// class TestLogin extends StatelessWidget {
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  //MS
-  TextEditingController nameController = TextEditingController();
-  TextEditingController surNameController = TextEditingController();
-  TextEditingController middleNameController = TextEditingController();
+//   TextEditingController emailController = TextEditingController();
+//   TextEditingController passwordController = TextEditingController();
+//   //MS
+//   TextEditingController nameController = TextEditingController();
+//   TextEditingController surNameController = TextEditingController();
+//   TextEditingController middleNameController = TextEditingController();
 
-  String name = "";
-  String surName = "";
-  String middleName = "";
-  //MS
+//   String name = "";
+//   String surName = "";
+//   String middleName = "";
+//   //MS
 
-  bool logged = false;
-  String email = "";
-  String password = "";
+//   bool logged = false;
+//   String email = "";
+//   String password = "";
 
 
 class ShowDialogg extends StatelessWidget {
