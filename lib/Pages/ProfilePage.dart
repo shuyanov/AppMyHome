@@ -1,7 +1,8 @@
 import 'dart:async';
+import 'package:command_flutter/Widget/ButtonLoginPage.dart';
 import 'package:command_flutter/Widget/ButtonWidgetProfile.dart';
 import 'package:command_flutter/Widget/WidgetProfile.dart';
-import 'package:command_flutter/Login/LoginPage.dart';
+import 'package:command_flutter/Login/LOginPage.dart';
 import 'package:command_flutter/Model/User.dart';
 import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
@@ -29,6 +30,7 @@ class _ProfileePageState extends State<ProfileePage> {
       print("3 Seconds");
       print(name);
       print(surName);
+      ButtonLoginReg();
     });
 
     return ListView(
@@ -144,7 +146,7 @@ class _ProfileePageState extends State<ProfileePage> {
                   width: 330,
                   child: buildExitProfileButton(),
                   )
-                  )
+                  ),
                ],
               )
           ],
@@ -215,6 +217,7 @@ class _ProfileePageState extends State<ProfileePage> {
   Widget build_worker_Button() => ButtonWidgetProfile(
       imagees: "assets/profile/iconMan.png",
     onClicked: (){
+      ButtonLoginReg();
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => FirstRoute())
       );

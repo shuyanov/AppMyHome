@@ -13,13 +13,55 @@ class FirstRoute extends StatelessWidget {
         child: ElevatedButton(
           child: const Text('Open route'),
           onPressed: () {
-            AlertDialog();
+            showAlertDialog(context);
+            // showDialog(
+            //   context: context,
+            //   builder: (context) => Container(
+            //     child: AlertDialog(
+            //       title: Text("My title"),
+            //       content: Text("This is my message."),
+            //       actions: [
+            //         TextButton(
+            //           child: Text("OK"),
+            //           onPressed: () {},
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // );
+
             // Navigate to second route when tapped.
           },
         ),
       ),
     );
   }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () { },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("My title"),
+      content: Text("This is my message."),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
 }
 
 class SecondRoute extends StatelessWidget {

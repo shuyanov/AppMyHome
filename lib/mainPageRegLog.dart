@@ -1,7 +1,7 @@
 
 import 'package:command_flutter/Login/RegisterPage.dart';
 import 'package:flutter/material.dart';
-import 'Login/LoginPage.dart';
+import 'Login/LOginPage.dart';
 
 class mainPageRegLog extends StatelessWidget {
 
