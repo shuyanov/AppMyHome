@@ -327,13 +327,13 @@ class RegisterPage extends StatelessWidget {
     String codeStatus = "error";
 
     var status = await conn.execute("select if (admin_code='$code' and base_code!='','admin',if(base_code='$code' and admin_code ='','user','error')) from reg_table;");
-        for(final row in status.rows){
-          if(row.colAt(0).toString()!="error"){
-            codeStatus = row.colAt(0).toString();
-            break;
-          }
-        }
-        print("status = $codeStatus");
+    for(final row in status.rows){
+      if(row.colAt(0).toString()!="error"){
+        codeStatus = row.colAt(0).toString();
+        break;
+      }
+    }
+    print("status = $codeStatus");
 
     if(codeStatus=="admin") {
       String codeCount = "";
@@ -377,7 +377,7 @@ class RegisterPage extends StatelessWidget {
       }
     }
 
-   else if(codeStatus=="user"){
+    else if(codeStatus=="user"){
       //user code
       var res = await conn.execute("select count(id) from final_user where user_email = '$email';");
       for (final row in res.rows) {

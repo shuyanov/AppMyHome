@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:command_flutter/LoginPage.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mysql_client/mysql_client.dart';
+
+import 'Login/LoginPage.dart';
 
 class RegisterPageAdmin extends StatelessWidget {
 
