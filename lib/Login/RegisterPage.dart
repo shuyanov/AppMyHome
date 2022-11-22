@@ -280,7 +280,9 @@ class RegisterPage extends StatelessWidget {
         return;
       }
 
+
       if(password != returnedPassword){
+
         Fluttertoast.showToast(
             msg: "Ошибка! Пароли не совпадают",
             toastLength: Toast.LENGTH_SHORT,
@@ -295,6 +297,7 @@ class RegisterPage extends StatelessWidget {
         return ;
       }
 
+
       print("Connecting to mysql server...");
       final conn = await MySQLConnection.createConnection(
         host: "185.231.155.185",
@@ -305,6 +308,7 @@ class RegisterPage extends StatelessWidget {
       );
       await conn.connect();
       print("Connected");
+
       var res = await conn.execute("select count(id) from final_user where user_email = '$email';");
       for (final row in res.rows) {
         if (row.colAt(0) != "0") {
