@@ -49,6 +49,17 @@ dependencies:
   flutter_local_notifications: ^12.0.0
   timezone: ^0.9.0
   editable_image: ^1.1.0
+  firebase_storage: any
+  camera: any
+  image_picker: any
+  uuid: any
+  file_picker: any
+  video_player: any
+  dio: any
+  path_provider: any
+  external_app_launcher: any
+  open_file: ^3.2.1
+  
   # flutter_local_notifications: ^9.6.0
   # timezone: ^0.8.0
   # rxdart: ^0.27.4

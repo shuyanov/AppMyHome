@@ -36,7 +36,8 @@ class _SearchUserPageState extends State<SearchUserPage> {
         });
       }
       value.docs.forEach((user) {
-        if (user.data()['name'] != myUsername) {
+        if (user.data()['name'] != myUserName) {
+          //
           searchResult.add(user.data());
         }
       });
@@ -63,7 +64,8 @@ class _SearchUserPageState extends State<SearchUserPage> {
         });
       }
       value.docs.forEach((user) {
-        if (user.data()['name'] != myUsername) {
+        if (user.data()['name'] != myUserName) {
+          //
           searchResult.add(user.data());
         }
       });
@@ -116,7 +118,13 @@ class _SearchUserPageState extends State<SearchUserPage> {
                           //   child:
                           //       Image.network(searchResult[index]['urlAvatar']),
                           // ),
-                          title: Text(searchResult[index]['name'], style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey[700]),),
+                          title: Text(
+                            searchResult[index]['name'],
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[700]),
+                          ),
                           // subtitle: Text(searchResult[index]['description']),
                           onTap: () {
                             setState(() {
@@ -129,8 +137,10 @@ class _SearchUserPageState extends State<SearchUserPage> {
                                         currentUserId: myId,
                                         friendId: searchResult[index]['idUser'],
                                         friendName: searchResult[index]['name'],
-                                        friendDescription: searchResult[index]
-                                            ['description'],
+                                        friendSurname: searchResult[index]
+                                            ['surname'],
+                                        friendMiddle_name: searchResult[index]
+                                            ['middle_name'],
                                         friendImage: searchResult[index]
                                             ['urlAvatar'])));
                           },
