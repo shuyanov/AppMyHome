@@ -45,7 +45,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-
   Widget _form(){
     return Container(
 

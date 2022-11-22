@@ -1,17 +1,21 @@
+import 'package:command_flutter/TestLogin.dart';
+import 'package:flutter/material.dart';
+
 import 'dart:convert';
 import 'package:command_flutter/Login/LOginPage.dart';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:crypto/crypto.dart';
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mysql_client/mysql_client.dart';
 
-import '../Widget/ButtonLoginPage.dart';
+class RegisterPageTest extends StatefulWidget {
+  const RegisterPageTest({Key? key}) : super(key: key);
 
+  @override
+  State<RegisterPageTest> createState() => _RegisterPageTestState();
+}
 
-class RegisterPage extends StatelessWidget {
-
+class _RegisterPageTestState extends State<RegisterPageTest> {
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController middleNameController = TextEditingController();
@@ -177,15 +181,15 @@ class RegisterPage extends StatelessWidget {
                 Icon(Icons.email), "CODE", codeController, false),
           ),
           SizedBox(height: 20,),
-          Padding(
-              child: Container(
-                height: 60,
-                width: 270,
-                child: _regButton()
-                //_button(),
-              ),
-              padding: EdgeInsets.only(left: 20, right: 20,)
-          ),
+          // Padding(
+          //     child: Container(
+          //         height: 60,
+          //         width: 270,
+          //         child: _regButton(context)
+          //       //_button(),
+          //     ),
+          //     padding: EdgeInsets.only(left: 20, right: 20,)
+          // ),
         ],
       ),
     );
@@ -194,7 +198,6 @@ class RegisterPage extends StatelessWidget {
 ///////////////////
 
   Widget _logPageButton(){
-
     return Container(
         margin: EdgeInsets.only(top: 8, bottom: 8),
         // padding: EdgeInsets.only(top: 8),
@@ -216,59 +219,102 @@ class RegisterPage extends StatelessWidget {
 
 //////////////////
 
-  Widget _regButton(){
-    return Container(
-        child: ElevatedButton(
-          child: Text("ЗАРЕГИСТРИРОВАТЬСЯ", style: TextStyle(color: Colors.white, fontSize: 20)),
-          onPressed: () {
-            return funcPress();
-            },
-          style: ElevatedButton.styleFrom(
-            primary: Color.fromARGB(200, 158, 122, 244),
-            onPrimary: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(32.0),
-            ),
-          ),
-        )
-
-    );
-  }
+  // Widget _regButton(BuildContext context){
+  //   return Container(
+  //       child: ElevatedButton(
+  //         child: Text("ЗАРЕГИСТРИРОВАТЬСЯ", style: TextStyle(color: Colors.white, fontSize: 20)),
+  //         onPressed: () {
+  //           return showAlertDialog(context);
+  //           // return funcPress();
+  //         },
+  //         style: ElevatedButton.styleFrom(
+  //           primary: Color.fromARGB(200, 158, 122, 244),
+  //           onPrimary: Colors.white,
+  //           shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.circular(32.0),
+  //           ),
+  //         ),
+  //       )
+  //
+  //   );
+  // }
 
 /////////////////
 
 /////////
+
   String encoding(String value){
     var byte = utf8.encode(value);
     var digest = sha256.convert(byte);
     return digest.toString();
   }
-///
-    void funcPress() async {
-      email = emailController.text;
-      password = passwordController.text;
-      code = codeController.text;
-      name = nameController.text;
-      surname = surnameController.text;
-      middleName = middleNameController.text;
-      returnedPassword = returnedPasswordController.text;
-      phoneNumber = phoneNumberController.text;
-      personalCheck = personalCheckController.text;
+  ///
+  void funcPress() async {
+    email = emailController.text;
+    password = passwordController.text;
+    code = codeController.text;
+    name = nameController.text;
+    surname = surnameController.text;
+    middleName = middleNameController.text;
+    returnedPassword = returnedPasswordController.text;
+    phoneNumber = phoneNumberController.text;
+    personalCheck = personalCheckController.text;
 
-      emailController.clear();
-      passwordController.clear();
-      codeController.clear();
-      nameController.clear();
-      surnameController.clear();
-      middleNameController.clear();
-      returnedPasswordController.clear();
-      phoneNumberController.clear();
-      personalCheckController.clear();
+    emailController.clear();
+    passwordController.clear();
+    codeController.clear();
+    nameController.clear();
+    surnameController.clear();
+    middleNameController.clear();
+    returnedPasswordController.clear();
+    phoneNumberController.clear();
+    personalCheckController.clear();
 
-      print("data = $phoneNumber $email $surname $name $middleName $personalCheck $password $returnedPassword $code");
-      if(email == "" || password == "" || code == "" || name == "" || surname == "" || middleName == "" || returnedPassword == "" || phoneNumber == "" || personalCheck == ""){
+    print("data = $phoneNumber $email $surname $name $middleName $personalCheck $password $returnedPassword $code");
+    if(email == "" || password == "" || code == "" || name == "" || surname == "" || middleName == "" || returnedPassword == "" || phoneNumber == "" || personalCheck == ""){
+      Fluttertoast.showToast(
+          msg: "Ошибка! Необходимо заполнить все поля",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb:
+          1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      return;
+    }
+
+    if(password != returnedPassword){
+      Fluttertoast.showToast(
+          msg: "Ошибка! Пароли не совпадают",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb:
+          1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+
+      return ;
+    }
+
+    print("Connecting to mysql server...");
+    final conn = await MySQLConnection.createConnection(
+      host: "185.231.155.185",
+      port: 3306,
+      userName: "user",
+      password: "password",
+      databaseName: "data", // optional
+    );
+    await conn.connect();
+    print("Connected");
+    var res = await conn.execute("select count(id) from final_user where user_email = '$email';");
+    for (final row in res.rows) {
+      if (row.colAt(0) != "0") {
         Fluttertoast.showToast(
-            msg: "Ошибка! Необходимо заполнить все поля",
+            msg: "Ошибка! Пользователь с такими данными уже зарегистрирован",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb:
@@ -277,14 +323,40 @@ class RegisterPage extends StatelessWidget {
             textColor: Colors.white,
             fontSize: 16.0
         );
+        await conn.close();
+        print("con close");
         return;
       }
+    }
 
+    pushEmailForDB (){
+      return LoginPage();
+    }
 
-      if(password != returnedPassword){
+    String codeStatus = "error";
 
+    var status = await conn.execute("select if (admin_code='$code' and base_code!='','admin',if(base_code='$code' and admin_code ='','user','error')) from reg_table;");
+    for(final row in status.rows){
+      if(row.colAt(0).toString()!="error"){
+        codeStatus = row.colAt(0).toString();
+        break;
+      }
+    }
+    print("status = $codeStatus");
+    if(codeStatus=="admin") {
+      String codeCount = "";
+      String baseCode = "";
+      var count = await conn.execute(
+          "select count, base_code from reg_table where admin_code = '$code';");//|| base_code = '$code'
+      for (final row in count.rows) {
+        codeCount = row.colAt(0).toString();
+        baseCode = row.colAt(1).toString();
+      }
+
+      if (codeCount == "0" || codeCount == "") {
+        print("$code c: $codeCount");//count code=="0"
         Fluttertoast.showToast(
-            msg: "Ошибка! Пароли не совпадают",
+            msg: "Ошибка! Превышено количество регистраций по данному коду, обратитесь к руководителю ТСЖ",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb:
@@ -293,22 +365,33 @@ class RegisterPage extends StatelessWidget {
             textColor: Colors.white,
             fontSize: 16.0
         );
-
-        return ;
+        await conn.close();
+        print("con close");
+        return;
       }
+      else {
+        int newCount = int.parse(codeCount) - 1;
+        var regUser = await conn.execute(
+            "insert into final_user(user_email, password, surname, name, middle_name, status, code, personal_check, phone_number) values ('$email','${encoding(
+                password)}','$surname','$name','$middleName','admin','$baseCode','$personalCheck','$phoneNumber');");
 
+        var countIncrement = await conn.execute("update reg_table set count = '$newCount' where base_code = '$baseCode' and admin_code = '$code'");
+        print("register...");
+        pushEmailForDB();
+        await conn.close();
 
-      print("Connecting to mysql server...");
-      final conn = await MySQLConnection.createConnection(
-        host: "185.231.155.185",
-        port: 3306,
-        userName: "user",
-        password: "password",
-        databaseName: "data", // optional
-      );
-      await conn.connect();
-      print("Connected");
+        showDialog(
+          context: context,
+          builder: (context) => ShowDialogg()
+        );
 
+        print("con close");
+        runApp(LoginPage());
+      }
+    }
+
+    else if(codeStatus=="user"){
+      //user code
       var res = await conn.execute("select count(id) from final_user where user_email = '$email';");
       for (final row in res.rows) {
         if (row.colAt(0) != "0") {
@@ -327,120 +410,15 @@ class RegisterPage extends StatelessWidget {
           return;
         }
       }
-      pushEmailForDB(){
-        ButtonLoginReg();
-        print("push email");
+      String codeCount = "";
+      var count = await conn.execute("select count from reg_table where base_code = '$code' and admin_code = '';");
+      for (final row in count.rows) {
+        codeCount = row.colAt(0).toString();
       }
 
-      String codeStatus = "error";
-
-      var status = await conn.execute("select if (admin_code='$code' and base_code!='','admin',if(base_code='$code' and admin_code ='','user','error')) from reg_table;");
-          for(final row in status.rows){
-            if(row.colAt(0).toString()!="error"){
-              codeStatus = row.colAt(0).toString();
-              break;
-            }
-          }
-          print("status = $codeStatus");
-
-      if(codeStatus=="admin") {
-        String codeCount = "";
-        String baseCode = "";
-        var count = await conn.execute(
-            "select count, base_code from reg_table where admin_code = '$code';");//|| base_code = '$code'
-        for (final row in count.rows) {
-          codeCount = row.colAt(0).toString();
-          baseCode = row.colAt(1).toString();
-        }
-
-        if (codeCount == "0" || codeCount == "") {
-          print("$code c: $codeCount");//count code=="0"
-          Fluttertoast.showToast(
-              msg: "Ошибка! Превышено количество регистраций по данному коду, обратитесь к руководителю ТСЖ",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb:
-              1,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0
-          );
-          await conn.close();
-          print("con close");
-          return;
-        }
-        else {
-
-          int newCount = int.parse(codeCount) - 1;
-          var regUser = await conn.execute(
-              "insert into final_user(user_email, password, surname, name, middle_name, status, code, personal_check, phone_number) values ('$email','${encoding(
-                  password)}','$surname','$name','$middleName','admin','$baseCode','$personalCheck','$phoneNumber');");
-
-          var countIncrement = await conn.execute("update reg_table set count = '$newCount' where base_code = '$baseCode' and admin_code = '$code'");
-          print("register...");
-          pushEmailForDB();
-          await conn.close();
-          print("con close");
-          runApp(LoginPage());
-        }
-      }
-
-     else if(codeStatus=="user"){
-        //user code
-        var res = await conn.execute("select count(id) from final_user where user_email = '$email';");
-        for (final row in res.rows) {
-          if (row.colAt(0) != "0") {
-            Fluttertoast.showToast(
-                msg: "Ошибка! Пользователь с такими данными уже зарегистрирован",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb:
-                1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0
-            );
-            await conn.close();
-            print("con close");
-            return;
-          }
-        }
-        String codeCount = "";
-        var count = await conn.execute("select count from reg_table where base_code = '$code' and admin_code = '';");
-        for (final row in count.rows) {
-          codeCount = row.colAt(0).toString();
-        }
-
-        if(codeCount=="0" || codeCount == ""){ //count code=="0"
-          Fluttertoast.showToast(
-              msg: "Ошибка! Превышено количество регистраций по данному коду, обратитесь к руководителю ТСЖ",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb:
-              1,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0
-          );
-          await conn.close();
-          print("con close");
-          return;
-        }
-        else {
-          int newCount = int.parse(codeCount) - 1;
-          var regUser = await conn.execute(
-              "insert into final_user(user_email, password, surname, name, middle_name, status, code, personal_check, phone_number) values ('$email','${encoding(
-                  password)}','$surname','$name','$middleName','user','$code','$personalCheck','$phoneNumber');");
-          var countIncrement = await conn.execute("update reg_table set count = '$newCount' where base_code = '$code' and admin_code = ''");
-          print("register...");
-          await conn.close();
-          print("con close");
-          runApp(LoginPage());
-        }
-      }
-      else{
+      if(codeCount=="0" || codeCount == ""){ //count code=="0"
         Fluttertoast.showToast(
-            msg: "Ошибка! Введен неверный код",
+            msg: "Ошибка! Превышено количество регистраций по данному коду, обратитесь к руководителю ТСЖ",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb:
@@ -449,91 +427,128 @@ class RegisterPage extends StatelessWidget {
             textColor: Colors.white,
             fontSize: 16.0
         );
+        await conn.close();
+        print("con close");
+        return;
+      }
+      else {
+        int newCount = int.parse(codeCount) - 1;
+        var regUser = await conn.execute(
+            "insert into final_user(user_email, password, surname, name, middle_name, status, code, personal_check, phone_number) values ('$email','${encoding(
+                password)}','$surname','$name','$middleName','user','$code','$personalCheck','$phoneNumber');");
+        var countIncrement = await conn.execute("update reg_table set count = '$newCount' where base_code = '$code' and admin_code = ''");
+        print("register...");
+        await conn.close();
+        print("con close");
+        runApp(LoginPage());
       }
     }
-
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body:
-        SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              _logo(),
-              _form(),
-              _logPageButton(),
-            ],
-          ),
-        ),
-      ),
-    );
+    else{
+      Fluttertoast.showToast(
+          msg: "Ошибка! Введен неверный код",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb:
+          1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+    }
   }
 
-  showAlertDialog(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-
-    String email = '';
-    email = emailController.text;
-
-    Future<void> _LoginButtonActio() async {
-      email = emailController.text;
-      print("login: login = ${email}");
-      emailController.clear();
-      print("login: login = ${email}");
-    }
-
-    // set up the buttons
-    Widget cancelButton = TextButton(
-      child: Text("Cancel"),
-      onPressed: () => Navigator.pop(context, 'Cancel'),
-    );
-    Widget continueButton = TextButton(
-      child: Text("Continue"),
-      onPressed: () {
-        Navigator.pop(context, 'Cancel');
-        _LoginButtonActio(); },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Необходимо ввести @mail УК, для отправления писем"),
-      content: TextField(
-        controller: emailController,
-        decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            labelText: 'Email'
-        ),
-        onChanged: (name) {},
-      ),
-      actions: [
-        cancelButton,
-        continueButton,
-      ],
-    );
-
+  // Widget build(BuildContext context) {
+  //   return MaterialApp(
+  //     home: Scaffold(
+  //       backgroundColor: Colors.white,
+  //       body:
+  //       SingleChildScrollView(
+  //         child: Column(
+  //           children: <Widget>[
+  //             _logo(),
+  //             _form(),
+  //             _logPageButton(),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
     // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        Container(
-          child: AlertDialog(
-            title: Text("My title"),
-            content: Text("This is my message."),
-            actions: [
-                TextButton(
-                child: Text("OK"),
-                onPressed: () { },
-              ),
-            ],
-          ),
-        );
-        return alert;
-      },
-    );
 
+      Widget build(BuildContext context) {
+        return MaterialApp(
+          home: Builder(builder: (context) {
+            return Scaffold(
+              backgroundColor: Colors.white,
+              body:
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _logo(),
+                    _form(),
+                    _logPageButton(),
+                    ElevatedButton(
+                      child: Text("ЗАРЕГИСТРИРОВАТЬСЯ", style: TextStyle(color: Colors.white, fontSize: 20)),
+                      onPressed: () {
+                        // showDialog(
+                        //   context: context,
+                        //   builder: (_) {
+                        //     return AlertDialog(
+                        //       title: Text('This is a text'),
+                        //       content: Text('this is the content'),
+                        //       actions: [
+                        //         TextButton(
+                        //           onPressed: () {
+                        //             Navigator.of(context).pop(false);
+                        //           },
+                        //           child: Text('No'),
+                        //         ),
+                        //         TextButton(
+                        //           onPressed: () {
+                        //             Navigator.of(context).pop(true);
+                        //           },
+                        //           child: Text('Yes'),
+                        //         )
+                        //       ],
+                        //     );
+                        //   },
+                        // );
+                        return funcPress();
+                      },
+                    ),
+                  ],
+                ),
+              )
+            );
+          }),
+        );
+      }
+
+  // showAlertDialog(BuildContext context) {
+  //   // set up the button
+  //   Widget okButton = TextButton(
+  //     child: Text("OK"),
+  //     onPressed: () { },
+  //   );
+  //
+  //   // set up the AlertDialog
+  //   AlertDialog alert = AlertDialog(
+  //     title: Text("My title"),
+  //     content: Text("This is my message."),
+  //     actions: [
+  //       okButton,
+  //     ],
+  //   );
+  //
+  //   // show the dialog
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return alert;
+  //     },
+  //   );
+  // }
     // showDialog(
     //     context: context,
     //     builder: (context) => Container(
@@ -604,4 +619,3 @@ class RegisterPage extends StatelessWidget {
     //       ),
     //     ));
   }
-}
