@@ -491,29 +491,29 @@ class _RegisterPageTestState extends State<RegisterPageTest> {
                     ElevatedButton(
                       child: Text("ЗАРЕГИСТРИРОВАТЬСЯ", style: TextStyle(color: Colors.white, fontSize: 20)),
                       onPressed: () {
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (_) {
-                        //     return AlertDialog(
-                        //       title: Text('This is a text'),
-                        //       content: Text('this is the content'),
-                        //       actions: [
-                        //         TextButton(
-                        //           onPressed: () {
-                        //             Navigator.of(context).pop(false);
-                        //           },
-                        //           child: Text('No'),
-                        //         ),
-                        //         TextButton(
-                        //           onPressed: () {
-                        //             Navigator.of(context).pop(true);
-                        //           },
-                        //           child: Text('Yes'),
-                        //         )
-                        //       ],
-                        //     );
-                        //   },
-                        // );
+                        showDialog(
+                          context: context,
+                          builder: (_) {
+                            return AlertDialog(
+                              title: Text('This is a text'),
+                              content: Text('this is the content'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(false);
+                                  },
+                                  child: Text('No'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(true);
+                                  },
+                                  child: Text('Yes'),
+                                )
+                              ],
+                            );
+                          },
+                        );
                         return funcPress();
                       },
                     ),
