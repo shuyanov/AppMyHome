@@ -329,7 +329,18 @@ class _RegisterPageTestState extends State<RegisterPageTest> {
       }
     }
 
-    pushEmailForDB (){
+    pushEmailForDB (String email, String adminCode, String code) async{
+      int dataStatus = 0;
+      var getEmailCount = await conn.execute("select count(id) from code_table where admin_code = '$adminCode';");
+      for(final rov in getEmailCount.rows){
+        if(rov.colAt(0).toString()!="0"){
+          dataStatus = 1;
+          break;
+        }
+      }
+      if(dataStatus==1){
+        var pushEmail = await conn.execute("insert into code_table(admin_code, code, main_mail) values ('$adminCode','$code','$email');");
+      }
       return LoginPage();
     }
 
@@ -377,19 +388,19 @@ class _RegisterPageTestState extends State<RegisterPageTest> {
 
         var countIncrement = await conn.execute("update reg_table set count = '$newCount' where base_code = '$baseCode' and admin_code = '$code'");
         print("register...");
-        pushEmailForDB();
-        await conn.close();
+     //   pushEmailForDB();
 
         showDialog(
           context: context,
           builder: (context) => ShowDialogg()
         );
-
+        await conn.close();
         print("con close");
         runApp(LoginPage());
       }
     }
-
+//
+    //
     else if(codeStatus=="user"){
       //user code
       var res = await conn.execute("select count(id) from final_user where user_email = '$email';");
@@ -491,29 +502,30 @@ class _RegisterPageTestState extends State<RegisterPageTest> {
                     ElevatedButton(
                       child: Text("ЗАРЕГИСТРИРОВАТЬСЯ", style: TextStyle(color: Colors.white, fontSize: 20)),
                       onPressed: () {
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (_) {
-                        //     return AlertDialog(
-                        //       title: Text('This is a text'),
-                        //       content: Text('this is the content'),
-                        //       actions: [
-                        //         TextButton(
-                        //           onPressed: () {
-                        //             Navigator.of(context).pop(false);
-                        //           },
-                        //           child: Text('No'),
-                        //         ),
-                        //         TextButton(
-                        //           onPressed: () {
-                        //             Navigator.of(context).pop(true);
-                        //           },
-                        //           child: Text('Yes'),
-                        //         )
-                        //       ],
-                        //     );
-                        //   },
-                        // );
+                         showDialog(
+                           context: context,
+                           builder: (_) {
+                             return AlertDialog(
+                               title: Text('This is a text'),
+                               content: Text('this is the content'),
+                               actions: [
+                                 TextButton(
+                                   onPressed: () {
+                                     Navigator.of(context).pop(false);
+                                   },
+                                   child: Text('No'),
+                                ),
+                                 TextButton(
+                                   onPressed: () {
+                                     runApp(LoginPage());
+                                     Navigator.of(context).pop(true);
+                                  },
+                                   child: Text('Yes'),
+                                 )
+                               ],
+                             );
+                           },
+                         );
                         return funcPress();
                       },
                     ),
