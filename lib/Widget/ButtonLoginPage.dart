@@ -1,5 +1,6 @@
-import 'package:command_flutter/RegisterPage.dart';
 import 'package:flutter/material.dart';
+
+import '../Login/RegisterPage.dart';
 
 class ButtonLoginReg extends StatelessWidget {
   const ButtonLoginReg({Key? key}) : super(key: key);

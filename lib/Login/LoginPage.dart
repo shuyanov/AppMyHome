@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:command_flutter/Chats/Models/User.dart';
+import 'package:command_flutter/Chats/api/firebase.dart';
+import 'package:command_flutter/GeneralChats/Models/User.dart';
 import 'package:command_flutter/Login/RegisterPage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
 
@@ -12,6 +15,9 @@ import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:mysql_client/mysql_client.dart';
+
+import '../Chats/Data/users.dart';
+import '../addUser.dart';
 
 class LoginPage extends StatelessWidget {
 
@@ -177,6 +183,8 @@ class LoginPage extends StatelessWidget {
             }
           }
           PushToJsonTest("${row.colAt(1)}", "${row.colAt(2)}", "${row.colAt(3)}", "${row.colAt(4)}", "${row.colAt(5)}", "${row.colAt(7)}", "${row.colAt(0)}", "${row.colAt(6)}", "${row.colAt(8)}", "${row.colAt(9)}", "$adminEmail");
+          // Для входа в чат
+          addUser("${row.colAt(0)}", "${row.colAt(1)}", "${row.colAt(3)}", "${row.colAt(4)}", "${row.colAt(5)}", "${row.colAt(7)}", "${row.colAt(6)}", "${row.colAt(8)}", "${row.colAt(9)}");
           logged = true;
         }
       }
@@ -199,6 +207,7 @@ class LoginPage extends StatelessWidget {
         );
         await conn.close();
         print("con close");
+        
         return runApp(LoginPage());
       }
     }
