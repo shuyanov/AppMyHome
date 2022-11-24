@@ -1,3 +1,4 @@
+import 'package:command_flutter/Pages/TestIcon.dart';
 import 'package:flutter/material.dart';
 
 class FirstRoute extends StatelessWidget {
@@ -13,23 +14,7 @@ class FirstRoute extends StatelessWidget {
         child: ElevatedButton(
           child: const Text('Open route'),
           onPressed: () {
-            showAlertDialog(context);
-            // showDialog(
-            //   context: context,
-            //   builder: (context) => Container(
-            //     child: AlertDialog(
-            //       title: Text("My title"),
-            //       content: Text("This is my message."),
-            //       actions: [
-            //         TextButton(
-            //           child: Text("OK"),
-            //           onPressed: () {},
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // );
-
+            HomeViewTest();
             // Navigate to second route when tapped.
           },
         ),

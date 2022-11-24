@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:command_flutter/Chats/api/firebase.dart';
 import 'package:command_flutter/HomePage.dart';
-import 'package:command_flutter/Pages/TestPage.dart';
+import 'package:command_flutter/Pages/HomeView.dart';
+import 'package:command_flutter/Pages/addImage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:flutter/material.dart';
@@ -51,65 +51,68 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget _FrontButton(){
     return ListView(
       children: [
-        Column(
-          children: [
-                        SizedBox(height: 50),
-                        HomeView(),
-                        SizedBox(height: 30),
-                        TextField(
-                            controller: emailController,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+                          SizedBox(height: 50),
+                          HomeView(),
+                          SizedBox(height: 30),
+                          TextField(
+                              controller: emailController,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  labelText: 'Email'
+                              ),
+                              onChanged: (name) {},
+                            ),
+                          SizedBox(height: 30),
+                          TextField(
+                            controller: surNameController,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                labelText: 'Email'
+                                labelText: 'Surname'
                             ),
                             onChanged: (name) {},
                           ),
-                        SizedBox(height: 30),
-                        TextField(
-                          controller: surNameController,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              labelText: 'Surname'
-                          ),
-                          onChanged: (name) {},
-                        ),
-                        SizedBox(height: 30),
-                        TextField(
-                          controller: middleNameController,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              labelText: 'middleName'
-                          ),
-                          onChanged: (name) {},
-                        ),
-                        SizedBox(height: 30),
-                        TextField(
-                          controller: nameController,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              labelText: 'name'
-                          ),
-                          onChanged: (name) {},
-                        ),
-                        SizedBox(height: 40),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                          height: 40,
-                          width: 320,
-                          child: buildEditProfileButton()
+                          SizedBox(height: 30),
+                          TextField(
+                            controller: middleNameController,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                labelText: 'middleName'
                             ),
+                            onChanged: (name) {},
                           ),
-                      ],
-                    ),
+                          SizedBox(height: 30),
+                          TextField(
+                            controller: nameController,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                labelText: 'name'
+                            ),
+                            onChanged: (name) {},
+                          ),
+                          SizedBox(height: 40),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                            height: 40,
+                            width: 320,
+                            child: buildEditProfileButton()
+                              ),
+                            ),
+                        ],
+                      ),
+        ),
                   ],
     );
   }
@@ -119,88 +122,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
        home: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Color.fromARGB(255, 124, 97, 242),
-            ),
             body: Stack(
               children: [
                 Container(
-                  child: Padding(
-                    padding: EdgeInsets.all(0),
-                    child: Image.asset(
-                        'assets/profile/profileBackground.jpg', width: 1000,
-                        fit: BoxFit.fill),
+                  child: Container(
+                    child: Stack(
+                      children: [
+                        Image.asset('assets/profile/profileBackground.jpg',width: 1000, fit:BoxFit.fill),
+                        Image.asset('assets/profile/GroundUpBar.png',width: 1000, fit:BoxFit.fill),
+                      ],
+                    ),
                   ),
                 ),
                 _FrontButton(),
-                // Stack(
-                //   children: <Widget>
-                //   [
-                //     Column(
-                //       crossAxisAlignment: CrossAxisAlignment.stretch,
-                //       children: [
-                //         SizedBox(height: 50),
-                //         HomeView(),
-                //         SizedBox(height: 70),
-                //         TextField(
-                //           controller: emailController,
-                //           decoration: InputDecoration(
-                //               border: OutlineInputBorder(
-                //                 borderRadius: BorderRadius.circular(12),
-                //               ),
-                //               labelText: 'Email'
-                //           ),
-                //           onChanged: (name) {},
-                //         ),
-                //         SizedBox(height: 25),
-                //         TextField(
-                //           controller: surNameController,
-                //           decoration: InputDecoration(
-                //               border: OutlineInputBorder(
-                //                 borderRadius: BorderRadius.circular(12),
-                //               ),
-                //               labelText: 'Surname'
-                //           ),
-                //           onChanged: (name) {},
-                //         ),
-                //         SizedBox(height: 25),
-                //         TextField(
-                //           controller: middleNameController,
-                //           decoration: InputDecoration(
-                //               border: OutlineInputBorder(
-                //                 borderRadius: BorderRadius.circular(12),
-                //               ),
-                //               labelText: 'middleName'
-                //           ),
-                //           onChanged: (name) {},
-                //         ),
-                //         SizedBox(height: 25),
-                //         TextField(
-                //           controller: nameController,
-                //           decoration: InputDecoration(
-                //               border: OutlineInputBorder(
-                //                 borderRadius: BorderRadius.circular(12),
-                //               ),
-                //               labelText: 'name'
-                //           ),
-                //           onChanged: (name) {},
-                //         ),
-                //         SizedBox(height: 25),
-                //         Expanded(
-                //           child: Align(
-                //             alignment: Alignment.center,
-                //             child: Container(
-                //                 height: 40,
-                //                 width: 320,
-                //                 child: buildEditProfileButton()
-                //             ),
-                //           ),
-                //         )
-                //       ],
-                //     ),
-                //   ],
-                // )
-
               ],
             )
         )

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:command_flutter/Pages/TestIcon.dart';
 import 'package:command_flutter/Widget/ButtonLoginPage.dart';
 import 'package:command_flutter/Widget/ButtonWidgetProfile.dart';
 import 'package:command_flutter/Widget/WidgetProfile.dart';
@@ -208,7 +209,7 @@ class _ProfileePageState extends State<ProfileePage> {
     imagees: "assets/profile/SosButton.png",
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => FirstRoute())
+          MaterialPageRoute(builder: (context) => HomeViewTest())
       );
     },
   );
