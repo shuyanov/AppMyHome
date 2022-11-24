@@ -1,22 +1,57 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../Styles/Colors.dart';
-import '/Chats/Widgets/single_message.dart';
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-class ChatPage extends StatelessWidget {
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
+import '../../Styles/Colors.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import '../Widgets/single_message.dart';
+
+enum Menu { itemOne, itemTwo, itemThree }
+
+class ChatPage extends StatefulWidget {
   final String currentUserId;
   final String friendId;
   final String friendName;
-  final String friendDescription;
+  final String friendSurname;
+  final String friendMiddle_name;
   final String friendImage;
 
   ChatPage(
       {required this.currentUserId,
       required this.friendId,
       required this.friendName,
-      required this.friendDescription,
+      required this.friendSurname,
+      required this.friendMiddle_name,
       required this.friendImage,
       super.key});
+
+  @override
+  State<ChatPage> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
+
+  @override
+  dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +63,7 @@ class ChatPage extends StatelessWidget {
         ),
       ),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             elevation: 0,
             shape: RoundedRectangleBorder(
@@ -39,13 +74,13 @@ class ChatPage extends StatelessWidget {
             title: ListTile(
               leading: CircleAvatar(
                 radius: 20.0,
-                backgroundImage: NetworkImage(friendImage),
+                backgroundImage: NetworkImage(widget.friendImage),
               ),
               title: Text(
-                friendName,
+                widget.friendSurname,
                 style: TextStyle(color: Colors.white),
               ),
-              subtitle: Text(friendDescription,
+              subtitle: Text("${widget.friendName} ${widget.friendMiddle_name}",
                   style: TextStyle(color: Colors.white)),
             ),
           ),
@@ -53,17 +88,12 @@ class ChatPage extends StatelessWidget {
             children: [
               Expanded(
                   child: Container(
-                // decoration: BoxDecoration(
-                //     color: Colors.white,
-                //     borderRadius: BorderRadius.only(
-                //         topLeft: Radius.circular(25),
-                //         topRight: Radius.circular(25))),
                 child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection("users")
-                        .doc(currentUserId)
+                        .doc(widget.currentUserId)
                         .collection('messages')
-                        .doc(friendId)
+                        .doc(widget.friendId)
                         .collection('chats')
                         .orderBy("date", descending: true)
                         .snapshots(),
@@ -81,18 +111,29 @@ class ChatPage extends StatelessWidget {
                             itemBuilder: (context, index) {
                               bool isMe = snapshot.data.docs[index]
                                       ['senderId'] ==
-                                  currentUserId;
+                                  widget.currentUserId;
+                              Timestamp date =
+                                  snapshot.data.docs[index]['date'];
+                              String type = snapshot.data.docs[index]['type'];
                               return SingleMessage(
-                                  message: snapshot.data.docs[index]['message'],
-                                  isMe: isMe);
+                                message: snapshot.data.docs[index]['message'],
+                                file: snapshot.data.docs[index]['file'],
+                                nameFile: snapshot.data.docs[index]['fileName'],
+                                isMe: isMe,
+                                dateMessage: date,
+                                type: type,
+                              );
                             });
                       }
-                      return Center(child: CircularProgressIndicator(
+                      return Center(
+                          child: CircularProgressIndicator(
                         color: purpleColor,
                       ));
                     }),
               )),
-              newMessage(currentUserId: currentUserId, friendId: friendId)
+              newMessage(
+                  currentUserId: widget.currentUserId,
+                  friendId: widget.friendId)
             ],
           )),
     );
@@ -113,6 +154,7 @@ class newMessage extends StatefulWidget {
 
 class _newMessageState extends State<newMessage> {
   final _controller = TextEditingController();
+  final _controllerFile = TextEditingController();
 
   void sendMessage() async {
     String message = _controller.text;
@@ -126,7 +168,9 @@ class _newMessageState extends State<newMessage> {
         .add({
       "senderId": widget.currentUserId,
       "receiverId": widget.friendId,
-      "message": message,
+      "file": "",
+      "fileName": "",
+      "message": message.trim(),
       "type": "text",
       "date": DateTime.now(),
     }).then((value) {
@@ -149,7 +193,9 @@ class _newMessageState extends State<newMessage> {
         .add({
       "senderId": widget.currentUserId,
       "receiverId": widget.friendId,
-      "message": message,
+      "file": "",
+      "fileName": "",
+      "message": message.trim(),
       "type": "text",
       "date": DateTime.now(),
     }).then((value) {
@@ -162,36 +208,599 @@ class _newMessageState extends State<newMessage> {
     });
   }
 
+  // PICK FILE
+  File? file;
+  PlatformFile? pickedFile;
+  Future getFile() async {
+    final result = await FilePicker.platform.pickFiles();
+    if (result == null) return;
+
+    setState(() {
+      pickedFile = result.files.first;
+      if (pickedFile != null) {
+        file = File(pickedFile!.path!);
+        showDialog(
+            context: context,
+            builder: (context) => Container(
+                  child: AlertDialog(
+                    contentPadding: EdgeInsets.all(5),
+                    titlePadding: EdgeInsets.all(5),
+                    actionsPadding: EdgeInsets.all(5),
+                    title: Text("Подтвердить?"),
+                    content: Container(
+                        child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.insert_drive_file,
+                          size: 50,
+                        ),
+                        SizedBox(
+                            height: 50,
+                            child: Center(child: Text(pickedFile!.name))),
+                        SizedBox(
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: TextFormField(
+                                  minLines: 1,
+                                  maxLines: 2,
+                                  controller: _controllerFile,
+                                  scrollPadding: EdgeInsets.all(1),
+                                  decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          vertical: 1, horizontal: 2),
+                                      border: InputBorder.none,
+                                      hintText: "Напишите сообщение..."),
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  _controllerFile.clear();
+                                },
+                                icon: Icon(
+                                  Icons.close,
+                                  size: 20,
+                                ),
+                                splashRadius: 20,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    )),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            checkedFile = false;
+                            uploadFile();
+                            Navigator.pop(context);
+                          },
+                          child: Text("Нет")),
+                      TextButton(
+                          onPressed: () {
+                            if (_controller.text.trim() != "") sendMessage();
+                            checkedFile = true;
+                            uploadFile();
+                            Navigator.pop(context);
+                          },
+                          child: Text("Да"))
+                    ],
+                  ),
+                ));
+      }
+    });
+  }
+
+// SEND FILES
+  bool checkedFile = false;
+  Future uploadFile() async {
+    String fileName = Uuid().v1();
+
+    if (checkedFile == true) {
+      int status = 1;
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.currentUserId)
+          .collection('messages')
+          .doc(widget.friendId)
+          .collection('chats')
+          .doc(fileName)
+          .set({
+        "senderId": widget.currentUserId,
+        "receiverId": widget.friendId,
+        "file": "",
+        "fileName": "",
+        "message": "",
+        "type": "file",
+        "date": DateTime.now(),
+      }).then((value) {
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.currentUserId)
+            .collection('messages')
+            .doc(widget.friendId)
+            .set({
+          'last_msg': "file",
+        });
+      });
+      var dateNow = DateTime.now();
+      var dateFormat = new DateFormat('dd.MM.yyyy');
+      var date = dateFormat.format(dateNow);
+      var anyFile = FirebaseStorage.instance
+          .ref()
+          .child('files/${date}')
+          .child('${fileName}');
+      var uploadTask = await anyFile.putFile(file!).catchError((error) async {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.currentUserId)
+            .collection('messages')
+            .doc(widget.friendId)
+            .collection('chats')
+            .doc(fileName)
+            .delete();
+
+        status = 0;
+      });
+      if (status == 1) {
+        String fileUrl = await uploadTask.ref.getDownloadURL();
+        String messagefile = _controllerFile.text;
+        _controllerFile.clear();
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.currentUserId)
+            .collection('messages')
+            .doc(widget.friendId)
+            .collection('chats')
+            .doc(fileName)
+            .update({
+          'file': fileUrl,
+          'fileName': pickedFile!.name,
+          'message': messagefile.trim()
+        });
+
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.friendId)
+            .collection('messages')
+            .doc(widget.currentUserId)
+            .collection("chats")
+            .add({
+          "senderId": widget.currentUserId,
+          "receiverId": widget.friendId,
+          "file": fileUrl,
+          "fileName": pickedFile!.name,
+          "message": messagefile.trim(),
+          "type": "file",
+          "date": DateTime.now(),
+        }).then((value) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(widget.friendId)
+              .collection('messages')
+              .doc(widget.currentUserId)
+              .set({"last_msg": "file"});
+        });
+        print("Файл: $fileUrl");
+      }
+    } else {
+      getFile();
+    }
+  }
+
+  // PICK IMAGE
+  File? imageFile;
+  String? xFileName;
+  String? fileName;
+  Future getImage() async {
+    ImagePicker _picker = ImagePicker();
+    await _picker.pickImage(source: ImageSource.gallery).then((xFile) {
+      if (xFile == null) return;
+      setState(() {
+        imageFile = File(xFile.path);
+        xFileName = xFile.name;
+        fileName = xFileName!.split("image_picker").last;
+        showDialog(
+            context: context,
+            builder: (context) => Container(
+                  child: AlertDialog(
+                    contentPadding: EdgeInsets.all(5),
+                    titlePadding: EdgeInsets.all(5),
+                    actionsPadding: EdgeInsets.all(5),
+                    title: Text("Подтвердить?"),
+                    content: Container(
+                        child: Column(
+                      children: [
+                        Expanded(
+                            child: Image.file(
+                          File(xFile.path),
+                          fit: BoxFit.cover,
+                        )),
+                        SizedBox(
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: TextFormField(
+                                  minLines: 1,
+                                  maxLines: 2,
+                                  controller: _controllerFile,
+                                  scrollPadding: EdgeInsets.all(1),
+                                  decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          vertical: 1, horizontal: 2),
+                                      border: InputBorder.none,
+                                      hintText: "Напишите сообщение..."),
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  _controllerFile.clear();
+                                },
+                                icon: Icon(
+                                  Icons.close,
+                                  size: 20,
+                                ),
+                                splashRadius: 20,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    )),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            checkedImage = false;
+                            uploadImage();
+                            Navigator.pop(context);
+                          },
+                          child: Text("Нет")),
+                      TextButton(
+                          onPressed: () {
+                            if (_controller.text.trim() != "") sendMessage();
+                            checkedImage = true;
+                            uploadImage();
+                            Navigator.pop(context);
+                          },
+                          child: Text("Да"))
+                    ],
+                  ),
+                ));
+      });
+    });
+  }
+
+  // SEND IMAGE
+  bool checkedImage = false;
+  Future uploadImage() async {
+    String fileName = Uuid().v1();
+
+    if (checkedImage == true) {
+      int status = 1;
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.currentUserId)
+          .collection('messages')
+          .doc(widget.friendId)
+          .collection('chats')
+          .doc(fileName)
+          .set({
+        "senderId": widget.currentUserId,
+        "receiverId": widget.friendId,
+        "file": "",
+        "fileName": "",
+        "message": "",
+        "type": "image",
+        "date": DateTime.now(),
+      }).then((value) {
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.currentUserId)
+            .collection('messages')
+            .doc(widget.friendId)
+            .set({
+          'last_msg': "image",
+        });
+      });
+      var dateNow = DateTime.now();
+      var dateFormat = new DateFormat('dd.MM.yyyy');
+      var date = dateFormat.format(dateNow);
+      var img = FirebaseStorage.instance
+          .ref()
+          .child('images/${date}')
+          .child('${fileName}.png');
+      var uploadTask = await img.putFile(imageFile!).catchError((error) async {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.currentUserId)
+            .collection('messages')
+            .doc(widget.friendId)
+            .collection('chats')
+            .doc(fileName)
+            .delete();
+
+        status = 0;
+      });
+      if (status == 1) {
+        String imageUrl = await uploadTask.ref.getDownloadURL();
+        String messagefile = _controllerFile.text;
+        _controllerFile.clear();
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.currentUserId)
+            .collection('messages')
+            .doc(widget.friendId)
+            .collection('chats')
+            .doc(fileName)
+            .update({'file': imageUrl, 'message': messagefile.trim()});
+
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.friendId)
+            .collection('messages')
+            .doc(widget.currentUserId)
+            .collection("chats")
+            .add({
+          "senderId": widget.currentUserId,
+          "receiverId": widget.friendId,
+          "file": imageUrl,
+          "fileName": "",
+          "message": messagefile.trim(),
+          "type": "image",
+          "date": DateTime.now(),
+        }).then((value) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(widget.friendId)
+              .collection('messages')
+              .doc(widget.currentUserId)
+              .set({"last_msg": "image"});
+        });
+        print("Изображение: $imageUrl");
+      }
+    } else {
+      getImage();
+    }
+  }
+
+  // PICK VIDEO
+  File? videoFile;
+  Future getVideo() async {
+    ImagePicker _picker = ImagePicker();
+
+    await _picker.pickVideo(source: ImageSource.gallery).then((xFile) {
+      if (xFile == null) return;
+      setState(() {
+        videoFile = File(xFile.path);
+        xFileName = xFile.name;
+        fileName = xFileName!.split("image_picker").last;
+        showDialog(
+            context: context,
+            builder: (context) => Container(
+                  child: AlertDialog(
+                    contentPadding: EdgeInsets.all(5),
+                    titlePadding: EdgeInsets.all(5),
+                    actionsPadding: EdgeInsets.all(5),
+                    title: Text("Подтвердить?"),
+                    content: Container(
+                        child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.video_file,
+                          size: 50,
+                        ),
+                        Center(child: Text(fileName!)),
+                        SizedBox(
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: TextFormField(
+                                  minLines: 1,
+                                  maxLines: 2,
+                                  controller: _controllerFile,
+                                  scrollPadding: EdgeInsets.all(1),
+                                  decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          vertical: 1, horizontal: 2),
+                                      border: InputBorder.none,
+                                      hintText: "Напишите сообщение..."),
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  _controllerFile.clear();
+                                },
+                                icon: Icon(
+                                  Icons.close,
+                                  size: 20,
+                                ),
+                                splashRadius: 20,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    )),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            checkedVideo = false;
+                            uploadVideo();
+                            Navigator.pop(context);
+                          },
+                          child: Text("Нет")),
+                      TextButton(
+                          onPressed: () {
+                            if (_controller.text.trim() != "") sendMessage();
+                            checkedVideo = true;
+                            uploadVideo();
+                            Navigator.pop(context);
+                          },
+                          child: Text("Да"))
+                    ],
+                  ),
+                ));
+      });
+    });
+  }
+
+  // SEND VIDEO
+  bool checkedVideo = false;
+  Future uploadVideo() async {
+    String fileName = Uuid().v1();
+    if (checkedVideo == true) {
+      int status = 1;
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.currentUserId)
+          .collection('messages')
+          .doc(widget.friendId)
+          .collection('chats')
+          .doc(fileName)
+          .set({
+        "senderId": widget.currentUserId,
+        "receiverId": widget.friendId,
+        "file": "",
+        "fileName": "",
+        "message": "",
+        "type": "video",
+        "date": DateTime.now(),
+      }).then((value) {
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.currentUserId)
+            .collection('messages')
+            .doc(widget.friendId)
+            .set({
+          'last_msg': "video",
+        });
+      });
+      var dateNow = DateTime.now();
+      var dateFormat = new DateFormat('dd.MM.yyyy');
+      var date = dateFormat.format(dateNow);
+      var mp4 = FirebaseStorage.instance
+          .ref()
+          .child('videos/${date}')
+          .child('${fileName}.mp4');
+      var uploadTask = await mp4.putFile(videoFile!).catchError((error) async {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.currentUserId)
+            .collection('messages')
+            .doc(widget.friendId)
+            .collection('chats')
+            .doc(fileName)
+            .delete();
+
+        status = 0;
+      });
+      if (status == 1) {
+        String videoUrl = await uploadTask.ref.getDownloadURL();
+        String messagefile = _controllerFile.text;
+        _controllerFile.clear();
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.currentUserId)
+            .collection('messages')
+            .doc(widget.friendId)
+            .collection('chats')
+            .doc(fileName)
+            .update({'file': videoUrl, 'message': messagefile.trim()});
+        print("Видео: $videoUrl");
+
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.friendId)
+            .collection('messages')
+            .doc(widget.currentUserId)
+            .collection("chats")
+            .add({
+          "senderId": widget.currentUserId,
+          "receiverId": widget.friendId,
+          "file": videoUrl,
+          "fileName": "",
+          "message": messagefile.trim(),
+          "type": "video",
+          "date": DateTime.now(),
+        }).then((value) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(widget.friendId)
+              .collection('messages')
+              .doc(widget.currentUserId)
+              .set({"last_msg": "video"});
+        });
+      }
+    } else {
+      getVideo();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey[100],
       child: Row(
         children: [
-          Expanded(
-            child: Flexible(
-              child: SizedBox(
-                child: TextFormField(
-                  minLines: 1,
-                  maxLines: 2,
-                  controller: _controller,
-                  scrollPadding: EdgeInsets.all(1),
-                  decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 1, horizontal: 10),
-                      border: InputBorder.none,
-                      //OutlineInputBorder(
-                      //borderRadius: BorderRadius.circular(50.0)),
-                      hintText: "Напишите сообщение..."),
-                ),
+          PopupMenuButton(
+            tooltip: "",
+            onSelected: (Menu item) {
+              switch (item) {
+                case Menu.itemOne:
+                  _controllerFile.clear();
+                  getImage();
+                  break;
+                case Menu.itemTwo:
+                  _controllerFile.clear();
+                  getVideo();
+                  break;
+                case Menu.itemThree:
+                  _controllerFile.clear();
+                  getFile();
+                  break;
+              }
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
+              const PopupMenuItem(
+                value: Menu.itemOne,
+                child: Text('Фото'),
+              ),
+              const PopupMenuItem(
+                value: Menu.itemTwo,
+                child: Text('Видео'),
+              ),
+              const PopupMenuItem(
+                value: Menu.itemThree,
+                child: Text('Файлы'),
+              ),
+            ],
+            icon: Icon(Icons.add),
+            splashRadius: 20,
+          ),
+          Flexible(
+            child: SizedBox(
+              child: TextFormField(
+                minLines: 1,
+                maxLines: 2,
+                controller: _controller,
+                scrollPadding: EdgeInsets.all(1),
+                decoration: InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                    border: InputBorder.none,
+                    hintText: "Напишите сообщение..."),
               ),
             ),
           ),
           IconButton(
-              onPressed: () async {
-                sendMessage();
-              },
-              icon: Icon(Icons.send))
+            onPressed: () async {
+              if (_controller.text.trim() != "") sendMessage();
+            },
+            icon: Icon(Icons.send),
+            splashRadius: 20,
+          )
         ],
       ),
     );

@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../Styles/Colors.dart';
 import '/Chats/Data/Admin.dart';
 import '/Chats/Models/User.dart';
@@ -100,9 +98,10 @@ class _OneChatsState extends State<OneChats> {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => ChatPage(
                     currentUserId: myId,
-                    friendId: user.idUser!,
+                    friendId: user.idUser,
                     friendName: user.name,
-                    friendDescription: user.description,
+                    friendSurname: user.surname,
+                    friendMiddle_name: user.middle_name,
                     friendImage: user.urlAvatar)));
           },
         ),
@@ -112,7 +111,8 @@ class _OneChatsState extends State<OneChats> {
   Widget buildText(String text) => Center(
         child: Text(
           text,
-          style: TextStyle(fontSize: 24, color: Colors.white),
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20, color: Colors.black),
         ),
       );
 }

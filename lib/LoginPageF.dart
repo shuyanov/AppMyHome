@@ -1,8 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:command_flutter/RegisterPage.dart';
+
 import 'package:command_flutter/Utils/UserPerefer.dart';
+
+import 'package:command_flutter/Chats/Models/User.dart';
+import 'package:command_flutter/Chats/api/firebase.dart';
+import 'package:command_flutter/GeneralChats/Models/User.dart';
+import 'package:command_flutter/Login/RegisterPage.dart';
+
+
 import 'package:command_flutter/main.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,12 +17,14 @@ import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:mysql_client/mysql_client.dart';
+import '../Chats/Data/users.dart';
+import '../addUser.dart';
 
 class LoginPageF extends StatelessWidget {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  //MS
+
   TextEditingController nameController = TextEditingController();
   TextEditingController surNameController = TextEditingController();
   TextEditingController middleNameController = TextEditingController();
@@ -23,7 +32,7 @@ class LoginPageF extends StatelessWidget {
   String name = "";
   String surName = "";
   String middleName = "";
-  //MS
+
 
   bool logged = false;
   String email = "";
@@ -31,7 +40,7 @@ class LoginPageF extends StatelessWidget {
 
 
   @override
-////////////////////
+
   Widget _logo() {
     return Padding(
       padding: EdgeInsets.only( bottom: 10),
@@ -102,8 +111,6 @@ class LoginPageF extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 20,),
             child: _input(Icon(Icons.lock), "PASSWORD", passwordController, true),
           ),
-
-
           SizedBox(height: 20,),
           Padding(
               child: Container(
@@ -114,7 +121,6 @@ class LoginPageF extends StatelessWidget {
               ),
               padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 )
           ),
-
         ],
       ),
     );
@@ -122,13 +128,12 @@ class LoginPageF extends StatelessWidget {
 
   String encoding(String value){
     var byte = utf8.encode(value);
-
     var digest = sha256.convert(byte);
     return digest.toString();
   }
 
-  Widget _regButton(){
 
+  Widget _regButton(){
     return Container(
         margin: EdgeInsets.only(top: 1),
         height: 36,
@@ -138,6 +143,7 @@ class LoginPageF extends StatelessWidget {
           onPressed: (){
             return runApp(RegisterPage());
           },
+
           style: ElevatedButton.styleFrom(
             primary: Color.fromARGB(200, 158, 122, 244),
             onPrimary: Colors.white,
@@ -151,9 +157,7 @@ class LoginPageF extends StatelessWidget {
 
   Widget _logButton(){
     return Container(
-
         child:
-
         ElevatedButton(
           child: Text("ВОЙТИ", style: TextStyle(color: Colors.white, fontSize: 26)),
           onPressed: () => funcPress(),
@@ -177,6 +181,7 @@ class LoginPageF extends StatelessWidget {
       password = passwordController.text;
 
       print("login: login = ${email} password = ${password}");
+      //
       if(email=="" || password ==""){
         Fluttertoast.showToast(
             msg: "Ошибка! Необходимо заполнить все поля",
@@ -204,12 +209,12 @@ class LoginPageF extends StatelessWidget {
       await conn.connect();
       print("Connected");
       print("d = ${encoding(password)}");
-      //var res = await conn.execute("select count(id) from final_user where user_email = '$email'and password = '${encoding(password)}';");
+
       var res = await conn.execute("select * from final_user where user_email = '$email'and password = '${encoding(password)}';");
       for (final row in res.rows) {
         if(row.colAt(0)!=null){
 
-          var adMail = await conn.execute("select main_mail from code_table where code = '${row.colAt(7)}';");
+          var adMail = await conn.execute("select main_mail from code_table where code = '${row.colAt(7)}';"); //fix this
           String adminEmail = "no";
           for(final rows in adMail.rows){
             if(rows.colAt(0)!=""){ //may be null?
@@ -218,6 +223,8 @@ class LoginPageF extends StatelessWidget {
             }
           }
           PushToJsonTest("${row.colAt(1)}", "${row.colAt(2)}", "${row.colAt(3)}", "${row.colAt(4)}", "${row.colAt(5)}", "${row.colAt(7)}", "${row.colAt(0)}", "${row.colAt(6)}", "${row.colAt(8)}", "${row.colAt(9)}", "$adminEmail");
+          // Для входа в чат
+          addUser("${row.colAt(0)}", "${row.colAt(1)}", "${row.colAt(3)}", "${row.colAt(4)}", "${row.colAt(5)}", "${row.colAt(7)}", "${row.colAt(6)}", "${row.colAt(8)}", "${row.colAt(9)}");
           logged = true;
         }
       }
@@ -242,6 +249,7 @@ class LoginPageF extends StatelessWidget {
         await conn.close();
         print("con close");
         return runApp(LoginPageF());
+
       }
     }
     _LoginButtonActio();
@@ -259,6 +267,7 @@ class LoginPageF extends StatelessWidget {
     print("created json: $res");
 
   }
+
 
   Widget _input(Icon icon, String hint, TextEditingController controller, bool hidden){
     return Container(

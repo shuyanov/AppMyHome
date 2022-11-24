@@ -1,15 +1,15 @@
 import 'dart:async';
+import 'package:command_flutter/Pages/TestIcon.dart';
+import 'package:command_flutter/Widget/ButtonLoginPage.dart';
 import 'package:command_flutter/Widget/ButtonWidgetProfile.dart';
 import 'package:command_flutter/Widget/WidgetProfile.dart';
-import 'package:command_flutter/LoginPageF.dart';
+import 'package:command_flutter/Login/LOginPage.dart';
 import 'package:command_flutter/Model/User.dart';
 import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:flutter/material.dart';
-
-
 import 'package:flutter/services.dart';
-
+import '../CallPages/CallPage.dart';
 import '../Widget/ImageProfileWidget.dart';
 
 class ProfileePage extends StatefulWidget {
@@ -30,6 +30,7 @@ class _ProfileePageState extends State<ProfileePage> {
       print("3 Seconds");
       print(name);
       print(surName);
+      ButtonLoginReg();
     });
 
     return ListView(
@@ -145,7 +146,7 @@ class _ProfileePageState extends State<ProfileePage> {
                   width: 330,
                   child: buildExitProfileButton(),
                   )
-                  )
+                  ),
                ],
               )
           ],
@@ -171,7 +172,7 @@ class _ProfileePageState extends State<ProfileePage> {
     text:'Выход',
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => LoginPageF())
+          MaterialPageRoute(builder: (context) => LoginPage())
         );
       },
     );
@@ -208,16 +209,17 @@ class _ProfileePageState extends State<ProfileePage> {
     imagees: "assets/profile/SosButton.png",
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => FirstRoute())
+          MaterialPageRoute(builder: (context) => HomeViewTest())
       );
     },
   );
 
   Widget build_worker_Button() => ButtonWidgetProfile(
-      imagees: "assets/profile/IconMan.png",
+      imagees: "assets/profile/iconMan.png",
     onClicked: (){
+      ButtonLoginReg();
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => FirstRoute())
+          MaterialPageRoute(builder: (context) => CallPage())
       );
     },
   );

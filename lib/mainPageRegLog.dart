@@ -1,6 +1,7 @@
-import 'package:command_flutter/RegisterPage.dart';
+
+import 'package:command_flutter/Login/RegisterPage.dart';
 import 'package:flutter/material.dart';
-import 'LoginPageF.dart';
+import 'Login/LOginPage.dart';
 
 class mainPageRegLog extends StatelessWidget {
 
@@ -34,7 +35,7 @@ class mainPageRegLog extends StatelessWidget {
         width: 150,
         child:  ElevatedButton(
           child: Text("LOGIN", style: TextStyle(color: Colors.cyan, fontSize: 18)),
-          onPressed: (){ print('tap-tap'); return runApp(LoginPageF()); },
+          onPressed: (){ print('tap-tap'); return runApp(LoginPage()); },
           style: ElevatedButton.styleFrom(
             primary: Colors.white,
             onPrimary: Colors.cyan,

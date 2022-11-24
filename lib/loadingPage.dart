@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'package:command_flutter/HomePage.dart';
-import 'package:command_flutter/LoginPageF.dart';
+import 'package:command_flutter/Login/LOginPage.dart';
 import 'package:command_flutter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'dart:io';
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'Utils/UserPerefer.dart';
 
 
@@ -36,8 +34,6 @@ class LoadingPage extends StatelessWidget {
 
     }
 
-
-
   }
 
 
@@ -48,11 +44,18 @@ class LoadingPage extends StatelessWidget {
     Timer(Duration(seconds: 3), () {
 
       print("Yeah, this line is printed after 3 seconds");
-      return isLogged ? runApp(MyApp()) : runApp(LoginPageF());
+      return isLogged ? runApp(MyApp()) : runApp(LoginPage());
     });
     return MaterialApp(
         home: Container(
-          child: Text("Loadind, please wait..."),
+          child: Scaffold(
+            backgroundColor: Colors.purple,
+            body: Center(
+              child: Text( "Loading...", style: TextStyle(color: Colors.grey)),
+            ),
+
+          ),
+          //Text("Loadind, please wait..."),
         )
     );
   }

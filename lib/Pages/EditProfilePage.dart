@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:command_flutter/Chats/api/firebase.dart';
 import 'package:command_flutter/HomePage.dart';
-import 'package:command_flutter/Pages/TestPage.dart';
+import 'package:command_flutter/Pages/HomeView.dart';
+import 'package:command_flutter/Pages/addImage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +16,10 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-
-
-
   @override
   void initState() {
     super.initState();
   }
-
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -50,56 +48,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
     middleNameController.clear();
   }
 
-  @override
-  Widget build(BuildContext context) =>
-      Scaffold(
-          appBar: AppBar(
-            backgroundColor: Color.fromARGB(255, 124, 97, 242),
-          ),
-          body:
-          Stack(
+  Widget _FrontButton(){
+    return ListView(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
             children: [
-              Container(
-                child: Padding(
-                  padding: EdgeInsets.all(0),
-                  child: Image.asset(
-                      'assets/profile/profileBackground.jpg', width: 1000,
-                      fit: BoxFit.fill),
-                ),
-              ),
-              Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child:
-                  Stack(
-                    children: <Widget>
-                    [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-
-                          const Spacer(flex: 2),
-                          HomeView(),
-                          const Spacer(flex: 2),
-
                           SizedBox(height: 50),
                           HomeView(),
-                          SizedBox(height: 70),
-
+                          SizedBox(height: 30),
                           TextField(
-                            controller: emailController,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                labelText: 'Email'
+                              controller: emailController,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  labelText: 'Email'
+                              ),
+                              onChanged: (name) {},
                             ),
-                            onChanged: (name) {},
-                          ),
-
-                          const Spacer(),
-
-                          SizedBox(height: 25),
-
+                          SizedBox(height: 30),
                           TextField(
                             controller: surNameController,
                             decoration: InputDecoration(
@@ -110,11 +79,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                             onChanged: (name) {},
                           ),
-
-                          const Spacer(),
-
-                          SizedBox(height: 25),
-
+                          SizedBox(height: 30),
                           TextField(
                             controller: middleNameController,
                             decoration: InputDecoration(
@@ -125,11 +90,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                             onChanged: (name) {},
                           ),
-
-                          const Spacer(),
-
-                          SizedBox(height: 25),
-
+                          SizedBox(height: 30),
                           TextField(
                             controller: nameController,
                             decoration: InputDecoration(
@@ -140,28 +101,45 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                             onChanged: (name) {},
                           ),
-
-                          const Spacer(flex: 3),
-                          SizedBox(height: 25),
-
-                          Expanded(
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Container(
-                                  height: 40,
-                                  width: 320,
-                                  child: buildEditProfileButton()
+                          SizedBox(height: 40),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                            height: 40,
+                            width: 320,
+                            child: buildEditProfileButton()
                               ),
                             ),
-                          )
                         ],
                       ),
-                    ],
-                  )
-              ),
-            ],
-          )
-      );
+        ),
+                  ],
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+       home: Scaffold(
+            body: Stack(
+              children: [
+                Container(
+                  child: Container(
+                    child: Stack(
+                      children: [
+                        Image.asset('assets/profile/profileBackground.jpg',width: 1000, fit:BoxFit.fill),
+                        Image.asset('assets/profile/GroundUpBar.png',width: 1000, fit:BoxFit.fill),
+                      ],
+                    ),
+                  ),
+                ),
+                _FrontButton(),
+              ],
+            )
+        )
+    );
+  }
 
   Widget buildEditProfileButton() =>
       ButtonWidget(
@@ -169,6 +147,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
         onClicked: () {
           Timer(Duration(seconds: 1), () {
             PushToJson(email, password, name, surName, middleName, "no");
+            //Обновление данных для чата
+            base.updateUser(userEmail: email, userSurname: surName, userName: name, userMiddle_name: middleName);
           });
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => (HomePage()))
