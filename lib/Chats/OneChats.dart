@@ -62,22 +62,27 @@ class _OneChatsState extends State<OneChats> {
                         print(snapshot.error);
                         return buildText(
                             'Что-то пошло не так, попробуйте позже');
-                      } else {
+                      } else if (snapshot.hasData) {
                         final users = snapshot.data!;
 
                         if (users.isEmpty) {
                           return buildText('Нет такого пользователя');
-                        } else
-                          // ignore: curly_braces_in_flow_control_structures
-                          return ScrollConfiguration(
-                              behavior: ScrollBehavior(),
-                              child: GlowingOverscrollIndicator(
-                                axisDirection: AxisDirection.down,
-                                color: purpleColor,
-                                child: ListView(
-                                  children: users.map(buildUser).toList(),
-                                ),
-                              ));
+                        }
+                        // ignore: curly_braces_in_flow_control_structures
+                        return ScrollConfiguration(
+                            behavior: ScrollBehavior(),
+                            child: GlowingOverscrollIndicator(
+                              axisDirection: AxisDirection.down,
+                              color: purpleColor,
+                              child: ListView(
+                                children: users.map(buildUser).toList(),
+                              ),
+                            ));
+                      } else {
+                        return Center(
+                            child: CircularProgressIndicator(
+                          color: purpleColor,
+                        ));
                       }
                   }
                 }),
@@ -93,7 +98,11 @@ class _OneChatsState extends State<OneChats> {
         child: ListTile(
           contentPadding: EdgeInsets.all(10),
           leading: Image.asset('assets/chat/resource29.png'),
-          title: Text(user.name, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: greyText),),
+          title: Text(
+            user.name,
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: greyText),
+          ),
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => ChatPage(

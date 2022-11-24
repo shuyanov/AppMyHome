@@ -2,49 +2,92 @@ import '../Data/users.dart';
 import '/Chats/Models/User.dart';
 import '/Chats/Data/Admin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-  // base.addUsers(
-  //     myId: row.colAt(1).toString(),
-  //     myUserEmail: adminEmail,
-  //     myUserName: row.colAt(3).toString(),
-  //     myUserSurname: row.colAt(4).toString(),
-  //     myUserMiddle_name: row.colAt(5).toString(),
-  //     myCode: row.colAt(7).toString(),
-  //     myStatus: row.colAt(8).toString(),
-  //     myPersonalCheck: row.colAt(9).toString(),
-  //     myNumberPhone: row.colAt(10).toString(),
-  //     myUrlAvatar: '');
+
+// base.addUsers(
+//     myId: row.colAt(1).toString(),
+//     myUserEmail: adminEmail,
+//     myUserName: row.colAt(3).toString(),
+//     myUserSurname: row.colAt(4).toString(),
+//     myUserMiddle_name: row.colAt(5).toString(),
+//     myCode: row.colAt(7).toString(),
+//     myStatus: row.colAt(8).toString(),
+//     myPersonalCheck: row.colAt(9).toString(),
+//     myNumberPhone: row.colAt(10).toString(),
+//     myUrlAvatar: '');
+// Map<String, dynamic> json = {};
 class base {
-  static Future addUsers({
-    required String myId,
-    required String myUserEmail,
-    required String myUserSurname,
-    required String myUserName,
-    required String myUserMiddle_name,
-    required String myCode,
-    required String myStatus,
-    required String myPersonalCheck,
-    required String myNumberPhone,
-    required String myUrlAvatar,
+  static Future updateUser({
+    required String userEmail,
+    required String userSurname,
+    required String userName,
+    required String userMiddle_name,
+    //required String urlAvatar,
   }) async {
-    final docUsers = await FirebaseFirestore.instance.collection('users');
-    final allUsers = await docUsers.get();
-    print ("ID >>>>> ${docUsers.doc(myId)}");
-    // if (docUsers.id == myId) {
-    //   return;
-    // } else {
-      final docUser = await FirebaseFirestore.instance.collection('users').doc(myId);
-      final json = {
-        'myUserEmail': myUserEmail,
-        'myUserName': myUserName,
-        'myUserSurname': myUserSurname,
-        'myUserMiddle_name': myUserMiddle_name,
-        'myCode': myCode,
-        'myStatus': myStatus,
-        'myPersonalCheck': myPersonalCheck,
-        'myNumberPhone': myNumberPhone,
-        'myUrlAvatar': myUrlAvatar,
-      };
-      await docUser.set(json);
+    final docUser =
+        await FirebaseFirestore.instance.collection('users').doc(myId);
+    docUser.update({
+      'email': userEmail,
+      'surname': userSurname,
+      'middle_name': userMiddle_name,
+      'name': userName
+    });
+  }
+
+  static Future addUsers({
+    required String id,
+    required String userEmail,
+    required String userSurname,
+    required String userName,
+    required String userMiddle_name,
+    required String code,
+    required String status,
+    required String personalCheck,
+    required String numberPhone,
+    required String urlAvatar,
+  }) async {
+    // final docUsers = await FirebaseFirestore.instance.collection('users');
+    final docUser =
+        await FirebaseFirestore.instance.collection('users').doc(id);
+    final allUsers = await docUser.get();
+    if (allUsers.id != myId) {
+      final user = User(
+          idUser: docUser.id,
+          email: userEmail,
+          name: userName,
+          surname: userSurname,
+          middle_name: userMiddle_name,
+          code: code,
+          status: status,
+          personalCheck: personalCheck,
+          numberPhone: numberPhone,
+          urlAvatar: urlAvatar);
+
+      myId = id;
+      myUserEmail = userEmail;
+      myUserSurname = userSurname;
+      myUserName = userName;
+      myUserMiddle_name = userMiddle_name;
+      myCode = code;
+      myStatus = status;
+      myPersonalCheck = personalCheck;
+      myNumberPhone = numberPhone;
+      myUrlAvatar = urlAvatar;
+
+      await docUser.set(user.toJson());
+      print('ADD: ${docUser.set(user.toJson())}');
+    }
+    // final user = {
+    //   'userEmail': userEmail,
+    //   'userName': userName,
+    //   'userSurname': userSurname,
+    //   'userMiddle_name': userMiddle_name,
+    //   'code': code,
+    //   'status': status,
+    //   'personalCheck': personalCheck,
+    //   'numberPhone': numberPhone,
+    //   'urlAvatar': urlAvatar,
+    // };
+
     //   // final userDoc = docUser.doc(idUser);
     //   // idUser = userDoc.id;
     //   // final newUser = user.copyWith(idUser: userDoc.id);
@@ -73,13 +116,12 @@ class base {
       .map((snapshot) =>
           snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
 
-  Future<User?> readUser() async {
-    final docUser =
-        await FirebaseFirestore.instance.collection('users').doc(myId);
-    final snapshot = await docUser.get();
-    if (snapshot.exists) {
-      return User.fromJson(snapshot.data()!);
-    }
-    print(docUser.toString());
-  }
+  // Future<User?> readUser() async {
+  //   final docUser =
+  //       await FirebaseFirestore.instance.collection('users').doc(myId);
+  //   final snapshot = await docUser.get();
+  //   if (snapshot.exists) {
+  //     return User.fromJson(snapshot.data()!);
+  //   }
+  // }
 }
