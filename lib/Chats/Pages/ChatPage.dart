@@ -72,9 +72,10 @@ class _ChatPageState extends State<ChatPage> {
                     bottomRight: Radius.circular(10))),
             backgroundColor: purpleColor,
             title: ListTile(
-              leading: CircleAvatar(
-                radius: 20.0,
-                backgroundImage: NetworkImage(widget.friendImage),
+              contentPadding: EdgeInsets.all(10),
+              leading: Image.asset(
+                'assets/chat/resource30.png',
+                scale: 3,
               ),
               title: Text(
                 widget.friendSurname,

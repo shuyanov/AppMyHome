@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:command_flutter/Chats/api/firebase.dart';
 import 'package:command_flutter/HomePage.dart';
 import 'package:command_flutter/Pages/TestPage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
@@ -145,6 +146,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
         onClicked: () {
           Timer(Duration(seconds: 1), () {
             PushToJson(email, password, name, surName, middleName, "no");
+            //Обновление данных для чата
+            base.updateUser(userEmail: email, userSurname: surName, userName: name, userMiddle_name: middleName);
           });
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => (HomePage()))

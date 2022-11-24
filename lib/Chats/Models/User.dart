@@ -15,10 +15,10 @@ class User {
   final String personalCheck;
   final String numberPhone;
   final String urlAvatar;
-  final Timestamp lastMessageTime;
+  final Timestamp? lastMessageTime;
 
   const User({
-    required this.idUser,
+    this.idUser = '',
     required this.email,
     required this.name,
     required this.surname,
@@ -28,13 +28,13 @@ class User {
     required this.personalCheck,
     required this.numberPhone,
     required this.urlAvatar,
-    required this.lastMessageTime,
+    this.lastMessageTime,
   });
   User copyWith({
     String? idUser,
     String? email,
-    String? name,
     String? surname,
+    String? name,
     String? middle_name,
     String? code,
     String? status,
@@ -46,8 +46,8 @@ class User {
       User(
         idUser: idUser ?? this.idUser,
         email: email ?? this.email,
-        name: name ?? this.name,
         surname: surname ?? this.surname,
+        name: name ?? this.name,
         middle_name: middle_name ?? this.middle_name,
         code: code ?? this.code,
         status: status ?? this.status,
@@ -60,8 +60,8 @@ class User {
   Map<String, dynamic> toJson() => {
         'idUser': idUser,
         'email': email,
-        'name': name,
         'surname': surname,
+        'name': name,
         'middle_name': middle_name,
         'code': code,
         'status': status,
@@ -75,8 +75,8 @@ class User {
      User(
       idUser: json['idUser'],
       email: json['email'],
-      name: json['name'],
       surname: json['surname'],
+      name: json['name'],
       middle_name: json['middle_name'],
       code: json['code'],
       status: json['status'],
