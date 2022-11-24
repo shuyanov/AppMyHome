@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
+import '../../Chats/Data/Admin.dart';
 import '../../Styles/Colors.dart';
 import 'package:intl/intl.dart';
 import '../Widgets/message.dart';
@@ -37,6 +38,7 @@ class _GeneralPageState extends State<GeneralPage> {
   @override
   void initState() {
     super.initState();
+    print(myId);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

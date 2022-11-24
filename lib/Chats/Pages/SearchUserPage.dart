@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../../Styles/Colors.dart';
 import '/Chats/Data/Admin.dart';
 import '/Chats/Pages/ChatPage.dart';
@@ -37,7 +40,7 @@ class _SearchUserPageState extends State<SearchUserPage> {
       }
       value.docs.forEach((user) {
         if (user.data()['name'] != myUserName) {
-          //
+          searchResult.clear();
           searchResult.add(user.data());
         }
       });
@@ -45,14 +48,68 @@ class _SearchUserPageState extends State<SearchUserPage> {
         isLoading = false;
       });
     });
-  }
 
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where("surname", isEqualTo: searchController.text)
+        .get()
+        .then((value) {
+      if (value.docs.length < 1) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              "Нет такого пользователя.\n(Возможно вы ввели фамилию не полностью)"),
+        ));
+        setState(() {
+          isLoading = false;
+        });
+      }
+      value.docs.forEach((user) {
+        if (user.data()['surname'] != myUserSurname) {
+          searchResult.clear();
+          searchResult.add(user.data());
+          surname = name = user.data()['surname'];
+        }
+      });
+      setState(() {
+        isLoading = false;
+      });
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where("middle_name", isEqualTo: searchController.text)
+        .get()
+        .then((value) {
+      if (value.docs.length < 1) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              "Нет такого пользователя.\n(Возможно вы ввели отчество не полностью)"),
+        ));
+        setState(() {
+          isLoading = false;
+        });
+      }
+      value.docs.forEach((user) {
+        if (user.data()['middle_name'] != myUserMiddle_name) {
+          searchResult.clear();
+          searchResult.add(user.data());
+          middle_name = user.data()['middle_name'];
+        }
+      });
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+  String? surname;
+  String? name;
+  String? middle_name;
   void onSearchChanged() async {
+    searchResult.clear();
     setState(() {
       searchResult = [];
       isLoading = true;
     });
-
     await FirebaseFirestore.instance
         .collection('users')
         .where("name", isEqualTo: searchController.text)
@@ -65,8 +122,53 @@ class _SearchUserPageState extends State<SearchUserPage> {
       }
       value.docs.forEach((user) {
         if (user.data()['name'] != myUserName) {
-          //
+          searchResult.clear();
           searchResult.add(user.data());
+          name = user.data()['name'];
+        }
+      });
+      setState(() {
+        isLoading = false;
+      });
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where("surname", isEqualTo: searchController.text)
+        .get()
+        .then((value) {
+      if (value.docs.length < 1) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+      value.docs.forEach((user) {
+        if (user.data()['surname'] != myUserSurname) {
+          searchResult.clear();
+          searchResult.add(user.data());
+          surname = name = user.data()['surname'];
+        }
+      });
+      setState(() {
+        isLoading = false;
+      });
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where("middle_name", isEqualTo: searchController.text)
+        .get()
+        .then((value) {
+      if (value.docs.length < 1) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+      value.docs.forEach((user) {
+        if (user.data()['middle_name'] != myUserMiddle_name) {
+          searchResult.clear();
+          searchResult.add(user.data());
+          middle_name = user.data()['middle_name'];
         }
       });
       setState(() {
@@ -119,13 +221,14 @@ class _SearchUserPageState extends State<SearchUserPage> {
                           //       Image.network(searchResult[index]['urlAvatar']),
                           // ),
                           title: Text(
-                            searchResult[index]['name'],
+                            searchResult[index]['surname'],
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey[700]),
                           ),
-                          // subtitle: Text(searchResult[index]['description']),
+                          subtitle: Text(
+                              '${searchResult[index]['name']} ${searchResult[index]['middle_name']}'),
                           onTap: () {
                             setState(() {
                               searchController.text = "";

@@ -1,25 +1,38 @@
 import 'package:command_flutter/Chats/api/firebase.dart';
 
+import 'Chats/Data/Admin.dart';
+
 void addUser(
-  String myId,
-  String myUserEmail,
-  String myUserSurname,
-  String myUserName,
-  String myUserMiddle_name,
-  String myCode,
-  String myStatus,
-  String myPersonalCheck,
-  String myNumberPhone,
+  String Id,
+  String UserEmail,
+  String UserSurname,
+  String UserName,
+  String UserMiddle_name,
+  String Code,
+  String Status,
+  String PersonalCheck,
+  String NumberPhone,
 ) async {
   base.addUsers(
-      myId: myId,
-      myUserEmail: myUserEmail,
-      myUserSurname: myUserSurname,
-      myUserName: myUserName,
-      myUserMiddle_name: myUserMiddle_name,
-      myCode: myCode,
-      myStatus: myStatus,
-      myPersonalCheck: myPersonalCheck,
-      myNumberPhone: myNumberPhone,
-      myUrlAvatar: '');
+      id: Id,
+      userEmail: UserEmail,
+      userSurname: UserSurname,
+      userName: UserName,
+      userMiddle_name: UserMiddle_name,
+      code: Code,
+      status: Status,
+      personalCheck: PersonalCheck,
+      numberPhone: NumberPhone,
+      urlAvatar: '0');
+
+      myId = Id;
+      myUserEmail = UserEmail;
+      myUserSurname = UserSurname;
+      myUserName = UserName;
+      myUserMiddle_name = UserMiddle_name;
+      myCode = Code;
+      myStatus = Status;
+      myPersonalCheck = PersonalCheck;
+      myNumberPhone = NumberPhone;
+      myUrlAvatar = '0';
 }
