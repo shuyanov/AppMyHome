@@ -62,7 +62,7 @@ class base {
           numberPhone: numberPhone,
           urlAvatar: urlAvatar);
 
-      myId = id;
+      myId = docUser.id;
       myUserEmail = userEmail;
       myUserSurname = userSurname;
       myUserName = userName;
@@ -116,12 +116,24 @@ class base {
       .map((snapshot) =>
           snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
 
-  // Future<User?> readUser() async {
+  // static Future<User?> readUser() async {
   //   final docUser =
   //       await FirebaseFirestore.instance.collection('users').doc(myId);
   //   final snapshot = await docUser.get();
   //   if (snapshot.exists) {
+  //     print ('DATA >>> ${User.fromJson(snapshot.data()!).urlAvatar}');
   //     return User.fromJson(snapshot.data()!);
   //   }
   // }
+
+    static Future<User?> readAvatar() async {
+    final docUser =
+        await FirebaseFirestore.instance.collection('users').doc(myId);
+    final snapshot = await docUser.get();
+    if (snapshot.exists) {
+      // print ('DATA >>> ${User.fromJson(snapshot.data()!).urlAvatar}');
+      myUrlAvatar = User.fromJson(snapshot.data()!).urlAvatar;
+      return User.fromJson(snapshot.data()!);
+    }
+  }
 }

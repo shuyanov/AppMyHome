@@ -3,9 +3,12 @@
 // that can be found in the LICENSE file.
 
 import 'dart:io';
+import 'package:command_flutter/Chats/api/firebase.dart';
 import 'package:command_flutter/Pages/addImage.dart';
 import 'package:editable_image/editable_image.dart';
 import 'package:flutter/material.dart';
+
+import '../Chats/Models/User.dart';
 
 
 class HomeViewTest extends StatefulWidget {
