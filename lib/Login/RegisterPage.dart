@@ -481,25 +481,6 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     home: Scaffold(
-  //       backgroundColor: Colors.white,
-  //       body:
-  //       SingleChildScrollView(
-  //         child: Column(
-  //           children: <Widget>[
-  //             _logo(),
-  //             _form(),
-  //             _logPageButton(),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-  // show the dialog
-
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Builder(builder: (context) {

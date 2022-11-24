@@ -153,39 +153,37 @@ class Send extends StatelessWidget {
   }
 //////////
   Widget _form(){
-    return Container(
-      padding: EdgeInsets.only(top: 150),
-      child: Column(
-        children: [
-          // Padding(
-          //   padding: EdgeInsets.only(bottom: 20, top: 10),
-          //   child: _input(Icon(Icons.email), "name", nameController, false),
-          // ),
-          // Padding(
-          //   padding: EdgeInsets.only(bottom: 20,),
-          //   child: _input(Icon(Icons.lock), "email", emailController, false),
-          // ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 20,),
-            child: _input(Icon(Icons.lock), "subject", subjectController, false),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 20,),
-            child: _input(Icon(Icons.lock), "message", messageController, false),
-          ),
-          SizedBox(height: 100),
-          Padding(
-              child: Container(
-                height: 60,
-                width: 150,
-                child: _logButton(),
+    return ListView(
+      children: [
+        Column(
+          children: [
+            SizedBox(height: 400),
+            Padding(
+                padding: EdgeInsets.only(bottom: 20),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: _input(Icon(Icons.lock), "subject", subjectController, false),
+                )
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 20,),
+              child: _input(Icon(Icons.lock), "message", messageController, false),
+            ),
+            SizedBox(height: 50),
+            Center(
+              child: Padding(
+                  child: Container(
+                    height: 60,
+                    width: 150,
+                    child: _logButton(),
 
+                  ),
+                  padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 )
               ),
-              padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 )
-          ),
-
-        ],
-      ),
+            ),
+          ],
+        )
+      ],
     );
   }
 
@@ -193,8 +191,20 @@ class Send extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home:  Scaffold(
-          backgroundColor: Colors.orange,
-          body: _form(),
+          backgroundColor: Colors.transparent,
+          body: Stack(
+            children: [
+              Container(
+                child: Stack(
+                children: [
+                  Image.asset('assets/profile/profileBackground.jpg', width: 1000,fit:BoxFit.fill),
+                  Image.asset('assets/profile/GroundUpBar.png',width: 1000, fit:BoxFit.fill),
+                  ],
+                  )
+                ),
+              _form(),
+            ],
+          )
         )
     );
   }

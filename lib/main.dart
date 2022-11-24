@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'package:command_flutter/CallPages/CallPage.dart';
 import 'package:command_flutter/HomePage.dart';
 import 'package:command_flutter/Login/LOginPage.dart';
-import 'package:command_flutter/Login/RefisterPageTest.dart';
 import 'package:command_flutter/Login/RegisterPage.dart';
 import 'package:command_flutter/PushNotifications/api/notification.dart';
 import 'package:command_flutter/SendInEmail.dart';
@@ -16,7 +16,7 @@ Future main() async {
   await Firebase.initializeApp();
   Notific();
   //await base.addUsers(users);
-    runApp(RegisterPage());
+    runApp(MyApp());
   //   runApp(MyApp());
 
 }
