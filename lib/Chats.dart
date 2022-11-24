@@ -3,6 +3,7 @@ import 'Chats/Data/Admin.dart';
 import 'Chats/Models/User.dart';
 import 'Chats/OneChats.dart';
 import 'Chats/Pages/ChatPage.dart';
+import 'Chats/api/firebase.dart';
 import 'GeneralChats/Data/General.dart';
 import 'GeneralChats/Pages/GeneralPage.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,12 @@ class Chats extends StatefulWidget {
   @override
   State<Chats> createState() => _ChatsState();
 }
-
 class _ChatsState extends State<Chats> {
+@override
+void initState() {
+  super.initState();
+  print(myId);
+}
   String name = 'Общий чат';
   String name2 = 'Подъезд №2';
   String name3 = '\"УК\"';
