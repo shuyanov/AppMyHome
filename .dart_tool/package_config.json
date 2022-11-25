@@ -303,7 +303,7 @@
     },
     {
       "name": "flutter_launcher_icons",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_launcher_icons-0.10.0",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_launcher_icons-0.11.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -740,7 +740,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2022-11-25T19:29:29.119943Z",
+  "generated": "2022-11-25T20:57:18.430018Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }

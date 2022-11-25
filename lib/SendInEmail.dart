@@ -9,9 +9,6 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import '../Utils/UserPerefer.dart';
 
-//ad dependencies:
-//   http: ^0.13.5
-
 
 class Send extends StatelessWidget {
 
@@ -33,12 +30,12 @@ class Send extends StatelessWidget {
       final json = jsonDecode(await file.readAsString());
 
       print(json);
-      Usersed nikita = Usersed.fromJson(json['user']);
+      UsersedTest nikita = UsersedTest.fromJson(json['user']);
       print("code = ${nikita.code}");
       print("email");
 
-      Timer(Duration(seconds: 1), () {
-        email = nikita.login;
+      Timer(Duration(milliseconds: 50), () {
+        email = nikita.adminEmail;
         name = nikita.name;
         print("email");
         print(email);
@@ -47,7 +44,7 @@ class Send extends StatelessWidget {
 
     getUserTesta();
     print("Test");
-    Timer(Duration(seconds: 2), () {
+    Timer(Duration(milliseconds: 100), () {
       subject = subjectController.text;
       message = messageController.text;
 
@@ -60,7 +57,8 @@ class Send extends StatelessWidget {
           "name = $name | email = $email | subject = $subject | message = $message");
       print("object");
 
-      if(email=="" || email == null){
+
+      if(email==""||email=="no"){
         Fluttertoast.showToast(
             msg: "Отправка обращения невозможна, обратитесь к руководителю ТСЖ для добавления адреса получателя",
             toastLength: Toast.LENGTH_SHORT,
@@ -79,22 +77,32 @@ class Send extends StatelessWidget {
 ///////////////////
   Widget _logButton(){
     return Container(
+            margin: EdgeInsets.only(top: 1),
+            height: 36,
+            width: 170,
         child:
         ElevatedButton(
-          child: Text("Send", style: TextStyle(color: Colors.cyan, fontSize: 26)),
+          child: Text("Отправить", style: TextStyle(color: Colors.white, fontSize: 26)),
           onPressed: () => funcPress(),
           style: ElevatedButton.styleFrom(
+            primary: Color.fromARGB(200, 158, 122, 244),
+            onPrimary: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(32.0),
+            ),
+          ),
+          /*style: ElevatedButton.styleFrom(
             primary: Colors.white,
             onPrimary: Colors.cyan,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(32.0),
             ),
-          ),
+          ),*/
         )
     );
   }
 //////////////////////
-  Widget _input(Icon icon, String hint, TextEditingController controller, bool hidden){
+  /*Widget _input(Icon icon, String hint, TextEditingController controller, bool hidden){
     return Container(
       padding: EdgeInsets.only(right: 20, left: 20),
       child: TextField(
@@ -114,6 +122,40 @@ class Send extends StatelessWidget {
             child: IconTheme(
               data: IconThemeData(
                   color: Colors.yellow
+              ),
+              child: icon,
+            ),
+          ),
+        ),
+      ),
+    );
+  }*/
+  Widget _input(Icon icon, String hint, TextEditingController controller, bool hidden){
+    return Container(
+      padding: EdgeInsets.only(right: 20, left: 20),
+      child: TextField(
+        controller: controller,
+        obscureText: hidden,
+        style: TextStyle(fontSize: 20, color: Color.fromARGB(200, 255, 255, 255)),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Color.fromARGB(200, 92, 96, 196),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30.0)),
+          hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white60),
+          hintText: hint,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromARGB(200, 92, 96, 196), width: 0),
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromARGB(200, 227, 228, 251), width: 1),
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          prefixIcon: Padding(padding: EdgeInsets.only(left: 10, right: 10),
+            child: IconTheme(
+              data: IconThemeData(
+                  color: Colors.purple
               ),
               child: icon,
             ),
@@ -159,24 +201,26 @@ class Send extends StatelessWidget {
       children: [
         Column(
           children: [
-            SizedBox(height: 400),
+
+            SizedBox(height: 330),
+            Padding( padding: EdgeInsets.only(bottom: 20),child: Text("Обращение в УК",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 35),)),
             Padding(
                 padding: EdgeInsets.only(bottom: 20),
                 child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: _input(Icon(Icons.lock), "subject", subjectController, false),
+                  child: _input(Icon(Icons.text_snippet), "Тема обращения", subjectController, false),
                 )
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 20,),
-              child: _input(Icon(Icons.lock), "message", messageController, false),
+              child: _input(Icon(Icons.mail), "Сообщение", messageController, false),
             ),
-            SizedBox(height: 50),
+            SizedBox(height: 15),
             Center(
               child: Padding(
                   child: Container(
                     height: 60,
-                    width: 150,
+                    width: 170,
                     child: _logButton(),
 
                   ),
@@ -188,7 +232,16 @@ class Send extends StatelessWidget {
       ],
     );
   }
-
+  Widget _logo() {
+    return Padding(
+      padding: EdgeInsets.only( bottom: 10),
+      child: Container(
+        child: Align(
+          child: Image.asset('assets/mainLogo.png'),
+        ),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -196,11 +249,12 @@ class Send extends StatelessWidget {
           backgroundColor: Colors.transparent,
           body: Stack(
             children: [
+
               Container(
                 child: Stack(
                 children: [
                   Image.asset('assets/profile/profileBackground.jpg', width: 1000,fit:BoxFit.fill),
-                  Image.asset('assets/profile/GroundUpBar.png',width: 1000, fit:BoxFit.fill),
+                  Image.asset('assets/mainLogo.png',width: 1000, fit:BoxFit.fill),
                   ],
                   )
                 ),
