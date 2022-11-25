@@ -188,8 +188,9 @@ class LoginPage extends StatelessWidget {
           logged = true;
         }
       }
+      print("hello, $logged");
       if(logged) {
-        runApp(MyApp());
+       // runApp(MyApp());
         await conn.close();
         print("con close");
         return runApp(MyApp());
