@@ -4,12 +4,18 @@
 
 import 'dart:io';
 
+import 'package:command_flutter/Chats/api/firebase.dart';
 import 'package:command_flutter/Pages/addImage.dart';
 import 'package:editable_image/editable_image.dart';
 import 'package:flutter/material.dart';
 
 class UserProfile extends StatelessWidget {
   const UserProfile({Key? key}) : super(key: key);
+import '../Chats/Models/User.dart';
+
+
+class HomeViewTest extends StatefulWidget {
+  const HomeViewTest({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -171,4 +177,5 @@ class _HomeViewState extends State<HomeView> {
     else return Text("NOT IMAGE");
   }
 
+}
 }

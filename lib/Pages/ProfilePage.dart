@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:command_flutter/Chats/api/firebase.dart';
 import 'package:command_flutter/Pages/TestIcon.dart';
 import 'package:command_flutter/SendInEmail.dart';
 import 'package:command_flutter/Widget/ButtonLoginPage.dart';
@@ -20,7 +21,11 @@ class ProfileePage extends StatefulWidget {
 }
 
 class _ProfileePageState extends State<ProfileePage> {
-
+@override
+  void initState() {
+    super.initState();
+    base.readAvatar();
+  }
   String name = "";
   String surName = "";
 

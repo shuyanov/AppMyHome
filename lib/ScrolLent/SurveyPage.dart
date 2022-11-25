@@ -71,7 +71,7 @@ class _SurveyPageState extends State<SurveyPage> {
                         await conn.connect();
                         print("Conected");
 
-                        var res = await conn.execute(
+                        var result = await conn.execute(
                           "INSERT INTO News (surv_name) VALUES (:surv_name)",
                           {
                             "surv_name": ControlnameVote.text,
