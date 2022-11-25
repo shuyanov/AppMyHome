@@ -12,6 +12,7 @@ import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../CallPages/CallPage.dart';
+import '../Styles/Colors.dart';
 
 class ProfileePage extends StatefulWidget {
   const ProfileePage({Key? key}) : super(key: key);
@@ -36,40 +37,45 @@ class _ProfileePageState extends State<ProfileePage> {
       ButtonLoginReg();
     });
 
-    setState(() {});
-
-    return ListView(
-      children: [
-      Stack(
-        children: <Widget>
-            [
-            Container(
-            child: Stack(
-            children: [
-              Image.asset('assets/profile/profileBackground.jpg',width: 1000, fit:BoxFit.fill),
-              Image.asset('assets/profile/GroundUpBar.png',width: 1000, fit:BoxFit.fill),
-              ],
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+    return ScrollConfiguration(
+        behavior: ScrollBehavior(),
+        child: GlowingOverscrollIndicator(
+          axisDirection: AxisDirection.down,
+          color: purpleColor, // меняет цвет при прокрутке
+      child: ListView(
+        children: [
+        Stack(
+          children: <Widget>
+              [
+              Container(
+              child: Stack(
               children: [
-                Container(
-                  child: Stack(
-                    children: [
-                      WidgetProfileName(),
-                    ],
-              )
-            ),
-                  SizedBox(height: 90),
-                  //Button
-                  Padding(
-                    padding: EdgeInsets.only(left: 20,right: 20,bottom: 0 ),
-                        child: Container(
-                        height: 40,
-                        width: 330,
-                        child: buildPersonalBillButton(),
+                Image.asset('assets/profile/profileBackground.jpg',width: 1000, fit:BoxFit.fill),
+                Image.asset('assets/profile/GroundUpBar.png',width: 1000, fit:BoxFit.fill),
+                ],
+                ),
+              ),
+                Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    child: Stack(
+                      children: [
+                        WidgetProfileName(),
+                      ],
+                )
+              ),
+                    SizedBox(height: 90),
+                    //Button
+                    Padding(
+                      padding: EdgeInsets.only(left: 20,right: 20,bottom: 0 ),
+                          child: Container(
+                          height: 40,
+                          width: 330,
+                          child: buildPersonalBillButton(),
+                      ),
                     ),
+                ]
                   ),
                   ////
                   SizedBox(height: 50),
@@ -78,7 +84,8 @@ class _ProfileePageState extends State<ProfileePage> {
                     child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                    Stack(
+                    SizedBox(width: 30),
+                    Column(
                     children: [
                       Container(
                         height: 80,
@@ -178,7 +185,7 @@ class _ProfileePageState extends State<ProfileePage> {
               )
           ],
         ),
-      ],
+        )
     );
   }
 

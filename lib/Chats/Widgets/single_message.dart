@@ -93,7 +93,7 @@ class SingleMessage extends StatelessWidget {
                     children: [
                       type == 'text'
                           ? Container(
-                              padding: EdgeInsets.all(5),
+                              padding: EdgeInsets.only(top: 7, left: 5, right: 5),
                               constraints: BoxConstraints(minWidth: 50),
                               child: Text(
                                 message,

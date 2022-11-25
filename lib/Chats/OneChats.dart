@@ -61,14 +61,13 @@ class _OneChatsState extends State<OneChats> {
                       if (snapshot.hasError) {
                         print(snapshot.error);
                         return buildText(
-                            'Что-то пошло не так, попробуйте позже');
+                            'Что-то пошло не так, попробуйте позже зайти');
                       } else if (snapshot.hasData) {
                         final users = snapshot.data!;
 
                         if (users.isEmpty) {
-                          return buildText('Нет такого пользователя');
+                          return buildText('Произошла ошибка');
                         }
-                        // ignore: curly_braces_in_flow_control_structures
                         return ScrollConfiguration(
                             behavior: ScrollBehavior(),
                             child: GlowingOverscrollIndicator(

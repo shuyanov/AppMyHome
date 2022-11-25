@@ -59,6 +59,7 @@ dependencies:
   path_provider: any
   external_app_launcher: any
   open_file: ^3.2.1
+  url_launcher: ^6.1.7
   
   # flutter_local_notifications: ^9.6.0
   # timezone: ^0.8.0
