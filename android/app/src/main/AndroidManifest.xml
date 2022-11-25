@@ -6,9 +6,9 @@
     <uses-permission android:name = "android.permission.READ_EXTERNAL_STORAGE"/>
 
    <application
-        android:label="command_flutter"
+        android:label="MyHome"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:exported="true"

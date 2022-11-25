@@ -64,7 +64,7 @@ class _FilingState extends State<Filing> {
     await conn.connect();
     print("Connected");
 
-    var result = await conn.execute("SELECT * FROM `News`");
+    var result = await conn.execute("SELECT * FROM `News` order by news_id decc");
     for (final row in result.rows) {
       print(row.colAt(1));
       news.addAll([
@@ -109,7 +109,13 @@ class _FilingState extends State<Filing> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           news[index].HeadName,
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                        ),),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          news[index].Text,
+                          style: TextStyle(fontSize: 20,),
                         ),),
                       if (news[index].isImage == true)
                         Container(
@@ -158,6 +164,82 @@ class _FilingState extends State<Filing> {
                   );
                 },
               ),
+            /*child: Scaffold(
+              backgroundColor: Color.fromARGB(250, 219, 219, 219),
+              body: ListView.builder(
+                itemCount: news.length,
+                itemBuilder: (context, int index) {
+                  return Card(
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: Column(children: [
+                      if (news[index].isSurvey == true)
+                        Container(
+                            margin: EdgeInsets.only(left: 2),
+                            child: Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  "Голосование",
+                                  style: TextStyle(fontSize: 14),
+                                ))),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          news[index].HeadName,
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        ),),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          news[index].Text,
+                          style: TextStyle(fontSize: 20),
+                        ),),
+                      if (news[index].isImage == true)
+                        Container(
+                          height: size.height * 0.33,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(4),
+                                bottomRight: Radius.circular(4)),
+                            child: Image.network(news[index].image,
+                                fit: BoxFit.cover,
+                                height: size.height * 0.33,
+                                errorBuilder: (context, url, error) => Center(
+                                    child: new Text(
+                                      "Картинка недоступна.\n Возможно нет интернета или картинка не действительна",
+                                      textAlign: TextAlign.center,
+                                    )),
+                                loadingBuilder: (BuildContext context, Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress.expectedTotalBytes != null
+                                            ? loadingProgress.cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                            : null,
+                                      ));
+                                }),
+                          ),
+                        ),
+                      if (news[index].isSurvey == true)
+                        Container(
+                          height: 200,
+                          child: ListView.builder(
+                              itemCount: news[index].nameVote?.length,
+                              itemBuilder: (context, i) {
+                                return SizedBox(
+                                  width: size.width,
+                                  child: ElevatedButton(
+                                    child: Text(news[index].nameVote![i]),
+                                    onPressed: () {},
+                                  ),
+                                );
+                              }),
+                        ),
+                    ]),
+                  );
+                },
+              ),*/
               floatingActionButton: FloatingActionButton(
                   backgroundColor: Color.fromARGB(255, 124, 97, 242),
                   child: Icon(Icons.add_circle),
@@ -454,7 +536,13 @@ class _FilingState extends State<Filing> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           news[index].HeadName,
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                        ),),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          news[index].Text,
+                          style: TextStyle(fontSize: 20,),
                         ),),
                       if (news[index].isImage == true)
                         Container(
