@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:command_flutter/Chats/Data/Admin.dart';
 import 'package:command_flutter/Pages/addImage.dart';
 import 'package:editable_image/editable_image.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,9 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late Directory _appDocDir;
+
   File? _profilePicFile;
+  File? _SAVEprofilePicFile;
 
   @override
   void initState() {
@@ -29,12 +32,20 @@ class _HomeViewState extends State<HomeView> {
     if (file == null) return;
 
     if (_profilePicFile != null) {
-      await _profilePicFile!.delete(recursive: true);
+      // await _profilePicFile!.delete(recursive: true);
+      _profilePicFile = file;
+      addImage(_profilePicFile!);
 
-      setState(() {
-        _profilePicFile = file;
-        addImage(_profilePicFile!);
-      });
+      _SAVEprofilePicFile = _profilePicFile;
+      Image.network(myUrlAvatar);
+
+      // setState(() {
+      //   _profilePicFile = file;
+      //   addImage(_profilePicFile!);
+      //
+      //   _SAVEprofilePicFile = _profilePicFile;
+      //   Image.network(myUrlAvatar);
+      // });
     }
 
     imageCache.clear();
@@ -44,7 +55,6 @@ class _HomeViewState extends State<HomeView> {
       await file.copy(_profilePicFile!.path);
       setState(() {});
     });
-
   }
 
   @override
@@ -56,8 +66,8 @@ class _HomeViewState extends State<HomeView> {
 
         // Define the source of the image.
         image: _profilePicFile != null
-            ? Image.file(_profilePicFile!, fit: BoxFit.cover)
-            : null,
+            ? Image.file( _profilePicFile!,  fit: BoxFit.cover)
+            : Image.network( myUrlAvatar!,  fit: BoxFit.cover),
         // Define the size of EditableImage.
         size: 120.0,
 

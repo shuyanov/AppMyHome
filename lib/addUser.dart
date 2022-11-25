@@ -13,7 +13,7 @@ void addUser(
   String PersonalCheck,
   String NumberPhone,
 ) async {
-  base.addUsers(
+  baseAPI.addUsers(
       id: Id,
       userEmail: UserEmail,
       userSurname: UserSurname,

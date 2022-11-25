@@ -4,36 +4,21 @@
 
 import 'dart:io';
 
+import 'package:command_flutter/Chats/Data/Admin.dart';
 import 'package:command_flutter/Chats/api/firebase.dart';
+import 'package:command_flutter/Pages/ProfilePage.dart';
 import 'package:command_flutter/Pages/addImage.dart';
 import 'package:editable_image/editable_image.dart';
 import 'package:flutter/material.dart';
-
-class UserProfile extends StatelessWidget {
-  const UserProfile({Key? key}) : super(key: key);
-import '../Chats/Models/User.dart';
-
 
 class HomeViewTest extends StatefulWidget {
   const HomeViewTest({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeView(),
-    );
-  }
+  _HomeViewTestState createState() => _HomeViewTestState();
 }
 
-class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
-
-  @override
-  _HomeViewState createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
+class _HomeViewTestState extends State<HomeViewTest> {
   File? _profilePicFile;
   File? _SAVEprofilePicFile;
 
@@ -51,6 +36,9 @@ class _HomeViewState extends State<HomeView> {
     setState(() {
       _profilePicFile = file;
       addImage(_profilePicFile!);
+
+      _SAVEprofilePicFile = _profilePicFile;
+      Image.network(myUrlAvatar);
     });
   }
 
@@ -73,11 +61,10 @@ class _HomeViewState extends State<HomeView> {
               EditableImage(
                 // Define the method that will run on the change process of the image.
                 onChange: (file) => _directUpdateImage(file),
-
                 // Define the source of the image.
-                image: _SAVEprofilePicFile != null
-                    ? Image.file( _SAVEprofilePicFile!,  fit: BoxFit.cover)
-                    : null,
+                image: _profilePicFile != null
+                    ? Image.file( _profilePicFile!,  fit: BoxFit.cover)
+                    : Image.network( myUrlAvatar!,  fit: BoxFit.cover),
 
                 // Define the size of EditableImage.
                 size: 150.0,
@@ -93,15 +80,16 @@ class _HomeViewState extends State<HomeView> {
                   // Define the default font family.
                   fontFamily: 'Georgia',
                 ),
-
                 // Define the border of the image if needed.
                 imageBorder: Border.all(color: Colors.black87, width: 2.0),
 
                 // Define the border of the icon if needed.
                 editIconBorder: Border.all(color: Colors.black87, width: 2.0),
               ),
+
               const Spacer(flex: 2),
-              _Open(),
+              // _Open(),
+              // Image(image: FileImage(_SAVEprofilePicFile!)),
               const Spacer(flex: 1),
               _buildTextButton(),
             ],
@@ -111,46 +99,46 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  TextField _buildTextField({String labelText = '', bool obscureText = false}) {
-    return TextField(
-      cursorColor: Colors.black54,
-      cursorWidth: 1.0,
-      obscureText: obscureText,
-      obscuringCharacter: '●',
-      decoration: InputDecoration(
-        labelText: labelText,
-        labelStyle: const TextStyle(
-          color: Colors.black54,
-          fontSize: 18.0,
-        ),
-        fillColor: Colors.red,
-        border: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.black54,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(40.0),
-          ),
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.black54,
-            width: 1.5,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(40.0),
-          ),
-        ),
-      ),
-    );
-  }
+  // TextField _buildTextField({String labelText = '', bool obscureText = false}) {
+  //   return TextField(
+  //     cursorColor: Colors.black54,
+  //     cursorWidth: 1.0,
+  //     obscureText: obscureText,
+  //     obscuringCharacter: '●',
+  //     decoration: InputDecoration(
+  //       labelText: labelText,
+  //       labelStyle: const TextStyle(
+  //         color: Colors.black54,
+  //         fontSize: 18.0,
+  //       ),
+  //       fillColor: Colors.red,
+  //       border: const OutlineInputBorder(
+  //         borderSide: BorderSide(
+  //           color: Colors.black54,
+  //         ),
+  //         borderRadius: BorderRadius.all(
+  //           Radius.circular(40.0),
+  //         ),
+  //       ),
+  //       focusedBorder: const OutlineInputBorder(
+  //         borderSide: BorderSide(
+  //           color: Colors.black54,
+  //           width: 1.5,
+  //         ),
+  //         borderRadius: BorderRadius.all(
+  //           Radius.circular(40.0),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   TextButton _buildTextButton() {
     return TextButton(
-      onPressed: () => {
-        _SAVEprofilePicFile = _profilePicFile!,
-        addImage(_SAVEprofilePicFile!)
-      },
+      onPressed: () async {
+          await addImage(_SAVEprofilePicFile!);
+          Navigator.pop(context);
+        },
       style: ButtonStyle(
         padding: MaterialStateProperty.all(
           const EdgeInsets.symmetric(vertical: 20.0),
@@ -169,13 +157,13 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-   _Open()
-  {
-    if(_SAVEprofilePicFile != null){
-      return Image(image: FileImage(_SAVEprofilePicFile!));
-    }
-    else return Text("NOT IMAGE");
-  }
+  //  _Open()
+  // {
+  //   if(_SAVEprofilePicFile != null){
+  //     addImage(_profilePicFile!);
+  //   }
+  //   else
+  //    return Text(myUrlAvatar.toString());
+  // }
 
-}
 }

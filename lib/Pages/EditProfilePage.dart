@@ -148,7 +148,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           Timer(Duration(seconds: 1), () {
             PushToJson(email, password, name, surName, middleName, "no");
             //Обновление данных для чата
-            base.updateUser(userEmail: email, userSurname: surName, userName: name, userMiddle_name: middleName);
+            baseAPI.updateUser(userEmail: email, userSurname: surName, userName: name, userMiddle_name: middleName);
           });
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => (HomePage()))

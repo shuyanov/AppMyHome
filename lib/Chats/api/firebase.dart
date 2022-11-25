@@ -9,13 +9,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 //     myUserName: row.colAt(3).toString(),
 //     myUserSurname: row.colAt(4).toString(),
 //     myUserMiddle_name: row.colAt(5).toString(),
-//     myCode: row.colAt(7).toString(),
+//     myCodve: row.colAt(7).toString(),
 //     myStatus: row.colAt(8).toString(),
 //     myPersonalCheck: row.colAt(9).toString(),
 //     myNumberPhone: row.colAt(10).toString(),
 //     myUrlAvatar: '');
 // Map<String, dynamic> json = {};
-class base {
+
+class baseAPI {
   static Future updateUser({
     required String userEmail,
     required String userSurname,
@@ -24,7 +25,7 @@ class base {
     //required String urlAvatar,
   }) async {
     final docUser =
-        await FirebaseFirestore.instance.collection('users').doc(myId);
+    await FirebaseFirestore.instance.collection('users').doc(myId);
     docUser.update({
       'email': userEmail,
       'surname': userSurname,
@@ -47,7 +48,7 @@ class base {
   }) async {
     // final docUsers = await FirebaseFirestore.instance.collection('users');
     final docUser =
-        await FirebaseFirestore.instance.collection('users').doc(id);
+    await FirebaseFirestore.instance.collection('users').doc(id);
     final allUsers = await docUser.get();
     if (allUsers.id != myId) {
       final user = User(
@@ -94,6 +95,7 @@ class base {
     //   // await userDoc.set(newUser.toJson());
     // }
   }
+
   // static Future addUsers(List<User> users) async {
   //   String? idUser;
   //   final docUser = await FirebaseFirestore.instance.collection('users');
@@ -110,31 +112,34 @@ class base {
   //   }
   // }
 
-  static Stream<List<User>> readUsers() => FirebaseFirestore.instance
-      .collection('users')
-      .snapshots()
-      .map((snapshot) =>
+  static Stream<List<User>> readUsers() =>
+      FirebaseFirestore.instance
+          .collection('users')
+          .snapshots()
+          .map((snapshot) =>
           snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
 
-  Future<User?> readUser() async {
-  // static Future<User?> readUser() async {
-  //   final docUser =
-  //       await FirebaseFirestore.instance.collection('users').doc(myId);
-  //   final snapshot = await docUser.get();
-  //   if (snapshot.exists) {
-  //     print ('DATA >>> ${User.fromJson(snapshot.data()!).urlAvatar}');
-  //     return User.fromJson(snapshot.data()!);
-  //   }
-  // }
+  //Future<User?> readUser() async {
+    // static Future<User?> readUser() async {
+    //   final docUser =
+    //       await FirebaseFirestore.instance.collection('users').doc(myId);
+    //   final snapshot = await docUser.get();
+    //   if (snapshot.exists) {
+    //     print ('DATA >>> ${User.fromJson(snapshot.data()!).urlAvatar}');
+    //     return User.fromJson(snapshot.data()!);
+    //   }
+    // }
 
-    static Future<User?> readAvatar() async {
-    final docUser =
-        await FirebaseFirestore.instance.collection('users').doc(myId);
-    final snapshot = await docUser.get();
-    if (snapshot.exists) {
-      // print ('DATA >>> ${User.fromJson(snapshot.data()!).urlAvatar}');
-      myUrlAvatar = User.fromJson(snapshot.data()!).urlAvatar;
-      return User.fromJson(snapshot.data()!);
+     static Future<User?> readAvatar() async {
+      final docUser =
+      await FirebaseFirestore.instance.collection('users').doc(myId);
+      final snapshot = await docUser.get();
+      if (snapshot.exists) {
+        // print ('DATA >>> ${User.fromJson(snapshot.data()!).urlAvatar}');
+        myUrlAvatar = User
+            .fromJson(snapshot.data()!)
+            .urlAvatar;
+        return User.fromJson(snapshot.data()!);
+      }
     }
   }
-}
