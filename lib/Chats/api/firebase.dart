@@ -116,12 +116,12 @@ class base {
       .map((snapshot) =>
           snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
 
-  // Future<User?> readUser() async {
-  //   final docUser =
-  //       await FirebaseFirestore.instance.collection('users').doc(myId);
-  //   final snapshot = await docUser.get();
-  //   if (snapshot.exists) {
-  //     return User.fromJson(snapshot.data()!);
-  //   }
-  // }
+  Future<User?> readUser() async {
+    final docUser =
+        await FirebaseFirestore.instance.collection('users').doc(myId);
+    final snapshot = await docUser.get();
+    if (snapshot.exists) {
+      return User.fromJson(snapshot.data()!);
+    }
+  }
 }

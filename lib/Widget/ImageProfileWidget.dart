@@ -14,7 +14,7 @@ class FirstRoute extends StatelessWidget {
         child: ElevatedButton(
           child: const Text('Open route'),
           onPressed: () {
-            HomeViewTest();
+            UserProfile();
             // Navigate to second route when tapped.
           },
         ),
