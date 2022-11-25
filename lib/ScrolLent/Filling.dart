@@ -64,7 +64,7 @@ class _FilingState extends State<Filing> {
     await conn.connect();
     print("Connected");
 
-    var result = await conn.execute("SELECT * FROM `News`");
+    var result = await conn.execute("SELECT * FROM `News` order by news_id desc");
     for (final row in result.rows) {
       print(row.colAt(1));
       news.addAll([
@@ -109,7 +109,15 @@ class _FilingState extends State<Filing> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           news[index].HeadName,
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),
+                          textAlign: TextAlign.center,
+                        ),),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          news[index].Text,
+                          style: TextStyle(fontSize: 20, ),
+                          textAlign: TextAlign.justify,
                         ),),
                       if (news[index].isImage == true)
                         Container(
@@ -167,9 +175,7 @@ class _FilingState extends State<Filing> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return Container(
-                            padding: EdgeInsets.only(bottom: 225, top: 215),
-                            margin: EdgeInsets.only(top: 20),
+                          return Expanded(
                             child: AlertDialog(
                               contentPadding: EdgeInsets.only(top: 10.0),
                               shape: RoundedRectangleBorder(
@@ -182,10 +188,7 @@ class _FilingState extends State<Filing> {
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
-                                              return Container(
-                                                  height: 30,
-                                                  padding: EdgeInsets.only(
-                                                      bottom: 225, top: 180),
+                                              return Expanded(
                                                   child: AlertDialog(
                                                       shape: RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.all(
@@ -293,9 +296,7 @@ class _FilingState extends State<Filing> {
                                     onPressed: () {
                                       showDialog(                                  context: context,
                                         builder: (BuildContext context) {
-                                          return Container(
-                                            padding: EdgeInsets.only(bottom: 225, top: 90),
-                                            margin: EdgeInsets.only(top: 40),
+                                          return Expanded(
                                             child: AlertDialog(
                                               shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius.all(
@@ -457,7 +458,14 @@ class _FilingState extends State<Filing> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           news[index].HeadName,
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        ),),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          news[index].Text,
+                          style: TextStyle(fontSize: 20,),
+                          textAlign: TextAlign.justify,
                         ),),
                       if (news[index].isImage == true)
                         Container(
