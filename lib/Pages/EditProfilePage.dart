@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:command_flutter/Chats/Data/Admin.dart';
 import 'package:command_flutter/Chats/api/firebase.dart';
@@ -8,6 +9,7 @@ import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:editable_image/editable_image.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart' as pathProvider;
 
 
 class EditProfilePage extends StatefulWidget {
@@ -188,17 +190,39 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ButtonWidget(
         text: 'Save',
         onClicked: () async {
+          await addImage(_SAVEprofilePicFile!);
           Timer(Duration(seconds: 1), () {
             PushToJson(email, password, name, surName, middleName, "no");
             //Обновление данных для чата
             baseAPI.updateUser(userEmail: email, userSurname: surName, userName: name, userMiddle_name: middleName);
           });
-          await addImage(_SAVEprofilePicFile!);
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => (HomePage()))
           );
           _LoginButtonActio();
         },
       );
+
+  funcPress() {
+    void getUserTesta() async {
+
+      final directory = await pathProvider.getApplicationSupportDirectory();
+      final fileDirectory = directory.path + '/datasTest.json';
+      final file = File(fileDirectory);
+      final json = jsonDecode(await file.readAsString());
+
+      print(json);
+      UsersedTest nikita = UsersedTest.fromJson(json['user']);
+
+      Timer(Duration(milliseconds: 50), () {
+        nikita.numberPhone;
+        nikita.surname;
+        nikita.middle_name;
+        nikita.name;
+        print("User Data $name , and  $surName");
+      });
+    }
+    getUserTesta();
+  }
 }
 

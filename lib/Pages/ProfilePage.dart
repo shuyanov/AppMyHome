@@ -21,22 +21,22 @@ class ProfileePage extends StatefulWidget {
 
 class _ProfileePageState extends State<ProfileePage> {
 @override
+
   void initState() {
     super.initState();
     baseAPI.readAvatar();
   }
-  String name = "";
-  String surName = "";
+  // String name = "";
+  // String surName = "";
 
   @override
   Widget build(BuildContext context) {
 
     Timer(Duration(seconds: 3), () {
-      print("3 Seconds");
-      print(name);
-      print(surName);
       ButtonLoginReg();
     });
+
+    setState(() {});
 
     return ListView(
       children: [
@@ -51,7 +51,7 @@ class _ProfileePageState extends State<ProfileePage> {
               ],
               ),
             ),
-          Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
@@ -182,18 +182,18 @@ class _ProfileePageState extends State<ProfileePage> {
     );
   }
 
-  buildName(User user) => Column(
-      children: [
-        Text(
-          name,
-          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
-        ),
-        Text(
-          surName,
-          style: TextStyle(color: Colors.grey),
-        ),
-      ],
-    );
+  // buildName(User user) => Column(
+  //     children: [
+  //       Text(
+  //         name,
+  //         style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
+  //       ),
+  //       Text(
+  //         surName,
+  //         style: TextStyle(color: Colors.grey),
+  //       ),
+  //     ],
+  //   );
 
   Widget buildExitProfileButton() => ButtonWidget(
     text:'Выход',
@@ -242,7 +242,7 @@ class _ProfileePageState extends State<ProfileePage> {
   );
 
   Widget build_worker_Button() => ButtonWidgetProfile(
-    imagees: "assets/profile/iconMan.png",
+      imagees: "assets/profile/iconMan.png",
     onClicked: (){
       ButtonLoginReg();
       Navigator.of(context).push(
