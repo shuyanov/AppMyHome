@@ -12,7 +12,6 @@ import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../CallPages/CallPage.dart';
-import '../Widget/ImageProfileWidget.dart';
 
 class ProfileePage extends StatefulWidget {
   const ProfileePage({Key? key}) : super(key: key);
@@ -24,7 +23,7 @@ class _ProfileePageState extends State<ProfileePage> {
 @override
   void initState() {
     super.initState();
-    base.readAvatar();
+    baseAPI.readAvatar();
   }
   String name = "";
   String surName = "";
@@ -215,7 +214,7 @@ class _ProfileePageState extends State<ProfileePage> {
     imagees: "assets/profile/SosButton.png",
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => UserProfile())
+          MaterialPageRoute(builder: (context) => HomeViewTest())
       );
     },
   );

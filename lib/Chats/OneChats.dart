@@ -49,7 +49,7 @@ class _OneChatsState extends State<OneChats> {
           ),
           body: SafeArea(
             child: StreamBuilder<List<User>>(
-                stream: base.readUsers(),
+                stream: baseAPI.readUsers(),
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
