@@ -168,8 +168,6 @@ class _FilingState extends State<Filing> {
                         context: context,
                         builder: (BuildContext context) {
                           return Container(
-                            padding: EdgeInsets.only(bottom: 225, top: 215),
-                            margin: EdgeInsets.only(top: 20),
                             child: AlertDialog(
                               contentPadding: EdgeInsets.only(top: 10.0),
                               shape: RoundedRectangleBorder(
@@ -294,8 +292,7 @@ class _FilingState extends State<Filing> {
                                       showDialog(                                  context: context,
                                         builder: (BuildContext context) {
                                           return Container(
-                                            padding: EdgeInsets.only(bottom: 225, top: 90),
-                                            margin: EdgeInsets.only(top: 40),
+
                                             child: AlertDialog(
                                               shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius.all(
