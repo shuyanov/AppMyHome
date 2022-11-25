@@ -1,12 +1,25 @@
+import 'package:command_flutter/CallPages/CallInformation.dart';
+import 'package:command_flutter/CallPages/api/firebase.dart';
+import 'package:command_flutter/CallPages/sendtoEmail.dart';
+import 'package:command_flutter/Chats/Data/Admin.dart';
 import 'package:flutter/material.dart';
-
-import 'Data/dataCall.dart';
 import 'Model/Model.dart';
 import 'Search/SearchPage.dart';
 import '../Styles/Colors.dart';
 
-class CallPage extends StatelessWidget {
+class CallPage extends StatefulWidget {
   const CallPage({super.key});
+
+  @override
+  State<CallPage> createState() => _CallPageState();
+}
+
+class _CallPageState extends State<CallPage> {
+  @override
+  void initState() {
+    super.initState();
+    // baseCall.addCalls();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,27 +36,111 @@ class CallPage extends StatelessWidget {
           IconButton(
               onPressed: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (builder) => SearchPage()));
+                    MaterialPageRoute(builder: (builder) => SearchCallPage()));
               },
               icon: Icon(Icons.search))
         ],
       ),
-      body: ListView.builder(
-        itemCount: call.length,
-        itemBuilder: (context, index) => ListTile(title: Text(call[index].name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(call[index].tel[0]),
-            Text(call[index].tel[1] == "" ? "" : call[index].tel[1]),
-          ],
-        ),),
-      ),
+      body: StreamBuilder<List<CallModel>>(
+          stream: baseCall.readCalls(),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return Center(
+                    child: CircularProgressIndicator(
+                  color: purpleColor,
+                ));
+              default:
+                if (snapshot.hasError) {
+                  print(snapshot.error);
+                  return buildText(
+                      'Что-то пошло не так, попробуйте позже зайти');
+                } else if (snapshot.hasData) {
+                  final users = snapshot.data!;
+
+                  if (users.isEmpty) {
+                    return buildText('Произошла ошибка');
+                  }
+                  return ScrollConfiguration(
+                      behavior: ScrollBehavior(),
+                      child: GlowingOverscrollIndicator(
+                        axisDirection: AxisDirection.down,
+                        color: purpleColor,
+                        child: ListView(
+                          physics: BouncingScrollPhysics(),
+                          children: users.map(buildCall).toList(),
+                        ),
+                      ));
+                } else {
+                  return Center(
+                      child: CircularProgressIndicator(
+                    color: purpleColor,
+                  ));
+                }
+              //   (
+              //   child: ScrollConfiguration(
+              //     behavior: ScrollBehavior(),
+              //     child: GlowingOverscrollIndicator(
+              //       axisDirection: AxisDirection.down,
+              //       color: purpleColor,
+              //       child: ListView.builder(
+              //         itemCount: call.length,
+              //         itemBuilder: (context, index) => ListTile(
+              //           title: Text(
+              //             call[index].name,
+              //             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              //           ),
+              //           subtitle: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.end,
+              //             children: [
+              //               Text(call[index].tel[0]),
+              //               Text(call[index].tel[1] == "" ? "" : call[index].tel[1]),
+              //             ],
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+            }
+          }),
       floatingActionButton: FloatingActionButton(
         backgroundColor: purpleColor,
         child: Icon(Icons.add_ic_call),
-        onPressed: (){},
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => sendtoEmail()));
+        },
       ),
     );
   }
+
+  Widget buildCall(CallModel call) {
+    return Card(
+      child: ListTile(
+        contentPadding: EdgeInsets.all(10),
+        title: Text(
+          call.name,
+          style: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.bold, color: greyText),
+        ),
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => CallInformation(
+                  city: call.city,
+                  name: call.name,
+                  description: call.description,
+                  street: call.street,
+                  tel: call.tel)));
+        },
+      ),
+    );
+  }
+
+  Widget buildText(String text) => Center(
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20, color: Colors.black),
+        ),
+      );
 }

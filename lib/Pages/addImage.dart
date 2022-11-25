@@ -14,10 +14,10 @@ Future addImage(File imageFile) async {
       .child('${fileName}.png');
   var uploadTask = await img.putFile(imageFile).catchError((error) async {
     print("Ошибка");
-    // await FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(myId)
-    //     .delete();
+        await FirebaseFirestore.instance
+        .collection('users')
+        .doc(myId)
+        .update({'urlAvatar': '0'});
     status = 0;
   });
   if (status == 1) {

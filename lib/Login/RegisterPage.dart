@@ -483,6 +483,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Builder(builder: (context) {
         pushEmailForDB (String email, String adminCode, String code) async{
           print("email = $email adminCode = $adminCode code = $code");

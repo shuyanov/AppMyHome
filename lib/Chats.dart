@@ -3,7 +3,6 @@ import 'Chats/Data/Admin.dart';
 import 'Chats/Models/User.dart';
 import 'Chats/OneChats.dart';
 import 'Chats/Pages/ChatPage.dart';
-import 'Chats/api/firebase.dart';
 import 'GeneralChats/Data/General.dart';
 import 'GeneralChats/Pages/GeneralPage.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +14,14 @@ class Chats extends StatefulWidget {
   @override
   State<Chats> createState() => _ChatsState();
 }
+
 class _ChatsState extends State<Chats> {
-@override
-void initState() {
-  super.initState();
-  print(myId);
-}
+  @override
+  void initState() {
+    super.initState();
+    print(myId);
+  }
+
   String name = 'Общий чат';
   String name2 = 'Подъезд №2';
   String name3 = '\"УК\"';
@@ -66,128 +67,206 @@ void initState() {
                 color: Colors.transparent,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 50),
-                  child: SingleChildScrollView(
-                    child: Column(children: [
-                      GestureDetector(
-                        dragStartBehavior: DragStartBehavior.down,
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => GeneralPage(
-                                  currentUserId: myId,
-                                  currentName: myUserName,
-                                  currentImage: myUrlAvatar,
-                                  generalId: idGeneral,
-                                  generalName: name,
-                                  generalImage: generalUrlAvatar)));
-                        },
-                        child: Card(
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25))),
-                          child: ListTile(
-                            // Общий чат
-                            contentPadding: EdgeInsets.all(10),
-                            leading: Image.asset('assets/chat/resource28.png'),
-                            title: Text(
-                              name,
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: greyText),
+                  child: ScrollConfiguration(
+                    behavior: ScrollBehavior(),
+                    child: GlowingOverscrollIndicator(
+                      axisDirection: AxisDirection.down,
+                      color: purpleColor,
+                      child: SingleChildScrollView(
+                        child: Column(children: [
+                          GestureDetector(
+                            dragStartBehavior: DragStartBehavior.down,
+                            onTap: () {
+                              if (myId != '0') {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => GeneralPage(
+                                        currentUserId: myId,
+                                        currentName: myUserName,
+                                        currentImage: myUrlAvatar,
+                                        generalId: idGeneral,
+                                        generalName: name,
+                                        generalImage: generalUrlAvatar)));
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          title: Text("Предупреждение"),
+                                          content:
+                                              Text("Вы не выполнили вход!"),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('ОК', style: TextStyle(color: purpleColor)))
+                                          ],
+                                        ));
+                              }
+                            },
+                            child: Card(
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25))),
+                              child: ListTile(
+                                // Общий чат
+                                contentPadding: EdgeInsets.all(10),
+                                leading:
+                                    Image.asset('assets/chat/resource28.png'),
+                                title: Text(
+                                  name,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: greyText),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => GeneralPage(
-                                  currentUserId: myId,
-                                  currentName: myUserName,
-                                  currentImage: myUrlAvatar,
-                                  generalId: idGeneral2,
-                                  generalName: name2,
-                                  generalImage: generalUrlAvatar)));
-                        },
-                        child: Card(
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25))),
-                          child: ListTile(
-                            // Подъезд №2
-                            contentPadding: EdgeInsets.all(10),
-                            leading: Image.asset('assets/chat/resource28.png'),
-                            title: Text(
-                              name2,
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: greyText),
+                          InkWell(
+                            onTap: () {
+                              if (myId != '0') {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => GeneralPage(
+                                        currentUserId: myId,
+                                        currentName: myUserName,
+                                        currentImage: myUrlAvatar,
+                                        generalId: idGeneral2,
+                                        generalName: name2,
+                                        generalImage: generalUrlAvatar)));
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          title: Text("Предупреждение"),
+                                          content:
+                                              Text("Вы не выполнили вход!"),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('ОК', style: TextStyle(color: purpleColor)))
+                                          ],
+                                        ));
+                              }
+                            },
+                            child: Card(
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25))),
+                              child: ListTile(
+                                // Подъезд №2
+                                contentPadding: EdgeInsets.all(10),
+                                leading:
+                                    Image.asset('assets/chat/resource28.png'),
+                                title: Text(
+                                  name2,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: greyText),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => GeneralPage(
-                                  currentUserId: myId,
-                                  currentName: myUserName,
-                                  currentImage: myUrlAvatar,
-                                  generalId: idGeneral3,
-                                  generalName: name3,
-                                  generalImage: generalUrlAvatar)));
-                        },
-                        child: Card(
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25))),
-                          child: ListTile(
-                            contentPadding: EdgeInsets.all(10),
-                            // "УК"
-                            leading: Image.asset('assets/chat/resource28.png'),
-                            title: Text(
-                              name3,
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: greyText),
+                          GestureDetector(
+                            onTap: () {
+                              if (myId != '0') {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => GeneralPage(
+                                        currentUserId: myId,
+                                        currentName: myUserName,
+                                        currentImage: myUrlAvatar,
+                                        generalId: idGeneral3,
+                                        generalName: name3,
+                                        generalImage: generalUrlAvatar)));
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          title: Text("Предупреждение"),
+                                          content:
+                                              Text("Вы не выполнили вход!"),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('ОК', style: TextStyle(color: purpleColor)))
+                                          ],
+                                        ));
+                              }
+                            },
+                            child: Card(
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25))),
+                              child: ListTile(
+                                contentPadding: EdgeInsets.all(10),
+                                // "УК"
+                                leading:
+                                    Image.asset('assets/chat/resource28.png'),
+                                title: Text(
+                                  name3,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: greyText),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const OneChats()));
-                        },
-                        child: Card(
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25))),
-                          child: ListTile(
-                            // Личные сообщения
-                            contentPadding: EdgeInsets.all(10),
-                            leading: Image.asset(
-                              'assets/chat/resource29.png',
-                              height: 50,
-                              width: 50,
-                            ),
-                            title: Text(
-                              'Личные сообщения',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: greyText),
+                          GestureDetector(
+                            onTap: () {
+                              if (myId != '0') {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const OneChats()));
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          title: Text("Предупреждение"),
+                                          content:
+                                              Text("Вы не выполнили вход!"),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('ОК', style: TextStyle(color: purpleColor)))
+                                          ],
+                                        ));
+                              }
+                            },
+                            child: Card(
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25))),
+                              child: ListTile(
+                                // Личные сообщения
+                                contentPadding: EdgeInsets.all(10),
+                                leading: Image.asset(
+                                  'assets/chat/resource29.png',
+                                  height: 50,
+                                  width: 50,
+                                ),
+                                title: Text(
+                                  'Личные сообщения',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: greyText),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ]),
                       ),
-                    ]),
+                    ),
                   ),
                 ),
               ),

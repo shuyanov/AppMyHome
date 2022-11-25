@@ -26,7 +26,9 @@ class _SearchUserPageState extends State<SearchUserPage> {
 
     await FirebaseFirestore.instance
         .collection('users')
-        .where("name", isEqualTo: searchController.text)
+        .where("name",
+            isEqualTo: searchController.text[0].toUpperCase() +
+                searchController.text.substring(1).toLowerCase().trim())
         .get()
         .then((value) {
       if (value.docs.length < 1) {
@@ -48,71 +50,9 @@ class _SearchUserPageState extends State<SearchUserPage> {
         isLoading = false;
       });
     });
-
     await FirebaseFirestore.instance
         .collection('users')
-        .where("surname", isEqualTo: searchController.text)
-        .get()
-        .then((value) {
-      if (value.docs.length < 1) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              "Нет такого пользователя.\n(Возможно вы ввели фамилию не полностью)"),
-        ));
-        setState(() {
-          isLoading = false;
-        });
-      }
-      value.docs.forEach((user) {
-        if (user.data()['surname'] != myUserSurname) {
-          searchResult.clear();
-          searchResult.add(user.data());
-          surname = name = user.data()['surname'];
-        }
-      });
-      setState(() {
-        isLoading = false;
-      });
-    });
-
-    await FirebaseFirestore.instance
-        .collection('users')
-        .where("middle_name", isEqualTo: searchController.text)
-        .get()
-        .then((value) {
-      if (value.docs.length < 1) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              "Нет такого пользователя.\n(Возможно вы ввели отчество не полностью)"),
-        ));
-        setState(() {
-          isLoading = false;
-        });
-      }
-      value.docs.forEach((user) {
-        if (user.data()['middle_name'] != myUserMiddle_name) {
-          searchResult.clear();
-          searchResult.add(user.data());
-          middle_name = user.data()['middle_name'];
-        }
-      });
-      setState(() {
-        isLoading = false;
-      });
-    });
-  }
-  String? surname;
-  String? name;
-  String? middle_name;
-  void onSearchChanged() async {
-    searchResult.clear();
-    setState(() {
-      searchResult = [];
-      isLoading = true;
-    });
-    await FirebaseFirestore.instance
-        .collection('users')
-        .where("name", isEqualTo: searchController.text)
+        .where("name", isEqualTo: searchController.text.trim())
         .get()
         .then((value) {
       if (value.docs.length < 1) {
@@ -124,7 +64,6 @@ class _SearchUserPageState extends State<SearchUserPage> {
         if (user.data()['name'] != myUserName) {
           searchResult.clear();
           searchResult.add(user.data());
-          name = user.data()['name'];
         }
       });
       setState(() {
@@ -134,7 +73,34 @@ class _SearchUserPageState extends State<SearchUserPage> {
 
     await FirebaseFirestore.instance
         .collection('users')
-        .where("surname", isEqualTo: searchController.text)
+        .where("surname",
+            isEqualTo: searchController.text[0].toUpperCase() +
+                searchController.text.substring(1).toLowerCase().trim())
+        .get()
+        .then((value) {
+      if (value.docs.length < 1) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              "Нет такого пользователя.\n(Возможно вы ввели фамилию не полностью)"),
+        ));
+        setState(() {
+          isLoading = false;
+        });
+      }
+      value.docs.forEach((user) {
+        if (user.data()['surname'] != myUserSurname) {
+          searchResult.clear();
+          searchResult.add(user.data());
+        }
+      });
+      setState(() {
+        isLoading = false;
+      });
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where("surname", isEqualTo: searchController.text.trim())
         .get()
         .then((value) {
       if (value.docs.length < 1) {
@@ -146,7 +112,6 @@ class _SearchUserPageState extends State<SearchUserPage> {
         if (user.data()['surname'] != myUserSurname) {
           searchResult.clear();
           searchResult.add(user.data());
-          surname = name = user.data()['surname'];
         }
       });
       setState(() {
@@ -156,7 +121,34 @@ class _SearchUserPageState extends State<SearchUserPage> {
 
     await FirebaseFirestore.instance
         .collection('users')
-        .where("middle_name", isEqualTo: searchController.text)
+        .where("middle_name",
+            isEqualTo: searchController.text[0].toUpperCase() +
+                searchController.text.substring(1).toLowerCase().trim())
+        .get()
+        .then((value) {
+      if (value.docs.length < 1) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              "Нет такого пользователя.\n(Возможно вы ввели отчество не полностью)"),
+        ));
+        setState(() {
+          isLoading = false;
+        });
+      }
+      value.docs.forEach((user) {
+        if (user.data()['middle_name'] != myUserMiddle_name) {
+          searchResult.clear();
+          searchResult.add(user.data());
+        }
+      });
+      setState(() {
+        isLoading = false;
+      });
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where("middle_name", isEqualTo: searchController.text.trim())
         .get()
         .then((value) {
       if (value.docs.length < 1) {
@@ -168,7 +160,145 @@ class _SearchUserPageState extends State<SearchUserPage> {
         if (user.data()['middle_name'] != myUserMiddle_name) {
           searchResult.clear();
           searchResult.add(user.data());
-          middle_name = user.data()['middle_name'];
+        }
+      });
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void onSearchChanged() async {
+    searchResult.clear();
+    setState(() {
+      searchResult = [];
+      isLoading = true;
+    });
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where("name",
+            isEqualTo: searchController.text[0].toUpperCase() +
+                searchController.text.substring(1).toLowerCase().trim())
+        .get()
+        .then((value) {
+      if (value.docs.length < 1) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+      value.docs.forEach((user) {
+        if (user.data()['name'] != myUserName) {
+          searchResult.clear();
+          searchResult.add(user.data());
+        }
+      });
+      setState(() {
+        isLoading = false;
+      });
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where("name", isEqualTo: searchController.text[0].trim())
+        .get()
+        .then((value) {
+      if (value.docs.length < 1) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+      value.docs.forEach((user) {
+        if (user.data()['name'] != myUserName) {
+          searchResult.clear();
+          searchResult.add(user.data());
+        }
+      });
+      setState(() {
+        isLoading = false;
+      });
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where("surname",
+            isEqualTo: searchController.text[0].toUpperCase() +
+                searchController.text.substring(1).toLowerCase().trim())
+        .get()
+        .then((value) {
+      if (value.docs.length < 1) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+      value.docs.forEach((user) {
+        if (user.data()['surname'] != myUserSurname) {
+          searchResult.clear();
+          searchResult.add(user.data());
+        }
+      });
+      setState(() {
+        isLoading = false;
+      });
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where("surname", isEqualTo: searchController.text.trim())
+        .get()
+        .then((value) {
+      if (value.docs.length < 1) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+      value.docs.forEach((user) {
+        if (user.data()['surname'] != myUserSurname) {
+          searchResult.clear();
+          searchResult.add(user.data());
+        }
+      });
+      setState(() {
+        isLoading = false;
+      });
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where("middle_name",
+            isEqualTo: searchController.text[0].toUpperCase() +
+                searchController.text.substring(1).toLowerCase().trim())
+        .get()
+        .then((value) {
+      if (value.docs.length < 1) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+      value.docs.forEach((user) {
+        if (user.data()['middle_name'] != myUserMiddle_name) {
+          searchResult.clear();
+          searchResult.add(user.data());
+        }
+      });
+      setState(() {
+        isLoading = false;
+      });
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where("middle_name", isEqualTo: searchController.text.trim())
+        .get()
+        .then((value) {
+      if (value.docs.length < 1) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+      value.docs.forEach((user) {
+        if (user.data()['middle_name'] != myUserMiddle_name) {
+          searchResult.clear();
+          searchResult.add(user.data());
         }
       });
       setState(() {

@@ -29,3 +29,4 @@ String myPersonalCheck = '0';
 String myNumberPhone = '0';
 String myUrlAvatar = '0';
 String myLastMessage = '0';
+int countSendEmail = 0;
