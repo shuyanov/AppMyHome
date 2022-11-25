@@ -17,7 +17,7 @@ class LoadingPage extends StatelessWidget {
   void getUser() async {
 
     final directory = await pathProvider.getApplicationSupportDirectory();
-    final fileDirectory = directory.path + '/datas.json';
+    final fileDirectory = directory.path + '/datasTest.json';
     final file = File(fileDirectory);
     final isExist = await file.exists();
     print("file found: $isExist");
@@ -26,7 +26,7 @@ class LoadingPage extends StatelessWidget {
     }
     else {
       final json = jsonDecode(await file.readAsString());
-      Usersed user = Usersed.fromJson(json['user']);
+      UsersedTest user = UsersedTest.fromJson(json['user']);
       print("code = ${user.name}");
       if(user.name!=""){
         isLogged = true;

@@ -19,7 +19,7 @@ class _SurveyPageState extends State<SurveyPage> {
         title: Text("Добавление ответа"),
       ),
       body: 
-          Container(
+          Expanded(
             child: ListView.builder(
               itemCount: listNameVote.length,
               itemBuilder: (context, index) {
@@ -33,7 +33,7 @@ class _SurveyPageState extends State<SurveyPage> {
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              return Container(
+              return Expanded(
                   child: AlertDialog(
                     title: Text("Добавить ответ"),
                     content: TextField(
