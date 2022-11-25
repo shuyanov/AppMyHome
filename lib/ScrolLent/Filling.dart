@@ -294,7 +294,8 @@ class _FilingState extends State<Filing> {
                                       child: const Text("Добавить новость")),
                                   TextButton(
                                     onPressed: () {
-                                      showDialog(                                  context: context,
+                                      showDialog(
+                                        context: context,
                                         builder: (BuildContext context) {
                                           return Expanded(
                                             child: AlertDialog(
