@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:command_flutter/Chats/Data/Admin.dart';
 import 'package:command_flutter/Chats/api/firebase.dart';
 import 'package:command_flutter/HomePage.dart';
-import 'package:command_flutter/Pages/HomeView.dart';
 import 'package:command_flutter/Pages/addImage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
+import 'package:editable_image/editable_image.dart';
 import 'package:flutter/material.dart';
 
 
@@ -16,9 +18,24 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+
+  File? _profilePicFile;
+  File? _SAVEprofilePicFile;
+
   @override
   void initState() {
     super.initState();
+  }
+
+  void _directUpdateImage(File? file) async {
+    if (file == null) return;
+    setState(() {
+      _profilePicFile = file;
+      addImage(_profilePicFile!);
+
+      _SAVEprofilePicFile = _profilePicFile;
+      Image.network(myUrlAvatar);
+    });
   }
 
   TextEditingController emailController = TextEditingController();
@@ -56,7 +73,34 @@ class _EditProfilePageState extends State<EditProfilePage> {
           child: Column(
             children: [
                           SizedBox(height: 50),
-                          HomeView(),
+                          EditableImage(
+                            // Define the method that will run on the change process of the image.
+                            onChange: (file) => _directUpdateImage(file),
+                            // Define the source of the image.
+                            image: _profilePicFile != null
+                                ? Image.file( _profilePicFile!,  fit: BoxFit.cover)
+                                : Image.network( myUrlAvatar!,  fit: BoxFit.cover),
+
+                            // Define the size of EditableImage.
+                            size: 150.0,
+
+                            // Define the Theme of image picker.
+                            imagePickerTheme: ThemeData(
+                              // Define the default brightness and colors.
+                              primaryColor: Colors.white,
+                              shadowColor: Colors.transparent,
+                              backgroundColor: Colors.white70,
+                              iconTheme: const IconThemeData(color: Colors.black87),
+
+                              // Define the default font family.
+                              fontFamily: 'Georgia',
+                            ),
+                            // Define the border of the image if needed.
+                            imageBorder: Border.all(color: Colors.black87, width: 2.0),
+
+                            // Define the border of the icon if needed.
+                            editIconBorder: Border.all(color: Colors.black87, width: 2.0),
+                          ),
                           SizedBox(height: 30),
                           TextField(
                               controller: emailController,
@@ -117,7 +161,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -144,7 +187,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget buildEditProfileButton() =>
       ButtonWidget(
         text: 'Save',
-        onClicked: () {
+        onClicked: () async {
+          await addImage(_SAVEprofilePicFile!);
+
           Timer(Duration(seconds: 1), () {
             PushToJson(email, password, name, surName, middleName, "no");
             //Обновление данных для чата
