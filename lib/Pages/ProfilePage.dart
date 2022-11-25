@@ -71,7 +71,7 @@ class _ProfileePageState extends State<ProfileePage> {
                         child: buildPersonalBillButton(),
                     ),
                   ),
-                ////
+                  ////
                   SizedBox(height: 50),
                   Center(
                   child: Expanded(
@@ -125,10 +125,10 @@ class _ProfileePageState extends State<ProfileePage> {
                   ),
                   SizedBox(width: 20),
                   Column(
-                  children: [
-                  Text("Вызов  ", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                  Text("Ремонтых Служб", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                  ],
+                  // children: [
+                  // Text("Вызов  ", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  // Text("Ремонтых Служб", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  // ],
                   ),
                   ],
                   )),
