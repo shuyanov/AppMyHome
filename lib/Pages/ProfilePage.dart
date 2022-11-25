@@ -6,7 +6,6 @@ import 'package:command_flutter/Widget/ButtonLoginPage.dart';
 import 'package:command_flutter/Widget/ButtonWidgetProfile.dart';
 import 'package:command_flutter/Widget/WidgetProfile.dart';
 import 'package:command_flutter/Login/LOginPage.dart';
-import 'package:command_flutter/Model/User.dart';
 import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:flutter/material.dart';
@@ -37,155 +36,156 @@ class _ProfileePageState extends State<ProfileePage> {
       ButtonLoginReg();
     });
 
+    setState(() {});
+
     return ScrollConfiguration(
         behavior: ScrollBehavior(),
         child: GlowingOverscrollIndicator(
           axisDirection: AxisDirection.down,
           color: purpleColor, // меняет цвет при прокрутке
-      child: ListView(
-        children: [
-        Stack(
-          children: <Widget>
-              [
-              Container(
-              child: Stack(
-              children: [
-                Image.asset('assets/profile/profileBackground.jpg',width: 1000, fit:BoxFit.fill),
-                Image.asset('assets/profile/GroundUpBar.png',width: 1000, fit:BoxFit.fill),
-                ],
-                ),
-              ),
-                Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: ListView(
+          children: [
+          Stack(
+            children: <Widget>
+                [
+                Container(
+                child: Stack(
                 children: [
-                  Container(
-                    child: Stack(
-                      children: [
-                        WidgetProfileName(),
-                      ],
-                )
-              ),
-                    SizedBox(height: 90),
-                    //Button
-                    Padding(
-                      padding: EdgeInsets.only(left: 20,right: 20,bottom: 0 ),
-                          child: Container(
-                          height: 40,
-                          width: 330,
-                          child: buildPersonalBillButton(),
-                      ),
-                    ),
-                ]
+                  Image.asset('assets/profile/profileBackground.jpg',width: 1000, fit:BoxFit.fill),
+                  Image.asset('assets/profile/GroundUpBar.png',width: 1000, fit:BoxFit.fill),
+                  ],
                   ),
-                  ////
-                  SizedBox(height: 50),
-                  Center(
-                  child: Expanded(
-                    child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                    SizedBox(width: 30),
-                    Column(
-                    children: [
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      child: Stack(
+                        children: [
+                          WidgetProfileName(),
+                        ],
+                  )
+                ),
+                      SizedBox(height: 90),
+                      //Button
+                      Padding(
+                        padding: EdgeInsets.only(left: 20,right: 20,bottom: 0 ),
+                            child: Container(
+                            height: 40,
+                            width: 330,
+                            child: buildPersonalBillButton(),
+                        ),
+                      ),
+                      ////
+                      SizedBox(height: 50),
+                      Center(
+                      child: Expanded(
+                        child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                        Stack(
+                        children: [
+                          Container(
+                            height: 80,
+                            width: 80,
+                            child: Stack(
+                              children: [
+                                build_UK_Button(),
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child:Text("УК", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                                )
+                              ],
+                            ),
+                            ),
+                        ],
+                      ),
+                      SizedBox(width: 30),
                       Container(
                         height: 80,
                         width: 80,
                         child: Stack(
                           children: [
-                            build_UK_Button(),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child:Text("УК", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                            build_Problem_Button(),
+                            Align(alignment: Alignment.bottomCenter,
+                            child: Text("Проблема", style: TextStyle(fontSize: 14, color: Colors.grey)),
                             )
                           ],
                         ),
+                      ),
+                      SizedBox(width: 30),
+                      Container(
+                        height: 80,
+                        width: 80,
+                        child: Stack(
+                          children: [
+                            build_worker_Button(),
+                            Align(alignment: Alignment.bottomCenter,
+                              child: Text("Службы", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                            )
+                          ],
                         ),
-                    ],
-                  ),
-                  SizedBox(width: 30),
-                  Container(
-                    height: 80,
-                    width: 80,
-                    child: Stack(
-                      children: [
-                        build_Problem_Button(),
-                        Align(alignment: Alignment.bottomCenter,
-                        child: Text("Проблема", style: TextStyle(fontSize: 14, color: Colors.grey)),
                         )
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 30),
-                  Container(
-                    height: 80,
-                    width: 80,
-                    child: Stack(
-                      children: [
-                        build_worker_Button(),
-                        Align(alignment: Alignment.bottomCenter,
-                          child: Text("Службы", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                        )
-                      ],
-                    ),
-                    )
-                        ],
+                            ],
+                          )
+                        ),
+                      ),
+                      // SizedBox(height: 5),
+                      // Center(
+                      // child: Expanded(
+                      // child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      // children: [
+                      // SizedBox(width: 30),
+                      // Column(
+                      // children: [
+                      //   Text("УК", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                      // //Text("в УК", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                      // ],
+                      // ),
+                      // SizedBox(width: 30),
+                      // Column(
+                      // children: [
+                      // Text("Проблема", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                      // //Text("О проблеме", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                      // ],
+                      // ),
+                      // SizedBox(width: 20),
+                      // Column(
+                      // children: [
+                      // Text("Ремонтые Служб", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                      // //Text("Ремонтых Служб", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                      // ],
+                      // ),
+                      // ],
+                      // )),
+                      // ),
+                      SizedBox(height: 30),
+                      ////
+                      Padding(
+                      padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
+                      child: Container(
+                      height: 40,
+                      width: 330,
+                      child: build_Setting_Button(),
                       )
-                    ),
-                  ),
-                  // SizedBox(height: 5),
-                  // Center(
-                  // child: Expanded(
-                  // child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  // children: [
-                  // SizedBox(width: 30),
-                  // Column(
-                  // children: [
-                  //   Text("УК", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                  // //Text("в УК", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                  // ],
-                  // ),
-                  // SizedBox(width: 30),
-                  // Column(
-                  // children: [
-                  // Text("Проблема", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                  // //Text("О проблеме", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                  // ],
-                  // ),
-                  // SizedBox(width: 20),
-                  // Column(
-                  // children: [
-                  // Text("Ремонтые Служб", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                  // //Text("Ремонтых Служб", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                  // ],
-                  // ),
-                  // ],
-                  // )),
-                  // ),
-                  SizedBox(height: 30),
-                  ////
-                  Padding(
-                  padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
-                  child: Container(
-                  height: 40,
-                  width: 330,
-                  child: build_Setting_Button(),
+                      ),
+                      SizedBox(height: 10),
+                      Padding(
+                      padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
+                      child: Container(
+                      height: 40,
+                      width: 330,
+                      child: buildExitProfileButton(),
+                      )
+                      ),
+                   ],
                   )
-                  ),
-                  SizedBox(height: 10),
-                  Padding(
-                  padding: EdgeInsets.only(left: 20,right: 20,bottom: 10 ),
-                  child: Container(
-                  height: 40,
-                  width: 330,
-                  child: buildExitProfileButton(),
-                  )
-                  ),
-               ],
-              )
+              ],
+            ),
           ],
         ),
-        )
+      ),
     );
   }
 
@@ -267,9 +267,3 @@ class _ProfileePageState extends State<ProfileePage> {
     },
   );
   }
-
-
-
-
-
-

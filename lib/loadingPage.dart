@@ -47,11 +47,12 @@ class LoadingPage extends StatelessWidget {
       return isLogged ? runApp(MyApp()) : runApp(LoginPage());
     });
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
         home: Container(
           child: Scaffold(
             backgroundColor: Colors.purple,
             body: Center(
-              child: Text( "Loading...", style: TextStyle(color: Colors.grey)),
+              child: Text( "Loading...", style: TextStyle(color: Colors.white)),
             ),
 
           ),

@@ -60,7 +60,11 @@ dependencies:
   external_app_launcher: any
   open_file: ^3.2.1
   url_launcher: ^6.1.7
-  
+  flutter_native_splash: any
+flutter_native_splash: 
+  color: "#674696"
+  image: android/app/src/main/res/mipmap-xxxhdpi/logotip.png
+
   # flutter_local_notifications: ^9.6.0
   # timezone: ^0.8.0
   # rxdart: ^0.27.4
