@@ -3,20 +3,40 @@
 // that can be found in the LICENSE file.
 
 import 'dart:io';
+
+import 'package:command_flutter/Chats/api/firebase.dart';
 import 'package:command_flutter/Pages/addImage.dart';
 import 'package:editable_image/editable_image.dart';
 import 'package:flutter/material.dart';
+
+class UserProfile extends StatelessWidget {
+  const UserProfile({Key? key}) : super(key: key);
+import '../Chats/Models/User.dart';
 
 
 class HomeViewTest extends StatefulWidget {
   const HomeViewTest({Key? key}) : super(key: key);
 
   @override
-  _HomeViewTestState createState() => _HomeViewTestState();
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomeView(),
+    );
+  }
 }
 
-class _HomeViewTestState extends State<HomeViewTest> {
+class HomeView extends StatefulWidget {
+  const HomeView({Key? key}) : super(key: key);
+
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   File? _profilePicFile;
+  File? _SAVEprofilePicFile;
+
 
   @override
   void initState() {
@@ -30,6 +50,7 @@ class _HomeViewTestState extends State<HomeViewTest> {
 
     setState(() {
       _profilePicFile = file;
+      addImage(_profilePicFile!);
     });
   }
 
@@ -54,8 +75,8 @@ class _HomeViewTestState extends State<HomeViewTest> {
                 onChange: (file) => _directUpdateImage(file),
 
                 // Define the source of the image.
-                image: _profilePicFile != null
-                    ? Image.file(_profilePicFile!, fit: BoxFit.cover)
+                image: _SAVEprofilePicFile != null
+                    ? Image.file( _SAVEprofilePicFile!,  fit: BoxFit.cover)
                     : null,
 
                 // Define the size of EditableImage.
@@ -80,14 +101,8 @@ class _HomeViewTestState extends State<HomeViewTest> {
                 editIconBorder: Border.all(color: Colors.black87, width: 2.0),
               ),
               const Spacer(flex: 2),
-              _buildTextField(labelText: 'Username'),
-              const Spacer(),
-              _buildTextField(labelText: 'Full Name'),
-              const Spacer(),
-              _buildTextField(labelText: 'Email'),
-              const Spacer(),
-              _buildTextField(labelText: 'Password', obscureText: true),
-              const Spacer(flex: 2),
+              _Open(),
+              const Spacer(flex: 1),
               _buildTextButton(),
             ],
           ),
@@ -131,11 +146,11 @@ class _HomeViewTestState extends State<HomeViewTest> {
   }
 
   TextButton _buildTextButton() {
-
     return TextButton(
-      onPressed: () async  {
-         addImage(_profilePicFile!);
-        },
+      onPressed: () => {
+        _SAVEprofilePicFile = _profilePicFile!,
+        addImage(_SAVEprofilePicFile!)
+      },
       style: ButtonStyle(
         padding: MaterialStateProperty.all(
           const EdgeInsets.symmetric(vertical: 20.0),
@@ -153,4 +168,14 @@ class _HomeViewTestState extends State<HomeViewTest> {
       ),
     );
   }
+
+   _Open()
+  {
+    if(_SAVEprofilePicFile != null){
+      return Image(image: FileImage(_SAVEprofilePicFile!));
+    }
+    else return Text("NOT IMAGE");
+  }
+
+}
 }

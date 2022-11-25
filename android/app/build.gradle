@@ -37,6 +37,7 @@ android {
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
+
     compileOptions {coreLibraryDesugaringEnabled true
     // Sets Java compatibility to Java 8
     sourceCompatibility JavaVersion.VERSION_1_8
