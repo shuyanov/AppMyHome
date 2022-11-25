@@ -51,7 +51,7 @@ class _ProfileePageState extends State<ProfileePage> {
               ],
               ),
             ),
-              Column(
+          Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(

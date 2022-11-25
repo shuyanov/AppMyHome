@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:command_flutter/Pages/HomeView.dart';
+import 'package:command_flutter/Pages/Widget/ProfileCircleImage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
+
+
+import 'package:command_flutter/Chats/Data/Admin.dart';
 
 class WidgetProfileName extends StatefulWidget {
   const WidgetProfileName({Key? key}) : super(key: key);
@@ -52,7 +55,7 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
             children: [
               Expanded(
                 flex: 1,
-                child: HomeView(),
+                child: ProfileWidget(imagePath: myUrlAvatar),
               ),
               Expanded(
                 flex:  2,

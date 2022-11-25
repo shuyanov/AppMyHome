@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 class HomeViewTest extends StatefulWidget {
   const HomeViewTest({Key? key}) : super(key: key);
 
+
+
   @override
   _HomeViewTestState createState() => _HomeViewTestState();
 }
@@ -32,7 +34,6 @@ class _HomeViewTestState extends State<HomeViewTest> {
   // This method gets called when trying to change an image.
   void _directUpdateImage(File? file) async {
     if (file == null) return;
-
     setState(() {
       _profilePicFile = file;
       addImage(_profilePicFile!);
@@ -86,7 +87,6 @@ class _HomeViewTestState extends State<HomeViewTest> {
                 // Define the border of the icon if needed.
                 editIconBorder: Border.all(color: Colors.black87, width: 2.0),
               ),
-
               const Spacer(flex: 2),
               // _Open(),
               // Image(image: FileImage(_SAVEprofilePicFile!)),
@@ -98,40 +98,6 @@ class _HomeViewTestState extends State<HomeViewTest> {
       ),
     );
   }
-
-  // TextField _buildTextField({String labelText = '', bool obscureText = false}) {
-  //   return TextField(
-  //     cursorColor: Colors.black54,
-  //     cursorWidth: 1.0,
-  //     obscureText: obscureText,
-  //     obscuringCharacter: '●',
-  //     decoration: InputDecoration(
-  //       labelText: labelText,
-  //       labelStyle: const TextStyle(
-  //         color: Colors.black54,
-  //         fontSize: 18.0,
-  //       ),
-  //       fillColor: Colors.red,
-  //       border: const OutlineInputBorder(
-  //         borderSide: BorderSide(
-  //           color: Colors.black54,
-  //         ),
-  //         borderRadius: BorderRadius.all(
-  //           Radius.circular(40.0),
-  //         ),
-  //       ),
-  //       focusedBorder: const OutlineInputBorder(
-  //         borderSide: BorderSide(
-  //           color: Colors.black54,
-  //           width: 1.5,
-  //         ),
-  //         borderRadius: BorderRadius.all(
-  //           Radius.circular(40.0),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   TextButton _buildTextButton() {
     return TextButton(
@@ -156,14 +122,5 @@ class _HomeViewTestState extends State<HomeViewTest> {
       ),
     );
   }
-
-  //  _Open()
-  // {
-  //   if(_SAVEprofilePicFile != null){
-  //     addImage(_profilePicFile!);
-  //   }
-  //   else
-  //    return Text(myUrlAvatar.toString());
-  // }
-
 }
+
