@@ -83,7 +83,15 @@ class _ProfileePageState extends State<ProfileePage> {
                       Container(
                         height: 80,
                         width: 80,
-                        child: build_UK_Button(),
+                        child: Stack(
+                          children: [
+                            build_UK_Button(),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child:Text("УК", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                            )
+                          ],
+                        ),
                         ),
                     ],
                   ),
@@ -91,48 +99,62 @@ class _ProfileePageState extends State<ProfileePage> {
                   Container(
                     height: 80,
                     width: 80,
-                    child: build_Problem_Button(),
+                    child: Stack(
+                      children: [
+                        build_Problem_Button(),
+                        Align(alignment: Alignment.bottomCenter,
+                        child: Text("Проблема", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                        )
+                      ],
+                    ),
                   ),
                   SizedBox(width: 30),
                   Container(
                     height: 80,
                     width: 80,
-                    child:  build_worker_Button(),
+                    child: Stack(
+                      children: [
+                        build_worker_Button(),
+                        Align(alignment: Alignment.bottomCenter,
+                          child: Text("Службы", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                        )
+                      ],
+                    ),
                     )
                         ],
                       )
                     ),
                   ),
-                  SizedBox(height: 5),
-                  Center(
-                  child: Expanded(
-                  child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                  SizedBox(width: 30),
-                  Column(
-                  children: [
-                  Text("Обращение", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                  Text("в УК", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                  ],
-                  ),
-                  SizedBox(width: 30),
-                  Column(
-                  children: [
-                  Text("Сообщить", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                  Text("О проблеме", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                  ],
-                  ),
-                  SizedBox(width: 20),
-                  Column(
+                  // SizedBox(height: 5),
+                  // Center(
+                  // child: Expanded(
+                  // child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   // children: [
-                  // Text("Вызов  ", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                  // Text("Ремонтых Служб", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  // SizedBox(width: 30),
+                  // Column(
+                  // children: [
+                  //   Text("УК", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  // //Text("в УК", style: TextStyle(fontSize: 14, color: Colors.grey)),
                   // ],
-                  ),
-                  ],
-                  )),
-                  ),
+                  // ),
+                  // SizedBox(width: 30),
+                  // Column(
+                  // children: [
+                  // Text("Проблема", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  // //Text("О проблеме", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  // ],
+                  // ),
+                  // SizedBox(width: 20),
+                  // Column(
+                  // children: [
+                  // Text("Ремонтые Служб", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  // //Text("Ремонтых Служб", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  // ],
+                  // ),
+                  // ],
+                  // )),
+                  // ),
                   SizedBox(height: 30),
                   ////
                   Padding(
@@ -220,7 +242,7 @@ class _ProfileePageState extends State<ProfileePage> {
   );
 
   Widget build_worker_Button() => ButtonWidgetProfile(
-      imagees: "assets/profile/iconMan.png",
+    imagees: "assets/profile/iconMan.png",
     onClicked: (){
       ButtonLoginReg();
       Navigator.of(context).push(

@@ -56,11 +56,11 @@ class Send extends StatelessWidget {
       messageController.clear();
 
 
-      // print(
-      //     "name = $name | email = $email | subject = $subject | message = $message");
-      // print("object");
+      print(
+          "name = $name | email = $email | subject = $subject | message = $message");
+      print("object");
 
-      if(email==""){
+      if(email=="" || email == null){
         Fluttertoast.showToast(
             msg: "Отправка обращения невозможна, обратитесь к руководителю ТСЖ для добавления адреса получателя",
             toastLength: Toast.LENGTH_SHORT,
@@ -127,6 +127,7 @@ class Send extends StatelessWidget {
     required String subject,
     required String message,
   })
+
     async{
     final serviceId = 'service_gncc96m';
     final templateId = 'template_k23j3e9';
@@ -151,7 +152,7 @@ class Send extends StatelessWidget {
     );
     print(response.body);
   }
-  
+
 //////////
   Widget _form(){
     return ListView(

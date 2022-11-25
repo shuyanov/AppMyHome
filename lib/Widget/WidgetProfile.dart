@@ -55,7 +55,12 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
             children: [
               Expanded(
                 flex: 1,
-                child: ProfileWidget(imagePath: myUrlAvatar),
+                child: Stack(
+                  children: [
+                    // ProfileWidget(imagePath: "https://cdn-icons-png.flaticon.com/512/1946/1946429.png"),
+                    ProfileWidget(imagePath: myUrlAvatar),
+                  ],
+                )
               ),
               Expanded(
                 flex:  2,
