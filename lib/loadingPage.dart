@@ -50,7 +50,7 @@ class LoadingPage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
         home: Container(
           child: Scaffold(
-            backgroundColor: Colors.purple,
+            backgroundColor: Color.fromARGB(255, 103,70,150),
             body: Center(
               child: Text( "Loading...", style: TextStyle(color: Colors.white)),
             ),
