@@ -53,9 +53,10 @@ class Send extends StatelessWidget {
       messageController.clear();
 
 
-      // print(
-      //     "name = $name | email = $email | subject = $subject | message = $message");
-      // print("object");
+      print(
+          "name = $name | email = $email | subject = $subject | message = $message");
+      print("object");
+
 
       if(email==""||email=="no"){
         Fluttertoast.showToast(
@@ -168,6 +169,7 @@ class Send extends StatelessWidget {
     required String subject,
     required String message,
   })
+
     async{
     final serviceId = 'service_gncc96m';
     final templateId = 'template_k23j3e9';
@@ -192,6 +194,7 @@ class Send extends StatelessWidget {
     );
     print(response.body);
   }
+
 //////////
   Widget _form(){
     return ListView(
@@ -242,6 +245,7 @@ class Send extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
         home:  Scaffold(
           backgroundColor: Colors.transparent,
           body: Stack(

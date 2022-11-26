@@ -253,7 +253,9 @@ class LoginPage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     print('LoginPage');
-    return MaterialApp( home: Scaffold(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+       home: Scaffold(
         backgroundColor: Colors.white,
         body:
         SingleChildScrollView(

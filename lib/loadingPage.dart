@@ -41,17 +41,18 @@ class LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getUser();
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 1), () {
 
       print("Yeah, this line is printed after 3 seconds");
       return isLogged ? runApp(MyApp()) : runApp(LoginPage());
     });
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
         home: Container(
           child: Scaffold(
             backgroundColor: Colors.purple,
             body: Center(
-              child: Text( "Loading...", style: TextStyle(color: Colors.grey)),
+              child: Text( "Loading...", style: TextStyle(color: Colors.white)),
             ),
 
           ),
