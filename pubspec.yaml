@@ -61,6 +61,10 @@ dependencies:
   open_file: ^3.2.1
   url_launcher: ^6.1.7
   flutter_native_splash: any
+  sbp: any
+
+
+
 flutter_native_splash: 
   color: "#674696"
   # image: android/app/src/main/res/mipmap-xxxhdpi/logotip.png
@@ -133,6 +137,7 @@ flutter:
     - assets/profile/iconMan.png
     - assets/profile/Massage.png
     - assets/profile/GroundUpBar.png
+    - assets/sbp.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
