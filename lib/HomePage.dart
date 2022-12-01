@@ -21,22 +21,22 @@ class _HomePageState extends State<HomePage> {
 
   int _currentIndex = 0;
 
-  static const _navigationBarItems = <BottomNavigationBarItem>[
-    BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: 'Home',
-        backgroundColor: Color.fromARGB(255, 124, 97, 242)),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.message),
-      label: 'Message',
-      // backgroundColor: Colors.blue,
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.person),
-      label: 'Profile',
-      backgroundColor: Colors.blue,
-    ),
-  ];
+  // static const _navigationBarItems = <BottomNavigationBarItem>[
+  //   BottomNavigationBarItem(
+  //       icon: Icon(Icons.home),
+  //       label: 'Home',
+  //       backgroundColor: Color.fromARGB(255, 124, 97, 242)),
+  //   BottomNavigationBarItem(
+  //     icon: Icon(Icons.message),
+  //     label: 'Message',
+  //     // backgroundColor: Colors.blue,
+  //   ),
+  //   BottomNavigationBarItem(
+  //     icon: Icon(Icons.person),
+  //     label: 'Profile',
+  //     backgroundColor: Colors.blue,
+  //   ),
+  // ];
 
   static const List<Widget> _pages = <Widget>[
     Filing(),
@@ -49,46 +49,6 @@ class _HomePageState extends State<HomePage> {
     return
       SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   actions: [
-        //     IconButton(
-        //       onPressed: () {
-        //         Navigator.of(context).push(
-        //           MaterialPageRoute(builder: (context) {
-        //             return SearchPage();
-        //           }),
-        //         );
-        //       },
-        //       icon: Icon(Icons.search),
-        //       splashRadius: 20,
-        //     ),
-        //   ],
-        //   backgroundColor: Color.fromARGB(255, 124, 97, 242),
-        //   leading: IconButton(
-        //     icon: const Icon(Icons.add_alert_rounded),
-        //     tooltip: 'Уведомления',
-        //     onPressed: () {
-        //       showNotification(
-        //           "Заголовок", "Описание"); // Проверка работы уведомления
-        //     },
-        //     /* () {
-        //       Navigator.push(context, MaterialPageRoute<void>(
-        //           builder: (BuildContext){
-        //             return Scaffold(
-        //               backgroundColor: Color.fromARGB( 200, 105, 193, 238),
-        //               appBar: AppBar(
-        //                 title: const Text('Уведомления'),
-        //                 backgroundColor: Colors.blueAccent,
-        //               ),
-        //               body: Center(
-        //                 child: Text('В разработке', style: TextStyle(fontSize: 45, fontFamily: 'Arial'),),
-        //               ),
-        //             );
-        //           }
-        //       ));
-        //     }, */
-        //   ),
-        // ),
         body: Center(
           child: _pages.elementAt(_currentIndex),
         ),

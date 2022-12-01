@@ -6,6 +6,7 @@ import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:command_flutter/Chats/Data/Admin.dart';
+import 'package:command_flutter/Chats/api/firebase.dart';
 
 class WidgetProfileName extends StatefulWidget {
   const WidgetProfileName({Key? key}) : super(key: key);
@@ -18,11 +19,14 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
   String name = "";
   String surName = "";
 
+  String userImage = "";
+
   @override
   void initState() {
     funcPress();
     _GetDataFromJson();
     super.initState();
+    baseAPI.readAvatar();
     print(name);
   }
 
@@ -38,14 +42,14 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
     surName = UsersedTest.surname;
 
     setState(() {});
-    text:
-    'Edit';
+    text:'Edit';
     print(name);
   }
 
   @override
   Widget build(BuildContext context) {
     funcPress();
+    baseAPI.readAvatar();
     return Padding(padding: const EdgeInsets.all(30),
         child: Align(
           alignment: Alignment.topLeft,
@@ -87,7 +91,6 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
 
   funcPress() {
     void getUserTesta() async {
-
       final directory = await pathProvider.getApplicationSupportDirectory();
       final fileDirectory = directory.path + '/datasTest.json';
       final file = File(fileDirectory);

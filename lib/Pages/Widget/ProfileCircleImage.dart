@@ -1,5 +1,8 @@
 import 'dart:io';
+import 'package:command_flutter/Chats/Data/Admin.dart';
 import 'package:flutter/material.dart';
+import 'package:command_flutter/Chats/api/firebase.dart';
+
 
 class ProfileWidget extends StatelessWidget {
   final String imagePath;
@@ -11,6 +14,7 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    baseAPI.readAvatar();
     final color = Theme.of(context).colorScheme.primary;
     return Center(
       child: Stack(
