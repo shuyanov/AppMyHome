@@ -31,9 +31,8 @@ class _HomeViewState extends State<HomeView> {
   void _saveImageToAppDirectoryForNextUses(File? file) async {
     if (file == null) return;
 
-    if (_profilePicFile != null) {
-      // await _profilePicFile!.delete(recursive: true);
-      _profilePicFile = file;
+    if (_profilePicFile != null)
+    {
       addImage(_profilePicFile!);
 
       _SAVEprofilePicFile = _profilePicFile;

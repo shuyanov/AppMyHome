@@ -4,11 +4,13 @@ import 'dart:io';
 import 'package:command_flutter/Chats/Data/Admin.dart';
 import 'package:command_flutter/Chats/api/firebase.dart';
 import 'package:command_flutter/HomePage.dart';
+import 'package:command_flutter/Pages/ProfilePage.dart';
 import 'package:command_flutter/Pages/addImage.dart';
 import 'package:command_flutter/Utils/UserPerefer.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:editable_image/editable_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
 
@@ -20,6 +22,7 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+  bool _isLoading = true;
 
   File? _profilePicFile;
   File? _SAVEprofilePicFile;
@@ -32,11 +35,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
   void _directUpdateImage(File? file) async {
     if (file == null) return;
     setState(() {
+
       _profilePicFile = file;
       addImage(_profilePicFile!);
-
       _SAVEprofilePicFile = _profilePicFile;
       Image.network(myUrlAvatar);
+      addImage(_SAVEprofilePicFile!);
     });
   }
 
@@ -59,7 +63,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     surName = surNameController.text;
     middleName = middleNameController.text;
 
-    print("login: login = ${email} password = ${password}");
+    // print("login: login = ${email} password = ${password}");
     emailController.clear();
     passwordController.clear();
     nameController.clear();
@@ -68,99 +72,106 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   Widget _FrontButton(){
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-                          SizedBox(height: 50),
-                          EditableImage(
-                            // Define the method that will run on the change process of the image.
-                            onChange: (file) => _directUpdateImage(file),
-                            // Define the source of the image.
-                            image: _profilePicFile != null
-                                ? Image.file( _profilePicFile!,  fit: BoxFit.cover)
-                                : Image.network( myUrlAvatar!,  fit: BoxFit.cover),
+    if(!_isLoading)
+    {
+      return CircularProgressIndicator();
+    }
+    else
+    {
+      return ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                SizedBox(height: 50),
+                EditableImage(
+                  // Define the method that will run on the change process of the image.
+                  onChange: (file) => _directUpdateImage(file),
+                  // Define the source of the image.
+                  image: _profilePicFile != null
+                      ? Image.file( _profilePicFile!,  fit: BoxFit.cover)
+                      : Image.network( myUrlAvatar!,  fit: BoxFit.cover),
 
-                            // Define the size of EditableImage.
-                            size: 150.0,
+                  // Define the size of EditableImage.
+                  size: 150.0,
 
-                            // Define the Theme of image picker.
-                            imagePickerTheme: ThemeData(
-                              // Define the default brightness and colors.
-                              primaryColor: Colors.white,
-                              shadowColor: Colors.transparent,
-                              backgroundColor: Colors.white70,
-                              iconTheme: const IconThemeData(color: Colors.black87),
+                  // Define the Theme of image picker.
+                  imagePickerTheme: ThemeData(
+                    // Define the default brightness and colors.
+                    primaryColor: Colors.white,
+                    shadowColor: Colors.transparent,
+                    backgroundColor: Colors.white70,
+                    iconTheme: const IconThemeData(color: Colors.black87),
 
-                              // Define the default font family.
-                              fontFamily: 'Georgia',
-                            ),
-                            // Define the border of the image if needed.
-                            imageBorder: Border.all(color: Colors.black87, width: 2.0),
+                    // Define the default font family.
+                    fontFamily: 'Georgia',
+                  ),
+                  // Define the border of the image if needed.
+                  imageBorder: Border.all(color: Colors.black87, width: 2.0),
 
-                            // Define the border of the icon if needed.
-                            editIconBorder: Border.all(color: Colors.black87, width: 2.0),
-                          ),
-                          SizedBox(height: 30),
-                          TextField(
-                              controller: emailController,
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  labelText: 'Email'
-                              ),
-                              onChanged: (name) {},
-                            ),
-                          SizedBox(height: 30),
-                          TextField(
-                            controller: surNameController,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                labelText: 'Surname'
-                            ),
-                            onChanged: (name) {},
-                          ),
-                          SizedBox(height: 30),
-                          TextField(
-                            controller: middleNameController,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                labelText: 'middleName'
-                            ),
-                            onChanged: (name) {},
-                          ),
-                          SizedBox(height: 30),
-                          TextField(
-                            controller: nameController,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                labelText: 'name'
-                            ),
-                            onChanged: (name) {},
-                          ),
-                          SizedBox(height: 40),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Container(
-                            height: 40,
-                            width: 320,
-                            child: buildEditProfileButton()
-                              ),
-                            ),
-                        ],
+                  // Define the border of the icon if needed.
+                  editIconBorder: Border.all(color: Colors.black87, width: 2.0),
+                ),
+                SizedBox(height: 30),
+                TextField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
-        ),
-                  ],
-    );
+                      labelText: 'Email'
+                  ),
+                  onChanged: (name) {},
+                ),
+                SizedBox(height: 30),
+                TextField(
+                  controller: surNameController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      labelText: 'Surname'
+                  ),
+                  onChanged: (name) {},
+                ),
+                SizedBox(height: 30),
+                TextField(
+                  controller: middleNameController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      labelText: 'middleName'
+                  ),
+                  onChanged: (name) {},
+                ),
+                SizedBox(height: 30),
+                TextField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      labelText: 'name'
+                  ),
+                  onChanged: (name) {},
+                ),
+                SizedBox(height: 40),
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                      height: 40,
+                      width: 320,
+                      child: buildEditProfileButton()
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    }
   }
 
   @override
@@ -191,16 +202,31 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ButtonWidget(
         text: 'Save',
         onClicked: () async {
-          await addImage(_SAVEprofilePicFile!);
-          Timer(Duration(seconds: 1), () {
+
+          baseAPI.readAvatar();
+          _LoginButtonActio();
+          Timer(Duration(milliseconds: 50), () {
             PushToJson(email, password, name, surName, middleName, "no");
             //Обновление данных для чата
             baseAPI.updateUser(userEmail: email, userSurname: surName, userName: name, userMiddle_name: middleName);
           });
+            if(email == "" || middleName == "" || name == "" || surName == ""){
+              Fluttertoast.showToast(
+                  msg: "Ошибка! Необходимо заполнить все поля",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb:
+                  1,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  fontSize: 16.0
+              );
+              return;
+            }
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => (HomePage()))
           );
-          _LoginButtonActio();
+          await addImage(_SAVEprofilePicFile!);
         },
       );
 

@@ -56,6 +56,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+
         // appBar: AppBar(
         //   actions: [
         //     IconButton(
@@ -97,6 +98,9 @@ class _HomePageState extends State<HomePage> {
         //   ),
         // ),
         body: Container(
+
+        body: Center(
+
           child: _pages.elementAt(_currentIndex),
         ),
         bottomNavigationBar: BottomNavigationBar(
