@@ -74,7 +74,7 @@ class messageWidget extends StatelessWidget {
                       ),
                       type == 'text'
                           ? Container(
-                              padding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
+                              padding: EdgeInsets.only(left: 5, right: 5),
                               child: Text(
                                 message,
                                 style: TextStyle(
@@ -88,77 +88,112 @@ class messageWidget extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    InkWell(
-                                      onTap: () => Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (_) =>
-                                                  showImage(imageURL: file))),
-                                      child: Container(
-                                        constraints: BoxConstraints(
-                                            minWidth: 100, minHeight: 50),
-                                        padding: EdgeInsets.only(bottom: 2, left: 2, right: 2),
-                                        child: file != ""
-                                            ? Container(
-                                                constraints: BoxConstraints(
-                                                    minWidth: 200,
-                                                    minHeight: 50),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    topLeft: Radius.circular(5),
-                                                    topRight:
-                                                        Radius.circular(5),
-                                                    bottomLeft:
-                                                        Radius.circular(5),
-                                                    bottomRight:
-                                                        Radius.circular(5),
-                                                  ),
-                                                  child: Image.network(file,
-                                                      fit: BoxFit.contain,
-                                                      alignment:
-                                                          Alignment.center,
-                                                      errorBuilder: (context,
-                                                              url, error) =>
-                                                          Center(
-                                                              child: new Text(
-                                                            "Картинка недоступна.\n Возможно нет интернета или картинка не действительна",
-                                                            textAlign: TextAlign
+                                    Stack(
+                                      children: [
+                                        Expanded(
+                                          child: InkWell(
+                                            onTap: () => Navigator.of(context)
+                                                .push(MaterialPageRoute(
+                                                    builder: (_) => showImage(
+                                                        imageURL: file))),
+                                            child: Container(
+                                              constraints: BoxConstraints(
+                                                  minWidth: 100, minHeight: 50),
+                                              padding: EdgeInsets.all(2),
+                                              child: file != ""
+                                                  ? Container(
+                                                      constraints:
+                                                          BoxConstraints(
+                                                              minWidth: 200,
+                                                              minHeight: 50),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    10)),
+                                                        child: Image.network(
+                                                            file,
+                                                            fit: BoxFit.contain,
+                                                            alignment: Alignment
                                                                 .center,
-                                                          )),
-                                                      loadingBuilder: (BuildContext
-                                                              context,
-                                                          Widget child,
-                                                          ImageChunkEvent?
-                                                              loadingProgress) {
-                                                        if (loadingProgress ==
-                                                            null) return child;
-                                                        return Center(
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                          color: purpleColor,
-                                                          value: loadingProgress
-                                                                      .expectedTotalBytes !=
-                                                                  null
-                                                              ? loadingProgress
-                                                                      .cumulativeBytesLoaded /
-                                                                  loadingProgress
-                                                                      .expectedTotalBytes!
-                                                              : null,
-                                                        ));
-                                                      }),
-                                                ),
-                                              )
-                                            : Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                                        color: purpleColor),
-                                              ),
-                                      ),
+                                                            errorBuilder: (context,
+                                                                    url,
+                                                                    error) =>
+                                                                Center(
+                                                                    child:
+                                                                        new Text(
+                                                                  "Картинка недоступна.\n Возможно нет интернета или картинка не действительна",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                )),
+                                                            loadingBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    Widget
+                                                                        child,
+                                                                    ImageChunkEvent?
+                                                                        loadingProgress) {
+                                                              if (loadingProgress ==
+                                                                  null)
+                                                                return child;
+                                                              return Center(
+                                                                  child:
+                                                                      CircularProgressIndicator(
+                                                                color:
+                                                                    purpleColor,
+                                                                value: loadingProgress
+                                                                            .expectedTotalBytes !=
+                                                                        null
+                                                                    ? loadingProgress
+                                                                            .cumulativeBytesLoaded /
+                                                                        loadingProgress
+                                                                            .expectedTotalBytes!
+                                                                    : null,
+                                                              ));
+                                                            }),
+                                                      ),
+                                                    )
+                                                  : Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                              color:
+                                                                  purpleColor),
+                                                    ),
+                                            ),
+                                          ),
+                                        ),
+                                        if (message == "")
+                                          Positioned(
+                                              bottom: 0,
+                                              right: 0,
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.black
+                                                        .withOpacity(0.4),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10)),
+                                                  ),
+                                                  margin: EdgeInsets.all(8),
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 2,
+                                                      horizontal: 5),
+                                                  // width: 30,
+                                                  // height: 10,
+                                                  child: Text(
+                                                    time,
+                                                    style: TextStyle(
+                                                        fontSize: 10,
+                                                        color: Colors.white),
+                                                  )))
+                                      ],
                                     ),
                                     if (message != "")
                                       Container(
-                                        padding: EdgeInsets.only(
-                                            top: 3, left: 5, right: 5),
+                                        padding:
+                                            EdgeInsets.only(left: 5, right: 5),
                                         child: Text(
                                           message,
                                           textAlign: TextAlign.start,
@@ -177,27 +212,48 @@ class messageWidget extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        InkWell(
-                                          onTap: () => Navigator.of(context)
-                                              .push(MaterialPageRoute(
-                                                  builder: (_) => showVideo(
-                                                      videoURL: file))),
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            constraints: BoxConstraints(
-                                                minWidth: 100, minHeight: 50),
-                                            child: file != ""
-                                                ? Icon(
-                                                    Icons.video_file,
-                                                    size: 50,
-                                                  )
-                                                : Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color: purpleColor,
-                                                    ),
-                                                  ),
-                                          ),
+                                        Stack(
+                                          children: [
+                                            Expanded(
+                                              child: InkWell(
+                                                onTap: () =>
+                                                    Navigator.of(context).push(
+                                                        MaterialPageRoute(
+                                                            builder: (_) =>
+                                                                showVideo(
+                                                                    videoURL:
+                                                                        file))),
+                                                child: Container(
+                                                  alignment: Alignment.center,
+                                                  constraints: BoxConstraints(
+                                                      minWidth: 100,
+                                                      minHeight: 50),
+                                                  child: file != ""
+                                                      ? Icon(
+                                                          Icons.video_file,
+                                                          size: 50,
+                                                        )
+                                                      : Center(
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            color: purpleColor,
+                                                          ),
+                                                        ),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                                child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 5),
+                                              child: Text(
+                                                "Видео",
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: greyText),
+                                              ),
+                                            ))
+                                          ],
                                         ),
                                         if (message != "")
                                           Container(
@@ -218,55 +274,75 @@ class messageWidget extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        InkWell(
-                                          onTap: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (context) =>
-                                                    AlertDialog(
-                                                        title: Text(
-                                                            "Открывается файл"),
-                                                        content: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            Center(
-                                                              child: CircularProgressIndicator(
-                                                                  color:
-                                                                      purpleColor),
-                                                            ),
-                                                          ],
-                                                        )));
-                                            Timer(Duration(seconds: 10), () {
-                                              Navigator.pop(context);
-                                            });
+                                        Stack(
+                                          children: [
+                                            Expanded(
+                                              child: InkWell(
+                                                onTap: () {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          AlertDialog(
+                                                              title: Text(
+                                                                  "Открывается файл"),
+                                                              content: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: [
+                                                                  Center(
+                                                                    child: CircularProgressIndicator(
+                                                                        color:
+                                                                            purpleColor),
+                                                                  ),
+                                                                ],
+                                                              )));
+                                                  Timer(Duration(seconds: 10),
+                                                      () {
+                                                    Navigator.pop(context);
+                                                  });
 
-                                            download(file, nameFile);
-                                          },
-                                          child: Container(
-                                            constraints: BoxConstraints(
-                                                minWidth: 100, minHeight: 50),
-                                            alignment: Alignment.center,
-                                            child: file != ""
-                                                ? Center(
-                                                    child: Column(
-                                                      children: [
-                                                        Icon(
-                                                          Icons
-                                                              .insert_drive_file,
-                                                          size: 50,
+                                                  download(file, nameFile);
+                                                },
+                                                child: Container(
+                                                  constraints: BoxConstraints(
+                                                      minWidth: 100,
+                                                      minHeight: 50),
+                                                  alignment: Alignment.center,
+                                                  child: file != ""
+                                                      ? Center(
+                                                          child: Column(
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .insert_drive_file,
+                                                                size: 50,
+                                                              ),
+                                                              Text(nameFile),
+                                                            ],
+                                                          ),
+                                                        )
+                                                      : Center(
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            color: purpleColor,
+                                                          ),
                                                         ),
-                                                        Text(nameFile),
-                                                      ],
-                                                    ),
-                                                  )
-                                                : Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color: purpleColor,
-                                                    ),
-                                                  ),
-                                          ),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                                child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 5),
+                                              child: Text(
+                                                "Файл",
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: greyText),
+                                              ),
+                                            ))
+                                          ],
                                         ),
                                         if (message != "")
                                           Container(
@@ -284,14 +360,16 @@ class messageWidget extends StatelessWidget {
                                     ),
                     ],
                   ),
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    child: Text(
-                      textAlign: TextAlign.right,
-                      time,
-                      style: TextStyle(color: Colors.black, fontSize: 10),
-                    ),
-                  ),
+                  type != 'image' || message != ''
+                      ? Container(
+                          padding: EdgeInsets.all(5),
+                          child: Text(
+                            textAlign: TextAlign.right,
+                            time,
+                            style: TextStyle(color: Colors.black, fontSize: 10),
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
             ),

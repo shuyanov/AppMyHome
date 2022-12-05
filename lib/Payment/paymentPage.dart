@@ -85,42 +85,42 @@ class _paymentPageState extends State<paymentPage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-              ),
-              Container(
-                height: 100,
-                width: 100,
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const QRViewExample(),
-                      ));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: purpleColor,
-                    ),
-                    child: Text(
-                      "Оплата по QR-коду",
-                      textAlign: TextAlign.center,
-                    )),
-              )
+              // Padding(
+              //   padding: const EdgeInsets.all(30.0),
+              // ),
+              // Container(
+              //   height: 100,
+              //   width: 100,
+              //   child: ElevatedButton(
+              //       onPressed: () {
+              //         Navigator.of(context).push(MaterialPageRoute(
+              //           builder: (context) => const QRViewExample(),
+              //         ));
+              //       },
+              //       style: ElevatedButton.styleFrom(
+              //         backgroundColor: purpleColor,
+              //       ),
+              //       child: Text(
+              //         "Оплата по QR-коду",
+              //         textAlign: TextAlign.center,
+              //       )),
+              // )
             ],
           ),
           // if (code != null) Text(code!)
-          ElevatedButton(
-            onPressed: () {
-              launchUrl(Uri.parse(widget.samUrl));
-            },
-            child: Text("2 способ"),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => ex2()));
-            },
-            child: Text("Пример3"),
-          ),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     launchUrl(Uri.parse(widget.samUrl));
+          //   },
+          //   child: Text("2 способ"),
+          // ),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     Navigator.of(context)
+          //         .push(MaterialPageRoute(builder: (context) => ex2()));
+          //   },
+          //   child: Text("Пример3"),
+          // ),
         ],
       ),
     );
