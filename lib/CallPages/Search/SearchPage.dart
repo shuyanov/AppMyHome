@@ -46,10 +46,11 @@ class _SearchCallPageState extends State<SearchCallPage> {
         .get()
         .then((value) {
       if (value.docs.length < 1) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
               "Нет такой службы.\n(Возможно Вы ввели название службы не полностью)"),
-        ));
+        ));        
         setState(() {
           isLoading = false;
         });
