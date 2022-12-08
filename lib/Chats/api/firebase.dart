@@ -55,8 +55,8 @@ class baseAPI {
     final docUser =
     await FirebaseFirestore.instance.collection('users').doc(id);
     final allUsers = await docUser.get();
-    if (allUsers.id != myId) {
-    print('id ----- ${allUsers.id} ==== ${myId}');
+    if (allUsers.id != id) {
+    print('id ----- ${allUsers.id} ==== ${id}');
       final user = User(
           idUser: docUser.id,
           email: userEmail,
@@ -82,14 +82,15 @@ class baseAPI {
       print('ADD: ${docUser.set(user.toJson())}');
     }
       myId = docUser.id;
-      myUserEmail = userEmail;
-      myUserSurname = userSurname;
-      myUserName = userName;
-      myUserMiddle_name = userMiddle_name;
-      myCode = code;
-      myStatus = status;
-      myPersonalCheck = personalCheck;
-      myNumberPhone = numberPhone;
+      readUser();
+      // myUserEmail = userEmail;
+      // myUserSurname = userSurname;
+      // myUserName = userName;
+      // myUserMiddle_name = userMiddle_name;
+      // myCode = code;
+      // myStatus = status;
+      // myPersonalCheck = personalCheck;
+      // myNumberPhone = numberPhone;
   }
 
   // static Future addUsers(List<User> users) async {
@@ -115,16 +116,24 @@ class baseAPI {
           .map((snapshot) =>
           snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
 
-  //Future<User?> readUser() async {
-    // static Future<User?> readUser() async {
-    //   final docUser =
-    //       await FirebaseFirestore.instance.collection('users').doc(myId);
-    //   final snapshot = await docUser.get();
-    //   if (snapshot.exists) {
-    //     print ('DATA >>> ${User.fromJson(snapshot.data()!).urlAvatar}');
-    //     return User.fromJson(snapshot.data()!);
-    //   }
-    // }
+  
+    static Future<User?> readUser() async {
+      final docUser =
+          await FirebaseFirestore.instance.collection('users').doc(myId);
+      final snapshot = await docUser.get();
+      if (snapshot.exists) {
+        final api = User.fromJson(snapshot.data()!);
+        myUserEmail = api.email;
+      myUserSurname = api.surname;
+      myUserName = api.name;
+      myUserMiddle_name = api.middle_name;
+      myCode = api.code;
+      myStatus = api.status;
+      myPersonalCheck = api.personalCheck;
+      myNumberPhone = api.numberPhone;
+        return api;
+      }
+    }
 
      static Future readAvatar() async {
       final docUser =

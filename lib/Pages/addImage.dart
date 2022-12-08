@@ -25,10 +25,6 @@ Future addImage(File imageFile) async {
     status = 0;
   });
   if (status == 1) {
-      FirebaseStorage.instance
-      .ref()
-      .child('profiles')
-      .child("${myUrlAvatar}.png").delete();
     String imageUrl = await uploadTask.ref.getDownloadURL();
     await FirebaseFirestore.instance
         .collection('users')

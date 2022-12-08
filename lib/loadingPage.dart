@@ -7,6 +7,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'Chats/Data/users.dart';
 import 'Utils/UserPerefer.dart';
+import 'addUser.dart';
 
 class LoadingPage extends StatelessWidget {
   bool isLogged = false;
@@ -26,7 +27,6 @@ class LoadingPage extends StatelessWidget {
 
       if (user.name != "") {
         isLogged = true;
-        await getUsers();
         // addUser(
         //     "${user.id}",
         //     "${user.login}",
@@ -45,6 +45,7 @@ class LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getUser();
+    getUsers();
     Timer(Duration(seconds: 1), () {
       print("Yeah, this line is printed after 3 seconds");
       return isLogged ? runApp(MyApp()) : runApp(LoginPage());
