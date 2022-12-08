@@ -100,11 +100,14 @@ class _HomeViewTestState extends State<HomeViewTest> {
   TextButton _buildTextButton() {
     return TextButton(
       onPressed: () async {
+        if(_SAVEprofilePicFile! != ''){
           await addImage(_SAVEprofilePicFile!);
-          // Navigator.pop(context);
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => (HomePage()))
           );
+        }else{
+          Navigator.pop(context);
+        }
         },
       style: ButtonStyle(
         padding: MaterialStateProperty.all(
