@@ -14,20 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../CallPages/CallPage.dart';
 import '../Styles/Colors.dart';
-
-
-import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
-import 'package:command_flutter/Chats/Data/Admin.dart';
-import 'package:command_flutter/Chats/api/firebase.dart';
-import 'package:command_flutter/HomePage.dart';
-import 'package:command_flutter/Pages/ProfilePage.dart';
-import 'package:command_flutter/Pages/addImage.dart';
-import 'package:command_flutter/Utils/UserPerefer.dart';
-import 'package:command_flutter/Widget/ButtonWidget.dart';
-import 'package:editable_image/editable_image.dart';
-import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
 class ProfileePage extends StatefulWidget {
@@ -202,9 +189,10 @@ class _ProfileePageState extends State<ProfileePage> {
   Widget buildExitProfileButton() => ButtonWidget(
     text:'Выход',
     onClicked: (){
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => LoginPage())
-        );
+        runApp(LoginPage());
+      // Navigator.of(context).push(
+          // MaterialPageRoute(builder: (context) => LoginPage())
+        // );
       },
     );
 

@@ -26,8 +26,12 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
     funcPress();
     _GetDataFromJson();
     super.initState();
-    baseAPI.readAvatar();
+    imageURL();
     print(name);
+  }
+
+  Future imageURL() async {
+    await baseAPI.readAvatar();
   }
 
   void _GetDataFromJson() async {
@@ -42,7 +46,8 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
     surName = UsersedTest.surname;
 
     setState(() {});
-    text:'Edit';
+    text:
+    'Edit';
     print(name);
   }
 
@@ -50,7 +55,10 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
   Widget build(BuildContext context) {
     funcPress();
     baseAPI.readAvatar();
-    return Padding(padding: const EdgeInsets.all(30),
+    //myUserName = name;
+    //myUserSurname = surName;
+    return Padding(
+        padding: const EdgeInsets.all(30),
         child: Align(
           alignment: Alignment.topLeft,
           child: Row(
@@ -61,32 +69,44 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
                   flex: 1,
                   child: Stack(
                     children: [
-                      ProfileWidget(imagePath: "https://cdn-icons-png.flaticon.com/512/1946/1946429.png"),
-                      ProfileWidget(imagePath: myUrlAvatar),
+                      ProfileWidget(
+                              imagePath:
+                              "https://cdn-icons-png.flaticon.com/512/1946/1946429.png"),
+                      FutureBuilder(
+                          future: baseAPI.readAvatar(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              final avatar = snapshot.data;
+                              return ProfileWidget(imagePath: avatar);
+                            } 
+                            return ProfileWidget(
+                              imagePath:
+                              "https://cdn-icons-png.flaticon.com/512/1946/1946429.png");
+                          })
                     ],
-                  )
-              ),
+                  )),
               Expanded(
                 flex: 2,
                 child: Stack(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(9.0),
-                      child: Text(name, style: TextStyle(fontSize: 36)),
+                      child: Text(myUserName, style: TextStyle(fontSize: 36)),
                     ),
                     const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.only(top: 45, left: 20),
-                      child: Text(surName,
-                        style: TextStyle(fontSize: 30, color: Colors.grey),),
+                      child: Text(
+                        myUserSurname,
+                        style: TextStyle(fontSize: 30, color: Colors.grey),
+                      ),
                     ),
                   ],
                 ),
               ),
             ],
           ),
-        )
-    );
+        ));
   }
 
   funcPress() {
@@ -105,6 +125,7 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
         print("TEST 2 User Data $name , and  $surName");
       });
     }
+
     getUserTesta();
   }
 }

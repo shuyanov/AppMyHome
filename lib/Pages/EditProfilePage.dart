@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
-
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);
 
@@ -35,12 +34,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
   void _directUpdateImage(File? file) async {
     if (file == null) return;
     setState(() {
-
       _profilePicFile = file;
-      addImage(_profilePicFile!);
+      //addImage(_profilePicFile!);
       _SAVEprofilePicFile = _profilePicFile;
       Image.network(myUrlAvatar);
-      addImage(_SAVEprofilePicFile!);
+      //addImage(_SAVEprofilePicFile!);
     });
   }
 
@@ -64,20 +62,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
     middleName = middleNameController.text;
 
     // print("login: login = ${email} password = ${password}");
-    emailController.clear();
-    passwordController.clear();
-    nameController.clear();
-    surNameController.clear();
-    middleNameController.clear();
+    // emailController.clear();
+    // passwordController.clear();
+    // nameController.clear();
+    // surNameController.clear();
+    // middleNameController.clear();
   }
 
-  Widget _FrontButton(){
-    if(!_isLoading)
-    {
+  Widget _FrontButton() {
+    if (!_isLoading) {
       return CircularProgressIndicator();
-    }
-    else
-    {
+    } else {
       return ListView(
         children: [
           Padding(
@@ -90,8 +85,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   onChange: (file) => _directUpdateImage(file),
                   // Define the source of the image.
                   image: _profilePicFile != null
-                      ? Image.file( _profilePicFile!,  fit: BoxFit.cover)
-                      : Image.network( myUrlAvatar!,  fit: BoxFit.cover),
+                      ? Image.file(_profilePicFile!, fit: BoxFit.cover)
+                      : Image.network(myUrlAvatar, fit: BoxFit.cover),
 
                   // Define the size of EditableImage.
                   size: 150.0,
@@ -120,8 +115,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      labelText: 'Email'
-                  ),
+                      labelText: 'Email'),
                   onChanged: (name) {},
                 ),
                 SizedBox(height: 30),
@@ -131,19 +125,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      labelText: 'Surname'
-                  ),
-                  onChanged: (name) {},
-                ),
-                SizedBox(height: 30),
-                TextField(
-                  controller: middleNameController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      labelText: 'middleName'
-                  ),
+                      labelText: 'Surname'),
                   onChanged: (name) {},
                 ),
                 SizedBox(height: 30),
@@ -153,18 +135,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      labelText: 'name'
-                  ),
+                      labelText: 'name'),
+                  onChanged: (name) {},
+                ),
+                SizedBox(height: 30),
+                TextField(
+                  controller: middleNameController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      labelText: 'middleName'),
                   onChanged: (name) {},
                 ),
                 SizedBox(height: 40),
                 Align(
                   alignment: Alignment.center,
                   child: Container(
-                      height: 40,
-                      width: 320,
-                      child: buildEditProfileButton()
-                  ),
+                      height: 40, width: 320, child: buildEditProfileButton()),
                 ),
               ],
             ),
@@ -177,62 +165,65 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-       home: Scaffold(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
             body: Stack(
-              children: [
-                Container(
-                  child: Container(
-                    child: Stack(
-                      children: [
-                        Image.asset('assets/profile/profileBackground.jpg',width: 1000, fit:BoxFit.fill),
-                        Image.asset('assets/profile/GroundUpBar.png',width: 1000, fit:BoxFit.fill),
-                      ],
-                    ),
-                  ),
+          children: [
+            Container(
+              child: Container(
+                child: Stack(
+                  children: [
+                    Image.asset('assets/profile/profileBackground.jpg',
+                        width: 1000, fit: BoxFit.fill),
+                    Image.asset('assets/profile/GroundUpBar.png',
+                        width: 1000, fit: BoxFit.fill),
+                  ],
                 ),
-                _FrontButton(),
-              ],
-            )
-        )
-    );
+              ),
+            ),
+            _FrontButton(),
+          ],
+        )));
   }
 
-  Widget buildEditProfileButton() =>
-      ButtonWidget(
+          bool exit = false;
+  Widget buildEditProfileButton() => ButtonWidget(
         text: 'Save',
-        onClicked: () async {
-
+        onClicked: () {
           baseAPI.readAvatar();
           _LoginButtonActio();
-          Timer(Duration(milliseconds: 50), () {
-            PushToJson(email, password, name, surName, middleName, "no");
-            //Обновление данных для чата
-            baseAPI.updateUser(userEmail: email, userSurname: surName, userName: name, userMiddle_name: middleName);
-          });
-            if(email == "" || middleName == "" || name == "" || surName == ""){
+          
+            if (email == "" || middleName == "" || name == "" || surName == "") {
               Fluttertoast.showToast(
                   msg: "Ошибка! Необходимо заполнить все поля",
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb:
-                  1,
+                  timeInSecForIosWeb: 1,
                   backgroundColor: Colors.red,
                   textColor: Colors.white,
-                  fontSize: 16.0
-              );
-              return;
+                  fontSize: 16.0);
+            } else {
+              emailController.clear();
+              passwordController.clear();
+              nameController.clear();
+              surNameController.clear();
+              middleNameController.clear();
+              Timer(Duration(milliseconds: 50), (){
+              PushToJson(email, password, name, surName, middleName, "no");
+              //Обновление данных для чата
+          });
+              exit = true;
             }
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => (HomePage()))
-          );
-          await addImage(_SAVEprofilePicFile!);
+              if(exit){
+              baseAPI.updateUser(userEmail: email, userSurname: surName, userName: name, userMiddle_name: middleName);
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => (HomePage())));
+              addImage(_SAVEprofilePicFile!);
+              }
         },
       );
 
   funcPress() {
     void getUserTesta() async {
-
       final directory = await pathProvider.getApplicationSupportDirectory();
       final fileDirectory = directory.path + '/datasTest.json';
       final file = File(fileDirectory);
@@ -249,7 +240,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         print("User Data $name , and  $surName");
       });
     }
+
     getUserTesta();
   }
 }
-

@@ -66,7 +66,7 @@ class _HomeViewState extends State<HomeView> {
         // Define the source of the image.
         image: _profilePicFile != null
             ? Image.file( _profilePicFile!,  fit: BoxFit.cover)
-            : Image.network( myUrlAvatar!,  fit: BoxFit.cover),
+            : Image.network( myUrlAvatar,  fit: BoxFit.cover),
         // Define the size of EditableImage.
         size: 120.0,
 

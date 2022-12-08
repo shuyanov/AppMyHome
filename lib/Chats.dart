@@ -292,26 +292,26 @@ class _ChatsState extends State<Chats> {
     );
   }
 
-  Widget buildUser(User user) {
-    return ListTile(
-      leading: CircleAvatar(
-        radius: 20.0,
-        backgroundImage: NetworkImage(user.urlAvatar),
-      ),
-      title: Text(user.surname),
-      subtitle: Text("${user.name} ${user.middle_name}"),
-      onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ChatPage(
-                currentUserId: myId,
-                friendId: user.idUser!,
-                friendName: user.name,
-                friendSurname: user.surname,
-                friendMiddle_name: user.middle_name,
-                friendImage: user.urlAvatar)));
-      },
-    );
-  }
+  // Widget buildUser(User user) {
+  //   return ListTile(
+  //     leading: CircleAvatar(
+  //       radius: 20.0,
+  //       backgroundImage: NetworkImage(user.urlAvatar),
+  //     ),
+  //     title: Text(user.surname),
+  //     subtitle: Text("${user.name} ${user.middle_name}"),
+  //     onTap: () {
+  //       Navigator.of(context).push(MaterialPageRoute(
+  //           builder: (context) => ChatPage(
+  //               currentUserId: myId,
+  //               friendId: user.idUser,
+  //               friendName: user.name,
+  //               friendSurname: user.surname,
+  //               friendMiddle_name: user.middle_name,
+  //               )));
+  //     },
+  //   );
+  // }
 
   Widget buildText(String text) => Center(
         child: Text(

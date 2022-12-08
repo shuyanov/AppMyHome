@@ -16,18 +16,16 @@ enum Menu { itemOne, itemTwo, itemThree }
 class ChatPage extends StatefulWidget {
   final String currentUserId;
   final String friendId;
-  final String friendName;
   final String friendSurname;
+  final String friendName;
   final String friendMiddle_name;
-  final String friendImage;
 
   ChatPage(
       {required this.currentUserId,
       required this.friendId,
-      required this.friendName,
       required this.friendSurname,
+      required this.friendName,
       required this.friendMiddle_name,
-      required this.friendImage,
       super.key});
 
   @override

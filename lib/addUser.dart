@@ -22,17 +22,15 @@ void addUser(
       code: Code,
       status: Status,
       personalCheck: PersonalCheck,
-      numberPhone: NumberPhone,
-      urlAvatar: '0');
+      numberPhone: NumberPhone,);
 
-      myId = Id;
-      myUserEmail = UserEmail;
-      myUserSurname = UserSurname;
-      myUserName = UserName;
-      myUserMiddle_name = UserMiddle_name;
-      myCode = Code;
-      myStatus = Status;
-      myPersonalCheck = PersonalCheck;
-      myNumberPhone = NumberPhone;
-      myUrlAvatar = '0';
+      // myUserEmail = UserEmail;
+      // myUserSurname = UserSurname;
+      // myUserName = UserName;
+      // myUserMiddle_name = UserMiddle_name;
+      // myCode = Code;
+      // myStatus = Status;
+      // myPersonalCheck = PersonalCheck;
+      // myNumberPhone = NumberPhone;
+      // myUrlAvatar = '0';
 }

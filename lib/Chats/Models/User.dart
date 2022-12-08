@@ -7,27 +7,27 @@ class UserField {
 class User {
   final String idUser;
   final String email;
-  final String name;
   final String surname;
+  final String name;
   final String middle_name;
   final String code;
   final String status;
   final String personalCheck;
   final String numberPhone;
-  final String urlAvatar;
+  final String? urlAvatar;
   final Timestamp? lastMessageTime;
 
   const User({
     this.idUser = '',
     required this.email,
-    required this.name,
     required this.surname,
+    required this.name,
     required this.middle_name,
     required this.code,
     required this.status,
     required this.personalCheck,
     required this.numberPhone,
-    required this.urlAvatar,
+    this.urlAvatar,
     this.lastMessageTime,
   });
   User copyWith({

@@ -18,14 +18,24 @@ Future addImage(File imageFile) async {
         .collection('users')
         .doc(myId)
         .update({'urlAvatar': '0'});
+      FirebaseStorage.instance
+      .ref()
+      .child('profiles')
+      .child('${fileName}.png').delete();
     status = 0;
   });
   if (status == 1) {
+      FirebaseStorage.instance
+      .ref()
+      .child('profiles')
+      .child("${myUrlAvatar}.png").delete();
     String imageUrl = await uploadTask.ref.getDownloadURL();
     await FirebaseFirestore.instance
         .collection('users')
         .doc(myId)
         .update({'urlAvatar': imageUrl});
+
     print("Изображение профиля: $imageUrl");
+  myUrlAvatar = imageUrl;
   }
 }

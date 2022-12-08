@@ -1,14 +1,12 @@
 import 'dart:async';
-import 'package:command_flutter/HomePage.dart';
 import 'package:command_flutter/Login/LOginPage.dart';
 import 'package:command_flutter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'dart:io';
 import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'Chats/Data/users.dart';
 import 'Utils/UserPerefer.dart';
-import 'addUser.dart';
 
 class LoadingPage extends StatelessWidget {
   bool isLogged = false;
@@ -28,16 +26,17 @@ class LoadingPage extends StatelessWidget {
 
       if (user.name != "") {
         isLogged = true;
-        addUser(
-            "${user.id}",
-            "${user.login}",
-            "${user.surname}",
-            "${user.name}",
-            "${user.middle_name}",
-            "${user.code}",
-            "${user.stateAdmin}",
-            "${user.personalCheck}",
-            "${user.numberPhone}");
+        await getUsers();
+        // addUser(
+        //     "${user.id}",
+        //     "${user.login}",
+        //     "${user.surname}",
+        //     "${user.name}",
+        //     "${user.middle_name}",
+        //     "${user.code}",
+        //     "${user.stateAdmin}",
+        //     "${user.personalCheck}",
+        //     "${user.numberPhone}");
       }
     }
   }

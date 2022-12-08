@@ -34,6 +34,10 @@ class baseAPI {
       'middle_name': userMiddle_name,
       'name': userName
     });
+    myUserEmail = userEmail;
+    myUserSurname = userSurname;
+    myUserMiddle_name = userMiddle_name;
+    myUserName = userName;
   }
 
   static Future addUsers({
@@ -46,24 +50,23 @@ class baseAPI {
     required String status,
     required String personalCheck,
     required String numberPhone,
-    required String urlAvatar,
   }) async {
     // final docUsers = await FirebaseFirestore.instance.collection('users');
     final docUser =
     await FirebaseFirestore.instance.collection('users').doc(id);
     final allUsers = await docUser.get();
     if (allUsers.id != myId) {
+    print('id ----- ${allUsers.id} ==== ${myId}');
       final user = User(
           idUser: docUser.id,
           email: userEmail,
-          name: userName,
           surname: userSurname,
+          name: userName,
           middle_name: userMiddle_name,
           code: code,
           status: status,
           personalCheck: personalCheck,
-          numberPhone: numberPhone,
-          urlAvatar: urlAvatar);
+          numberPhone: numberPhone);
 
       myId = docUser.id;
       myUserEmail = userEmail;
@@ -74,28 +77,19 @@ class baseAPI {
       myStatus = status;
       myPersonalCheck = personalCheck;
       myNumberPhone = numberPhone;
-      myUrlAvatar = urlAvatar;
-
       await docUser.set(user.toJson());
+      readAvatar();
       print('ADD: ${docUser.set(user.toJson())}');
     }
-    // final user = {
-    //   'userEmail': userEmail,
-    //   'userName': userName,
-    //   'userSurname': userSurname,
-    //   'userMiddle_name': userMiddle_name,
-    //   'code': code,
-    //   'status': status,
-    //   'personalCheck': personalCheck,
-    //   'numberPhone': numberPhone,
-    //   'urlAvatar': urlAvatar,
-    // };
-
-    //   // final userDoc = docUser.doc(idUser);
-    //   // idUser = userDoc.id;
-    //   // final newUser = user.copyWith(idUser: userDoc.id);
-    //   // await userDoc.set(newUser.toJson());
-    // }
+      myId = docUser.id;
+      myUserEmail = userEmail;
+      myUserSurname = userSurname;
+      myUserName = userName;
+      myUserMiddle_name = userMiddle_name;
+      myCode = code;
+      myStatus = status;
+      myPersonalCheck = personalCheck;
+      myNumberPhone = numberPhone;
   }
 
   // static Future addUsers(List<User> users) async {
@@ -132,7 +126,7 @@ class baseAPI {
     //   }
     // }
 
-     static Future<User?> readAvatar() async {
+     static Future readAvatar() async {
       final docUser =
       await FirebaseFirestore.instance.collection('users').doc(myId);
       final snapshot = await docUser.get();
@@ -140,8 +134,8 @@ class baseAPI {
         // print ('DATA >>> ${User.fromJson(snapshot.data()!).urlAvatar}');
         myUrlAvatar = User
             .fromJson(snapshot.data()!)
-            .urlAvatar;
-        return User.fromJson(snapshot.data()!);
+            .urlAvatar!;
+        return myUrlAvatar;
       }
     }
   }

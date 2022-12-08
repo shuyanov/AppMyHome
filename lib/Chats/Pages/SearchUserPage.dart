@@ -373,9 +373,7 @@ class _SearchUserPageState extends State<SearchUserPage> {
                                         friendSurname: searchResult[index]
                                             ['surname'],
                                         friendMiddle_name: searchResult[index]
-                                            ['middle_name'],
-                                        friendImage: searchResult[index]
-                                            ['urlAvatar'])));
+                                            ['middle_name'])));
                           },
                           trailing: Icon(Icons.message));
                     }))

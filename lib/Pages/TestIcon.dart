@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:command_flutter/Chats/Data/Admin.dart';
 import 'package:command_flutter/Chats/api/firebase.dart';
+import 'package:command_flutter/HomePage.dart';
 import 'package:command_flutter/Pages/ProfilePage.dart';
 import 'package:command_flutter/Pages/addImage.dart';
 import 'package:editable_image/editable_image.dart';
@@ -14,8 +15,6 @@ import 'package:flutter/material.dart';
 class HomeViewTest extends StatefulWidget {
   const HomeViewTest({Key? key}) : super(key: key);
 
-
-
   @override
   _HomeViewTestState createState() => _HomeViewTestState();
 }
@@ -23,7 +22,6 @@ class HomeViewTest extends StatefulWidget {
 class _HomeViewTestState extends State<HomeViewTest> {
   File? _profilePicFile;
   File? _SAVEprofilePicFile;
-
 
   @override
   void initState() {
@@ -36,7 +34,7 @@ class _HomeViewTestState extends State<HomeViewTest> {
     if (file == null) return;
     setState(() {
       _profilePicFile = file;
-      addImage(_profilePicFile!);
+      //addImage(_profilePicFile!);
 
       _SAVEprofilePicFile = _profilePicFile;
       Image.network(myUrlAvatar);
@@ -64,8 +62,8 @@ class _HomeViewTestState extends State<HomeViewTest> {
                 onChange: (file) => _directUpdateImage(file),
                 // Define the source of the image.
                 image: _profilePicFile != null
-                    ? Image.file( _profilePicFile!,  fit: BoxFit.cover)
-                    : Image.network( myUrlAvatar!,  fit: BoxFit.cover),
+                    ? Image.file(_profilePicFile!, fit: BoxFit.cover)
+                    : Image.network(myUrlAvatar, fit: BoxFit.cover),
 
                 // Define the size of EditableImage.
                 size: 150.0,
@@ -103,7 +101,10 @@ class _HomeViewTestState extends State<HomeViewTest> {
     return TextButton(
       onPressed: () async {
           await addImage(_SAVEprofilePicFile!);
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => (HomePage()))
+          );
         },
       style: ButtonStyle(
         padding: MaterialStateProperty.all(
@@ -123,4 +124,3 @@ class _HomeViewTestState extends State<HomeViewTest> {
     );
   }
 }
-
