@@ -44,12 +44,12 @@ class _WidgetProfileNameState extends State<WidgetProfileName> {
     setState(() {});
     text:'Edit';
     print(name);
+    baseAPI.readAvatar();
   }
 
   @override
   Widget build(BuildContext context) {
     funcPress();
-    baseAPI.readAvatar();
     return Padding(padding: const EdgeInsets.all(30),
         child: Align(
           alignment: Alignment.topLeft,
