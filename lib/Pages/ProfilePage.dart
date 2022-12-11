@@ -36,34 +36,34 @@ class _ProfileePageState extends State<ProfileePage> {
   @override
   Widget build(BuildContext context) {
 
-    if(!_isLoading)
-    {
-      return CircularProgressIndicator();
-    }
-    else {
-      Timer(Duration(seconds: 1), () {
-        ButtonLoginReg();
+  //   if(!_isLoading)
+  //   {
+  //     return CircularProgressIndicator();
+  //   }
+  //   else {
+  //     Timer(Duration(seconds: 1), () {
+  //       ButtonLoginReg();
 
-      });
-      setState(() {});
-      return ScrollConfiguration(
-        behavior: ScrollBehavior(),
-        child: GlowingOverscrollIndicator(
-          axisDirection: AxisDirection.down,
-          color: purpleColor, // меняет цвет при прокрутке
-          child: ListView(
-            children: [
-              buildProfilewidget()
-            ],
-          ),
-        ),
+  //     });
+  //     setState(() {});
+  // }
+      return Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: /* ScrollConfiguration(
+          behavior: ScrollBehavior(),
+          child: GlowingOverscrollIndicator(
+            axisDirection: AxisDirection.down,
+            color: purpleColor, // меняет цвет при прокрутке */
+                 Container(child: buildProfilewidget()),
+          // ),
+        // ),
       );
-    };
-  }
+    }
 
   Widget buildProfilewidget()
   {
     setState(() {});
+    Size size = MediaQuery.of(context).size;
     return new Stack(
           children: <Widget>
           [
@@ -71,10 +71,10 @@ class _ProfileePageState extends State<ProfileePage> {
               child: Stack(
                 children: [
                   Image.asset(
-                      'assets/profile/profileBackground.jpg', width: 1000,
+                      'assets/profile/profileBackground.jpg', width: size.width,
                       fit: BoxFit.fill),
                   Image.asset(
-                      'assets/profile/GroundUpBar.png', width: 1000,
+                      'assets/profile/GroundUpBar.png',  width: size.width,
                       fit: BoxFit.fill),
                 ],
               ),
@@ -89,20 +89,20 @@ class _ProfileePageState extends State<ProfileePage> {
                       ],
                     )
                 ),
-                SizedBox(height: 90),
+                SizedBox(height: size.height / 8),
                 //Button
                 Padding(
                   padding: EdgeInsets.only(
                       left: 20, right: 20, bottom: 0),
                   child: Container(
                     height: 40,
-                    width: 330,
+                    width: size.width,
                     child: buildPersonalBillButton(),
                   ),
                 ),
                 ////
                 SizedBox(height: 50),
-                Center(
+                Container(
                   child: Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -166,17 +166,17 @@ class _ProfileePageState extends State<ProfileePage> {
                         left: 20, right: 20, bottom: 10),
                     child: Container(
                       height: 40,
-                      width: 330,
+                      width: size.width,
                       child: build_Setting_Button(),
                     )
                 ),
                 SizedBox(height: 10),
                 Padding(
                     padding: EdgeInsets.only(
-                        left: 20, right: 20, bottom: 10),
+                        left: 20, right: 20, bottom: 20),
                     child: Container(
                       height: 40,
-                      width: 330,
+                      width: size.width,
                       child: buildExitProfileButton(),
                     )
                 ),
