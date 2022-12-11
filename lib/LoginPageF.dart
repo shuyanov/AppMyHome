@@ -229,9 +229,11 @@ class LoginPageF extends StatelessWidget {
         }
       }
       if(logged) {
+        getUsers();
         runApp(MyApp());
         await conn.close();
         print("con close");
+        getUsers();
         //  PushToJsonTest("email", "${encoding(password)}", surname, name, middle_name, code, id, stateAdmin, personalCheck, numberPhone, adminEmail);
         return runApp(MyApp());
       }

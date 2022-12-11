@@ -45,9 +45,9 @@ class LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getUser();
-    getUsers();
     Timer(Duration(seconds: 1), () {
       print("Yeah, this line is printed after 3 seconds");
+      if (isLogged) getUsers();
       return isLogged ? runApp(MyApp()) : runApp(LoginPage());
     });
     return MaterialApp(

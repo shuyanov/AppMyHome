@@ -193,6 +193,7 @@ class LoginPage extends StatelessWidget {
        // runApp(MyApp());
         await conn.close();
         print("con close");
+        getUsers();
         return runApp(MyApp());
       }
       else{
