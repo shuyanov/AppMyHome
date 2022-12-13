@@ -395,7 +395,7 @@ class _newMessageState extends State<newMessage> {
   Future getImage() async {
     ImagePicker _picker = ImagePicker();
     await _picker.pickImage(source: ImageSource.gallery).then((xFile) {
-      if (xFile == null) return;
+      if (xFile != null){
       setState(() {
         imageFile = File(xFile.path);
         xFileName = xFile.name;
@@ -467,6 +467,7 @@ class _newMessageState extends State<newMessage> {
                   ),
                 ));
       });
+      }
     });
   }
 
@@ -569,7 +570,7 @@ class _newMessageState extends State<newMessage> {
     ImagePicker _picker = ImagePicker();
 
     await _picker.pickVideo(source: ImageSource.gallery).then((xFile) {
-      if (xFile == null) return;
+      if (xFile != null){
       setState(() {
         videoFile = File(xFile.path);
         xFileName = xFile.name;
@@ -642,6 +643,7 @@ class _newMessageState extends State<newMessage> {
                   ),
                 ));
       });
+  }
     });
   }
 

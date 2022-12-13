@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../Styles/Colors.dart';
 import '../../functions/downloadFile.dart';
 import '../../functions/showImage.dart';
 import '../../functions/showVideo.dart';
 
-class messageWidget extends StatelessWidget {
+class messageWidget extends StatefulWidget {
   final String message;
   final String file;
   final String nameFile;
@@ -29,23 +30,47 @@ class messageWidget extends StatelessWidget {
   });
 
   @override
+  State<messageWidget> createState() => _messageWidgetState();
+}
+
+class _messageWidgetState extends State<messageWidget> {
+  late VideoPlayerController _controller;
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.network(widget.file)
+      ..initialize().then((_) {
+        setState(() {}); //when your thumbnail will show.
+      });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var dateFormat = new DateFormat('dd.MM.yyyy');
     var dateFormatNoYear = new DateFormat('dd.MM');
     var yearFormat = new DateFormat('yyyy');
-    String sendDate = dateFormat.format(dateMessage.toDate());
-    String sendDateNoYear = dateFormatNoYear.format(dateMessage.toDate());
+    String sendDate = dateFormat.format(widget.dateMessage.toDate());
+    String sendDateNoYear =
+        dateFormatNoYear.format(widget.dateMessage.toDate());
     String dateNow = dateFormat.format(DateTime.now());
     var now = DateTime.now();
     var yearNow = yearFormat.format(DateTime(now.year));
-    var sendYear = yearFormat.format(DateTime(dateMessage.toDate().year));
+    var sendYear =
+        yearFormat.format(DateTime(widget.dateMessage.toDate().year));
     var yesterday = DateTime(now.year, now.month, now.day - 1);
     String dateYesterday = dateFormat.format(yesterday);
     var format = new DateFormat('HH:mm');
-    String time = format.format(dateMessage.toDate());
-
+    String time = format.format(widget.dateMessage.toDate());
+    final Size size = MediaQuery.of(context).size;
     return Row(
-      mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+      mainAxisAlignment:
+          widget.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -54,7 +79,7 @@ class messageWidget extends StatelessWidget {
               margin: EdgeInsets.all(5),
               constraints: BoxConstraints(maxWidth: 200),
               decoration: BoxDecoration(
-                  color: isMe ? purpleColorMessages : Colors.white,
+                  color: widget.isMe ? purpleColorMessages : Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(12))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -66,23 +91,23 @@ class messageWidget extends StatelessWidget {
                         padding: EdgeInsets.all(5),
                         constraints: BoxConstraints(minWidth: 50),
                         child: Text(
-                          name,
+                          widget.name,
                           style: TextStyle(
                             color: Colors.black,
                           ),
                         ),
                       ),
-                      type == 'text'
+                      widget.type == 'text'
                           ? Container(
                               padding: EdgeInsets.only(left: 5, right: 5),
                               child: Text(
-                                message,
+                                widget.message,
                                 style: TextStyle(
                                   color: Colors.black,
                                 ),
                               ),
                             )
-                          : type == 'image'
+                          : widget.type == 'image'
                               ? Column(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -94,12 +119,12 @@ class messageWidget extends StatelessWidget {
                                           onTap: () => Navigator.of(context)
                                               .push(MaterialPageRoute(
                                                   builder: (_) => showImage(
-                                                      imageURL: file))),
+                                                      imageURL: widget.file))),
                                           child: Container(
                                             constraints: BoxConstraints(
                                                 minWidth: 100, minHeight: 50),
                                             padding: EdgeInsets.all(2),
-                                            child: file != ""
+                                            child: widget.file != ""
                                                 ? Container(
                                                     constraints: BoxConstraints(
                                                         minWidth: 200,
@@ -109,7 +134,8 @@ class messageWidget extends StatelessWidget {
                                                           BorderRadius.all(
                                                               Radius.circular(
                                                                   10)),
-                                                      child: Image.network(file,
+                                                      child: Image.network(
+                                                          widget.file,
                                                           fit: BoxFit.contain,
                                                           alignment:
                                                               Alignment.center,
@@ -156,7 +182,7 @@ class messageWidget extends StatelessWidget {
                                                   ),
                                           ),
                                         ),
-                                        if (message == "")
+                                        if (widget.message == "")
                                           Positioned(
                                               bottom: 0,
                                               right: 0,
@@ -183,12 +209,12 @@ class messageWidget extends StatelessWidget {
                                                   )))
                                       ],
                                     ),
-                                    if (message != "")
+                                    if (widget.message != "")
                                       Container(
                                         padding:
                                             EdgeInsets.only(left: 5, right: 5),
                                         child: Text(
-                                          message,
+                                          widget.message,
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                             color: Colors.black,
@@ -197,7 +223,7 @@ class messageWidget extends StatelessWidget {
                                       ),
                                   ],
                                 )
-                              : type == 'video'
+                              : widget.type == 'video'
                                   ? Column(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
@@ -211,17 +237,74 @@ class messageWidget extends StatelessWidget {
                                               onTap: () => Navigator.of(context)
                                                   .push(MaterialPageRoute(
                                                       builder: (_) => showVideo(
-                                                          videoURL: file))),
+                                                          videoURL:
+                                                              widget.file))),
                                               child: Container(
+                                                padding: EdgeInsets.all(2),
                                                 alignment: Alignment.center,
                                                 constraints: BoxConstraints(
                                                     minWidth: 100,
                                                     minHeight: 50),
-                                                child: file != ""
-                                                    ? Icon(
-                                                        Icons.video_file,
-                                                        size: 50,
-                                                      )
+                                                child: widget.file != ""
+                                                    ? _controller
+                                                            .value.isInitialized
+                                                        ? ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(
+                                                              Radius.circular(
+                                                                  10),
+                                                            ),
+                                                            // width: size.width,
+                                                            // height: size.height,
+                                                            child: AspectRatio(
+                                                              aspectRatio:
+                                                                  _controller
+                                                                      .value
+                                                                      .aspectRatio,
+                                                              child: Stack(
+                                                                children: [
+                                                                  VideoPlayer(
+                                                                      _controller),
+                                                                  Center(
+                                                                      child: Icon(
+                                                                          Icons
+                                                                              .play_arrow,
+                                                                          size:
+                                                                              50,
+                                                                          color:
+                                                                              Colors.white))
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          )
+                                                        : Center(
+                                                            child: Stack(
+                                                            children: [
+                                                              Positioned(
+                                                                top: 0,
+                                                                bottom: 0,
+                                                                left: 0,
+                                                                right: 0,
+                                                                child: Center(
+                                                                  child: CircularProgressIndicator(
+                                                                      color:
+                                                                          purpleColor),
+                                                                ),
+                                                              ),
+                                                              Center(
+                                                                child:
+                                                                    Positioned(
+                                                                  child: Icon(
+                                                                      Icons
+                                                                          .play_arrow,
+                                                                      size: 50,
+                                                                      color: Colors
+                                                                          .black),
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ))
                                                     : Center(
                                                         child:
                                                             CircularProgressIndicator(
@@ -230,25 +313,41 @@ class messageWidget extends StatelessWidget {
                                                       ),
                                               ),
                                             ),
-                                            Positioned(
-                                                child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 5),
-                                              child: Text(
-                                                "Видео",
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: greyText),
-                                              ),
-                                            ))
+                                            if (widget.message == "")
+                                              Positioned(
+                                                  bottom: 0,
+                                                  right: 0,
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.black
+                                                            .withOpacity(0.4),
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    10)),
+                                                      ),
+                                                      margin: EdgeInsets.all(8),
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 2,
+                                                              horizontal: 5),
+                                                      // width: 30,
+                                                      // height: 10,
+                                                      child: Text(
+                                                        time,
+                                                        style: TextStyle(
+                                                            fontSize: 10,
+                                                            color:
+                                                                Colors.white),
+                                                      )))
                                           ],
                                         ),
-                                        if (message != "")
+                                        if (widget.message != "")
                                           Container(
                                             padding: EdgeInsets.only(
                                                 top: 5, left: 5, right: 5),
                                             child: Text(
-                                              message,
+                                              widget.message,
                                               textAlign: TextAlign.start,
                                               style: TextStyle(
                                                 color: Colors.black,
@@ -289,14 +388,15 @@ class messageWidget extends StatelessWidget {
                                                   Navigator.pop(context);
                                                 });
 
-                                                download(file, nameFile);
+                                                download(widget.file,
+                                                    widget.nameFile);
                                               },
                                               child: Container(
                                                 constraints: BoxConstraints(
                                                     minWidth: 100,
                                                     minHeight: 50),
                                                 alignment: Alignment.center,
-                                                child: file != ""
+                                                child: widget.file != ""
                                                     ? Center(
                                                         child: Column(
                                                           children: [
@@ -305,7 +405,8 @@ class messageWidget extends StatelessWidget {
                                                                   .insert_drive_file,
                                                               size: 50,
                                                             ),
-                                                            Text(nameFile),
+                                                            Text(widget
+                                                                .nameFile),
                                                           ],
                                                         ),
                                                       )
@@ -330,12 +431,12 @@ class messageWidget extends StatelessWidget {
                                             ))
                                           ],
                                         ),
-                                        if (message != "")
+                                        if (widget.message != "")
                                           Container(
                                             padding: EdgeInsets.only(
                                                 top: 5, left: 5, right: 5),
                                             child: Text(
-                                              message,
+                                              widget.message,
                                               textAlign: TextAlign.start,
                                               style: TextStyle(
                                                 color: Colors.black,
@@ -346,7 +447,8 @@ class messageWidget extends StatelessWidget {
                                     ),
                     ],
                   ),
-                  type != 'image' || message != ''
+                  (widget.type != 'image' || widget.message != '') &&
+                          (widget.type != 'video' || widget.message != '')
                       ? Container(
                           padding: EdgeInsets.all(5),
                           child: Text(
@@ -377,4 +479,10 @@ class messageWidget extends StatelessWidget {
       ],
     );
   }
+
+  Widget buildVideo() => buildVideoPlayer();
+  // Positioned.fill(child: BasicOverlayWidget(controller: _controller)),
+  Widget buildVideoPlayer() => Center(
+        child: VideoPlayer(_controller),
+      );
 }
