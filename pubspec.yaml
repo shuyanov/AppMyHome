@@ -29,58 +29,52 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  #cloud_firestore:
-  #firebase_core:
+  cached_network_image: ^3.2.2
+  camera: any
+  cloud_firestore: ^4.0.3
+  cupertino_icons: ^1.0.2
+  dio: any
+  editable_image: ^1.1.0
+  external_app_launcher: any
+  file_picker: any
+  firebase_auth: ^4.0.2
+  firebase_core: ^2.1.0
+  firebase_storage: any
+  fl_chart: ^0.55.2
   flutter:
     sdk: flutter
-
-  flutter_launcher_icons: any
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  http: ^0.13.5
-  firebase_core: ^2.1.0
-  firebase_auth: ^4.0.2
-  cached_network_image: ^3.2.2
-  cloud_firestore: ^4.0.3
-  fluttertoast: ^8.1.1
-  mysql_client: ^0.0.27
   flutter_hooks: ^0.18.5+1
+  flutter_launcher_icons: any
   flutter_local_notifications: ^12.0.0
-  timezone: ^0.9.0
-  editable_image: ^1.1.0
-  firebase_storage: any
-  camera: any
-  image_picker: any
-  uuid: any
-  file_picker: any
-  video_player: any
-  dio: any
-  path_provider: any
-  external_app_launcher: any
-  open_file: ^3.2.1
-  url_launcher: ^6.1.7
   flutter_native_splash: any
-  sbp: any
-  qr_code_scan_pay: ^0.0.5
-  sqflite: any
-  tinkoff_sdk: ^0.4.4
   flutter_yookassa_sdk: any
+  fluttertoast: ^8.1.1
+  http: ^0.13.5
+  image_picker: any
+  mysql_client: ^0.0.27
+  open_file: ^3.2.1
+  path_provider: any
+  provider: ^6.0.5
+  qr_code_scan_pay: ^0.0.5
+  sbp: any
+  sqflite: any
+  timezone: ^0.9.0
+  tinkoff_sdk: ^0.4.4
+  url_launcher: ^6.1.7
+  uuid: any
+  video_player: any
 
-flutter_native_splash: 
+flutter_native_splash:
   color: "#674696"
   # image: android/app/src/main/res/mipmap-xxxhdpi/logotip.png
   image: assets/logotipBig.png
   fullscreen: true
   android: true
   ios: true
-
   # flutter_local_notifications: ^9.6.0
   # timezone: ^0.8.0
   # rxdart: ^0.27.4
   #infinite_scroll_pagination: ^3.2.0
-
-
 
 flutter_launcher_icons: "^0.11.0"
 
@@ -103,11 +97,11 @@ flutter_icons:
 
   min_sdk_android: 21 # android min sdk min:16, default 21
   adaptive_icon_background: #000000
+    null
   adaptive_icon_foreground: assets/logotip.png
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter packages.
 flutter:
 
@@ -140,13 +134,10 @@ flutter:
     - assets/profile/Massage.png
     - assets/profile/GroundUpBar.png
     - assets/sbp.png
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

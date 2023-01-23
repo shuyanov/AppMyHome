@@ -9,6 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'Chats/Data/Admin.dart';
+import 'mainTest.dart';
 
 
 Future main() async {
@@ -17,7 +18,8 @@ Future main() async {
   Notific();
   //await base.addUsers(users);
 
-    runApp(LoadingPage());
+    // runApp(LoadingPage());
+    runApp(MyAppTest());
 
 }
 
@@ -26,9 +28,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.greenAccent.shade400
-      ),
       home: HomePage(),
       debugShowCheckedModeBanner: false,
     );
