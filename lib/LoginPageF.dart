@@ -52,45 +52,6 @@ class LoginPageF extends StatelessWidget {
     );
   }
 //////////////////
-  /*Widget _inputNumbers(Icon icon, String hint, TextEditingController controller,
-      bool hidden) {
-    return Container(
-      padding: EdgeInsets.only(right: 20, left: 20),
-      child: TextField(
-        inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-        keyboardType: TextInputType.number,
-        controller: controller,
-        obscureText: hidden,
-        style: TextStyle(fontSize: 20, color: Color.fromARGB(200, 120, 95, 221)),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Color.fromARGB(200, 227, 228, 251),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.0)),
-          hintStyle: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.grey),
-          hintText: hint,
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color.fromARGB(200, 227, 228, 251), width: 3),
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color.fromARGB(200, 227, 228, 251), width: 1),
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          prefixIcon: Padding(padding: EdgeInsets.only(left: 20, right: 10),
-            child: IconTheme(
-              data: IconThemeData(
-                  color: Colors.purple
-              ),
-              child: icon,
-            ),
-          ),
-        ),
-      ),
-    );
-  }*/
-//////////////////
   Widget _form(){
     return Container(
 

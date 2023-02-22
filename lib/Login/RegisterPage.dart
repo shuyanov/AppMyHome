@@ -223,38 +223,12 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-//////////////////
-
-  // Widget _regButton(BuildContext context){
-  //   return Container(
-  //       child: ElevatedButton(
-  //         child: Text("ЗАРЕГИСТРИРОВАТЬСЯ", style: TextStyle(color: Colors.white, fontSize: 20)),
-  //         onPressed: () {
-  //           return showAlertDialog(context);
-  //           // return funcPress();
-  //         },
-  //         style: ElevatedButton.styleFrom(
-  //           primary: Color.fromARGB(200, 158, 122, 244),
-  //           onPrimary: Colors.white,
-  //           shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.circular(32.0),
-  //           ),
-  //         ),
-  //       )
-  //
-  //   );
-  // }
-
-/////////////////
-
-/////////
-
   String encoding(String value){
     var byte = utf8.encode(value);
     var digest = sha256.convert(byte);
     return digest.toString();
   }
-  ///
+
   void funcPress() async {
 
     email = emailController.text;

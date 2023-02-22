@@ -43,6 +43,7 @@ class Usersed{
 class UsersedTest{
   final String login;
   final String password;
+  final String newpassword;
   final String surname;
   final String name;
   final String middle_name;
@@ -56,6 +57,7 @@ class UsersedTest{
   UsersedTest(
       { required this.login,
         required this.password,
+        required this.newpassword,
         required this.surname,
         required this.name,
         required this.middle_name,
@@ -71,6 +73,7 @@ class UsersedTest{
       UsersedTest(
           login: json['login'],
           password:json['password'],
+          newpassword:json['newpassword'],
           surname: json['surname'],
           name: json['name'],
           middle_name: json['middle_name'],
@@ -84,6 +87,7 @@ class UsersedTest{
   Map<String, dynamic> toJson()=>{
     'login': login,
     'password':password,
+    'newpassword':newpassword,
     'surname': surname,
     'name': name,
     'middle_name': middle_name,

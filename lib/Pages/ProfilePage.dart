@@ -5,7 +5,7 @@ import 'package:command_flutter/SendInEmail.dart';
 import 'package:command_flutter/Widget/ButtonLoginPage.dart';
 import 'package:command_flutter/Widget/ButtonWidgetProfile.dart';
 import 'package:command_flutter/Widget/WidgetProfile.dart';
-import 'package:command_flutter/Login/LOginPage.dart';
+import 'package:command_flutter/Registre_and_Login/LoginPage.dart';
 import 'package:command_flutter/Pages/EditProfilePage.dart';
 import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:flutter/material.dart';

@@ -191,7 +191,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ButtonWidget(
         text: 'Save',
         onClicked: () async {
-          await addImage(_SAVEprofilePicFile!);
+          addImage(_SAVEprofilePicFile!);
           Timer(Duration(seconds: 1), () {
             PushToJson(email, password, name, surName, middleName, "no");
             //Обновление данных для чата

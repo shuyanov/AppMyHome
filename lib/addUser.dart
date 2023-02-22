@@ -2,7 +2,8 @@ import 'package:command_flutter/Chats/api/firebase.dart';
 
 import 'Chats/Data/Admin.dart';
 
-void addUser(
+void
+addUser(
   String Id,
   String UserEmail,
   String UserSurname,

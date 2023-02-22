@@ -49,46 +49,7 @@ class _HomePageState extends State<HomePage> {
     return
       SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   actions: [
-        //     IconButton(
-        //       onPressed: () {
-        //         Navigator.of(context).push(
-        //           MaterialPageRoute(builder: (context) {
-        //             return SearchPage();
-        //           }),
-        //         );
-        //       },
-        //       icon: Icon(Icons.search),
-        //       splashRadius: 20,
-        //     ),
-        //   ],
-        //   backgroundColor: Color.fromARGB(255, 124, 97, 242),
-        //   leading: IconButton(
-        //     icon: const Icon(Icons.add_alert_rounded),
-        //     tooltip: 'Уведомления',
-        //     onPressed: () {
-        //       showNotification(
-        //           "Заголовок", "Описание"); // Проверка работы уведомления
-        //     },
-        //     /* () {
-        //       Navigator.push(context, MaterialPageRoute<void>(
-        //           builder: (BuildContext){
-        //             return Scaffold(
-        //               backgroundColor: Color.fromARGB( 200, 105, 193, 238),
-        //               appBar: AppBar(
-        //                 title: const Text('Уведомления'),
-        //                 backgroundColor: Colors.blueAccent,
-        //               ),
-        //               body: Center(
-        //                 child: Text('В разработке', style: TextStyle(fontSize: 45, fontFamily: 'Arial'),),
-        //               ),
-        //             );
-        //           }
-        //       ));
-        //     }, */
-        //   ),
-        // ),
+
         body: Center(
           child: _pages.elementAt(_currentIndex),
         ),
