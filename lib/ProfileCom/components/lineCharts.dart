@@ -50,7 +50,7 @@ class _LineChartSample2State extends State<LineCharts> {
       //   text = const Text('Фев', style: style);
       //   break;
       case 2:
-        text = const Text('Март', style: style);
+        text = const Text('Мар', style: style);
         break;
       // case 3:
       //   text = const Text('Апр', style: style);
@@ -62,13 +62,13 @@ class _LineChartSample2State extends State<LineCharts> {
       //   text = const Text('Июнь', style: style);
       //   break;
       case 6:
-        text = const Text('Июль', style: style);
+        text = const Text('Июл', style: style);
         break;
       // case 7:
       //   text = const Text('Авг', style: style);
       //   break;
       case 8:
-        text = const Text('Сент', style: style);
+        text = const Text('Сен', style: style);
         break;
       // case 9:
       //   text = const Text('Окт', style: style);
@@ -179,18 +179,18 @@ class _LineChartSample2State extends State<LineCharts> {
       lineBarsData: [
         LineChartBarData(
           spots: const [
-            FlSpot(0, 1),
-            FlSpot(1, 5),
-            FlSpot(2, 3),
-            FlSpot(3, 9),
-            FlSpot(4, 4),
-            FlSpot(5, 2),
-            FlSpot(6, 6),
-            FlSpot(7, 7),
-            FlSpot(8, 12),
-            FlSpot(9, 4),
-            FlSpot(10, 2),
-            FlSpot(11, 5),
+            FlSpot(0, 0),
+            FlSpot(1, 0),
+            FlSpot(2, 0),
+            FlSpot(3, 0),
+            FlSpot(4, 0),
+            FlSpot(5, 0),
+            FlSpot(6, 0),
+            FlSpot(7, 0),
+            FlSpot(8, 0),
+            FlSpot(9, 0),
+            FlSpot(10, 0),
+            FlSpot(11, 0),
           ],
           isCurved: true,
           gradient: LinearGradient(

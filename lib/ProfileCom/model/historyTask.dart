@@ -1,16 +1,19 @@
 // To parse this JSON data, do
 //
-//     final Task = TaskFromJson(jsonString);
+//     final historyTasks = historyTasksFromJson(jsonString);
 
 import 'dart:convert';
-List<TaskModel> TaskFromJson(String str) => List<TaskModel>.from(json.decode(str).map((x) => TaskModel.fromJson(x)));
 
-String TaskToJson(List<TaskModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+List<HistoryTask> historyTasksFromJson(String str) => List<HistoryTask>.from(json.decode(str).map((x) => HistoryTask.fromJson(x)));
 
-class TaskModel {
-    TaskModel({
+String historyTasksToJson(List<HistoryTask> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class HistoryTask {
+    HistoryTask({
+        this.count,
         required this.id,
         required this.data,
+        required this.uk,
         required this.type,
         required this.message,
         required this.address,
@@ -19,18 +22,22 @@ class TaskModel {
         required this.status,
     });
 
-    String id;
-    String data;
-    String type;
-    String message;
-    String address;
-    String phone;
-    String userId;
-    String status;
+    String? count;
+    String? id;
+    String? data;
+    String? uk;
+    String? type;
+    String? message;
+    String? address;
+    String? phone;
+    String? userId;
+    String? status;
 
-    factory TaskModel.fromJson(Map<String, dynamic> json) => TaskModel(
+    factory HistoryTask.fromJson(Map<String, dynamic> json) => HistoryTask(
+        count: json["count"],
         id: json["id"],
         data: json["data"],
+        uk: json["uk"],
         type: json["type"],
         message: json["message"],
         address: json["address"],
@@ -40,8 +47,10 @@ class TaskModel {
     );
 
     Map<String, dynamic> toJson() => {
+        "count": count,
         "id": id,
         "data": data,
+        "uk": uk,
         "type": type,
         "message": message,
         "address": address,
@@ -49,5 +58,4 @@ class TaskModel {
         "user_id": userId,
         "status": status,
     };
-
 }

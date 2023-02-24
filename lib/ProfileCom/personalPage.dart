@@ -5,6 +5,8 @@ import 'package:command_flutter/ProfileCom/settings.dart';
 import 'package:command_flutter/Styles/Colors.dart';
 import 'package:flutter/material.dart';
 
+import 'Api/api.dart';
+
 int _currentIndex = 0;
 
 class personalPage extends StatefulWidget {
@@ -23,12 +25,48 @@ List<Widget> _pages = [
 
 class _personalPageState extends State<personalPage> {
   @override
+  void initState() {
+    // fetch();
+    GetRequest();
+    GetRequestHistory();
+    GetRequestInWork();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        body: Container(
-            height: size.height, child: _pages.elementAt(_currentIndex)),
+        body: 
+        // RefreshIndicator(
+        //   color: purpleColor,
+        //   onRefresh: () async {
+        //     GetRequest();
+        //     GetRequestHistory();
+        //     GetRequestInWork();
+        //     return Future.delayed(Duration(seconds: 3), () {});
+        //   },
+        //   child: 
+          // ScrollConfiguration(
+          //   behavior: ScrollBehavior(
+          //       // androidOverscrollIndicator: AndroidOverscrollIndicator.glow
+          //       ),
+          //   child: GlowingOverscrollIndicator(
+          //     axisDirection: AxisDirection.down,
+          //     color: Colors.transparent.withOpacity(0.05),
+              SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: 
+                SizedBox(
+                    height: size.height * 0.9001,
+                    // child: Expanded(
+                    child: _pages.elementAt(_currentIndex)),
+                ),
+              // ),
+            
+          // ),
+        // ),
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
