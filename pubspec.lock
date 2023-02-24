@@ -211,6 +211,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.5"
   extended_image:
     dependency: transitive
     description:
@@ -323,6 +330,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.16"
+  fl_chart:
+    dependency: "direct main"
+    description:
+      name: fl_chart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.55.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -401,6 +415,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_yookassa_sdk:
+    dependency: "direct main"
+    description:
+      name: flutter_yookassa_sdk
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2"
   fluttertoast:
     dependency: "direct main"
     description:
@@ -654,12 +675,19 @@ packages:
     source: hosted
     version: "4.2.4"
   provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.4"
+    version: "6.0.5"
+  qr_code_scan_pay:
+    dependency: "direct main"
+    description:
+      name: qr_code_scan_pay
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.5"
   quiver:
     dependency: transitive
     description:
@@ -674,6 +702,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.27.7"
+  sbp:
+    dependency: "direct main"
+    description:
+      name: sbp
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.6"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -687,7 +722,7 @@ packages:
     source: hosted
     version: "1.9.0"
   sqflite:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: sqflite
       url: "https://pub.dartlang.org"
@@ -756,6 +791,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.0"
+  tinkoff_sdk:
+    dependency: "direct main"
+    description:
+      name: tinkoff_sdk
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.4"
   tuple:
     dependency: transitive
     description:
