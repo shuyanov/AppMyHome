@@ -56,7 +56,7 @@ class _requestsPageState extends State<requestsPage> {
                         const EdgeInsets.only(bottom: 8.0, left: 8, right: 8),
                     child: Text(
                         "${profiles[indexProfile].surname} ${profiles[indexProfile].name}",
-                        style: TextStyle(fontSize: 30)),
+                        style: TextStyle(fontSize: 30, color: Colors.white)),
                   )),
             ),
             SliverToBoxAdapter(
