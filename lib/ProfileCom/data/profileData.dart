@@ -7,7 +7,7 @@ import '../model/profile.dart';
 int indexProfile = 0;
 
 List<ProfileModel> profiles = [
-  ProfileModel(surname: "Виноградов", name: "Никита")
+  ProfileModel(surname: "Куличков", name: "Олег")
 ];
 
 // List<ProfileModel> profiles = [
