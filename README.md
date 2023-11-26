@@ -16,5 +16,5 @@
 Для работников
 <p>
 <img src="screens\Screenshot_1701028019.png" alt="Список задач" width="300"/>
-<img src="screens\flutter_02.png" alt="Статистика, анализ" width="300"/>
+<img src="screens\Screenshot_1701032232.png" alt="Статистика, анализ" width="300"/>
 </p>
