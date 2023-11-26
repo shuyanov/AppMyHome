@@ -109,8 +109,7 @@ class _OneChatsState extends State<OneChats> {
                     friendId: user.idUser,
                     friendName: user.name,
                     friendSurname: user.surname,
-                    friendMiddle_name: user.middle_name,
-                    friendImage: user.urlAvatar)));
+                    friendMiddle_name: user.middle_name)));
           },
         ),
       );

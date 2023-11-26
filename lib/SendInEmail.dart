@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:my_home/Styles/Colors.dart';
 
 import 'dart:io';
 import 'package:path_provider/path_provider.dart' as pathProvider;
@@ -82,10 +83,10 @@ class Send extends StatelessWidget {
             width: 170,
         child:
         ElevatedButton(
-          child: Text("Отправить", style: TextStyle(color: Colors.white, fontSize: 26)),
+          child: Text("Отправить", style: TextStyle(color: Colors.white, fontSize: 20)),
           onPressed: () => funcPress(),
           style: ElevatedButton.styleFrom(
-            primary: Color.fromARGB(200, 158, 122, 244),
+            primary: purpleColor,
             onPrimary: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(32.0),

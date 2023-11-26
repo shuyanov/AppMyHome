@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 
-import '../Data/users.dart';
 import '/Chats/Models/User.dart';
 import '/Chats/Data/Admin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -34,6 +32,10 @@ class baseAPI {
       'middle_name': userMiddle_name,
       'name': userName
     });
+    myUserEmail = userEmail;
+    myUserSurname = userSurname;
+    myUserMiddle_name = userMiddle_name;
+    myUserName = userName;
   }
 
   static Future addUsers({
@@ -46,24 +48,23 @@ class baseAPI {
     required String status,
     required String personalCheck,
     required String numberPhone,
-    required String urlAvatar,
   }) async {
     // final docUsers = await FirebaseFirestore.instance.collection('users');
     final docUser =
     await FirebaseFirestore.instance.collection('users').doc(id);
     final allUsers = await docUser.get();
-    if (allUsers.id != myId) {
+    if (allUsers.id != id) {
+    print('id ----- ${allUsers.id} ==== ${id}');
       final user = User(
           idUser: docUser.id,
           email: userEmail,
-          name: userName,
           surname: userSurname,
+          name: userName,
           middle_name: userMiddle_name,
           code: code,
           status: status,
           personalCheck: personalCheck,
-          numberPhone: numberPhone,
-          urlAvatar: urlAvatar);
+          numberPhone: numberPhone);
 
       myId = docUser.id;
       myUserEmail = userEmail;
@@ -74,28 +75,20 @@ class baseAPI {
       myStatus = status;
       myPersonalCheck = personalCheck;
       myNumberPhone = numberPhone;
-      myUrlAvatar = urlAvatar;
-
       await docUser.set(user.toJson());
+      readAvatar();
       print('ADD: ${docUser.set(user.toJson())}');
     }
-    // final user = {
-    //   'userEmail': userEmail,
-    //   'userName': userName,
-    //   'userSurname': userSurname,
-    //   'userMiddle_name': userMiddle_name,
-    //   'code': code,
-    //   'status': status,
-    //   'personalCheck': personalCheck,
-    //   'numberPhone': numberPhone,
-    //   'urlAvatar': urlAvatar,
-    // };
-
-    //   // final userDoc = docUser.doc(idUser);
-    //   // idUser = userDoc.id;
-    //   // final newUser = user.copyWith(idUser: userDoc.id);
-    //   // await userDoc.set(newUser.toJson());
-    // }
+      myId = docUser.id;
+      readUser();
+      // myUserEmail = userEmail;
+      // myUserSurname = userSurname;
+      // myUserName = userName;
+      // myUserMiddle_name = userMiddle_name;
+      // myCode = code;
+      // myStatus = status;
+      // myPersonalCheck = personalCheck;
+      // myNumberPhone = numberPhone;
   }
 
   // static Future addUsers(List<User> users) async {
@@ -121,18 +114,26 @@ class baseAPI {
           .map((snapshot) =>
           snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
 
-  //Future<User?> readUser() async {
-    // static Future<User?> readUser() async {
-    //   final docUser =
-    //       await FirebaseFirestore.instance.collection('users').doc(myId);
-    //   final snapshot = await docUser.get();
-    //   if (snapshot.exists) {
-    //     print ('DATA >>> ${User.fromJson(snapshot.data()!).urlAvatar}');
-    //     return User.fromJson(snapshot.data()!);
-    //   }
-    // }
+  
+    static Future<User?> readUser() async {
+      final docUser =
+          await FirebaseFirestore.instance.collection('users').doc(myId);
+      final snapshot = await docUser.get();
+      if (snapshot.exists) {
+        final api = User.fromJson(snapshot.data()!);
+        myUserEmail = api.email;
+      myUserSurname = api.surname;
+      myUserName = api.name;
+      myUserMiddle_name = api.middle_name;
+      myCode = api.code;
+      myStatus = api.status;
+      myPersonalCheck = api.personalCheck;
+      myNumberPhone = api.numberPhone;
+        return api;
+      }
+    }
 
-     static Future<User?> readAvatar() async {
+     static Future readAvatar() async {
       final docUser =
       await FirebaseFirestore.instance.collection('users').doc(myId);
       final snapshot = await docUser.get();
@@ -140,8 +141,9 @@ class baseAPI {
         // print ('DATA >>> ${User.fromJson(snapshot.data()!).urlAvatar}');
         myUrlAvatar = User
             .fromJson(snapshot.data()!)
-            .urlAvatar;
-        return User.fromJson(snapshot.data()!);
+            .urlAvatar!;
+        return myUrlAvatar;
       }
     }
   }
+

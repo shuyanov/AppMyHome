@@ -32,6 +32,7 @@ class _SearchUserPageState extends State<SearchUserPage> {
         .get()
         .then((value) {
       if (value.docs.length < 1) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
               "Нет такого пользователя.\n(Возможно вы ввели имя не полностью)"),
@@ -79,6 +80,7 @@ class _SearchUserPageState extends State<SearchUserPage> {
         .get()
         .then((value) {
       if (value.docs.length < 1) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
               "Нет такого пользователя.\n(Возможно вы ввели фамилию не полностью)"),
@@ -127,6 +129,7 @@ class _SearchUserPageState extends State<SearchUserPage> {
         .get()
         .then((value) {
       if (value.docs.length < 1) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
               "Нет такого пользователя.\n(Возможно вы ввели отчество не полностью)"),
@@ -373,9 +376,7 @@ class _SearchUserPageState extends State<SearchUserPage> {
                                         friendSurname: searchResult[index]
                                             ['surname'],
                                         friendMiddle_name: searchResult[index]
-                                            ['middle_name'],
-                                        friendImage: searchResult[index]
-                                            ['urlAvatar'])));
+                                            ['middle_name'])));
                           },
                           trailing: Icon(Icons.message));
                     }))

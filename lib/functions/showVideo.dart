@@ -1,9 +1,8 @@
-import 'package:command_flutter/Styles/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+import '../Styles/Colors.dart';
 import 'BasicOverlayWidget.dart';
-import 'fullScreenVideo.dart';
 
 class showVideo extends StatefulWidget {
   final videoURL;

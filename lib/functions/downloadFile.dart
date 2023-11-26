@@ -18,7 +18,7 @@ import 'package:path_provider/path_provider.dart';
           options: Options(
             responseType: ResponseType.bytes,
             followRedirects: false,
-            receiveTimeout: 0,
+            receiveTimeout: Duration(),
           ));
       final raf = file.openSync(mode: FileMode.write);
       raf.writeFromSync(response.data);

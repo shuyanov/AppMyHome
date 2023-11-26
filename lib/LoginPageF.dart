@@ -1,24 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:command_flutter/Utils/UserPerefer.dart';
-
-import 'package:command_flutter/Chats/Models/User.dart';
-import 'package:command_flutter/Chats/api/firebase.dart';
-import 'package:command_flutter/GeneralChats/Models/User.dart';
-import 'package:command_flutter/Login/RegisterPage.dart';
-
-
-import 'package:command_flutter/main.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:mysql_client/mysql_client.dart';
 import '../Chats/Data/users.dart';
-import '../addUser.dart';
+import 'Login/RegisterPage.dart';
+import 'Utils/UserPerefer.dart';
+import 'main.dart';
 
 class LoginPageF extends StatelessWidget {
 
@@ -199,39 +190,41 @@ class LoginPageF extends StatelessWidget {
       passwordController.clear();
 
       print("Connecting to mysql server...");
-      final conn = await MySQLConnection.createConnection(
-        host: "185.231.155.185",
-        port: 3306,
-        userName: "appUser",
-        password: "123879",
-        databaseName: "data", // optional
-      );
-      await conn.connect();
-      print("Connected");
+      // final conn = await MySQLConnection.createConnection(
+      //   host: "185.231.155.185",
+      //   port: 3306,
+      //   userName: "appUser",
+      //   password: "123879",
+      //   databaseName: "data", // optional
+      // );
+      // await conn.connect();
+      // print("Connected");
       print("d = ${encoding(password)}");
 
-      var res = await conn.execute("select * from final_user where user_email = '$email'and password = '${encoding(password)}';");
-      for (final row in res.rows) {
-        if(row.colAt(0)!=null){
+      // var res = await conn.execute("select * from final_user where user_email = '$email'and password = '${encoding(password)}';");
+      // for (final row in res.rows) {
+      //   if(row.colAt(0)!=null){
 
-          var adMail = await conn.execute("select main_mail from code_table where code = '${row.colAt(7)}';"); //fix this
-          String adminEmail = "no";
-          for(final rows in adMail.rows){
-            if(rows.colAt(0)!=""){ //may be null?
-              adminEmail = rows.colAt(0).toString();
-              print("ad mail = ${rows.colAt(0)}");
-            }
-          }
-          PushToJsonTest("${row.colAt(1)}", "${row.colAt(2)}", "${row.colAt(3)}", "${row.colAt(4)}", "${row.colAt(5)}", "${row.colAt(7)}", "${row.colAt(0)}", "${row.colAt(6)}", "${row.colAt(8)}", "${row.colAt(9)}", "$adminEmail");
-          // Для входа в чат
-          addUser("${row.colAt(0)}", "${row.colAt(1)}", "${row.colAt(3)}", "${row.colAt(4)}", "${row.colAt(5)}", "${row.colAt(7)}", "${row.colAt(6)}", "${row.colAt(8)}", "${row.colAt(9)}");
-          logged = true;
-        }
-      }
+      //     var adMail = await conn.execute("select main_mail from code_table where code = '${row.colAt(7)}';"); //fix this
+      //     String adminEmail = "no";
+      //     for(final rows in adMail.rows){
+      //       if(rows.colAt(0)!=""){ //may be null?
+      //         adminEmail = rows.colAt(0).toString();
+      //         print("ad mail = ${rows.colAt(0)}");
+      //       }
+      //     }
+      //     PushToJsonTest("${row.colAt(1)}", "${row.colAt(2)}", "${row.colAt(3)}", "${row.colAt(4)}", "${row.colAt(5)}", "${row.colAt(7)}", "${row.colAt(0)}", "${row.colAt(6)}", "${row.colAt(8)}", "${row.colAt(9)}", "$adminEmail");
+      //     // Для входа в чат
+      //     // addUser("${row.colAt(0)}", "${row.colAt(1)}", "${row.colAt(3)}", "${row.colAt(4)}", "${row.colAt(5)}", "${row.colAt(7)}", "${row.colAt(6)}", "${row.colAt(8)}", "${row.colAt(9)}");
+      //     logged = true;
+      //   }
+      // }
       if(logged) {
+        getUsers();
         runApp(MyApp());
-        await conn.close();
+        // await conn.close();
         print("con close");
+        getUsers();
         //  PushToJsonTest("email", "${encoding(password)}", surname, name, middle_name, code, id, stateAdmin, personalCheck, numberPhone, adminEmail);
         return runApp(MyApp());
       }
@@ -246,7 +239,7 @@ class LoginPageF extends StatelessWidget {
             textColor: Colors.white,
             fontSize: 16.0
         );
-        await conn.close();
+        // await conn.close();
         print("con close");
         return runApp(LoginPageF());
 

@@ -4,17 +4,16 @@
 
 import 'dart:io';
 
-import 'package:command_flutter/Chats/Data/Admin.dart';
-import 'package:command_flutter/Chats/api/firebase.dart';
-import 'package:command_flutter/Pages/ProfilePage.dart';
-import 'package:command_flutter/Pages/addImage.dart';
-import 'package:editable_image/editable_image.dart';
+
+// import 'package:editable_image/editable_image.dart';
 import 'package:flutter/material.dart';
+
+import '../Chats/Data/Admin.dart';
+import '../HomePage.dart';
+import 'addImage.dart';
 
 class HomeViewTest extends StatefulWidget {
   const HomeViewTest({Key? key}) : super(key: key);
-
-
 
   @override
   _HomeViewTestState createState() => _HomeViewTestState();
@@ -23,7 +22,6 @@ class HomeViewTest extends StatefulWidget {
 class _HomeViewTestState extends State<HomeViewTest> {
   File? _profilePicFile;
   File? _SAVEprofilePicFile;
-
 
   @override
   void initState() {
@@ -36,7 +34,7 @@ class _HomeViewTestState extends State<HomeViewTest> {
     if (file == null) return;
     setState(() {
       _profilePicFile = file;
-      addImage(_profilePicFile!);
+      //addImage(_profilePicFile!);
 
       _SAVEprofilePicFile = _profilePicFile;
       Image.network(myUrlAvatar);
@@ -59,34 +57,34 @@ class _HomeViewTestState extends State<HomeViewTest> {
                 ),
               ),
               const Spacer(flex: 2),
-              EditableImage(
-                // Define the method that will run on the change process of the image.
-                onChange: (file) => _directUpdateImage(file),
-                // Define the source of the image.
-                image: _profilePicFile != null
-                    ? Image.file( _profilePicFile!,  fit: BoxFit.cover)
-                    : Image.network( myUrlAvatar!,  fit: BoxFit.cover),
+              // EditableImage(
+              //   // Define the method that will run on the change process of the image.
+              //   onChange: (file) => _directUpdateImage(file),
+              //   // Define the source of the image.
+              //   image: _profilePicFile != null
+              //       ? Image.file(_profilePicFile!, fit: BoxFit.cover)
+              //       : Image.network(myUrlAvatar, fit: BoxFit.cover),
 
-                // Define the size of EditableImage.
-                size: 150.0,
+              //   // Define the size of EditableImage.
+              //   size: 150.0,
 
-                // Define the Theme of image picker.
-                imagePickerTheme: ThemeData(
-                  // Define the default brightness and colors.
-                  primaryColor: Colors.white,
-                  shadowColor: Colors.transparent,
-                  backgroundColor: Colors.white70,
-                  iconTheme: const IconThemeData(color: Colors.black87),
+              //   // Define the Theme of image picker.
+              //   imagePickerTheme: ThemeData(
+              //     // Define the default brightness and colors.
+              //     primaryColor: Colors.white,
+              //     shadowColor: Colors.transparent,
+              //     backgroundColor: Colors.white70,
+              //     iconTheme: const IconThemeData(color: Colors.black87),
 
-                  // Define the default font family.
-                  fontFamily: 'Georgia',
-                ),
-                // Define the border of the image if needed.
-                imageBorder: Border.all(color: Colors.black87, width: 2.0),
+              //     // Define the default font family.
+              //     fontFamily: 'Georgia',
+              //   ),
+              //   // Define the border of the image if needed.
+              //   imageBorder: Border.all(color: Colors.black87, width: 2.0),
 
-                // Define the border of the icon if needed.
-                editIconBorder: Border.all(color: Colors.black87, width: 2.0),
-              ),
+              //   // Define the border of the icon if needed.
+              //   editIconBorder: Border.all(color: Colors.black87, width: 2.0),
+              // ),
               const Spacer(flex: 2),
               // _Open(),
               // Image(image: FileImage(_SAVEprofilePicFile!)),
@@ -102,8 +100,14 @@ class _HomeViewTestState extends State<HomeViewTest> {
   TextButton _buildTextButton() {
     return TextButton(
       onPressed: () async {
+        if(_SAVEprofilePicFile! != ''){
           await addImage(_SAVEprofilePicFile!);
+          // Navigator.of(context).push(
+          //     MaterialPageRoute(builder: (context) => (HomePage()))
+          // );
+        }else{
           Navigator.pop(context);
+        }
         },
       style: ButtonStyle(
         padding: MaterialStateProperty.all(
@@ -123,4 +127,3 @@ class _HomeViewTestState extends State<HomeViewTest> {
     );
   }
 }
-

@@ -353,74 +353,74 @@ class _newMessageState extends State<newMessage> {
   Future getImage() async {
     ImagePicker _picker = ImagePicker();
     await _picker.pickImage(source: ImageSource.gallery).then((xFile) {
-      if (xFile == null) return;
-      setState(() {
-        imageFile = File(xFile.path);
-        xFileName = xFile.name;
-        fileName = xFileName!.split("image_picker").last;
-        showDialog(
-            context: context,
-            builder: (context) => Container(
-                  child: AlertDialog(
-                    contentPadding: EdgeInsets.all(5),
-                    titlePadding: EdgeInsets.all(5),
-                    actionsPadding: EdgeInsets.all(5),
-                    title: Text("Подтвердить?"),
-                    content: Container(
-                        child: Column(
-                      children: [
-                        Expanded(child: Image.file(File(xFile.path))),
-                        SizedBox(
-                          child: Row(
-                            children: [
-                              Flexible(
-                                child: TextFormField(
-                                  minLines: 1,
-                                  maxLines: 2,
-                                  controller: _controllerFile,
-                                  scrollPadding: EdgeInsets.all(1),
-                                  decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 1, horizontal: 2),
-                                      border: InputBorder.none,
-                                      hintText: "Напишите сообщение..."),
+      if (xFile != null)
+        setState(() {
+          imageFile = File(xFile.path);
+          xFileName = xFile.name;
+          fileName = xFileName!.split("image_picker").last;
+          showDialog(
+              context: context,
+              builder: (context) => Container(
+                    child: AlertDialog(
+                      contentPadding: EdgeInsets.all(5),
+                      titlePadding: EdgeInsets.all(5),
+                      actionsPadding: EdgeInsets.all(5),
+                      title: Text("Подтвердить?"),
+                      content: Container(
+                          child: Column(
+                        children: [
+                          Expanded(child: Image.file(File(xFile.path))),
+                          SizedBox(
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  child: TextFormField(
+                                    minLines: 1,
+                                    maxLines: 2,
+                                    controller: _controllerFile,
+                                    scrollPadding: EdgeInsets.all(1),
+                                    decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.symmetric(
+                                            vertical: 1, horizontal: 2),
+                                        border: InputBorder.none,
+                                        hintText: "Напишите сообщение..."),
+                                  ),
                                 ),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  _controllerFile.clear();
-                                },
-                                icon: Icon(
-                                  Icons.close,
-                                  size: 20,
-                                ),
-                                splashRadius: 20,
-                              )
-                            ],
+                                IconButton(
+                                  onPressed: () {
+                                    _controllerFile.clear();
+                                  },
+                                  icon: Icon(
+                                    Icons.close,
+                                    size: 20,
+                                  ),
+                                  splashRadius: 20,
+                                )
+                              ],
+                            ),
                           ),
-                        ),
+                        ],
+                      )),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              checkedImage = false;
+                              uploadImage();
+                              Navigator.pop(context);
+                            },
+                            child: Text("Нет")),
+                        TextButton(
+                            onPressed: () {
+                              if (_controller.text.trim() != "") sendMessage();
+                              checkedImage = true;
+                              uploadImage();
+                              Navigator.pop(context);
+                            },
+                            child: Text("Да"))
                       ],
-                    )),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            checkedImage = false;
-                            uploadImage();
-                            Navigator.pop(context);
-                          },
-                          child: Text("Нет")),
-                      TextButton(
-                          onPressed: () {
-                            if (_controller.text.trim() != "") sendMessage();
-                            checkedImage = true;
-                            uploadImage();
-                            Navigator.pop(context);
-                          },
-                          child: Text("Да"))
-                    ],
-                  ),
-                ));
-      });
+                    ),
+                  ));
+        });
     });
   }
 
@@ -493,79 +493,79 @@ class _newMessageState extends State<newMessage> {
     ImagePicker _picker = ImagePicker();
 
     await _picker.pickVideo(source: ImageSource.gallery).then((xFile) {
-      if (xFile == null) return;
-      setState(() {
-        videoFile = File(xFile.path);
-        xFileName = xFile.name;
-        fileName = xFileName!.split("image_picker").last;
-        showDialog(
-            context: context,
-            builder: (context) => Container(
-                  child: AlertDialog(
-                    contentPadding: EdgeInsets.all(5),
-                    titlePadding: EdgeInsets.all(5),
-                    actionsPadding: EdgeInsets.all(5),
-                    title: Text("Подтвердить?"),
-                    content: Container(
-                        child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.video_file,
-                          size: 50,
-                        ),
-                        Center(child: Text(fileName!)),
-                        SizedBox(
-                          child: Row(
-                            children: [
-                              Flexible(
-                                child: TextFormField(
-                                  minLines: 1,
-                                  maxLines: 2,
-                                  controller: _controllerFile,
-                                  scrollPadding: EdgeInsets.all(1),
-                                  decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 1, horizontal: 2),
-                                      border: InputBorder.none,
-                                      hintText: "Напишите сообщение..."),
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  _controllerFile.clear();
-                                },
-                                icon: Icon(
-                                  Icons.close,
-                                  size: 20,
-                                ),
-                                splashRadius: 20,
-                              )
-                            ],
+      if (xFile != null)
+        setState(() {
+          videoFile = File(xFile.path);
+          xFileName = xFile.name;
+          fileName = xFileName!.split("image_picker").last;
+          showDialog(
+              context: context,
+              builder: (context) => Container(
+                    child: AlertDialog(
+                      contentPadding: EdgeInsets.all(5),
+                      titlePadding: EdgeInsets.all(5),
+                      actionsPadding: EdgeInsets.all(5),
+                      title: Text("Подтвердить?"),
+                      content: Container(
+                          child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.video_file,
+                            size: 50,
                           ),
-                        ),
+                          Center(child: Text(fileName!)),
+                          SizedBox(
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  child: TextFormField(
+                                    minLines: 1,
+                                    maxLines: 2,
+                                    controller: _controllerFile,
+                                    scrollPadding: EdgeInsets.all(1),
+                                    decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.symmetric(
+                                            vertical: 1, horizontal: 2),
+                                        border: InputBorder.none,
+                                        hintText: "Напишите сообщение..."),
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    _controllerFile.clear();
+                                  },
+                                  icon: Icon(
+                                    Icons.close,
+                                    size: 20,
+                                  ),
+                                  splashRadius: 20,
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      )),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              checkedVideo = false;
+                              uploadVideo();
+                              Navigator.pop(context);
+                            },
+                            child: Text("Нет")),
+                        TextButton(
+                            onPressed: () {
+                              if (_controller.text.trim() != "") sendMessage();
+                              checkedVideo = true;
+                              uploadVideo();
+                              Navigator.pop(context);
+                            },
+                            child: Text("Да"))
                       ],
-                    )),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            checkedVideo = false;
-                            uploadVideo();
-                            Navigator.pop(context);
-                          },
-                          child: Text("Нет")),
-                      TextButton(
-                          onPressed: () {
-                            if (_controller.text.trim() != "") sendMessage();
-                            checkedVideo = true;
-                            uploadVideo();
-                            Navigator.pop(context);
-                          },
-                          child: Text("Да"))
-                    ],
-                  ),
-                ));
-      });
+                    ),
+                  ));
+        });
     });
   }
 
