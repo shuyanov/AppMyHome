@@ -1,29 +1,25 @@
-import 'package:command_flutter/ProfileCom/historyPage.dart';
-import 'package:command_flutter/ProfileCom/myTasks.dart';
-import 'package:command_flutter/ProfileCom/requestsPage.dart';
-import 'package:command_flutter/ProfileCom/settings.dart';
-import 'package:command_flutter/Styles/Colors.dart';
 import 'package:flutter/material.dart';
 
+import '../Model/User.dart';
+import '../Styles/Colors.dart';
 import 'Api/api.dart';
+import 'historyPage.dart';
+import 'myTasks.dart';
+import 'requestsPage.dart';
+import 'settings.dart';
 
 int _currentIndex = 0;
 
-class personalPage extends StatefulWidget {
-  const personalPage({super.key});
+class PersonalPage extends StatefulWidget {
+  final User user;
+  const PersonalPage({required this.user});
 
   @override
-  State<personalPage> createState() => _personalPageState();
+  State<PersonalPage> createState() => _PersonalPageState();
 }
 
-List<Widget> _pages = [
-  requestsPage(),
-  myTasks(),
-  historyPage(),
-  settingsPage(),
-];
 
-class _personalPageState extends State<personalPage> {
+class _PersonalPageState extends State<PersonalPage> {
   @override
   void initState() {
     // fetch();
@@ -35,6 +31,12 @@ class _personalPageState extends State<personalPage> {
 
   @override
   Widget build(BuildContext context) {
+List<Widget> _pages = [
+  RequestsPage(user: widget.user,),
+  myTasks(),
+  historyPage(),
+  settingsPage(),
+];
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(

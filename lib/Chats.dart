@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
+import 'package:my_home/Model/User.dart';
 import 'Chats/Data/Admin.dart';
-import 'Chats/Models/User.dart';
 import 'Chats/OneChats.dart';
 import 'Chats/Pages/ChatPage.dart';
 import 'GeneralChats/Data/General.dart';
@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'Styles/Colors.dart';
 
 class Chats extends StatefulWidget {
-  const Chats({super.key});
+  final User user;
+  const Chats({required this.user});
 
   @override
   State<Chats> createState() => _ChatsState();
@@ -19,6 +20,13 @@ class _ChatsState extends State<Chats> {
   @override
   void initState() {
     super.initState();
+    myId = widget.user.id;
+    myUserEmail = widget.user.email;
+    myUserName = widget.user.name;
+    myUserSurname = '';
+    myUserMiddle_name = '';
+    myNumberPhone = widget.user.numberPhone;
+    myUrlAvatar = widget.user.imagePath;    
     print(myId);
   }
 

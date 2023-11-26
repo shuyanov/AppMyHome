@@ -1,16 +1,8 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-import 'package:command_flutter/HomePage.dart';
-import 'package:command_flutter/ProfileCom/personalPage.dart';
-import 'package:command_flutter/PushNotifications/api/notification.dart';
-import 'package:command_flutter/Utils/UserPerefer.dart';
-import 'package:command_flutter/loadingPage.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:my_home/ProfileCom/personalPage.dart';
 import 'package:provider/provider.dart';
-
-import 'Chats/Data/Admin.dart';
+import 'HomePage.dart';
+import 'Login/LOginPage.dart';
 import 'Styles/Themes.dart';
 
 // Future main() async {
@@ -34,8 +26,8 @@ class MyAppTest extends StatelessWidget {
             themeMode: Provider.of<ThemeProvider>(context).themeMode,
             theme: Themes.light,
             darkTheme: Themes.dark,
-            // home: HomePage(),
-            home: personalPage(),
+            home: LoginPage(),
+            // home: personalPage(),
             debugShowCheckedModeBanner: false,
           );
         });

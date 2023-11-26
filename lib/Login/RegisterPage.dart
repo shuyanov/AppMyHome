@@ -1,13 +1,12 @@
 import 'dart:async';
-
-import 'package:command_flutter/TestLogin.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:command_flutter/Login/LOginPage.dart';
 import 'package:flutter/services.dart';
 import 'package:crypto/crypto.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:mysql_client/mysql_client.dart';
+
+import '../TestLogin.dart';
+import 'LOginPage.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -308,34 +307,34 @@ class _RegisterPageState extends State<RegisterPage> {
     }
 
     print("Connecting to mysql server...");
-    final conn = await MySQLConnection.createConnection(
-      host: "185.231.155.185",
-      port: 3306,
-      userName: "user",
-      password: "password",
-      databaseName: "data", // optional
-    );
+    // final conn = await MySQLConnection.createConnection(
+    //   host: "185.231.155.185",
+    //   port: 3306,
+    //   userName: "user",
+    //   password: "password",
+    //   databaseName: "data", // optional
+    // );
 
-    await conn.connect();
-    print("Connected");
-    var res = await conn.execute("select count(id) from final_user where user_email = '$email';");
-    for (final row in res.rows) {
-      if (row.colAt(0) != "0") {
-        Fluttertoast.showToast(
-            msg: "Ошибка! Пользователь с такими данными уже зарегистрирован",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb:
-            1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0
-        );
-        await conn.close();
-        print("con close");
-        return;
-      }
-    }
+    // await conn.connect();
+    // print("Connected");
+    // var res = await conn.execute("select count(id) from final_user where user_email = '$email';");
+    // for (final row in res.rows) {
+    //   if (row.colAt(0) != "0") {
+    //     Fluttertoast.showToast(
+    //         msg: "Ошибка! Пользователь с такими данными уже зарегистрирован",
+    //         toastLength: Toast.LENGTH_SHORT,
+    //         gravity: ToastGravity.CENTER,
+    //         timeInSecForIosWeb:
+    //         1,
+    //         backgroundColor: Colors.red,
+    //         textColor: Colors.white,
+    //         fontSize: 16.0
+    //     );
+    //     await conn.close();
+    //     print("con close");
+    //     return;
+    //   }
+    // }
 
     // pushEmailForDB (String email, String adminCode, String code) async{
     //   int dataStatus = 0;
@@ -356,13 +355,13 @@ class _RegisterPageState extends State<RegisterPage> {
 
     String codeStatus = "error";
 
-    var status = await conn.execute("select if (admin_code='$code' and base_code!='','admin',if(base_code='$code' and admin_code ='','user','error')) from reg_table;");
-    for(final row in status.rows){
-      if(row.colAt(0).toString()!="error"){
-        codeStatus = row.colAt(0).toString();
-        break;
-      }
-    }
+    // var status = await conn.execute("select if (admin_code='$code' and base_code!='','admin',if(base_code='$code' and admin_code ='','user','error')) from reg_table;");
+    // for(final row in status.rows){
+    //   if(row.colAt(0).toString()!="error"){
+    //     codeStatus = row.colAt(0).toString();
+    //     break;
+    //   }
+    // }
 
     print("status = $codeStatus");
     userStatus = codeStatus;
@@ -370,12 +369,12 @@ class _RegisterPageState extends State<RegisterPage> {
     if(codeStatus=="admin") {
       String codeCount = "";
       String baseCode = "";
-      var count = await conn.execute(
-          "select count, base_code from reg_table where admin_code = '$code';");//|| base_code = '$code'
-      for (final row in count.rows) {
-        codeCount = row.colAt(0).toString();
-        baseCode = row.colAt(1).toString();
-      }
+      // var count = await conn.execute(
+      //     "select count, base_code from reg_table where admin_code = '$code';");//|| base_code = '$code'
+      // for (final row in count.rows) {
+      //   codeCount = row.colAt(0).toString();
+      //   baseCode = row.colAt(1).toString();
+      // }
 
       if (codeCount == "0" || codeCount == "") {
         print("$code c: $codeCount");//count code=="0"
@@ -389,17 +388,17 @@ class _RegisterPageState extends State<RegisterPage> {
             textColor: Colors.white,
             fontSize: 16.0
         );
-        await conn.close();
+        // await conn.close();
         print("con close");
         return;
       }
       else {
         int newCount = int.parse(codeCount) - 1;
-        var regUser = await conn.execute(
-            "insert into final_user(user_email, password, surname, name, middle_name, status, code, personal_check, phone_number) values ('$email','${encoding(
-                password)}','$surname','$name','$middleName','admin','$baseCode','$personalCheck','$phoneNumber');");
+        // var regUser = await conn.execute(
+        //     "insert into final_user(user_email, password, surname, name, middle_name, status, code, personal_check, phone_number) values ('$email','${encoding(
+        //         password)}','$surname','$name','$middleName','admin','$baseCode','$personalCheck','$phoneNumber');");
 
-        var countIncrement = await conn.execute("update reg_table set count = '$newCount' where base_code = '$baseCode' and admin_code = '$code'");
+        // var countIncrement = await conn.execute("update reg_table set count = '$newCount' where base_code = '$baseCode' and admin_code = '$code'");
         print("register...");
         //   pushEmailForDB();
 
@@ -407,7 +406,7 @@ class _RegisterPageState extends State<RegisterPage> {
             context: context,
             builder: (context) => ShowDialogg()
         );
-        await conn.close();
+        // await conn.close();
         print("con close");
         runApp(LoginPage());
       }
@@ -416,56 +415,56 @@ class _RegisterPageState extends State<RegisterPage> {
     //
     else if(codeStatus=="user"){
       //user code
-      var res = await conn.execute("select count(id) from final_user where user_email = '$email';");
-      for (final row in res.rows) {
-        if (row.colAt(0) != "0") {
-          Fluttertoast.showToast(
-              msg: "Ошибка! Пользователь с такими данными уже зарегистрирован",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb:
-              1,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0
-          );
-          await conn.close();
-          print("con close");
-          return;
-        }
-      }
-      String codeCount = "";
-      var count = await conn.execute("select count from reg_table where base_code = '$code' and admin_code = '';");
-      for (final row in count.rows) {
-        codeCount = row.colAt(0).toString();
-      }
+      // var res = await conn.execute("select count(id) from final_user where user_email = '$email';");
+      // for (final row in res.rows) {
+      //   if (row.colAt(0) != "0") {
+      //     Fluttertoast.showToast(
+      //         msg: "Ошибка! Пользователь с такими данными уже зарегистрирован",
+      //         toastLength: Toast.LENGTH_SHORT,
+      //         gravity: ToastGravity.CENTER,
+      //         timeInSecForIosWeb:
+      //         1,
+      //         backgroundColor: Colors.red,
+      //         textColor: Colors.white,
+      //         fontSize: 16.0
+      //     );
+      //     await conn.close();
+      //     print("con close");
+      //     return;
+      //   }
+      // }
+      // String codeCount = "";
+      // var count = await conn.execute("select count from reg_table where base_code = '$code' and admin_code = '';");
+      // for (final row in count.rows) {
+      //   codeCount = row.colAt(0).toString();
+      // }
 
-      if(codeCount=="0" || codeCount == ""){ //count code=="0"
-        Fluttertoast.showToast(
-            msg: "Ошибка! Превышено количество регистраций по данному коду, обратитесь к руководителю ТСЖ",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb:
-            1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0
-        );
-        await conn.close();
-        print("con close");
-        return;
-      }
-      else {
-        int newCount = int.parse(codeCount) - 1;
-        var regUser = await conn.execute(
-            "insert into final_user(user_email, password, surname, name, middle_name, status, code, personal_check, phone_number) values ('$email','${encoding(
-                password)}','$surname','$name','$middleName','user','$code','$personalCheck','$phoneNumber');");
-        var countIncrement = await conn.execute("update reg_table set count = '$newCount' where base_code = '$code' and admin_code = ''");
-        print("register...");
-        await conn.close();
-        print("con close");
-        runApp(LoginPage());
-      }
+      // if(codeCount=="0" || codeCount == ""){ //count code=="0"
+      //   Fluttertoast.showToast(
+      //       msg: "Ошибка! Превышено количество регистраций по данному коду, обратитесь к руководителю ТСЖ",
+      //       toastLength: Toast.LENGTH_SHORT,
+      //       gravity: ToastGravity.CENTER,
+      //       timeInSecForIosWeb:
+      //       1,
+      //       backgroundColor: Colors.red,
+      //       textColor: Colors.white,
+      //       fontSize: 16.0
+      //   );
+      //   await conn.close();
+      //   print("con close");
+      //   return;
+      // }
+      // else {
+      //   int newCount = int.parse(codeCount) - 1;
+      //   var regUser = await conn.execute(
+      //       "insert into final_user(user_email, password, surname, name, middle_name, status, code, personal_check, phone_number) values ('$email','${encoding(
+      //           password)}','$surname','$name','$middleName','user','$code','$personalCheck','$phoneNumber');");
+      //   var countIncrement = await conn.execute("update reg_table set count = '$newCount' where base_code = '$code' and admin_code = ''");
+      //   print("register...");
+      //   await conn.close();
+      //   print("con close");
+      //   runApp(LoginPage());
+      // }
     }
     else{
       Fluttertoast.showToast(
@@ -488,28 +487,28 @@ class _RegisterPageState extends State<RegisterPage> {
         pushEmailForDB (String email, String adminCode, String code) async{
           print("email = $email adminCode = $adminCode code = $code");
 
-          final conn = await MySQLConnection.createConnection(
-            host: "185.231.155.185",
-            port: 3306,
-            userName: "user",
-            password: "password",
-            databaseName: "data", // optional
-          );
+          // final conn = await MySQLConnection.createConnection(
+          //   host: "185.231.155.185",
+          //   port: 3306,
+          //   userName: "user",
+          //   password: "password",
+          //   databaseName: "data", // optional
+          // );
 
-          await conn.connect();
+          // await conn.connect();
 
           int dataStatus = 0;
-          var getEmailCount = await conn.execute("select count(id) from code_table where admin_code = '$adminCode';");
-          for(final rov in getEmailCount.rows){
-            if(rov.colAt(0).toString() == "0"){
-              dataStatus = 1;
-              break;
-            }
-          }
+          // var getEmailCount = await conn.execute("select count(id) from code_table where admin_code = '$adminCode';");
+          // for(final rov in getEmailCount.rows){
+          //   if(rov.colAt(0).toString() == "0"){
+          //     dataStatus = 1;
+          //     break;
+          //   }
+          // }
 
           print("dataStatus =  $dataStatus");
           if(dataStatus == 1){
-            var pushEmail = await conn.execute("insert into code_table(admin_code, code, main_mail) values ('$adminCode','$code','$email');");
+            // var pushEmail = await conn.execute("insert into code_table(admin_code, code, main_mail) values ('$adminCode','$code','$email');");
           }
 
           return LoginPage();

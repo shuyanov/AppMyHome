@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:command_flutter/LoginPageF.dart';
 import 'package:flutter/services.dart';
+import 'package:my_home/LoginPageF.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:mysql_client/mysql_client.dart';
 
 class RegisterPage extends StatelessWidget {
 
@@ -312,44 +311,44 @@ class RegisterPage extends StatelessWidget {
 
     print("Connecting to mysql server...");
 // create connection
-    final conn = await MySQLConnection.createConnection(
-      host: "185.231.155.185",
-      port: 3306,
-      userName: "appUser",
-      password: "123879",
-      databaseName: "data", // optional
-    );
-    await conn.connect();
+    // final conn = await MySQLConnection.createConnection(
+    //   host: "185.231.155.185",
+    //   port: 3306,
+    //   userName: "appUser",
+    //   password: "123879",
+    //   databaseName: "data", // optional
+    // );
+    // await conn.connect();
     print("Connected");
 // make query
-    var result = await conn.execute("SELECT * FROM user");
+    // var result = await conn.execute("SELECT * FROM user");
 
-    for (final row in result.rows) {
-      print(row.colAt(1));
-      print(row.colAt(2));
-      if (row.colAt(1) == email && row.colAt(2) == password) {
-        print("register, please log in");
-        return runApp(LoginPageF());
-      }
-      else {
-        print("no match");
-        var res = await conn.execute(
-          "INSERT INTO user (login, password, surname, name, middle_name, code) VALUES (:login, :password, :surname, :name, :middle_name, :code)",
-          {
-            "login": email,
-            "password": encoding(password),
-            "surname" : surname,
-            "name": name,
-            "middle_name" : middleName,
-            "code" :code,
-          },
-        );
-//push to json
-        PushToJson(email, password, surname, name, middleName, code);
-        runApp(LoginPageF());
-      }
-      await conn.close();
-    }
+//     for (final row in result.rows) {
+//       print(row.colAt(1));
+//       print(row.colAt(2));
+//       if (row.colAt(1) == email && row.colAt(2) == password) {
+//         print("register, please log in");
+//         return runApp(LoginPageF());
+//       }
+//       else {
+//         print("no match");
+//         var res = await conn.execute(
+//           "INSERT INTO user (login, password, surname, name, middle_name, code) VALUES (:login, :password, :surname, :name, :middle_name, :code)",
+//           {
+//             "login": email,
+//             "password": encoding(password),
+//             "surname" : surname,
+//             "name": name,
+//             "middle_name" : middleName,
+//             "code" :code,
+//           },
+//         );
+// //push to json
+//         PushToJson(email, password, surname, name, middleName, code);
+//         runApp(LoginPageF());
+//       }
+//       await conn.close();
+//     }
 
     print("registered, please log in");
 

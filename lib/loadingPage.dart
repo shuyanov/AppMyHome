@@ -1,13 +1,12 @@
 import 'dart:async';
-import 'package:command_flutter/Login/LOginPage.dart';
-import 'package:command_flutter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'dart:io';
 import 'dart:convert';
 import 'Chats/Data/users.dart';
+import 'Login/LOginPage.dart';
 import 'Utils/UserPerefer.dart';
-import 'addUser.dart';
+import 'main.dart';
 
 class LoadingPage extends StatelessWidget {
   bool isLogged = false;

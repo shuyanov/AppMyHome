@@ -1,19 +1,20 @@
-import 'package:command_flutter/ProfileCom/detalPage.dart';
-import 'package:command_flutter/ProfileCom/model/task.dart';
 import 'package:flutter/material.dart';
+import 'package:my_home/Model/User.dart';
 
 import '../Styles/Colors.dart';
 import 'Api/api.dart';
 import 'data/profileData.dart';
+import 'detalPage.dart';
 
-class requestsPage extends StatefulWidget {
-  const requestsPage({super.key});
+class RequestsPage extends StatefulWidget {
+  final User user;
+  const RequestsPage({required this.user});
 
   @override
-  State<requestsPage> createState() => _requestsPageState();
+  State<RequestsPage> createState() => _RequestsPageState();
 }
 
-class _requestsPageState extends State<requestsPage> {
+class _RequestsPageState extends State<RequestsPage> {
   @override
   Widget build(BuildContext context) {
     bool isIndex = true;
@@ -44,6 +45,8 @@ class _requestsPageState extends State<requestsPage> {
           physics: BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
+              backgroundColor: purpleColor,
+              foregroundColor: Colors.white,
               snap: false,
               floating: false,
               pinned: false,

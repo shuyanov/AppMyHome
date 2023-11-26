@@ -1,10 +1,9 @@
-import 'dart:ui';
-import 'package:command_flutter/main.dart';
-import 'package:command_flutter/mainTest.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Login/LOginPage.dart';
 import '../Styles/Themes.dart';
+import '../mainTest.dart';
 
 class settingsPage extends StatelessWidget {
   const settingsPage({super.key});

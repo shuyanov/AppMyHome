@@ -1,10 +1,10 @@
-import 'package:command_flutter/ProfileCom/detalPage.dart';
 import 'package:flutter/material.dart';
 
 import '../Styles/Colors.dart';
 import 'Api/api.dart';
 import 'components/lineCharts.dart';
 import 'data/month.dart';
+import 'detalPage.dart';
 
 class historyPage extends StatefulWidget {
   const historyPage({super.key});

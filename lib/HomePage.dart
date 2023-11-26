@@ -1,14 +1,15 @@
-import 'package:command_flutter/Chats.dart';
-import 'package:command_flutter/Payment/paymentPage.dart';
-import 'package:command_flutter/PushNotifications/PushNotic.dart';
-import 'package:command_flutter/ScrolLent/Filling.dart';
-import 'package:command_flutter/Pages/ProfilePage.dart';
-import 'package:command_flutter/CallPages/Search/SearchPage.dart';
-import 'package:command_flutter/Styles/Colors.dart';
+
 import 'package:flutter/material.dart';
 
+import 'Chats.dart';
+import 'Pages/ProfilePage.dart';
+import 'Payment/paymentPage.dart';
+import 'PushNotifications/PushNotic.dart';
+import 'ScrolLent/Filling.dart';
+
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final user;
+  const HomePage({required this.user});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -45,15 +46,15 @@ class _HomePageState extends State<HomePage> {
   //   ),
   // ];
 
-  static List<Widget> _pages = <Widget>[
-    Filing(),
-    paymentPage(),
-    Chats(),
-    ProfileePage(),
-  ];
 ////
   @override
   Widget build(BuildContext context) {
+  List<Widget> _pages = <Widget>[
+    Filing(),
+    PaymentPage(),
+    Chats(user: widget.user),
+    ProfileePage(user: widget.user,),
+  ];
     return SafeArea(
       child: Scaffold(
 

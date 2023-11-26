@@ -4,16 +4,18 @@
 
 Для жителей
 <p>
-<img src="flutter_03.png" alt="Главная" width="300"/>
-<img src="flutter_04.png" alt="Список" width="300"/>
-<img src="flutter_05.png" alt="Статистика, анализ" width="300"/>
-<img src="flutter_06.png" alt="Главная" width="300"/>
-<img src="flutter_07.png" alt="Список" width="300"/>
-<img src="flutter_08.png" alt="Статистика, анализ" width="300"/>
-<img src="flutter_09.png" alt="Главная" width="300"/>
+<img src="screens\Screenshot_1701002755.png" alt="Вход" width="300"/>
+<img src="screens\Screenshot_1701002768.png" alt="Регистрация" width="300"/>
+<img src="screens\Screenshot_1701025158.png" alt="Статистика, анализ" width="300"/>
+<img src="screens\Screenshot_1701025197.png" alt="Главная" width="300"/>
+<img src="screens\Screenshot_1701025202.png" alt="Список" width="300"/>
+<img src="screens\Screenshot_1701025216.png" alt="Статистика, анализ" width="300"/>
+<img src="screens\Screenshot_1701025220.png" alt="Главная" width="300"/>
+<img src="screens\Screenshot_1701027510.png" alt="Статистика, анализ" width="300"/>
+<img src="screens\Screenshot_1701025220.png" alt="Главная" width="300"/>
 </p>
 Для работников
 <p>
-<img src="flutter_01.png" alt="Список" width="300"/>
-<img src="flutter_02.png" alt="Статистика, анализ" width="300"/>
+<img src="screens\Screenshot_1701028019.png" alt="Список" width="300"/>
+<img src="screens\flutter_02.png" alt="Статистика, анализ" width="300"/>
 </p>

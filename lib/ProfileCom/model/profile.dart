@@ -1,9 +1,9 @@
-import 'package:command_flutter/ProfileCom/model/task.dart';
+import 'task.dart';
 
 class ProfileModel {
   String surname;
   String name;
-  // String job;
-  // List<TaskModel> tasks;
-  ProfileModel({required this.surname, required this.name});
+  String job;
+  List<Task> tasks;
+  ProfileModel({required this.surname, required this.name, required this.job, required this.tasks});
 }

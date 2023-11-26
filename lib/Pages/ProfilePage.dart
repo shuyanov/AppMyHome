@@ -1,30 +1,31 @@
-import 'dart:async';
 import 'dart:convert';
-import 'package:command_flutter/Chats/api/firebase.dart';
-import 'package:command_flutter/Pages/TestIcon.dart';
-import 'package:command_flutter/SendInEmail.dart';
-import 'package:command_flutter/Utils/UserPerefer.dart';
-import 'package:command_flutter/Widget/ButtonLoginPage.dart';
-import 'package:command_flutter/Widget/ButtonWidgetProfile.dart';
-import 'package:command_flutter/Widget/WidgetProfile.dart';
-import 'package:command_flutter/Login/LOginPage.dart';
-import 'package:command_flutter/Pages/EditProfilePage.dart';
-import 'package:command_flutter/Widget/ButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_home/Chats/api/firebase.dart';
+import 'package:my_home/ProfileCom/personalPage.dart';
 import '../CallPages/CallPage.dart';
-import '../Styles/Colors.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
+import '../Login/LOginPage.dart';
+import '../ProfileCom/requestsPage.dart';
+import '../SendInEmail.dart';
+import '../Utils/UserPerefer.dart';
+import '../Widget/ButtonLoginPage.dart';
+import '../Widget/ButtonWidget.dart';
+import '../Widget/ButtonWidgetProfile.dart';
+import '../Widget/WidgetProfile.dart';
+import 'EditProfilePage.dart';
+import 'TestIcon.dart';
+
 class ProfileePage extends StatefulWidget {
-  const ProfileePage({Key? key}) : super(key: key);
+  final user;
+  const ProfileePage({required this.user});
   @override
   State<ProfileePage> createState() => _ProfileePageState();
 }
 
 class _ProfileePageState extends State<ProfileePage> {
-  bool _isLoading = true;
 
   @override
   void initState() {
@@ -54,17 +55,17 @@ class _ProfileePageState extends State<ProfileePage> {
           child: GlowingOverscrollIndicator(
             axisDirection: AxisDirection.down,
             color: purpleColor, // меняет цвет при прокрутке */
-                 Container(child: buildProfilewidget()),
+                 Container(child: buildProfilewidget(widget.user)),
           // ),
         // ),
       );
     }
 
-  Widget buildProfilewidget()
+  Widget buildProfilewidget(var user)
   {
     setState(() {});
     Size size = MediaQuery.of(context).size;
-    return new Stack(
+    return Stack(
           children: <Widget>
           [
             Container(
@@ -85,7 +86,7 @@ class _ProfileePageState extends State<ProfileePage> {
                 Container(
                     child: Stack(
                       children: [
-                        WidgetProfileName(),
+                        WidgetProfileName(user: user,),
                       ],
                     )
                 ),
@@ -186,15 +187,29 @@ class _ProfileePageState extends State<ProfileePage> {
     );
   }
 
-  Widget buildExitProfileButton() => ButtonWidget(
-    text:'Выход',
-    onClicked: (){
-        runApp(LoginPage());
-      // Navigator.of(context).push(
-          // MaterialPageRoute(builder: (context) => LoginPage())
-        // );
-      },
-    );
+  Widget buildExitProfileButton() => 
+  ElevatedButton(
+    style: ElevatedButton.styleFrom(
+        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(50),),
+      onPrimary: Colors.black,
+      backgroundColor: Colors.red[600]
+    ),
+      onPressed: () {runApp(LoginPage());},
+      child: Stack(
+      children: [
+          Text('Выход', style: TextStyle(fontSize: 21, color: Colors.white)),
+          ],
+        ),
+      );
+  // ButtonWidget(
+  //   text:'Выход',
+  //   onClicked: (){
+  //       runApp(LoginPage());
+  //     // Navigator.of(context).push(
+  //         // MaterialPageRoute(builder: (context) => LoginPage())
+  //       // );
+  //     },
+  //   );
 
   Widget buildEditProfileButton() => ButtonWidget(
     text:'Редактировать',
@@ -234,7 +249,7 @@ class _ProfileePageState extends State<ProfileePage> {
     imagees: "assets/profile/SosButton.png",
     onClicked: (){
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => HomeViewTest())
+          MaterialPageRoute(builder: (context) => PersonalPage(user: widget.user))
       );
     },
   );

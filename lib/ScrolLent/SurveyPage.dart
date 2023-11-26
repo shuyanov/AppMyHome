@@ -1,6 +1,6 @@
-import 'package:command_flutter/ScrolLent/Filling.dart';
 import 'package:flutter/material.dart';
-import 'package:mysql_client/mysql_client.dart';
+
+import 'Filling.dart';
 
 class SurveyPage extends StatefulWidget {
   const SurveyPage({super.key});
@@ -61,22 +61,22 @@ class _SurveyPageState extends State<SurveyPage> {
                           print("Название: ${ControlnameVote.text.toString()}");
                         });
 
-                        final conn = await MySQLConnection.createConnection(
-                          host: "185.231.155.185",
-                          port: 3306,
-                          userName: "user",
-                          password: "password",
-                          databaseName: "data", // optional
-                        );
-                        await conn.connect();
-                        print("Conected");
+                        // final conn = await MySQLConnection.createConnection(
+                        //   host: "185.231.155.185",
+                        //   port: 3306,
+                        //   userName: "user",
+                        //   password: "password",
+                        //   databaseName: "data", // optional
+                        // );
+                        // await conn.connect();
+                        // print("Conected");
 
-                        var result = await conn.execute(
-                          "INSERT INTO News (surv_name) VALUES (:surv_name)",
-                          {
-                            "surv_name": ControlnameVote.text,
-                          },
-                        );
+                        // var result = await conn.execute(
+                        //   "INSERT INTO News (surv_name) VALUES (:surv_name)",
+                        //   {
+                        //     "surv_name": ControlnameVote.text,
+                        //   },
+                        // );
 
                         ControlnameVote.clear();
 

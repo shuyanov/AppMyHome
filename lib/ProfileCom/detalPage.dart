@@ -1,6 +1,6 @@
-import 'package:command_flutter/Styles/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../Styles/Colors.dart';
 import 'Api/api.dart';
 
 bool isClicked = false;

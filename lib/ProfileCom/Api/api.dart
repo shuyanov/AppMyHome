@@ -1,8 +1,8 @@
 import 'dart:convert';
-
-import 'package:command_flutter/ProfileCom/data/profileData.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
+import '../data/profileData.dart';
 import '../model/historyTask.dart';
 import '../model/task.dart';
 
@@ -11,22 +11,25 @@ bool isData = false;
 
 Future GetRequest() async {
   try {
-    String uri = "http://185.231.155.185/api/getRequest.php";
-    var res = await http.post(Uri.parse(uri), body: {
-      "UK": "Шереметьевская миля",
-      // "TYPE": "отопление",
-      "FIRST": "0",
-      "LAST": "1000",
-      "ALL": "true",
-    });
-    // var response = jsonDecode(res.body);
-    if (res.statusCode == 200) {
-      isData = true;
-      getResApi = TaskFromJson(res.body);
-      print("GetRequest: ${res.statusCode}\n${getResApi[1].id}");
-    } else {
-      print("not GetRequest");
-    }
+    // String uri = "http://185.231.155.185/api/getRequest.php";
+    // var res = await http.post(Uri.parse(uri), body: {
+    //   "UK": "Шереметьевская миля",
+    //   // "TYPE": "отопление",
+    //   "FIRST": "0",
+    //   "LAST": "1000",
+    //   "ALL": "true",
+    // });
+    // // var response = jsonDecode(res.body);
+    // if (res.statusCode == 200) {
+    //   isData = true;
+    //   getResApi = TaskFromJson(res.body);
+    //   print("GetRequest: ${res.statusCode}\n${getResApi[1].id}");
+    // } else {
+    //   print("not GetRequest");
+    // }
+    final data = await rootBundle.loadString('assets/data/requests.json');
+    getResApi = taskFromJson(data);
+    isData = true;
     // return response;
     // print("GetRequest: ${response}");
   } catch (e) {

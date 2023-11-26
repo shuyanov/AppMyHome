@@ -1,7 +1,5 @@
-import 'dart:io';
-import 'package:command_flutter/Chats/Data/Admin.dart';
 import 'package:flutter/material.dart';
-import 'package:command_flutter/Chats/api/firebase.dart';
+import 'package:my_home/Chats/api/firebase.dart';
 
 
 class ProfileWidget extends StatelessWidget {
