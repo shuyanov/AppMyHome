@@ -20,9 +20,11 @@ import 'mainTest.dart';
 
  class MyHttpOverrides extends HttpOverrides{
   @override
+
   HttpClient createHttpClient(SecurityContext? context){
     return super.createHttpClient(context)
       ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+
   }
 }
 Future main() async {
@@ -54,4 +56,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
     );
   }
+
 }
+

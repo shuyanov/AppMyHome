@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:video_player/video_player.dart';
 
 import '../../Styles/Colors.dart';
@@ -518,6 +519,7 @@ class _SingleMessageState extends State<SingleMessage> {
             ),
           ],
         ),
+
       ],
     );
   }

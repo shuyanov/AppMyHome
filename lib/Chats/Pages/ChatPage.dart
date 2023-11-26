@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -136,6 +137,7 @@ class _ChatPageState extends State<ChatPage> {
             ],
           )),
     );
+
   }
 }
 
@@ -153,7 +155,9 @@ class newMessage extends StatefulWidget {
 
 class _newMessageState extends State<newMessage> {
   final _controller = TextEditingController();
+
   final _controllerFile = TextEditingController();
+
 
   void sendMessage() async {
     String message = _controller.text;
@@ -167,9 +171,11 @@ class _newMessageState extends State<newMessage> {
         .add({
       "senderId": widget.currentUserId,
       "receiverId": widget.friendId,
+
       "file": "",
       "fileName": "",
       "message": message.trim(),
+
       "type": "text",
       "date": DateTime.now(),
     }).then((value) {
@@ -192,9 +198,11 @@ class _newMessageState extends State<newMessage> {
         .add({
       "senderId": widget.currentUserId,
       "receiverId": widget.friendId,
+
       "file": "",
       "fileName": "",
       "message": message.trim(),
+
       "type": "text",
       "date": DateTime.now(),
     }).then((value) {
@@ -206,6 +214,7 @@ class _newMessageState extends State<newMessage> {
           .set({"last_msg": message});
     });
   }
+
 
   // PICK FILE
   File? file;
@@ -803,6 +812,7 @@ class _newMessageState extends State<newMessage> {
             splashRadius: 20,
           )
         ],
+
       ),
     );
   }

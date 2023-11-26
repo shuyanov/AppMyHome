@@ -1,5 +1,6 @@
-name: my_home
+name: MyAppHome
 description: "Мобильное приложение"
+
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -28,6 +29,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  #cloud_firestore:
+  #firebase_core:
   flutter:
     sdk: flutter
 
@@ -35,6 +38,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+
   fluttertoast: ^8.2.4
   http: ^1.1.0
   path_provider: ^2.1.1
@@ -58,6 +62,7 @@ dependencies:
   open_file: ^3.3.2
   dio: ^5.3.4
   flutter_native_splash: ^2.3.6
+
 
 dev_dependencies:
   flutter_test:
