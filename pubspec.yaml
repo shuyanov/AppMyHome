@@ -1,5 +1,5 @@
-name: command_flutter
-description: A new Flutter project.
+name: MyAppHome
+description: "Мобильное приложение"
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -20,7 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.2 <3.0.0'
+  sdk: '>=3.2.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -38,33 +38,84 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  firebase_core: ^2.1.0
-  firebase_auth: ^4.0.2
-  cached_network_image: ^3.2.2
-  cloud_firestore: ^4.0.3
+
+  fluttertoast: ^8.2.4
+  http: ^1.1.0
+  path_provider: ^2.1.1
+  crypto: ^3.0.3
+  # mysql_client: ^0.0.27
+  provider: ^6.1.1
+  firebase_core: ^2.23.0
+  timezone: ^0.9.2
+  flutter_local_notifications: ^16.2.0
+  intl: ^0.18.1
+  fl_chart: ^0.65.0
+  qr_code_scan_pay: ^0.0.5
+  sbp: ^0.0.8
+  url_launcher: ^6.2.1
+  firebase_storage: ^11.5.2
+  uuid: ^4.2.1
+  cloud_firestore: ^4.13.2
+  image_picker: ^1.0.4
+  file_picker: ^6.1.1
+  video_player: ^2.8.1
+  open_file: ^3.3.2
+  dio: ^5.3.4
+  flutter_native_splash: ^2.3.6
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: "^0.13.1"
+  
+flutter_native_splash:
+  color: "#674696"
+  # image: android/app/src/main/res/mipmap-xxxhdpi/logotip.png
+  image: assets/logotipBig.png
+  fullscreen: true
+  android: true
+  ios: true
+    
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "assets/logotip.png"
+  image_path_android: "assets/logotip.png"
+  ios: true
+  min_sdk_android: 21 # android min sdk min:16, default 21
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - assets/center.png
+    - assets/left.png
+    - assets/ful.png
+    - assets/logo.png
+    - assets/logotip.png
+    - assets/logo1.png
+    - assets/logo3.png
+    - assets/mainLogo.png
+    - assets/chat/background.png
+    - assets/chat/backgroundChat.jpg
+    - assets/chat/backgroundUsers.jpg
+    - assets/chat/resource.png
+    - assets/chat/resource28.png
+    - assets/chat/resource29.png
+    - assets/chat/resource30.png
+    - assets/chat/resource31.png
+    - assets/profile/profileBackground.jpg
+    - assets/profile/SosButton.png
+    - assets/profile/iconMan.png
+    - assets/profile/Massage.png
+    - assets/profile/GroundUpBar.png
+    - assets/sbp.png
+    - assets/data/
+    - assets/data/feed.json
+    - assets/data/requests.json
+    - assets/data/users.json
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
