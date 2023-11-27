@@ -116,6 +116,7 @@ class _SearchCallPageState extends State<SearchCallPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(10),

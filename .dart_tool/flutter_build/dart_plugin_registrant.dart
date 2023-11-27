@@ -3,6 +3,7 @@
 // This file is generated from template in file `flutter_tools/lib/src/flutter_plugins.dart`.
 //
 
+// @dart = 3.2
 
 import 'dart:io'; // flutter_ignore: dart_io_import.
 import 'package:image_picker_android/image_picker_android.dart';
@@ -27,7 +28,6 @@ import 'package:image_picker_windows/image_picker_windows.dart';
 import 'package:path_provider_windows/path_provider_windows.dart';
 import 'package:url_launcher_windows/url_launcher_windows.dart';
 
-
 @pragma('vm:entry-point')
 class _PluginRegistrant {
 
@@ -35,7 +35,6 @@ class _PluginRegistrant {
   static void register() {
     if (Platform.isAndroid) {
       try {
-
         ImagePickerAndroid.registerWith();
       } catch (err) {
         print(
@@ -45,14 +44,12 @@ class _PluginRegistrant {
       }
 
       try {
-
         PathProviderAndroid.registerWith();
       } catch (err) {
         print(
           '`path_provider_android` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-
       }
 
       try {
@@ -71,12 +68,10 @@ class _PluginRegistrant {
           '`video_player_android` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-
       }
 
     } else if (Platform.isIOS) {
       try {
-
         ImagePickerIOS.registerWith();
       } catch (err) {
         print(
@@ -110,12 +105,10 @@ class _PluginRegistrant {
           '`video_player_avfoundation` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-
       }
 
     } else if (Platform.isLinux) {
       try {
-
         FileSelectorLinux.registerWith();
       } catch (err) {
         print(
@@ -134,14 +127,12 @@ class _PluginRegistrant {
       }
 
       try {
-
         PathProviderLinux.registerWith();
       } catch (err) {
         print(
           '`path_provider_linux` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-
       }
 
       try {
@@ -151,12 +142,10 @@ class _PluginRegistrant {
           '`url_launcher_linux` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-
       }
 
     } else if (Platform.isMacOS) {
       try {
-
         FileSelectorMacOS.registerWith();
       } catch (err) {
         print(
@@ -199,12 +188,10 @@ class _PluginRegistrant {
           '`video_player_avfoundation` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-
       }
 
     } else if (Platform.isWindows) {
       try {
-
         FileSelectorWindows.registerWith();
       } catch (err) {
         print(
@@ -223,14 +210,12 @@ class _PluginRegistrant {
       }
 
       try {
-
         PathProviderWindows.registerWith();
       } catch (err) {
         print(
           '`path_provider_windows` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-
       }
 
       try {
@@ -240,7 +225,6 @@ class _PluginRegistrant {
           '`url_launcher_windows` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
-
       }
 
     }

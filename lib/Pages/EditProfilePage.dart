@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:my_home/Chats/api/firebase.dart';
+import '/Chats/api/firebase.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
 import '../Chats/Data/Admin.dart';
@@ -290,7 +290,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               exit = true;
             }
               if(exit){
-              baseAPI.updateUser(userEmail: email, userSurname: surName, userName: name, userMiddle_name: middleName);
+              baseAPI.updateUser(userEmail: email, userSurname: surName, userName: name, userMiddle_name: middleName, numberPhone: '');
               // Navigator.of(context).push(MaterialPageRoute(builder: (context) => (HomePage())));
               addImage(_SAVEprofilePicFile!);
               }

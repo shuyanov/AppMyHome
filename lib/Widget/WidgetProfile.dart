@@ -131,10 +131,7 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:my_home/Model/User.dart';
-
-import '../Data/usersData.dart';
-import '../Pages/Widget/ProfileCircleImage.dart';
+import '/Model/User.dart';
 
 class WidgetProfileName extends StatelessWidget {
   final User user;
@@ -142,31 +139,31 @@ class WidgetProfileName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(padding: const EdgeInsets.all(30),
+    return Padding(padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
         child: Align(
           alignment: Alignment.topLeft,
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                  flex: 1,
-                  child: 
+              
                       CircleAvatar(
                         backgroundImage: NetworkImage("https://cdn-icons-png.flaticon.com/512/1946/1946429.png"),
                         foregroundImage: NetworkImage(user.imagePath),
                         radius: 50,
-                      )
-                  ),
-              Expanded(
-                flex: 2,
-                child: Stack(
+                      ),
+                  SizedBox(width: 20,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(9.0),
-                      child: Text(user.name, style: TextStyle(fontSize: 36)),
+                    Column(
+                      children: [
+                        Text(user.name, style: TextStyle(fontSize: 30, color: Colors.white)),
+                      ],
                     ),
-                    const SizedBox(height: 20),
+                    
+                    Text(user.about, style: TextStyle(fontSize: 16, color: Colors.white)),
                     // Padding(
                     //   padding: const EdgeInsets.only(top: 45, left: 20),
                     //   child: Text(
@@ -175,7 +172,7 @@ class WidgetProfileName extends StatelessWidget {
                     //   ),
                     // ),
                   ],
-                ),
+                
               ),
             ],
           ),

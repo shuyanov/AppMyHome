@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:my_home/Chats/api/firebase.dart';
-import 'package:my_home/ProfileCom/personalPage.dart';
+import '/Chats/api/firebase.dart';
+import '/ProfileCom/personalPage.dart';
 import '../CallPages/CallPage.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart' as pathProvider;

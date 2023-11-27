@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_home/CallPages/api/firebase.dart';
+import '/CallPages/api/firebase.dart';
 import 'CallInformation.dart';
 import 'Model/Model.dart';
 import 'Search/SearchPage.dart';
@@ -24,6 +24,7 @@ class _CallPageState extends State<CallPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         elevation: 0,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
@@ -104,7 +105,7 @@ class _CallPageState extends State<CallPage> {
           }),
       floatingActionButton: FloatingActionButton(
         backgroundColor: purpleColor,
-        child: Icon(Icons.add_ic_call),
+        child: Icon(Icons.add_ic_call, color: Colors.white,),
         onPressed: () {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => sendtoEmail()));

@@ -149,11 +149,15 @@ class _messageWidgetState extends State<messageWidget> {
                               widget.isMe ? "Я" : widget.name,
                               style: TextStyle(
                                 color: Colors.black,
+                                fontWeight: FontWeight.bold
                               ),
                             ),
                           ),
                           widget.type == 'text'
                               ? Container(
+                                constraints: BoxConstraints(
+                                  minWidth: 100
+                                ),
                                   padding: EdgeInsets.only(left: 5, right: 5),
                                   child: Text(
                                     widget.message,

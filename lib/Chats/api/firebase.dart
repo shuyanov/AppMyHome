@@ -1,4 +1,3 @@
-
 import '/Chats/Models/User.dart';
 import '/Chats/Data/Admin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,20 +21,22 @@ class baseAPI {
     required String userSurname,
     required String userName,
     required String userMiddle_name,
-    //required String urlAvatar,
+    required String numberPhone,
   }) async {
     final docUser =
-    await FirebaseFirestore.instance.collection('users').doc(myId);
+        await FirebaseFirestore.instance.collection('users').doc(myId);
     docUser.update({
       'email': userEmail,
       'surname': userSurname,
       'middle_name': userMiddle_name,
-      'name': userName
+      'name': userName,
+      'numberPhone': numberPhone
     });
     myUserEmail = userEmail;
     myUserSurname = userSurname;
     myUserMiddle_name = userMiddle_name;
     myUserName = userName;
+    myNumberPhone = numberPhone;
   }
 
   static Future addUsers({
@@ -51,10 +52,10 @@ class baseAPI {
   }) async {
     // final docUsers = await FirebaseFirestore.instance.collection('users');
     final docUser =
-    await FirebaseFirestore.instance.collection('users').doc(id);
+        await FirebaseFirestore.instance.collection('users').doc(id);
     final allUsers = await docUser.get();
-    if (allUsers.id != id) {
-    print('id ----- ${allUsers.id} ==== ${id}');
+    // if (allUsers.id != id) {
+      print('id ----- ${allUsers.id} ==== ${id}');
       final user = User(
           idUser: docUser.id,
           email: userEmail,
@@ -78,17 +79,24 @@ class baseAPI {
       await docUser.set(user.toJson());
       readAvatar();
       print('ADD: ${docUser.set(user.toJson())}');
-    }
-      myId = docUser.id;
-      readUser();
-      // myUserEmail = userEmail;
-      // myUserSurname = userSurname;
-      // myUserName = userName;
-      // myUserMiddle_name = userMiddle_name;
-      // myCode = code;
-      // myStatus = status;
-      // myPersonalCheck = personalCheck;
-      // myNumberPhone = numberPhone;
+    // } else {
+    //   baseAPI.updateUser(
+    //       userEmail: userEmail,
+    //       userSurname: userSurname,
+    //       userName: userName,
+    //       userMiddle_name: userMiddle_name,
+    //       numberPhone: numberPhone);
+    // }
+    myId = docUser.id;
+    readUser();
+    // myUserEmail = userEmail;
+    // myUserSurname = userSurname;
+    // myUserName = userName;
+    // myUserMiddle_name = userMiddle_name;
+    // myCode = code;
+    // myStatus = status;
+    // myPersonalCheck = personalCheck;
+    // myNumberPhone = numberPhone;
   }
 
   // static Future addUsers(List<User> users) async {
@@ -107,21 +115,19 @@ class baseAPI {
   //   }
   // }
 
-  static Stream<List<User>> readUsers() =>
-      FirebaseFirestore.instance
-          .collection('users')
-          .snapshots()
-          .map((snapshot) =>
+  static Stream<List<User>> readUsers() => FirebaseFirestore.instance
+      .collection('users')
+      .snapshots()
+      .map((snapshot) =>
           snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
 
-  
-    static Future<User?> readUser() async {
-      final docUser =
-          await FirebaseFirestore.instance.collection('users').doc(myId);
-      final snapshot = await docUser.get();
-      if (snapshot.exists) {
-        final api = User.fromJson(snapshot.data()!);
-        myUserEmail = api.email;
+  static Future<User?> readUser() async {
+    final docUser =
+        await FirebaseFirestore.instance.collection('users').doc(myId);
+    final snapshot = await docUser.get();
+    if (snapshot.exists) {
+      final api = User.fromJson(snapshot.data()!);
+      myUserEmail = api.email;
       myUserSurname = api.surname;
       myUserName = api.name;
       myUserMiddle_name = api.middle_name;
@@ -129,21 +135,18 @@ class baseAPI {
       myStatus = api.status;
       myPersonalCheck = api.personalCheck;
       myNumberPhone = api.numberPhone;
-        return api;
-      }
-    }
-
-     static Future readAvatar() async {
-      final docUser =
-      await FirebaseFirestore.instance.collection('users').doc(myId);
-      final snapshot = await docUser.get();
-      if (snapshot.exists) {
-        // print ('DATA >>> ${User.fromJson(snapshot.data()!).urlAvatar}');
-        myUrlAvatar = User
-            .fromJson(snapshot.data()!)
-            .urlAvatar!;
-        return myUrlAvatar;
-      }
+      return api;
     }
   }
 
+  static Future readAvatar() async {
+    final docUser =
+        await FirebaseFirestore.instance.collection('users').doc(myId);
+    final snapshot = await docUser.get();
+    if (snapshot.exists) {
+      print('DATA >>> ${User.fromJson(snapshot.data()!).urlAvatar}');
+      myUrlAvatar = User.fromJson(snapshot.data()!).urlAvatar!;
+      return myUrlAvatar;
+    }
+  }
+}

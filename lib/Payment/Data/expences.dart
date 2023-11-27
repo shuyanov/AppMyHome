@@ -1,4 +1,4 @@
-import 'package:my_home/Payment/Models/expencesModel.dart';
+import '/Payment/Models/expencesModel.dart';
 
 var powerPriceDefault = 8.0;
 var waterPriceDefault = 1.5;

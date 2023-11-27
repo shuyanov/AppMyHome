@@ -315,6 +315,7 @@ class _SearchUserPageState extends State<SearchUserPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(10),
@@ -346,7 +347,39 @@ class _SearchUserPageState extends State<SearchUserPage> {
                     itemCount: searchResult.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return ListTile(
+                      return searchResult[index]['surname'] == "" ? ListTile(
+                          contentPadding: EdgeInsets.all(10),
+                          leading: Image.asset('assets/chat/resource29.png'),
+                          // leading: CircleAvatar(
+                          //   child:
+                          //       Image.network(searchResult[index]['urlAvatar']),
+                          // ),
+                          title: Text(
+                            searchResult[index]['name'],
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[700]),
+                          ),
+                          // subtitle: Text(
+                          //     '${searchResult[index]['name']} ${searchResult[index]['middle_name']}'),
+                          onTap: () {
+                            setState(() {
+                              searchController.text = "";
+                            });
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ChatPage(
+                                        currentUserId: myId,
+                                        friendId: searchResult[index]['idUser'],
+                                        friendName: searchResult[index]['name'],
+                                        friendSurname: searchResult[index]
+                                            ['surname'],
+                                        friendMiddle_name: searchResult[index]
+                                            ['middle_name'])));
+                          },
+                          trailing: Icon(Icons.message)) : ListTile(
                           contentPadding: EdgeInsets.all(10),
                           leading: Image.asset('assets/chat/resource29.png'),
                           // leading: CircleAvatar(

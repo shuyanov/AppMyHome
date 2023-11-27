@@ -4,6 +4,7 @@ import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'dart:io';
 import 'dart:convert';
 import 'Chats/Data/users.dart';
+import 'Data/usersData.dart';
 import 'Login/LOginPage.dart';
 import 'Utils/UserPerefer.dart';
 import 'main.dart';
@@ -47,7 +48,7 @@ class LoadingPage extends StatelessWidget {
     Timer(Duration(seconds: 1), () {
       print("Yeah, this line is printed after 3 seconds");
       if (isLogged) getUsers();
-      return isLogged ? runApp(MyApp()) : runApp(LoginPage());
+      return isLogged ? runApp(MyApp(user: users[0])) : runApp(LoginPage());
     });
     return MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_home/Model/User.dart';
+import '/Model/User.dart';
 
 import '../Styles/Colors.dart';
 import 'Api/api.dart';

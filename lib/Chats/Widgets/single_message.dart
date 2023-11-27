@@ -121,7 +121,7 @@ class _SingleMessageState extends State<SingleMessage> {
                           ? Container(
                               padding:
                                   EdgeInsets.only(top: 7, left: 5, right: 5),
-                              constraints: BoxConstraints(minWidth: 50),
+                              constraints: BoxConstraints(minWidth: 100),
                               child: Text(
                                 widget.message,
                                 style: TextStyle(

@@ -1,10 +1,11 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
 //import 'package:command_flutter/Payment/ex.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:my_home/Payment/Models/expencesModel.dart';
+import '/Payment/Models/expencesModel.dart';
 import 'package:qr_code_scan_pay/qr_code_scan_pay.dart';
 import 'package:sbp/data/c2bmembers_data.dart';
 import 'package:sbp/models/c2bmembers_model.dart';
@@ -20,7 +21,7 @@ String code = '';
 
 class PaymentDetalPage extends StatefulWidget {
   final ExpenceModel expence;
-  // final url = 'https://qr.nspk.ru/AS10003P3RH0LJ2A9ROO038L6NT5RU1M?type=01&bank=000000000001&crc=F3D0'; // здесь нужно поменять qr-code как на примере: https://qr.nspk.ru/AS10003P3RH0LJ2A9ROO038L6NT5RU1M?type=01&bank=000000000001&sum=10000&cur=RUB&crc=F3D0
+  final url = 'https://qr.nspk.ru/AS10003P3RH0LJ2A9ROO038L6NT5RU1M?type=01&bank=000000000001&crc=F3D0'; // здесь нужно поменять qr-code как на примере: https://qr.nspk.ru/AS10003P3RH0LJ2A9ROO038L6NT5RU1M?type=01&bank=000000000001&sum=10000&cur=RUB&crc=F3D0
   const PaymentDetalPage({required this.expence});
 
   @override
@@ -28,13 +29,13 @@ class PaymentDetalPage extends StatefulWidget {
 }
 
 class _PaymentDetalPageState extends State<PaymentDetalPage> {
-  @override
+ @override
   void initState() {
     super.initState();
     getInstalledBanks();
   }
 
-  List<dynamic> informations = [];
+  List<C2bmemberModel> informations = [];
 
   /// Получаем установленные банки
   Future<void> getInstalledBanks() async {
@@ -108,7 +109,7 @@ class _PaymentDetalPageState extends State<PaymentDetalPage> {
                               ),
                             ),
                             builder: (ctx) =>
-                                SbpModalBottomSheetWidget(informations, url),
+                                SbpModalBottomSheetWidget(informations, widget.url),
                           ),
                   child: Text(
                     widget.expence.status.contains("Оплачено")
@@ -490,11 +491,10 @@ class SbpModalBottomSheetEmptyListBankWidget extends StatelessWidget {
 
 /// Модальное окно с банками
 class SbpModalBottomSheetWidget extends StatelessWidget {
-  final List<dynamic> informations;
+  final List<C2bmemberModel> informations;
   final String url;
 
-  const SbpModalBottomSheetWidget(this.informations, this.url, {Key? key})
-      : super(key: key);
+  const SbpModalBottomSheetWidget(this.informations, this.url, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -507,37 +507,7 @@ class SbpModalBottomSheetWidget extends StatelessWidget {
             child: ListView.separated(
               itemCount: informations.length,
               itemBuilder: (ctx, index) {
-                if (Platform.isAndroid) {
-                  final information = informations[index];
-                  return Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                    ),
-                    child: InkWell(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      onTap: () =>
-                          openAndroidBank(url, information.packageName),
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 10),
-                          Image.memory(
-                            information.bitmap!,
-                            width: 80,
-                          ),
-                          const SizedBox(width: 20),
-                          Center(
-                            child: Text(information.name),
-                          ),
-                          const SizedBox(width: 10)
-                        ],
-                      ),
-                    ),
-                  );
-                }
-                final information = informations[index] as C2bmemberModel;
+                final information = informations[index];
                 return Container(
                   decoration: const BoxDecoration(
                     color: Colors.white70,
@@ -546,7 +516,7 @@ class SbpModalBottomSheetWidget extends StatelessWidget {
                     ),
                   ),
                   child: GestureDetector(
-                    onTap: () => openIOSBank(url, information.schema),
+                    onTap: () => openBank(url, information),
                     child: Row(
                       children: [
                         const SizedBox(width: 10),
@@ -555,13 +525,18 @@ class SbpModalBottomSheetWidget extends StatelessWidget {
                           height: 80.0,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20.0),
-                            child: information.icon.isNotEmpty
-                                ? Image.asset(
-                                    information.icon,
-                                  )
-                                : Image.network(
-                                    information.logoURL,
-                                  ),
+                            child: /* information.bitmap != nul */
+                                // ? Image.memory(
+                                //     information.bitmap!,
+                                //   )
+                                // : information.icon.isNotEmpty
+                                //     ? Image.asset(
+                                //         information.icon,
+                                //       )
+                                //     : 
+                                    Image.network(
+                                        information.logoURL,
+                                      ),
                           ),
                         ),
                         const SizedBox(width: 20),
@@ -574,8 +549,7 @@ class SbpModalBottomSheetWidget extends StatelessWidget {
                   ),
                 );
               },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const SizedBox(height: 10),
+              separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 10),
             ),
           ),
           const SizedBox(height: 20),
@@ -586,11 +560,6 @@ class SbpModalBottomSheetWidget extends StatelessWidget {
     }
   }
 
-  /// передается package_name
-  Future<void> openAndroidBank(String url, String packageName) async =>
-      await Sbp.openAndroidBank(url, packageName);
-
   /// передается scheme
-  Future<void> openIOSBank(String url, String scheme) async =>
-      await Sbp.openBankIOS(url, scheme);
+  FutureOr<void> openBank(String url, C2bmemberModel c2bmemberModel) async => await Sbp.openBank(url, c2bmemberModel);
 }
