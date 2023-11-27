@@ -27,6 +27,7 @@ class _OneChatsState extends State<OneChats> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             elevation: 0,
+            foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(10),

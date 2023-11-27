@@ -1,4 +1,4 @@
-import 'package:my_home/Chats/api/firebase.dart';
+import '/Chats/api/firebase.dart';
 
 void addUser(
   String Id,

@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
-import 'package:my_home/Model/User.dart';
 import 'Chats/Data/Admin.dart';
 import 'Chats/OneChats.dart';
 import 'Chats/Pages/ChatPage.dart';
 import 'GeneralChats/Data/General.dart';
 import 'GeneralChats/Pages/GeneralPage.dart';
 import 'package:flutter/material.dart';
+import 'Model/User.dart';
 import 'Styles/Colors.dart';
 
 class Chats extends StatefulWidget {

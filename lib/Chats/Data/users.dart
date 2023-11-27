@@ -3,7 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:my_home/Chats/api/firebase.dart';
+import '/Chats/api/firebase.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import '../../Utils/UserPerefer.dart';
 import '../../addUser.dart';

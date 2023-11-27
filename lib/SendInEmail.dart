@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:my_home/Styles/Colors.dart';
+import '/Styles/Colors.dart';
 
 import 'dart:io';
 import 'package:path_provider/path_provider.dart' as pathProvider;

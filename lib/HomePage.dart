@@ -1,4 +1,8 @@
 
+import 'package:MyAppHome/Chats/api/firebase.dart';
+import 'package:MyAppHome/Data/usersData.dart';
+import 'package:MyAppHome/Model/User.dart';
+import 'package:MyAppHome/addUser.dart';
 import 'package:flutter/material.dart';
 
 import 'Chats.dart';
@@ -8,7 +12,7 @@ import 'PushNotifications/PushNotic.dart';
 import 'ScrolLent/Filling.dart';
 
 class HomePage extends StatefulWidget {
-  final user;
+  final User user;
   const HomePage({required this.user});
 
   @override
@@ -19,6 +23,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    addUser(widget.user.id, widget.user.email, '', widget.user.name, '', '', '', '',
+            widget.user.numberPhone);
     checkForNotification();
   }
 
@@ -50,7 +56,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
   List<Widget> _pages = <Widget>[
-    Filing(),
+    Filing(user: widget.user),
     PaymentPage(),
     Chats(user: widget.user),
     ProfileePage(user: widget.user,),

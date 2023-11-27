@@ -27,6 +27,7 @@ class _CallInformationState extends State<CallInformation> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 // bottomLeft: Radius.circular(10),
@@ -83,7 +84,7 @@ class _CallInformationState extends State<CallInformation> {
                           launchUrl(Uri.parse('tel:${widget.tel[index]}'));
                         },
                         trailing: ElevatedButton(
-                          child: Icon(Icons.call),
+                          child: Icon(Icons.call, color: Colors.white,),
                           onPressed: () async {
                             launchUrl(Uri.parse('tel:${widget.tel[index]}'));
                           },

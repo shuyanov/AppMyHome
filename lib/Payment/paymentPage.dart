@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:my_home/Payment/Data/expences.dart';
-import 'package:my_home/Payment/paymentDetalPage.dart';
+import '/Payment/Data/expences.dart';
+import '/Payment/paymentDetalPage.dart';
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});

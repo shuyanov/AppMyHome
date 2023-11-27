@@ -64,13 +64,28 @@ class _ChatPageState extends State<ChatPage> {
       child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            foregroundColor: Colors.white,
             elevation: 0,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(10),
                     bottomRight: Radius.circular(10))),
             backgroundColor: purpleColor,
-            title: ListTile(
+            title: 
+            widget.friendSurname == '' ?  ListTile(
+              contentPadding: EdgeInsets.all(10),
+              leading: Image.asset(
+                'assets/chat/resource30.png',
+                scale: 3,
+              ),
+              title: Text(
+                widget.friendName,
+                style: TextStyle(color: Colors.white),
+              ),
+              // subtitle: Text("${widget.friendName} ${widget.friendMiddle_name}",
+              //     style: TextStyle(color: Colors.white)),
+            ) : 
+            ListTile(
               contentPadding: EdgeInsets.all(10),
               leading: Image.asset(
                 'assets/chat/resource30.png',

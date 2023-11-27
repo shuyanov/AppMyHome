@@ -66,7 +66,7 @@ class _SingleMessageState extends State<SingleMessage> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(widget.file)
+    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.file))
       ..initialize().then((_) {
         setState(() {});
       });
@@ -121,7 +121,7 @@ class _SingleMessageState extends State<SingleMessage> {
                           ? Container(
                               padding:
                                   EdgeInsets.only(top: 7, left: 5, right: 5),
-                              constraints: BoxConstraints(minWidth: 50),
+                              constraints: BoxConstraints(minWidth: 100),
                               child: Text(
                                 widget.message,
                                 style: TextStyle(
@@ -262,99 +262,61 @@ class _SingleMessageState extends State<SingleMessage> {
                                                           videoURL:
                                                               widget.file))),
                                               child: Container(
-                                                  padding: EdgeInsets.all(2),
-                                                  alignment: Alignment.center,
-                                                  constraints: BoxConstraints(
-                                                      minWidth: 100,
-                                                      minHeight: 50),
-                                                  child: widget.file != ""
-                                                      ? _controller.value
-                                                              .isInitialized
-                                                          ? ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .all(
-                                                                Radius.circular(
-                                                                    10),
-                                                              ),
-                                                              // width: size.width,
-                                                              // height: size.height,
-                                                              child:
-                                                                  AspectRatio(
-                                                                aspectRatio:
-                                                                    _controller
-                                                                        .value
-                                                                        .aspectRatio,
-                                                                child: Stack(
-                                                                  children: [
-                                                                    VideoPlayer(
-                                                                        _controller),
-                                                                    Center(
-                                                                        child: Icon(
-                                                                            Icons
-                                                                                .play_arrow,
-                                                                            size:
-                                                                                50,
-                                                                            color:
-                                                                                Colors.white))
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            )
-                                                          : Center(
+                                                padding: EdgeInsets.all(2),
+                                                alignment: Alignment.center,
+                                                constraints: BoxConstraints(
+                                                    minWidth: 100,
+                                                    minHeight: 50),
+                                                child: widget.file != ""
+                                                    ? _controller
+                                                            .value.isInitialized
+                                                        ? ClipRRect(
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                    .all(
+                                                              Radius.circular(
+                                                                  10),
+                                                            ),
+                                                            // width: size.width,
+                                                            // height: size.height,
+                                                            child: AspectRatio(
+                                                              aspectRatio:
+                                                                  _controller
+                                                                      .value
+                                                                      .aspectRatio,
                                                               child: Stack(
-                                                              children: [
-                                                                Positioned(
-                                                                  top: 0,
-                                                                  bottom: 0,
-                                                                  left: 0,
-                                                                  right: 0,
-                                                                  child: Center(
-                                                                    child: CircularProgressIndicator(
-                                                                        color:
-                                                                            purpleColor),
-                                                                  ),
-                                                                ),
-                                                                Center(
-                                                                  child:
-                                                                      Positioned(
-                                                                    child: Icon(
-                                                                        Icons
-                                                                            .play_arrow,
-                                                                        size:
-                                                                            50,
-                                                                        color: Colors
-                                                                            .black),
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            ))
-                                                      : Center(
-                                                          child: Stack(
-                                                          children: [
-                                                            Positioned(
-                                                              top: 0,
-                                                              bottom: 0,
-                                                              left: 0,
-                                                              right: 0,
-                                                              child: Center(
-                                                                child: CircularProgressIndicator(
-                                                                    color:
-                                                                        purpleColor),
+                                                                children: [
+                                                                  VideoPlayer(
+                                                                      _controller),
+                                                                  const Center(
+                                                                      child: Icon(
+                                                                          Icons
+                                                                              .play_arrow,
+                                                                          size:
+                                                                              50,
+                                                                          color:
+                                                                              Colors.white))
+                                                                ],
                                                               ),
                                                             ),
-                                                            Center(
-                                                              child: Positioned(
-                                                                child: Icon(
-                                                                    Icons
-                                                                        .play_arrow,
-                                                                    size: 50,
-                                                                    color: Colors
-                                                                        .black),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ))),
+                                                          )
+                                                        : SizedBox(
+                                                            height: 100,
+                                                            child: Center(
+                                                              child: CircularProgressIndicator(
+                                                                  color:
+                                                                      purpleColor),
+                                                            ),
+                                                          )
+                                                    : SizedBox(
+                                                        height: 100,
+                                                        child: Center(
+                                                          child: CircularProgressIndicator(
+                                                              color:
+                                                                  purpleColor),
+                                                        ),
+                                                      ),
+                                              ),
                                             ),
                                             if (widget.message == "")
                                               Positioned(
@@ -519,7 +481,6 @@ class _SingleMessageState extends State<SingleMessage> {
             ),
           ],
         ),
-
       ],
     );
   }

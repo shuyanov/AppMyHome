@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:MyAppHome/Chats/Data/Admin.dart';
+import 'package:MyAppHome/Model/User.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:my_home/Styles/Colors.dart';
+import '/Styles/Colors.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -127,6 +129,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
+  User userT = users[0];
   void funcPress() {
     logged = false;
     print("login button");
@@ -180,10 +183,12 @@ class LoginPage extends StatelessWidget {
       //     logged = true;
       //   }
       // }
+
       for (int i = 0; i < users.length; i++) {
         if (email == users[i].email && password == users[i].password) {
           logged = true;
           print(logged);
+          userT = users[i];
           break;
         }
         logged = false;
@@ -193,8 +198,11 @@ class LoginPage extends StatelessWidget {
         // runApp(MyApp());
         // await conn.close();
         print("con close");
-        getUsers();
-        return runApp(MyApp());
+        // getUsers();
+        myId = userT.id;
+        addUser(userT.id, userT.email, '', userT.name, '', '', '', '',
+            userT.numberPhone);
+        return runApp(MyApp(user: userT));
       } else {
         Fluttertoast.showToast(
             msg: "Ошибка! Неправильный логин или пароль",
