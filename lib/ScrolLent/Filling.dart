@@ -153,8 +153,7 @@ class _FilingState extends State<Filing> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return Expanded(
-                          child: AlertDialog(
+                        return AlertDialog(
                             contentPadding: EdgeInsets.only(top: 10.0),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
@@ -168,8 +167,7 @@ class _FilingState extends State<Filing> {
                                       showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
-                                            return Expanded(
-                                                child: AlertDialog(
+                                            return AlertDialog(
                                                     shape: RoundedRectangleBorder(
                                                         borderRadius:
                                                             BorderRadius.all(
@@ -271,7 +269,7 @@ class _FilingState extends State<Filing> {
                                                                           .isEmpty
                                                                   ? false
                                                                   : true,
-                                                              image: ""));
+                                                              image: ControlImage.text));
                                                         });
 
                                                         // final conn = await MySQLConnection.createConnection(
@@ -307,7 +305,7 @@ class _FilingState extends State<Filing> {
                                                     padding: EdgeInsets.only(
                                                         left: 10),
                                                   ),
-                                                ]));
+                                                ]);
                                           });
                                     },
                                     child: const Text("Добавить новость")),
@@ -316,8 +314,7 @@ class _FilingState extends State<Filing> {
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return Expanded(
-                                          child: AlertDialog(
+                                        return AlertDialog(
                                             shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(32.0))),
@@ -452,7 +449,7 @@ class _FilingState extends State<Filing> {
                                                   child:
                                                       Text('Добавить опрос')),
                                             ],
-                                          ),
+                                          
                                         );
                                       },
                                     );
@@ -479,7 +476,7 @@ class _FilingState extends State<Filing> {
                                       child: const Text("Назад")),
                                 )
                               ],
-                            ),
+                            
                           ),
                         );
                       },

@@ -34,6 +34,9 @@ import 'mainTest.dart';
 Future main() async {
   // WidgetsFlutterBinding.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    return const SizedBox();
+  };
   // await Firebase.initializeApp();
   // initializeDefaultFromAndroidResource;
   await Firebase.initializeApp(

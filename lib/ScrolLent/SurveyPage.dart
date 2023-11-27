@@ -15,17 +15,17 @@ class _SurveyPageState extends State<SurveyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Color.fromARGB(255, 124, 97, 242),
         title: Text("Добавление ответа"),
       ),
       body: 
-          Expanded(
-            child: ListView.builder(
+          ListView.builder(
               itemCount: listNameVote.length,
               itemBuilder: (context, index) {
                 return Text(listNameVote[index]);
               },
-            ),
+            
       ),
       floatingActionButton: FloatingActionButton(
           backgroundColor: Color.fromARGB(255, 124, 97, 242),
@@ -33,8 +33,7 @@ class _SurveyPageState extends State<SurveyPage> {
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              return Expanded(
-                  child: AlertDialog(
+              return  AlertDialog(
                     title: Text("Добавить ответ"),
                     content: TextField(
                   decoration: InputDecoration(
@@ -84,7 +83,7 @@ class _SurveyPageState extends State<SurveyPage> {
                       },
                       child: Text("Добавить"))
                 ],
-              ));
+              );
             });
       }
       
